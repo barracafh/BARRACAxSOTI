@@ -35,3 +35,10 @@ Thumbs.db
 
 # Local agent settings
 .claude/settings.local.json
+
+# Audio (transcribed into context/audios/, never committed)
+*.opus
+*.ogg
+*.m4a
+*.mp3
+*.wav
