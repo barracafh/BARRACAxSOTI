@@ -44,5 +44,8 @@ Thumbs.db
 *.sqlite
 *.sqlite-shm
 *.sqlite-wal
-shared/registro-base/.estado.json
-shared/registro-base/.lock/
+packages/shared/registro-base/.estado.json
+packages/shared/registro-base/.lock/
+
+# Claves de infraestructura, nunca versionadas
+.local-secrets/

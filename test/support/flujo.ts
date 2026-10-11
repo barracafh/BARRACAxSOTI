@@ -20,7 +20,7 @@ const server = Bun.serve({
 });
 const cmd = process.env.HACKNIGHT_BIN
   ? [resolve(process.env.HACKNIGHT_BIN)]
-  : [process.execPath, join(root, "cli/src/index.ts")];
+  : [process.execPath, join(root, "apps/cli/src/index.ts")];
 async function run(
   name: string,
   args: string[],

@@ -1,0 +1,33 @@
+{
+  "slug": "libre",
+  "nombre": "Track libre",
+  "frase": "Una pieza nueva para el centro.",
+  "ciudadano": "Cupo de un squad por orden de llegada, asignado por el comité.",
+  "ventanilla": 12,
+  "color": "tinta",
+  "glifo": "?",
+  "prefijo": "L",
+  "estado": "libre",
+  "lead": "por asignar",
+  "piezas": ["Propuesta de utilidad ciudadana", "Integración en el centro"],
+  "paquetes": [
+    {
+      "id": "libre-base",
+      "nombre": "Pack Track libre",
+      "url": "https://example.invalid/pendiente/libre.zip",
+      "sha256": "PENDIENTE",
+      "pendiente": true
+    }
+  ],
+  "fuentes": [
+    {
+      "nombre": "datos.gob.es",
+      "url": "https://datos.gob.es/"
+    }
+  ],
+  "dificultad": "Por acotar",
+  "guias": [
+    "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+  ],
+  "cupo": 1
+}

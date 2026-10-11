@@ -12,12 +12,13 @@
     "noUncheckedIndexedAccess": true
   },
   "include": [
-    "cli/src/**/*.ts",
-    "cli/test/**/*.ts",
-    "cli/scripts/**/*.ts",
-    "server/src/**/*.ts",
-    "shared/src/**/*.ts",
+    "apps/cli/src/**/*.ts",
+    "apps/cli/test/**/*.ts",
+    "apps/cli/scripts/**/*.ts",
+    "apps/server/src/**/*.ts",
+    "packages/shared/src/**/*.ts",
     "test/**/*.ts",
-    "scripts/**/*.ts"
+    "scripts/**/*.ts",
+    "infra/**/*.ts"
   ]
 }

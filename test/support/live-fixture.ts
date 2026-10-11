@@ -4,9 +4,9 @@ import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { strict as assert } from "node:assert";
 import { inicializarRegistro } from "@hacknight/shared/registro/gestion";
-import { contexto } from "../../cli/src/lib/contexto";
+import { contexto } from "../../apps/cli/src/lib/contexto";
 import { RegistroLocal } from "@hacknight/shared/registro/local";
-import { iniciarServidor } from "../../server/src/servidor";
+import { iniciarServidor } from "../../apps/server/src/servidor";
 
 const root = resolve(import.meta.dir, "../..");
 export async function prepararPruebaLive() {
@@ -190,7 +190,7 @@ export async function arrancarPruebaLive(puerto = 0) {
   const logs: Promise<unknown>[] = [];
   const cli = process.env.HACKNIGHT_BIN
     ? [resolve(process.env.HACKNIGHT_BIN)]
-    : [process.execPath, join(root, "cli/src/index.ts")];
+    : [process.execPath, join(root, "apps/cli/src/index.ts")];
   const command = (i: number) => [
     ...cli,
     "--registro",

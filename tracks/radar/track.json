@@ -1,0 +1,36 @@
+{
+  "slug": "radar",
+  "nombre": "Radar",
+  "frase": "Que no se te pase el plazo.",
+  "ciudadano": "Avisos de plazos de ayudas a partir de convocatorias públicas.",
+  "ventanilla": 5,
+  "color": "taronja",
+  "glifo": "~",
+  "prefijo": "R",
+  "estado": "si-hay-gente",
+  "lead": "por asignar",
+  "piezas": [
+    "Plazos de ayudas",
+    "Calendario descargable",
+    "Alertas sin datos personales"
+  ],
+  "paquetes": [
+    {
+      "id": "radar-base",
+      "nombre": "Pack Radar",
+      "url": "https://example.invalid/pendiente/radar.zip",
+      "sha256": "PENDIENTE",
+      "pendiente": true
+    }
+  ],
+  "fuentes": [
+    {
+      "nombre": "www.infosubvenciones.es",
+      "url": "https://www.infosubvenciones.es/"
+    }
+  ],
+  "dificultad": "Fácil",
+  "guias": [
+    "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+  ]
+}
