@@ -39,7 +39,16 @@ async function run(
       cwd,
       ...args,
     ],
-    { env: { ...process.env, NO_COLOR: "1" }, stdout: "pipe", stderr: "pipe" },
+    {
+      env: {
+        ...process.env,
+        NO_COLOR: "1",
+        BARBARITAT_CLAUDE_DIR: join(dir, "sin-historiales"),
+        BARBARITAT_CODEX_DIR: join(dir, "sin-historiales"),
+      },
+      stdout: "pipe",
+      stderr: "pipe",
+    },
   );
   const [out, err, status] = await Promise.all([
     new Response(p.stdout).text(),

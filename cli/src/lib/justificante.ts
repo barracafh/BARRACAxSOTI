@@ -7,6 +7,7 @@ export function justificante(
   registro: RegistroFicha,
   track: Track,
   fueraDePlazo: boolean,
+  tasaTokens?: number,
 ) {
   const numero = numeroRegistro(registro.numero);
   const csv = new Bun.CryptoHasher("sha256")
@@ -26,6 +27,7 @@ export function justificante(
     fueraDePlazo,
     url: registro.url,
     estado: registro.estado,
+    tasaTokens,
   };
 }
 export const sello = () =>
@@ -50,6 +52,9 @@ export function justificanteTexto(
       `Código seguro de verificación: ${j.csv}`,
       `${j.fueraDePlazo ? "Presentado fuera de plazo" : "Presentado dentro de plazo"} · ${j.estado}`,
       j.url,
+      ...(j.tasaTokens
+        ? [`Tasa abonada: ${j.tasaTokens} tokens (contribución local)`]
+        : []),
     ]) +
     "\n" +
     trackLabel(track) +

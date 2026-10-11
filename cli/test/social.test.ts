@@ -125,3 +125,11 @@ test("pantalla plain incluye negociados, cuenta atrás, turnos, avisos y no usa 
   for (const command of ["pantalla", "tv"])
     expect((await cli(dir, [command, "--once", "--plain"])).ok).toBe(true);
 });
+
+test("expediente muestra el turno del squad a otro de sus miembros", async () => {
+  const { dir } = await fixture();
+  await cli(dir, ["cita", "--motivo", "Ayuda"]);
+  const result = await cli(dir, ["expediente"], "demo-bruno");
+  expect(result.ok).toBe(true);
+  expect(result.data.turno.turno).toBe("D-001");
+});

@@ -17,13 +17,24 @@ export const ejecutar: Runner = async (args, input, cwd) => {
         GIT_TERMINAL_PROMPT: "0",
       },
     });
-    const timer = setTimeout(() => p.kill(), 30000);
+    let timedOut = false;
+    const timer = setTimeout(() => {
+      timedOut = true;
+      p.kill();
+    }, 30000);
     try {
       const [out, err, code] = await Promise.all([
         new Response(p.stdout).text(),
         new Response(p.stderr).text(),
         p.exited,
       ]);
+      if (timedOut)
+        throw new CliError(
+          "NETWORK",
+          "Silencio administrativo (sentido negativo). Vuelva a intentarlo.",
+          "La operación externa superó 30 segundos.",
+          5,
+        );
       if (code !== 0) {
         if (/gh auth login|HTTP 401/i.test(err))
           throw new CliError(

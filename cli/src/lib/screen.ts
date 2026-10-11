@@ -164,8 +164,8 @@ export function startScreen(
     else pausedAt = undefined;
     const next = frame(
       s,
-      out.columns ?? 80,
-      out.rows ?? 24,
+      out.columns || 80,
+      out.rows || 24,
       pausedAt ?? Date.now(),
     );
     const changes = force ? undefined : diffFrame(previous, next);

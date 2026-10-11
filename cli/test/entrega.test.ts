@@ -190,3 +190,34 @@ test("revisión falla por DNI y botón, y se subsana", async () => {
     await p.exited;
   }
 });
+
+test("la ficha que se publicará se escanea aunque todavía no esté versionada", async () => {
+  const dir = await mkdtemp(join(tmpdir(), "barbaritat-untracked-"));
+  await writeFile(join(dir, "app.ts"), "<BotonAviso />");
+  for (const args of [
+    ["git", "init"],
+    ["git", "add", "app.ts"],
+  ]) {
+    const p = Bun.spawn(args, { cwd: dir, stdout: "pipe", stderr: "pipe" });
+    expect(await p.exited).toBe(0);
+  }
+  await writeFile(
+    join(dir, "ficha.json"),
+    JSON.stringify({ ...fichaPrueba, nombre: "Persona 12345678Z" }),
+  );
+  const r = new RegistroLocal(join(import.meta.dir, "../demo/registro"));
+  const ctx = {
+    opts: {},
+    registro: r,
+    cwd: dir,
+    config: { registro: "local", plantilla: undefined, releases: undefined },
+  };
+  const f = (async () => new Response("ok")) as unknown as typeof fetch;
+  const result = await revisar(ctx, f);
+  expect(result.hallazgos).toContainEqual({
+    archivo: "ficha.json",
+    linea: 1,
+    tipo: "DNI",
+    valor: "[DNI oculto]",
+  });
+});

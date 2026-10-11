@@ -155,11 +155,19 @@ El número `RE-2026-22O-0042` usa el número de PR (GitHub) o el contador local 
 
 ### Qué revisa y qué no puede acreditar
 
-`revisar` exige marcador, URL 2xx con timeout, ficha válida, fuentes HTTPS, ausencia de indicios personales y texto/componente del botón en código versionado. Analiza los **archivos actuales que Git tiene versionados**, incluidas altas con `git add`, sin recorrer historial. Detecta DNI/NIE con letra válida, IBAN ES con checksum, teléfonos españoles, emails salvo dominios de ejemplo, `.env` y prefijos de claves. Nunca imprime valores detectados. Los enlaces simbólicos sin analizar bloquean; no se siguen fuera del proyecto.
+`revisar` exige marcador, URL 2xx con timeout, ficha válida, fuentes HTTPS, ausencia de indicios personales y texto/componente del botón en código versionado. Analiza los **archivos actuales que Git tiene versionados**, incluidas altas con `git add`, sin recorrer historial. También analiza `ficha.json` aunque aún no esté versionada, porque se envía al registro. Detecta DNI/NIE con letra válida, IBAN ES con checksum, teléfonos españoles, emails salvo dominios de ejemplo, `.env` y prefijos de claves. Nunca imprime valores detectados. Los enlaces simbólicos sin analizar bloquean; no se siguen fuera del proyecto.
 
 Es una heurística: puede producir falsos positivos y no extrae texto de imágenes/PDFs ni demuestra que la web renderiza el botón. Los binarios se señalan para revisión humana. Las fuentes no oficiales y comprobaciones de Sello, Claridad y ¿Cómo voto? son avisos, no bloqueos. Antes de integrar, el comité revisa contenido, fuentes y datos. Una revisión satisfactoria no prueba ausencia de toda información personal.
 
 En GitHub la URL debe resolver a una red pública; cada redirección se comprueba y la petición tiene timeout. El backend local admite loopback para la demo. Citar GVA, BOE u otras fuentes oficiales no presenta ninguna URL de esas instituciones como propia del evento.
+
+## Consumo local (extra)
+
+`barbaritat consumo` lee contadores existentes de Claude Code y Codex, los filtra por directorio del proyecto (incluidos subdirectorios) y por la ventana de build, y muestra la contribución local al squad. No es el total de otras máquinas del equipo. No lee prompts para mostrarlos, no persiste historiales y no envía métricas; solo salen contadores agregados. El justificante añade «Tasa abonada: N tokens» cuando hay consumo atribuible.
+
+Rutas de lectura: `~/.claude/projects` (respeta `CLAUDE_CONFIG_DIR`) y `~/.codex/sessions` (respeta `CODEX_HOME`). Para un directorio de pruebas o una copia local usa `BARBARITAT_CLAUDE_DIR` y `BARBARITAT_CODEX_DIR`; esas variables no cambian ninguna configuración de los asistentes. Las líneas malformadas se ignoran; errores de lectura producen avisos de total parcial. Bloques repetidos de Claude y contadores acumulativos de Codex se deduplican; el razonamiento ya incluido en salida no se suma dos veces.
+
+Cursor queda sin recolector: el origen necesitaba instalar hooks para obtener contadores. Se respeta la prohibición de modificar configuraciones del usuario. Tampoco se incorporan OTel ni otros proveedores. La compatibilidad se valida con fixtures de los formatos del commit fijado; formatos futuros pueden requerir adaptación.
 
 ## Marca y releases
 

@@ -6,6 +6,7 @@ import { panel, trackLabel, terminalText } from "../lib/estilo";
 import { banner } from "../lib/banner";
 import { cuentaAtras } from "../lib/tiempo";
 import { revisar } from "../lib/revision";
+import { cola } from "../lib/cola";
 export async function tracks(ctx: Contexto, slug?: string, todos = false) {
   const ts = await tramitando("Consultando el registro…", ctx.opts.json, () =>
     ctx.registro.tracks(),
@@ -66,12 +67,9 @@ export async function expediente(ctx: Contexto) {
   ]);
   const track = tracks.find((t) => t.slug === equipo?.herramienta);
   const reloj = cuentaAtras(evento.fin);
-  const turno = issues.find(
-    (i) =>
-      i.estado === "open" &&
-      i.etiquetas.includes("ventanilla") &&
-      i.autor.toLowerCase() === usuario.toLowerCase(),
-  );
+  const turno = equipo
+    ? cola(issues, [equipo], tracks).find((c) => c.squad === equipo.id)
+    : undefined;
   const revision = await revisar(ctx);
   const reglas = revision.reglas;
   const data = {
@@ -97,7 +95,9 @@ export async function expediente(ctx: Contexto) {
         ...reglas.map(
           (r, i) => `${i + 1}. [${r.ok ? "OK" : "FALTA"}] ${r.nombre}`,
         ),
-        turno ? `Ventanilla: ${turno.titulo}` : "Ventanilla: sin turno",
+        turno
+          ? `Ventanilla: ${turno.turno} · ${turno.estado}`
+          : "Ventanilla: sin turno",
         `Parodia del hack · No es una sede oficial.`,
         `Siguiente trámite: barbaritat revisar`,
       ]),

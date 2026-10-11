@@ -11,10 +11,12 @@ import { cita, ventanilla, tablon, publicar } from "./commands/social";
 import { pantalla } from "./commands/pantalla";
 import { tramitar, datos } from "./commands/arranque";
 import { actualizar } from "./commands/actualizar";
+import { consumo } from "./commands/consumo";
 const program = new Command()
   .name("barbaritat")
   .description("Azulejo y ventanilla · BARRACA × SOTI")
-  .version("0.1.0")
+  .version("0.1.0", "-V, --version", "Mostrar versión")
+  .helpOption("-h, --help", "Mostrar ayuda")
   .option("--json", "Un documento JSON; sin interacción")
   .option("--registro <repo|file-url>", "Registro central")
   .option("--cwd <directorio>", "Directorio del proyecto")
@@ -24,11 +26,17 @@ const program = new Command()
   .option("--confirmar", "Confirmación explícita de una acción pública")
   .option("--plain", "Texto plano");
 const json = process.argv.includes("--json");
+const ayudaES = (s: string) =>
+  s
+    .replace(/^Usage:/gm, "Uso:")
+    .replace(/^Options:/gm, "Opciones:")
+    .replace(/^Commands:/gm, "Trámites:")
+    .replace(/display help for command/g, "Mostrar ayuda");
 program
   .configureOutput({
     writeErr: () => {},
     writeOut: (s) => {
-      if (!json) process.stdout.write(s);
+      if (!json) process.stdout.write(ayudaES(s));
     },
   })
   .exitOverride();
@@ -127,6 +135,10 @@ program
   .option("--dry-run")
   .option("--destino <directorio>")
   .action(async (o) => run((ctx) => tramitar(ctx, o))());
+program
+  .command("consumo")
+  .description("Tokens locales del proyecto durante el build")
+  .action(run(consumo));
 program.command("status", { hidden: true }).action(run(expediente));
 program.command("vuelva-usted-mañana", { hidden: true }).action(() =>
   salida(
@@ -197,14 +209,19 @@ try {
       salida(
         e.code === "commander.version"
           ? { version: program.version() }
-          : { ayuda: program.helpInformation() },
+          : { ayuda: ayudaES(program.helpInformation()) },
         "",
         true,
       );
   } else
     fallo(
       e instanceof CommanderError
-        ? new CliError("USAGE", e.message, "Usa barbaritat --help.", 2)
+        ? new CliError(
+            "USAGE",
+            "El comando o sus argumentos no son válidos.",
+            "Usa barbaritat --help para consultar los trámites y opciones.",
+            2,
+          )
         : e,
       json,
     );

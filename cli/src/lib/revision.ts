@@ -186,6 +186,7 @@ export async function revisar(
       scanDetalle =
         "No hay archivos versionados. Añade el proyecto con git add.";
     }
+    if (ficha && !files.includes("ficha.json")) files.push("ficha.json");
     for (const archivo of files) {
       const path = join(ctx.cwd, archivo);
       try {

@@ -1,3 +1,4 @@
+import { consumoLocal } from "../consumo/local";
 import { text, select, isCancel } from "@clack/prompts";
 import { readFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
@@ -176,6 +177,7 @@ export async function registrar(ctx: Contexto) {
       4,
     );
   const entry = await ctx.registro.registrar(r.ficha, fecha);
-  const j = justificante(entry, track, fueraDePlazo);
+  const tasa = await consumoLocal(ctx.cwd, evento.inicio, evento.fin);
+  const j = justificante(entry, track, fueraDePlazo, tasa.total || undefined);
   salida(j, justificanteTexto(j, track), ctx.opts.json);
 }
