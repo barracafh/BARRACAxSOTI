@@ -8,7 +8,7 @@ Paquete interno `@hacknight/shared`, consumido por el CLI y el backend a través
 - `src/actividad.ts` y `src/cola.ts`: estado del evento, tablón y turnos para terminal y web.
 - `src/contrato-uso.ts`: contrato v1 de los contadores y ventana del build.
 - `src/paleta.ts`: colores semánticos comunes de la marca.
-- `registro-base/`: horario y tracks reales; equipos y comité vacíos. Los participantes de prueba están en `test/fixtures/` en la raíz.
+- `registro-base/`: horario y catálogo generado desde `tracks/**/track.json`; equipos y comité vacíos. No edites `registro-base/tracks.json`: ejecuta `bun run tracks:generar` después de editar el track. Los participantes de prueba están en `test/fixtures/` en la raíz.
 
 El esquema JSON de la ficha permanece en `apps/cli/esquemas/ficha.schema.json`, generado desde este modelo para que el centro pueda reutilizarlo. Desde la raíz: `bun run --cwd apps/cli schema`.
 

@@ -17,7 +17,7 @@ bun run --cwd apps/cli build:bin:host
 
 El binario es autónomo. Cópialo a un directorio de tu `PATH` si quieres invocarlo como `hacknight`. Git es necesario para tramitar/revisar; para el backend GitHub también hace falta `gh` instalado y `gh auth login`. Se usa su sesión existente, sin guardar credenciales propias.
 
-`install.sh` y `actualizar` están **desactivados sin repo de releases**. Cuando el comité lo cree, el instalador descargará el asset de la plataforma y comprobará `SHA256SUMS`:
+`install.sh` y `actualizar` están **desactivados sin repo de releases**. Cuando el comité configure el destino de las releases, el instalador descargará el asset de la plataforma y comprobará `SHA256SUMS`:
 
 ```sh
 HACKNIGHT_RELEASES=organizacion/releases sh apps/cli/install.sh
@@ -116,7 +116,7 @@ El registro por defecto es un **placeholder**. Variables equivalentes: `HACKNIGH
 
 ## Montar el registro: guía del comité
 
-Luis y el comité deben crear y configurar el repo central. La aplicación no provisiona esos repos ni sus releases. Copia los JSON de `packages/shared/registro-base`, añade los equipos y handles del comité, sustituye los placeholders, y revisa los tracks antes de abrir el evento.
+Luis y el comité deben crear y configurar el repo central; el [script de infra](../../infra/registro/README.md) muestra el plan con `--dry-run`. El CLI de participantes no provisiona esos repos ni sus releases. Copia los JSON de `packages/shared/registro-base`, añade los equipos y handles del comité, sustituye los placeholders, y revisa los tracks antes de abrir el evento.
 
 | Ruta                  | Formato                                                                                                                                                                                                                                       |
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -140,7 +140,7 @@ Ejemplo de evento (las fechas llevan el offset de Madrid del día del hack):
 }
 ```
 
-Cada track contiene `slug`, `nombre`, `frase`, `ciudadano`, `ventanilla` (número), `color` (token de la paleta), `glifo`, `prefijo` de turno, `estado`, `lead`, `piezas` (2–3 textos), `paquetes`, `fuentes`, `dificultad` y `guias`. `cupo` y `motivo` son opcionales; el track libre tiene cupo 1 y los descartados explican su motivo. Estados: `nucleo`, `si-hay-gente`, `condicional`, `libre` y `fuera`. Los leads siguen «por asignar»; Jesús, Iban, Pau y Alex todavía no tienen reparto. Véase el [catálogo completo](../../packages/shared/registro-base/tracks.json).
+Cada track contiene `slug`, `nombre`, `frase`, `ciudadano`, `ventanilla` (número), `color` (token de la paleta), `glifo`, `prefijo` de turno, `estado`, `lead`, `piezas` (2–3 textos), `paquetes`, `fuentes`, `dificultad` y `guias`. `cupo` y `motivo` son opcionales; el track libre tiene cupo 1 y los descartados explican su motivo. Estados: `nucleo`, `si-hay-gente`, `condicional`, `libre` y `fuera`. Los leads siguen «por asignar»; Jesús, Iban, Pau y Alex todavía no tienen reparto. El catálogo se edita en [tracks/](../../tracks/README.md); el [JSON generado](../../packages/shared/registro-base/tracks.json) se incluye en el registro base.
 
 Un paquete es `{"id":"derechos-base","nombre":"BDNS","url":"https://…/datos.zip","sha256":"64 caracteres hexadecimales","pendiente":false}`. Mientras no se prepare, `pendiente:true`, URL `example.invalid` y SHA `PENDIENTE`. `tramitar` deja esos paquetes pendientes visibles; `datos <id>` los rechaza. En pruebas locales se aceptan URLs `file:`; en GitHub solo HTTPS. Se guardan como archivos, **sin extraer ZIPs ni ejecutar contenido**.
 
@@ -148,7 +148,7 @@ La ficha tiene `nombre`, `frase`, `icono`, `herramienta`, `equipo`, `url`, `fuen
 
 ### Etiquetas y permisos en GitHub
 
-Crea las etiquetas **`ventanilla`**, **`aviso`**, **`tablon`** antes del evento. No se crean automáticamente. Los turnos son issues con un cuerpo JSON `{tipo:"cita",squad,herramienta,mesa,motivo,estado}`. El CLI ignora turnos con autor ajeno al squad y toma la mesa del registro. Estados: `espera`, `llamado`, `atendido`, `anulado`; los dos últimos cierran el issue. Las publicaciones tienen `{texto,herramienta}`; los avisos pueden escribirse como texto normal por un handle de `comite.json`. Avisos de otros autores se ignoran.
+Prepara las etiquetas **`ventanilla`**, **`aviso`**, **`tablon`** con el script de infra antes del evento; el CLI no las crea al usarlas. Los turnos son issues con un cuerpo JSON `{tipo:"cita",squad,herramienta,mesa,motivo,estado}`. El CLI ignora turnos con autor ajeno al squad y toma la mesa del registro. Estados: `espera`, `llamado`, `atendido`, `anulado`; los dos últimos cierran el issue. Las publicaciones tienen `{texto,herramienta}`; los avisos pueden escribirse como texto normal por un handle de `comite.json`. Avisos de otros autores se ignoran.
 
 Esta primera implementación usa **ramas en el registro central**, `hacknight/ficha-<squad>`, y Contents/PR API de GitHub. Los participantes necesitan permiso **Write** en ese repo para crear la rama, actualizar su ficha y etiquetar issues. No se crean forks automáticamente. Protege la rama principal: sin pushes directos, con revisión del comité; protege también los JSON de asignación y permisos mediante CODEOWNERS/revisión. El CLI valida identidad y asignación, pero **no sustituye los controles de GitHub** frente a alguien que escriba directamente con la API. Si el comité no quiere dar Write a squads, deberá decidir un flujo por forks o un bot antes del uso real.
 
@@ -209,12 +209,12 @@ bun run build:bin:host
 
 El script aplana el PNG sobre blanco e incrusta una tarjeta para Kitty/Ghostty/WezTerm/iTerm2/VS Code. La prueba usa un PNG generado en un directorio temporal y no lo sube. Sin logo se muestra el wordmark (73 columnas); en terminal estrecho, `☾ hack night`. Dentro de cajas se usa `☾` para mantener la alineación. El proyector usa el fondo `noche` de la paleta común; `--plain` produce una captura de texto y `NO_COLOR` desactiva el color.
 
-`scripts/build-all.sh` compila macOS/Linux x64/arm64 y Windows x64; produce `dist/SHA256SUMS`. `--host` solo compila esta máquina. No publica. Las releases deben usar tags `cli-vX.Y.Z`, assets `hacknight-<os>-<arch>[.exe]` y `SHA256SUMS`. Ajusta `package.json` y `src/version.ts` juntos antes de versionar.
+`scripts/build-all.sh` compila macOS/Linux x64/arm64 y Windows x64; produce `dist/SHA256SUMS`. `--host` solo compila esta máquina y `--target bun-<os>-<arch>` compila una plataforma de la matriz. El script no publica; [release-cli.yml](../../.github/workflows/release-cli.yml) publica al subir un tag válido, después de comprobar la versión y compilar los cinco targets. Las releases deben usar tags `cli-vX.Y.Z`, assets `hacknight-<os>-<arch>[.exe]` y `SHA256SUMS`. Ajusta `package.json` y `src/version.ts` juntos antes de versionar.
 
 ## Pendiente para el evento
 
-- Crear registro y repo de releases, decidir organización y permisos, proteger ramas.
-- Conectar la plantilla real; la stub es únicamente de ensayo.
+- Publicar el registro, decidir organización y permisos, y proteger ramas; configurar el destino de releases (el workflow publica en este monorepo).
+- Publicar la [plantilla real](../../plantilla/README.md) como repo GitHub y configurar su formulario; la stub de fixtures es únicamente de ensayo.
 - Introducir equipos y participantes reales, sus repos y enlaces. La instancia arranca vacía.
 - Asignar track leads, activar o descartar Siguiente y adjudicar el cupo libre.
 - Preparar los packs oficiales, sus hashes y contenido editorial; verificar los plazos de ¿Cómo voto? con sus fuentes.

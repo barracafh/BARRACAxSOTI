@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "license": "MIT",
-  "description": "La ventanilla del hack BARRACA \u00d7 SOTI",
+  "description": "La ventanilla del hack BARRACA × SOTI",
   "bin": {
     "hacknight": "./src/index.ts"
   },

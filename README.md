@@ -10,7 +10,7 @@ Una noche para construir entre todos **una plataforma de atención ciudadana**: 
 | **Organizan** | BARRACA × SOTI                                                                                     |
 | **Formato**   | No hay premios: se gana si la plataforma funciona. Cada squad publica su pieza antes de las 22:00. |
 
-Este repo tiene el **CLI de participantes** (`hacknight`), la **web del evento** (leaderboard, proyector y administración) y esta guía.
+Este es el monorepo de la organización: CLI, web, tracks, plantilla e infra. **Cada squad construye en su propio repo**, creado desde la [plantilla común](plantilla/README.md) con `hacknight tramitar`.
 
 ## La noche
 
@@ -27,7 +27,7 @@ Horario provisional:
 
 ## Los tracks
 
-Cada track es una herramienta de la plataforma. Cada herramienta se divide en 2–3 piezas, una por squad.
+Cada track es una herramienta de la plataforma. Cada herramienta se divide en 2–3 piezas, una por squad (el track libre tiene un único squad). **Pau valida la lista final el lunes 12/10**; este catálogo sigue pendiente de esa validación.
 
 | Track           | Qué hace por ti                                                                    |
 | --------------- | ---------------------------------------------------------------------------------- |
@@ -57,12 +57,15 @@ Una herramienta entra en la plataforma si cumple las seis:
 
 ## Cómo se forman los equipos
 
-Los equipos se forman **antes** de la noche, con lo que contestas al inscribirte. En la sala solo se tapan huecos.
+Los equipos se forman **antes** de la noche. En la sala solo se tapan huecos. Plan de Íñigo del 11/10:
 
-- Al inscribirte en Luma eliges tus tres tracks favoritos, dices qué se te da mejor y si vienes con equipo o solo.
-- El comité arma los squads el **lunes 19/10** y los anuncia el **martes 20/10**, junto con el pre-read.
-- Si te toca algo que no te motiva, puedes cambiar hasta el **miércoles 21/10**.
-- ¿Vienes solo? Entras en un squad, o eliges una tarea del tablón de piezas sueltas.
+- **Mar 13/10:** se abre Luma con un formulario abierto; pásaselo a tus amigos y formad equipo.
+- **Vie 16/10:** el comité forma los equipos que falten y manda el contexto largo de los tracks.
+- **Dom 18/10:** fecha límite para formar equipo.
+- **Lun 19/10:** cierre de equipos y reparto por track; cada equipo recibe su paquete de accesos y los datos de su track.
+- **Jue 22/10:** Hack night.
+
+¿Vienes solo? Entras en un squad, o eliges una tarea del tablón de piezas sueltas. Los perfiles no técnicos también tienen trabajo: fuentes, contenido, diseño y pruebas.
 
 Más detalle en [docs/equipos.md](docs/equipos.md).
 
@@ -93,7 +96,7 @@ Comprueba que todo responde con `git --version`, `bun --version` y `gh auth stat
 ```sh
 git clone https://github.com/luisgonzaleznf/BARRACAxSOTI.git
 cd BARRACAxSOTI
-bun install
+bun install --frozen-lockfile
 bun run cli --registro "file://$PWD/packages/shared/registro-base" tracks
 ```
 
@@ -115,13 +118,17 @@ La lista completa y la configuración están en [apps/cli/README.md](apps/cli/RE
 
 ## Qué hay aquí
 
-| Carpeta                                             | Contenido                                                                |
-| --------------------------------------------------- | ------------------------------------------------------------------------ |
-| [apps/cli/](apps/cli)                               | `hacknight`, el CLI de participantes                                     |
-| [apps/web/](apps/web) · [apps/server/](apps/server) | La web del evento (leaderboard, proyector y administración) y su backend |
-| [packages/shared/](packages/shared)                 | Lo común: modelos, tracks, paleta y el nombre del evento                 |
-| [test/](test) · [scripts/](scripts)                 | Pruebas de integración y el circuito completo con datos aislados         |
-| [docs/](docs)                                       | Guías cortas para participantes y comité                                 |
+| Carpeta                                               | Contenido                                                             |
+| ----------------------------------------------------- | --------------------------------------------------------------------- |
+| [apps/cli/](apps/cli/)                                | `hacknight`, el CLI de participantes                                  |
+| [apps/web/](apps/web/) · [apps/server/](apps/server/) | Web, proyector, administración y backend Bun/SQLite                   |
+| [packages/shared/](packages/shared/)                  | Modelos, paleta, evento y registro base                               |
+| [tracks/](tracks/README.md)                           | Fichas técnicas, catálogo y preparación de datos y guías              |
+| [plantilla/](plantilla/README.md)                     | Punto de partida Next.js + Tailwind para el repo de cada squad        |
+| [infra/](infra/README.md)                             | Registro, publicación de plantilla, claves de IA y opciones de deploy |
+| [.github/workflows/](.github/workflows/)              | CI y releases del CLI                                                 |
+| [test/](test/) · [scripts/](scripts/)                 | Pruebas aisladas y generación del catálogo                            |
+| [docs/](docs/)                                        | Guías cortas para participantes y comité                              |
 
 El nombre del evento está en un solo sitio: [`packages/shared/registro-base/evento.json`](packages/shared/registro-base/evento.json).
 
@@ -133,13 +140,12 @@ bun run check           # tipos, tests y formato
 bun run build:bin:host  # binarios apps/cli/dist/hacknight y apps/server/dist/hacknight-server
 ```
 
-- **Montar el registro de la noche:** [apps/cli/README.md](apps/cli/README.md#montar-el-registro-guía-del-comité).
-- **Servidor y administración:** [apps/server/README.md](apps/server/README.md).
-- **Pendiente antes del 22/10:**
-  - crear el repo del registro y el de releases;
-  - conectar la plantilla real;
-  - preparar los paquetes de datos;
-  - asignar los track leads.
+- **Registro y plantilla remotos:** planes en [infra/](infra/README.md), con `--dry-run` por defecto.
+- **Servidor y administración:** [apps/server/README.md](apps/server/README.md); el proveedor sigue pendiente.
+- **Editar un track:** cambia `tracks/<slug>/track.json` y ejecuta `bun run tracks:generar`.
+- **Pendientes del comité:** validar tracks con Pau el 12/10 y asignar leads; preparar accesos y datos para el reparto del 19/10; cerrar revisión de guías antes del 20/10; elegir repos, formulario de avisos, presupuesto de IA y alojamiento. El diseño de Reforma Digital espera el OK de Samu.
+
+El workspace se instala desde la raíz con `bun install --frozen-lockfile`. `plantilla/` es independiente: tiene su propio lockfile y se instala y compila desde su carpeta.
 
 ## Créditos
 
