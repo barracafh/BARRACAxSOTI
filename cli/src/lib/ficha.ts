@@ -1,14 +1,14 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { fichaSchema, type Ficha, type Track } from "@barbaritat/shared/modelo";
-import { CliError } from "@barbaritat/shared/errors";
+import { fichaSchema, type Ficha, type Track } from "@hacknight/shared/modelo";
+import { CliError } from "@hacknight/shared/errors";
 export function validarFicha(value: unknown, tracks: Track[]): Ficha {
   const parsed = fichaSchema.safeParse(value);
   if (!parsed.success)
     throw new CliError(
       "VALIDATION",
       "La ficha no cumple el esquema.",
-      "Completa los campos con barbaritat ficha.",
+      "Completa los campos con hacknight ficha.",
       2,
       parsed.error.issues.map((i) => ({
         campo: i.path.join("."),
@@ -23,7 +23,7 @@ export function validarFicha(value: unknown, tracks: Track[]): Ficha {
     throw new CliError(
       "VALIDATION",
       "Herramienta no válida o fuera del hack.",
-      "Consulta barbaritat tracks.",
+      "Consulta hacknight tracks.",
       2,
     );
   return parsed.data;
@@ -36,7 +36,7 @@ export async function leerFicha(cwd: string, tracks: Track[]) {
     throw new CliError(
       "VALIDATION",
       "Falta ficha.json o no es JSON válido.",
-      "Ejecuta barbaritat ficha o tramitar.",
+      "Ejecuta hacknight ficha o tramitar.",
       2,
     );
   }

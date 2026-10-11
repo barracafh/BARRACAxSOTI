@@ -1,6 +1,7 @@
-import type { RegistroFicha, Track } from "@barbaritat/shared/modelo";
+import type { Evento, RegistroFicha, Track } from "@hacknight/shared/modelo";
+import { eventoBase } from "@hacknight/shared/evento";
 import { fechaMadrid } from "./tiempo";
-import { paint, trackLabel, panel } from "./estilo";
+import { paint, trackLabel, panel, terminalText } from "./estilo";
 export const numeroRegistro = (n: number) =>
   `RE-2026-22O-${String(n).padStart(4, "0")}`;
 export function justificante(
@@ -30,20 +31,21 @@ export function justificante(
     tasaTokens,
   };
 }
-export const sello = () =>
+export const sello = (evento: Evento = eventoBase) =>
   paint(
     "roig",
     [
       "     .------------------------------------.",
       "    / REGISTRO DE ENTRADA                  /",
-      "   / BARBARITAT VALENCIANA                /",
-      "  / 22 OCT 2026                         /",
+      `   / ${terminalText(evento.nombre_corto).toUpperCase()}                /`,
+      `  / ${new Date(evento.inicio).toLocaleDateString("es-ES", { timeZone: "Europe/Madrid", day: "2-digit", month: "short", year: "numeric" }).replaceAll(".", "").toUpperCase()}                         /`,
       "  '------------------------------------'",
     ].join("\n"),
   );
 export function justificanteTexto(
   j: ReturnType<typeof justificante>,
   track: Track,
+  evento: Evento = eventoBase,
 ) {
   return (
     panel("Justificante de registro", [
@@ -59,6 +61,6 @@ export function justificanteTexto(
     "\n" +
     trackLabel(track) +
     "\n" +
-    sello()
+    sello(evento)
   );
 }

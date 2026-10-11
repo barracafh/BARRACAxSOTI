@@ -1,19 +1,19 @@
 {
-  "name": "@barbaritat/server",
+  "name": "@hacknight/server",
   "private": true,
   "version": "0.1.0",
   "type": "module",
   "license": "MIT",
   "bin": {
-    "barbaritat-server": "./src/index.ts"
+    "hacknight-server": "./src/index.ts"
   },
   "scripts": {
     "start": "bun src/index.ts",
     "typecheck": "tsc --noEmit",
-    "build:bin:host": "bun build --compile --minify --no-compile-autoload-dotenv src/index.ts --outfile dist/barbaritat-server"
+    "build:bin:host": "bun build --compile --minify --no-compile-autoload-dotenv src/index.ts --outfile dist/hacknight-server"
   },
   "dependencies": {
-    "@barbaritat/shared": "workspace:*",
+    "@hacknight/shared": "workspace:*",
     "commander": "^14.0.3"
   }
 }

@@ -4,7 +4,7 @@ import { z } from "zod";
 import { guardar, esAusente } from "../io";
 import { eventoSchema, equipoSchema, type Track } from "../modelo";
 import type { RegistroLocal } from "./local";
-import eventoBase from "../../registro-base/evento.json";
+import { eventoBase } from "../evento";
 import tracksBase from "../../registro-base/tracks.json";
 
 export const vistasIniciales = {

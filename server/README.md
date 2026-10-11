@@ -1,4 +1,4 @@
-# Servidor local de Barbaritat
+# Servidor local de Hack night
 
 Backend del evento, independiente del CLI de participantes: HTTP, administración y SQLite. Sirve los assets de [web/](../web/) y utiliza los modelos de [shared/](../shared/). El ejecutable no importa código de `cli/`.
 
@@ -11,15 +11,15 @@ bun install --frozen-lockfile
 bun run start
 ```
 
-Web: **http://127.0.0.1:4310/**. Administración: **http://127.0.0.1:4310/admin**. El primer arranque crea `.barbaritat-live/registro/` con los tracks reales, el horario del evento y **cero equipos, participantes, publicaciones o consumo**. Reiniciar conserva los datos. No arranca watchers ni genera tokens.
+Web: **http://127.0.0.1:4310/**. Administración: **http://127.0.0.1:4310/admin**. El primer arranque crea `.hacknight-live/registro/` con los tracks reales, el horario del evento y **cero equipos, participantes, publicaciones o consumo**. Reiniciar conserva los datos. No arranca watchers ni genera tokens.
 
 La terminal indica dónde está `.admin-key`; introduce el contenido de ese archivo en el formulario de administración. Es una clave local, creada con permisos `0600`; no se imprime, no se sube a GitHub y no se guarda en el navegador. La sesión usa una cookie HttpOnly/SameSite y caduca en ocho horas o al reiniciar el servidor. `Cerrar sesión` la revoca.
 
 Después de `bun run build:bin:host` desde la raíz, también funciona desde su propio binario, sin Bun ni archivos web externos:
 
 ```sh
-./server/dist/barbaritat-server
-./server/dist/barbaritat-server --directorio /ruta/instancia --puerto 4320
+./server/dist/hacknight-server
+./server/dist/hacknight-server --directorio /ruta/instancia --puerto 4320
 ```
 
 Para un registro local que ya existe: `bun run start --directorio /ruta/registro`. `--directorio` crea o abre una instancia; nunca sobreescribe los JSON existentes. `--db` permite elegir la SQLite (por defecto, `uso.sqlite` dentro del registro). `Ctrl+C` cierra el servidor.
@@ -28,7 +28,7 @@ Para un registro local que ya existe: `bun run start --directorio /ruta/registro
 
 En `/admin` el comité puede:
 
-- Editar nombre, inicio y fin del build, entregas tardías y handles del comité. Los campos de fecha muestran la zona horaria del navegador; la web pública siempre presenta la hora de València.
+- Editar nombre oficial, nombre corto, organizadores, inicio y fin del build, entregas tardías y handles del comité. Los campos de fecha muestran la zona horaria del navegador; la web pública siempre presenta la hora de València.
 - Crear, editar y quitar equipos; asignarles un negociado, pieza, mesa, repo y hasta cinco handles de GitHub. Se admiten equipos vacíos durante la preparación. Se rechazan participantes repetidos, tracks fuera del hack y cupos excedidos.
 - Habilitar tokenmaxxing, ranking individual, catálogo de negociados, ventanilla, tablón y proyector. El ranking individual empieza deshabilitado. Las vistas apagadas tampoco entregan sus datos desde la API. Los avisos y publicaciones pueden identificar a sus autores aunque el ranking individual esté oculto.
 
@@ -41,7 +41,7 @@ Los contadores siguen al handle: reasignarlo cambia el squad al que se atribuye 
 ## Contadores y persistencia
 
 ```sh
-bun run start --directorio /ruta/registro --puerto 4310 --db /tmp/barbaritat-uso.sqlite
+bun run start --directorio /ruta/registro --puerto 4310 --db /tmp/hacknight-uso.sqlite
 bun run cli --registro file:///ruta/registro --cwd /ruta/proyecto --usuario TU_HANDLE observar --servidor http://127.0.0.1:4310
 ```
 
@@ -59,7 +59,7 @@ Desde la raíz:
 bun run check
 bun run test:live
 bun run build:bin:host
-BARBARITAT_BIN="$PWD/cli/dist/barbaritat" BARBARITAT_SERVER_BIN="$PWD/server/dist/barbaritat-server" bun run test:live
+HACKNIGHT_BIN="$PWD/cli/dist/hacknight" HACKNIGHT_SERVER_BIN="$PWD/server/dist/hacknight-server" bun run test:live
 ```
 
 `test:live` prueba administración, watcher, clasificación, privacidad del payload, controles de vistas, reintentos y reinicio con persistencia; cierra todos sus procesos. Los participantes ficticios solo existen en los fixtures de `test/`. Producción queda pendiente: [TODO de infraestructura](../web/README.md#todo-antes-de-alojarlo).

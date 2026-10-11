@@ -2,20 +2,21 @@
 import { Command, CommanderError } from "commander";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
-import { inicializarRegistro } from "@barbaritat/shared/registro/gestion";
-import { RegistroLocal } from "@barbaritat/shared/registro/local";
-import { CliError } from "@barbaritat/shared/errors";
+import { inicializarRegistro } from "@hacknight/shared/registro/gestion";
+import { RegistroLocal } from "@hacknight/shared/registro/local";
+import { CliError } from "@hacknight/shared/errors";
 import { iniciarServidor } from "./servidor";
+import { eventoBase } from "@hacknight/shared/evento";
 
 const json = process.argv.includes("--json");
 const program = new Command()
-  .name("barbaritat-server")
-  .description("Web y administración local de Barbaritat Valenciana")
+  .name("hacknight-server")
+  .description(`Web y administración local de ${eventoBase.nombre}`)
   .version("0.1.0")
   .option(
     "--directorio <ruta>",
     "Crear o abrir el registro local",
-    ".barbaritat-live/registro",
+    ".hacknight-live/registro",
   )
   .option("--puerto <numero>", "Puerto HTTP local", "4310")
   .option("--db <archivo>", "Persistencia SQLite de contadores")
@@ -50,7 +51,7 @@ try {
   process.once("SIGINT", stop);
   process.once("SIGTERM", stop);
   (json ? process.stderr : process.stdout).write(
-    `Ventanilla local · ${running.url}\nAdministración · ${running.url}admin\nClave local en ${running.clavePath}\nRegistro · ${pathToFileURL(dir).href}\nNo se inicia ningún watcher. Ctrl+C para cerrar.\n`,
+    `${(await new RegistroLocal(dir).evento()).nombre}\nVentanilla local · ${running.url}\nAdministración · ${running.url}admin\nClave local en ${running.clavePath}\nRegistro · ${pathToFileURL(dir).href}\nNo se inicia ningún watcher. Ctrl+C para cerrar.\n`,
   );
   try {
     await quit.promise;
@@ -85,7 +86,7 @@ try {
             error instanceof Error
               ? error.message
               : "No se pudo arrancar el servidor.",
-            "Consulta barbaritat-server --help y revisa el directorio y el puerto.",
+            "Consulta hacknight-server --help y revisa el directorio y el puerto.",
             error instanceof CommanderError ? 2 : 1,
           );
     if (json)

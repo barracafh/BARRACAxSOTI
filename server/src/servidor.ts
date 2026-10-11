@@ -1,18 +1,18 @@
 import { mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
-import { snapshot } from "@barbaritat/shared/actividad";
-import { paleta } from "@barbaritat/shared/paleta";
+import { snapshot } from "@hacknight/shared/actividad";
+import { paleta } from "@hacknight/shared/paleta";
 import { AlmacenUso } from "./almacen";
-import { loteSchema } from "@barbaritat/shared/contrato-uso";
+import { loteSchema } from "@hacknight/shared/contrato-uso";
 import html from "../../web/index.html" with { type: "text" };
 import css from "../../web/style.css" with { type: "text" };
 import js from "../../web/app.js" with { type: "text" };
 
-import { RegistroLocal } from "@barbaritat/shared/registro/local";
+import { RegistroLocal } from "@hacknight/shared/registro/local";
 import {
   administracion,
   ErrorGestion,
-} from "@barbaritat/shared/registro/gestion";
+} from "@hacknight/shared/registro/gestion";
 import {
   crearAdmin,
   claveAdministracion,
@@ -21,6 +21,8 @@ import {
 } from "./admin";
 import adminHtml from "../../web/admin.html" with { type: "text" };
 import adminJs from "../../web/admin.js" with { type: "text" };
+import marcaJs from "../../web/marca.js" with { type: "text" };
+import { paginaEvento } from "./marca";
 
 export function crearHandler(
   registro: RegistroLocal,
@@ -112,6 +114,7 @@ export function crearHandler(
         const assets: Record<string, [string, string]> = {
           "/admin": [String(adminHtml), "text/html; charset=utf-8"],
           "/admin.js": [adminJs, "text/javascript; charset=utf-8"],
+          "/marca.js": [marcaJs, "text/javascript; charset=utf-8"],
           "/": [String(html), "text/html; charset=utf-8"],
           "/pantalla": [String(html), "text/html; charset=utf-8"],
           "/style.css": [css, "text/css; charset=utf-8"],
@@ -125,14 +128,19 @@ export function crearHandler(
         };
         const asset = assets[url.pathname];
         if (asset)
-          return new Response(asset[0], {
-            headers: {
-              ...headers,
-              "Content-Type": asset[1],
-              "Content-Security-Policy":
-                "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'",
+          return new Response(
+            asset[1].startsWith("text/html")
+              ? paginaEvento(asset[0], await registro.evento())
+              : asset[0],
+            {
+              headers: {
+                ...headers,
+                "Content-Type": asset[1],
+                "Content-Security-Policy":
+                  "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'",
+              },
             },
-          });
+          );
       }
       return json({ error: "Ruta no encontrada" }, 404);
     } catch (e) {

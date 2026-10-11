@@ -3,7 +3,7 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 const root = resolve(import.meta.dir, "../..");
-const dir = await mkdtemp(join(tmpdir(), "barbaritat-demo-"));
+const dir = await mkdtemp(join(tmpdir(), "hacknight-demo-"));
 const registro = join(dir, "registro"),
   project = join(dir, "squad-taronja");
 await cp(join(root, "test/fixtures/registro"), registro, { recursive: true });
@@ -18,8 +18,8 @@ const server = Bun.serve({
       headers: { "Content-Type": "text/html" },
     }),
 });
-const cmd = process.env.BARBARITAT_BIN
-  ? [resolve(process.env.BARBARITAT_BIN)]
+const cmd = process.env.HACKNIGHT_BIN
+  ? [resolve(process.env.HACKNIGHT_BIN)]
   : [process.execPath, join(root, "cli/src/index.ts")];
 async function run(
   name: string,
@@ -43,8 +43,8 @@ async function run(
       env: {
         ...process.env,
         NO_COLOR: "1",
-        BARBARITAT_CLAUDE_DIR: join(dir, "sin-historiales"),
-        BARBARITAT_CODEX_DIR: join(dir, "sin-historiales"),
+        HACKNIGHT_CLAUDE_DIR: join(dir, "sin-historiales"),
+        HACKNIGHT_CODEX_DIR: join(dir, "sin-historiales"),
       },
       stdout: "pipe",
       stderr: "pipe",

@@ -53,13 +53,13 @@ export async function leerConsumo(
   fin: string,
   rutas: RutasConsumo = {
     claude:
-      process.env.BARBARITAT_CLAUDE_DIR ??
+      process.env.HACKNIGHT_CLAUDE_DIR ??
       join(
         process.env.CLAUDE_CONFIG_DIR ?? join(homedir(), ".claude"),
         "projects",
       ),
     codex:
-      process.env.BARBARITAT_CODEX_DIR ??
+      process.env.HACKNIGHT_CODEX_DIR ??
       join(process.env.CODEX_HOME ?? join(homedir(), ".codex"), "sessions"),
   },
   now = Date.now(),

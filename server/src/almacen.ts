@@ -1,11 +1,11 @@
 import { Database } from "bun:sqlite";
-import type { Equipo, Evento, Track } from "@barbaritat/shared/modelo";
+import type { Equipo, Evento, Track } from "@hacknight/shared/modelo";
 import {
   totalUso,
   ventanaId,
   type Lote,
   type EventoUso,
-} from "@barbaritat/shared/contrato-uso";
+} from "@hacknight/shared/contrato-uso";
 
 type Fila = EventoUso & { usuario: string };
 export class AlmacenUso {

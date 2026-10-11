@@ -4,11 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#F5F1E6" />
-    <title>Barbaritat Valenciana · BARRACA × SOTI</title>
+    <title data-evento="nombre" data-prefix="">{{nombre}}</title>
     <meta
       name="description"
-      content="Una tarde para quitarle vueltas a los trámites. Negociados, squads y tokenmaxxing de Barbaritat Valenciana."
+      data-evento="nombre"
+      data-prefix="La ventanilla de "
+      content="La ventanilla de {{nombre}}"
     />
+    <meta
+      property="og:title"
+      data-evento="nombre"
+      data-prefix=""
+      content="{{nombre}}"
+    />
+    <meta
+      property="og:description"
+      data-evento="nombre"
+      data-prefix="La ventanilla de "
+      content="La ventanilla de {{nombre}}"
+    />
+    <meta property="og:site_name" data-evento="nombre" content="{{nombre}}" />
+    <meta property="og:type" content="website" />
     <link rel="icon" href="data:," />
     <link rel="stylesheet" href="/paleta.css" />
     <link rel="stylesheet" href="/style.css" />
@@ -17,13 +33,14 @@
   <body>
     <a class="skip" href="#contenido">Saltar al contenido</a>
     <div class="masthead">
-      <span>BARRACA × SOTI</span
-      ><span id="cabecera-evento">VALÈNCIA · 22 OCT 2026</span
+      <span data-evento="organizan">{{organizan}}</span
+      ><span id="cabecera-evento" data-evento="nombre">{{nombre}}</span
       ><span id="conexion" role="status">CONECTANDO…</span>
     </div>
     <header>
-      <a class="brand" href="/" aria-label="Barbaritat Valenciana, inicio"
-        >BARBARITAT<span>VALENCIANA</span></a
+      <a class="brand" href="/" aria-label="{{nombre}}, inicio"
+        ><strong data-evento="nombre_corto">{{nombre_corto}}</strong
+        ><span data-evento="organizan">{{organizan}}</span></a
       >
       <div
         id="tv-reloj"
@@ -55,7 +72,8 @@
             >Encuentra tu negociado <span>↘</span></a
           >
           <p class="small">
-            BARRACA × SOTI · Herramientas que sirven a la gente.
+            <span data-evento="organizan">{{organizan}}</span> · Herramientas
+            que sirven a la gente.
           </p>
         </div>
         <aside class="ticket" aria-label="Plazo del build">
@@ -240,7 +258,7 @@
           </p>
         </div>
         <div>
-          <pre><code id="comando">barbaritat observar --servidor http://127.0.0.1:4310</code></pre>
+          <pre><code id="comando">hacknight observar --servidor http://127.0.0.1:4310</code></pre>
           <p class="small">
             Ejecuta el comando desde tu proyecto y con el registro del evento
             configurado.
@@ -250,8 +268,17 @@
     </main>
     <footer>
       <a href="/admin">Administración</a>
-      <a class="brand" href="/">BARBARITAT<span>VALENCIANA</span></a>
-      <p>Una ventanilla abierta a lo que viene.<br />BARRACA × SOTI · 2026</p>
+      <a class="brand" href="/" aria-label="{{nombre}}, inicio"
+        ><strong data-evento="nombre_corto">{{nombre_corto}}</strong
+        ><span data-evento="organizan">{{organizan}}</span></a
+      >
+      <p>
+        Una ventanilla abierta a lo que viene.<br /><span
+          data-evento="organizan"
+          >{{organizan}}</span
+        >
+        · 2026
+      </p>
       <a href="#clasificacion">Volver arriba ↑</a>
     </footer>
     <dialog id="detalle">

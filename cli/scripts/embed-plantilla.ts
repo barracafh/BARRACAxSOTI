@@ -1,5 +1,5 @@
 // Única fuente: demo/plantilla-stub. El binario lleva los mismos bytes sin rutas externas.
-const archivos = ["index.html", "README.md", ".barbaritat/plantilla.json"];
+const archivos = ["index.html", "README.md", ".hacknight/plantilla.json"];
 const plantilla: Record<string, string> = {};
 for (const path of archivos)
   plantilla[path] = await Bun.file(

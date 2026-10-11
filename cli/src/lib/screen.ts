@@ -1,7 +1,7 @@
 import { fit, panel, paint, terminalText } from "./estilo";
 import { cuentaAtras } from "./tiempo";
 import { numeroRegistro, sello } from "./justificante";
-import type { EstadoEvento } from "@barbaritat/shared/actividad";
+import type { EstadoEvento } from "@hacknight/shared/actividad";
 export interface EstadoPantalla extends EstadoEvento {
   pausa?: boolean;
   error?: string;
@@ -30,7 +30,7 @@ export function renderPantalla(
 ): string[] {
   const reloj = cuentaAtras(s.evento.fin, now);
   const lines = [
-    paint("roig", fit("BARBARITAT VALENCIANA · 22 OCT 2026", columns)),
+    paint("roig", fit(terminalText(s.evento.nombre), columns)),
     `Fin del build · Europe/Madrid · ${reloj.cerrado ? "PLAZO CERRADO" : reloj.texto}`,
     ...(columns >= 40 ? digitos(reloj.texto) : []),
   ];
@@ -82,7 +82,7 @@ export function renderPantalla(
       columns,
     ).split("\n"),
   );
-  if (s.registros.length) lines.push(...sello().split("\n"));
+  if (s.registros.length) lines.push(...sello(s.evento).split("\n"));
   const avisos = s.entradas.filter((e) => e.tipo === "aviso");
   lines.push(
     ...panel(
@@ -104,7 +104,7 @@ export function renderPantalla(
   );
   if (s.error) lines.push(terminalText(s.error));
   lines.push(
-    `${s.pausa ? "PAUSA" : "EN DIRECTO"} · p pausa · q salir · BARRACA × SOTI`,
+    `${s.pausa ? "PAUSA" : "EN DIRECTO"} · p pausa · q salir · ${terminalText(s.evento.organizan)}`,
   );
   return lines.map((l) => fit(l, Math.max(12, columns)));
 }

@@ -1,3 +1,4 @@
+import { actualizarMarca } from "./marca.js";
 const $ = (id) => document.getElementById(id);
 const esc = (value) =>
   String(value ?? "").replace(
@@ -152,9 +153,8 @@ function render() {
   $("squads").textContent = number(c.squads.length);
   $("actualizado").textContent =
     `ACT. ${new Date(c.generado).toLocaleTimeString("es-ES")}`;
-  $("cabecera-evento").textContent = state.evento.nombre.toUpperCase();
-  $("comando").textContent =
-    `barbaritat observar --servidor ${location.origin}`;
+  actualizarMarca(state.evento);
+  $("comando").textContent = `hacknight observar --servidor ${location.origin}`;
   const key = JSON.stringify([state.tracks, state.equipos]);
   if (key !== staticKey) {
     staticKey = key;
@@ -208,7 +208,7 @@ function render() {
             `<article class="turno"><div><strong>${esc(t.turno)}</strong><small>${esc(trackName(t.herramienta))}<br>${esc(t.motivo)}</small></div><div>MESA ${esc(t.mesa)}<small>${t.estado === "llamado" ? "PASE, POR FAVOR" : "EN ESPERA"}</small></div></article>`,
         )
         .join("")
-    : '<p class="empty">Sin turnos pendientes. Pide ayuda con <code>barbaritat cita</code>.</p>';
+    : '<p class="empty">Sin turnos pendientes. Pide ayuda con <code>hacknight cita</code>.</p>';
   $("tablon").innerHTML = state.entradas.length
     ? state.entradas
         .slice(0, 4)

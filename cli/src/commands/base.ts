@@ -1,12 +1,12 @@
 import type { Contexto } from "../lib/contexto";
 import { identidad } from "../lib/contexto";
-import { CliError } from "@barbaritat/shared/errors";
+import { CliError } from "@hacknight/shared/errors";
 import { salida, tramitando } from "../lib/output";
 import { panel, trackLabel, terminalText } from "../lib/estilo";
 import { banner } from "../lib/banner";
 import { cuentaAtras } from "../lib/tiempo";
 import { revisar } from "../lib/revision";
-import { cola } from "@barbaritat/shared/cola";
+import { cola } from "@hacknight/shared/cola";
 export async function tracks(ctx: Contexto, slug?: string, todos = false) {
   const ts = await tramitando("Consultando el registro…", ctx.opts.json, () =>
     ctx.registro.tracks(),
@@ -18,7 +18,7 @@ export async function tracks(ctx: Contexto, slug?: string, todos = false) {
     throw new CliError(
       "NOT_FOUND",
       "No existe ese negociado.",
-      "Usa barbaritat tracks --todos.",
+      "Usa hacknight tracks --todos.",
       4,
     );
   const teams = await ctx.registro.equipos();
@@ -82,7 +82,11 @@ export async function expediente(ctx: Contexto) {
   };
   salida(
     data,
-    banner(undefined, ctx.opts.plain || ctx.opts.json ? null : undefined) +
+    banner(
+      undefined,
+      ctx.opts.plain || ctx.opts.json ? null : undefined,
+      evento,
+    ) +
       "\n" +
       (track ? trackLabel(track) + "\n" : "") +
       panel("Su expediente", [
@@ -98,7 +102,7 @@ export async function expediente(ctx: Contexto) {
         turno
           ? `Ventanilla: ${turno.turno} · ${turno.estado}`
           : "Ventanilla: sin turno",
-        `Siguiente trámite: barbaritat revisar`,
+        `Siguiente trámite: hacknight revisar`,
       ]),
     ctx.opts.json,
   );

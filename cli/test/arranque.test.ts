@@ -3,7 +3,7 @@ import { mkdtemp, cp, writeFile, access } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { pathToFileURL } from "node:url";
-import { RegistroLocal } from "@barbaritat/shared/registro/local";
+import { RegistroLocal } from "@hacknight/shared/registro/local";
 import { descargar, sha256 } from "../src/lib/datos";
 import {
   assetName,
@@ -13,7 +13,7 @@ import {
   release,
 } from "../src/commands/actualizar";
 async function setup() {
-  const dir = await mkdtemp(join(tmpdir(), "barbaritat-start-"));
+  const dir = await mkdtemp(join(tmpdir(), "hacknight-start-"));
   const reg = join(dir, "registro");
   await cp(join(import.meta.dir, "../../test/fixtures/registro"), reg, {
     recursive: true,
@@ -35,7 +35,7 @@ async function cli(reg: string, cwd: string, args: string[]) {
     {
       stdout: "pipe",
       stderr: "pipe",
-      env: { ...process.env, BARBARITAT_USUARIO: "demo-alba" },
+      env: { ...process.env, HACKNIGHT_USUARIO: "demo-alba" },
     },
   );
   const data = JSON.parse(await new Response(p.stdout).text());
@@ -100,8 +100,8 @@ test("paquete local verifica checksum antes de instalar y funciona por CLI", asy
   expect((await cli(reg, dir, ["datos", "demo-pack"])).ok).toBe(true);
 });
 test("assets, semver y SHA256 de actualización", () => {
-  expect(assetName("darwin", "arm64")).toBe("barbaritat-darwin-arm64");
-  expect(assetName("win32", "x64")).toBe("barbaritat-windows-x64.exe");
+  expect(assetName("darwin", "arm64")).toBe("hacknight-darwin-arm64");
+  expect(assetName("win32", "x64")).toBe("hacknight-windows-x64.exe");
   expect(isNewer("cli-v0.2.0", "0.1.0")).toBe(true);
   expect(isNewer("cli-v0.1.0", "0.1.0")).toBe(false);
   const b = Buffer.from("binary");
@@ -110,7 +110,7 @@ test("assets, semver y SHA256 de actualización", () => {
   expect(() => verificar(b, `${sha256(b)}  evil-binary`, "binary")).toThrow();
 });
 test("actualización con fetch simulado reemplaza únicamente tras checksum correcto", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "barbaritat-update-"));
+  const dir = await mkdtemp(join(tmpdir(), "hacknight-update-"));
   const target = join(dir, "binary");
   await writeFile(target, "old");
   const bytes = Buffer.from("new");

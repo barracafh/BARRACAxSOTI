@@ -2,7 +2,7 @@ import { test, expect } from "bun:test";
 import { mkdtemp, cp } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { RegistroLocal } from "@barbaritat/shared/registro/local";
+import { RegistroLocal } from "@hacknight/shared/registro/local";
 import { cuentaAtras } from "../src/lib/tiempo";
 import { wordmarkRows, banner } from "../src/lib/banner";
 import { panel } from "../src/lib/estilo";
@@ -17,7 +17,7 @@ test("el fixture de pruebas tiene todos los negociados y cuatro squads", async (
   expect((await r.evento()).fin).toBe("2026-10-22T22:00:00+02:00");
 });
 test("registro local persiste y cierra issues", async () => {
-  const p = await mkdtemp(join(tmpdir(), "barbaritat-test-"));
+  const p = await mkdtemp(join(tmpdir(), "hacknight-test-"));
   await cp(join(import.meta.dir, "../../test/fixtures/registro"), p, {
     recursive: true,
   });
@@ -43,7 +43,7 @@ test("marca y azulejos caben en 80 columnas y marca pequeña en 30", () => {
   ).toBeLessThanOrEqual(80);
   for (const line of panel("Su expediente", ["a".repeat(200)]).split("\n"))
     expect(Bun.stringWidth(line)).toBeLessThanOrEqual(80);
-  expect(banner(30, null)).toContain("BARBARITAT");
+  expect(banner(30, null)).toContain("Hack night");
 });
 for (const args of [
   [],
@@ -67,7 +67,7 @@ for (const args of [
       {
         stdout: "pipe",
         stderr: "pipe",
-        env: { ...process.env, BARBARITAT_USUARIO: "demo-alba" },
+        env: { ...process.env, HACKNIGHT_USUARIO: "demo-alba" },
       },
     );
     const out = await new Response(p.stdout).text();

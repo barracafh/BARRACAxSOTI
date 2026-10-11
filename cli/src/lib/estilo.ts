@@ -1,5 +1,5 @@
-import { paleta, type Color } from "@barbaritat/shared/paleta";
-export { paleta, roles, type Color } from "@barbaritat/shared/paleta";
+import { paleta, type Color } from "@hacknight/shared/paleta";
+export { paleta, roles, type Color } from "@hacknight/shared/paleta";
 let enabled =
   Boolean(process.stdout.isTTY) &&
   process.env.NO_COLOR === undefined &&

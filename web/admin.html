@@ -3,7 +3,29 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Administración · Barbaritat Valenciana</title>
+    <title data-evento="nombre" data-prefix="Administración · ">
+      Administración · {{nombre}}
+    </title>
+    <meta
+      name="description"
+      data-evento="nombre"
+      data-prefix="La ventanilla de "
+      content="La ventanilla de {{nombre}}"
+    />
+    <meta
+      property="og:title"
+      data-evento="nombre"
+      data-prefix="Administración · "
+      content="Administración · {{nombre}}"
+    />
+    <meta
+      property="og:description"
+      data-evento="nombre"
+      data-prefix="La ventanilla de "
+      content="La ventanilla de {{nombre}}"
+    />
+    <meta property="og:site_name" data-evento="nombre" content="{{nombre}}" />
+    <meta property="og:type" content="website" />
     <link rel="icon" href="data:," />
     <link rel="stylesheet" href="/paleta.css" />
     <link rel="stylesheet" href="/style.css" />
@@ -12,11 +34,14 @@
   <body class="admin-page">
     <a class="skip" href="#administracion">Saltar a administración</a>
     <div class="masthead">
-      <span>BARRACA × SOTI</span><span>MESA DEL COMITÉ</span
-      ><span>ADMINISTRACIÓN LOCAL</span>
+      <span data-evento="organizan">{{organizan}}</span
+      ><span>MESA DEL COMITÉ</span><span>ADMINISTRACIÓN LOCAL</span>
     </div>
     <header>
-      <a class="brand" href="/">BARBARITAT<span>VALENCIANA</span></a>
+      <a class="brand" href="/" aria-label="{{nombre}}, inicio"
+        ><strong data-evento="nombre_corto">{{nombre_corto}}</strong
+        ><span data-evento="organizan">{{organizan}}</span></a
+      >
       <nav aria-label="Principal">
         <a href="/">Ver como participante ↗</a
         ><button id="salir" hidden>Cerrar sesión</button>
@@ -65,6 +90,12 @@
             <h2>El evento</h2>
             <label
               >Nombre del evento<input name="nombre" required maxlength="160"
+            /></label>
+            <label
+              >Nombre corto<input name="nombre_corto" required maxlength="80"
+            /></label>
+            <label
+              >Organizan<input name="organizan" required maxlength="160"
             /></label>
             <p class="small" id="zona-horaria"></p>
             <div class="field-pair">
@@ -118,7 +149,7 @@
               <strong>Watchers bajo demanda</strong>
               <p>
                 El servidor no arranca watchers ni genera consumo. Cada
-                participante ejecuta <code>barbaritat observar</code> en su
+                participante ejecuta <code>hacknight observar</code> en su
                 proyecto.
               </p>
             </div>
@@ -206,7 +237,7 @@
       </form>
     </dialog>
     <footer>
-      <span>BARBARITAT VALENCIANA · BARRACA × SOTI</span
+      <span data-evento="nombre">{{nombre}}</span
       ><span>Construimos una plataforma compartida.</span>
     </footer>
   </body>

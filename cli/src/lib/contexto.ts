@@ -1,10 +1,10 @@
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { config, type Options } from "./config";
-import { RegistroLocal } from "@barbaritat/shared/registro/local";
+import { RegistroLocal } from "@hacknight/shared/registro/local";
 import { RegistroGitHub } from "../registro/github";
-import { CliError } from "@barbaritat/shared/errors";
-import type { Registro } from "@barbaritat/shared/modelo";
+import { CliError } from "@hacknight/shared/errors";
+import type { Registro } from "@hacknight/shared/modelo";
 export interface Contexto {
   opts: Options;
   registro: Registro;

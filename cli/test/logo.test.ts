@@ -4,7 +4,7 @@ import { mkdtemp, writeFile, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 test("embed-logo aplana un PNG de prueba sobre blanco sin guardarlo en el repo", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "barbaritat-logo-"));
+  const dir = await mkdtemp(join(tmpdir(), "hacknight-logo-"));
   const png = new PNG({ width: 8, height: 4 });
   png.data.fill(0);
   await writeFile(join(dir, "test.png"), PNG.sync.write(png));

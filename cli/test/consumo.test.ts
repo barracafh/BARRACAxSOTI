@@ -72,7 +72,7 @@ test("Codex deduplica contadores acumulados y resta la caché del input", () => 
   ).toMatchObject({ input: 40, output: 5, cacheRead: 10 });
 });
 test("consumo filtra ventana y proyecto, deduplica bloques y nunca devuelve prompts", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "barbaritat-consumo-"));
+  const dir = await mkdtemp(join(tmpdir(), "hacknight-consumo-"));
   const rutas = { claude: join(dir, "claude"), codex: join(dir, "codex") };
   await mkdir(rutas.claude);
   await mkdir(rutas.codex);
@@ -116,7 +116,7 @@ test("consumo filtra ventana y proyecto, deduplica bloques y nunca devuelve prom
   expect(JSON.stringify(report)).not.toContain(project);
 });
 test("consumo --json y tasa en justificante con historiales sintéticos", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "barbaritat-tasa-"));
+  const dir = await mkdtemp(join(tmpdir(), "hacknight-tasa-"));
   const reg = join(dir, "registro");
   await cp(join(import.meta.dir, "../../test/fixtures/registro"), reg, {
     recursive: true,
@@ -147,9 +147,9 @@ test("consumo --json y tasa en justificante con historiales sintéticos", async 
       {
         env: {
           ...process.env,
-          BARBARITAT_USUARIO: "demo-alba",
-          BARBARITAT_CLAUDE_DIR: logs,
-          BARBARITAT_CODEX_DIR: empty,
+          HACKNIGHT_USUARIO: "demo-alba",
+          HACKNIGHT_CLAUDE_DIR: logs,
+          HACKNIGHT_CODEX_DIR: empty,
         },
         stdout: "pipe",
         stderr: "pipe",
