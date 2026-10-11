@@ -1,0 +1,40 @@
+{
+  "slug": "derechos",
+  "nombre": "Derechos",
+  "frase": "Encuentra las ayudas que te corresponden.",
+  "ciudadano": "Ayudas del Estado, GVA y ayuntamiento con requisitos y enlace de solicitud.",
+  "ventanilla": 2,
+  "color": "horta",
+  "glifo": "+",
+  "prefijo": "D",
+  "estado": "nucleo",
+  "lead": "por asignar",
+  "piezas": [
+    "Ayudas para ti",
+    "Compatibilidades y requisitos",
+    "Calendario de convocatorias"
+  ],
+  "paquetes": [
+    {
+      "id": "derechos-base",
+      "nombre": "Pack Derechos",
+      "url": "https://example.invalid/pendiente/derechos.zip",
+      "sha256": "PENDIENTE",
+      "pendiente": true
+    }
+  ],
+  "fuentes": [
+    {
+      "nombre": "www.infosubvenciones.es",
+      "url": "https://www.infosubvenciones.es/"
+    },
+    {
+      "nombre": "dadesobertes.gva.es",
+      "url": "https://dadesobertes.gva.es/"
+    }
+  ],
+  "dificultad": "Fácil",
+  "guias": [
+    "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+  ]
+}

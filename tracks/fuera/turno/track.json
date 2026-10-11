@@ -1,0 +1,25 @@
+{
+  "slug": "turno",
+  "nombre": "Turno",
+  "frase": "Fuera: sin API de citas.",
+  "ciudadano": "La alternativa útil se rescata dentro de Brújula y Sello.",
+  "ventanilla": 6,
+  "color": "arena",
+  "glifo": "-",
+  "prefijo": "T",
+  "estado": "fuera",
+  "lead": "por asignar",
+  "piezas": ["¿Y si no hay cita? → Brújula", "Las citas son gratis → Sello"],
+  "paquetes": [],
+  "fuentes": [
+    {
+      "nombre": "datos.gob.es",
+      "url": "https://datos.gob.es/"
+    }
+  ],
+  "dificultad": "Difícil",
+  "guias": [
+    "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+  ],
+  "motivo": "Fuera: sin API de citas. La alternativa útil se rescata dentro de Brújula y Sello."
+}

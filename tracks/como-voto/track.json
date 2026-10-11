@@ -1,0 +1,49 @@
+{
+  "slug": "como-voto",
+  "nombre": "¿Cómo voto? (29N)",
+  "frase": "El proceso electoral, explicado.",
+  "ciudadano": "Guía de voto por correo, consulta del censo y plazos con fuentes electorales.",
+  "ventanilla": 11,
+  "color": "arena",
+  "glifo": "*",
+  "prefijo": "V",
+  "estado": "nucleo",
+  "lead": "por asignar",
+  "piezas": [
+    "Voto por correo",
+    "Dónde votar y censo",
+    "Calendario con fuentes"
+  ],
+  "paquetes": [
+    {
+      "id": "como-voto-base",
+      "nombre": "Pack ¿Cómo voto? (29N)",
+      "url": "https://example.invalid/pendiente/como-voto.zip",
+      "sha256": "PENDIENTE",
+      "pendiente": true
+    }
+  ],
+  "fuentes": [
+    {
+      "nombre": "www.juntaelectoralcentral.es",
+      "url": "https://www.juntaelectoralcentral.es/"
+    },
+    {
+      "nombre": "www.ine.es",
+      "url": "https://www.ine.es/"
+    },
+    {
+      "nombre": "www.boe.es",
+      "url": "https://www.boe.es/"
+    },
+    {
+      "nombre": "www.correos.es",
+      "url": "https://www.correos.es/"
+    }
+  ],
+  "dificultad": "Fácil",
+  "guias": [
+    "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales.",
+    "Cada fecha debe citar BOE o Junta Electoral. El comité verificará el calendario antes de publicar el pack."
+  ]
+}

@@ -40,7 +40,7 @@ Cada track es una herramienta de la plataforma. Cada herramienta se divide en 2�
 | Abierto         | Preguntas en lenguaje natural sobre contratos y presupuestos. Si hay gente.        |
 | Track libre     | Una pieza nueva para el centro. Un solo squad, por orden de llegada.               |
 
-El detalle de cada uno (piezas, datos y fuentes) está en el CLI: `hacknight tracks <track>`.
+Las [fichas técnicas y los paquetes por preparar](tracks/README.md) viven en `tracks/`. El detalle también está en el CLI: `hacknight tracks <track>`.
 
 ## Las reglas
 

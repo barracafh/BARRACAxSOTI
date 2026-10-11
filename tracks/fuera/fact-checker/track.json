@@ -1,0 +1,25 @@
+{
+  "slug": "fact-checker",
+  "nombre": "Fact-checker",
+  "frase": "Fuera: verificación humana y campaña.",
+  "ciudadano": "Sin afirmaciones libres ni veredictos sobre candidatos.",
+  "ventanilla": 13,
+  "color": "arena",
+  "glifo": "-",
+  "prefijo": "F",
+  "estado": "fuera",
+  "lead": "por asignar",
+  "piezas": ["Dato oficial → Abierto", "Definiciones de indicadores → Abierto"],
+  "paquetes": [],
+  "fuentes": [
+    {
+      "nombre": "www.ine.es",
+      "url": "https://www.ine.es/"
+    }
+  ],
+  "dificultad": "Difícil",
+  "guias": [
+    "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+  ],
+  "motivo": "Fuera: verificación humana y campaña. Sin afirmaciones libres ni veredictos sobre candidatos."
+}
