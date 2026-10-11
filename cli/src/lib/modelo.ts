@@ -2,10 +2,10 @@ import { z } from 'zod';
 export const slug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
 export const repo = z.string().regex(/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/);
 const text = z.string().trim().min(1);
-export const fuenteSchema = z.object({ nombre: text.max(120), url: z.url().refine(v => v.startsWith('https://'), 'Debe usar https') });
+export const fuenteSchema = z.object({ nombre: text.max(120), url: z.url().regex(/^https:\/\//, 'Debe usar https') });
 export const fichaSchema = z.strictObject({
   nombre: text.max(80), frase: text.max(180), icono: text.max(32), herramienta: slug,
-  equipo: slug, url: z.url().refine(v => /^https?:\/\//.test(v), 'Debe ser una URL HTTP(S)'),
+  equipo: slug, url: z.url().regex(/^https?:\/\//, 'Debe ser una URL HTTP(S)'),
   fuentes: z.array(fuenteSchema).min(1), datos: z.enum(['reales','simulados'])
 });
 export type Ficha = z.infer<typeof fichaSchema>;

@@ -5,6 +5,7 @@ import {salida} from '../lib/output';
 import {panel,trackLabel,terminalText} from '../lib/estilo';
 import {banner} from '../lib/banner';
 import {cuentaAtras} from '../lib/tiempo';
+import {revisar} from '../lib/revision';
 export async function tracks(ctx:Contexto,slug?:string,todos=false){
  const ts=await ctx.registro.tracks();const chosen=slug?ts.filter(t=>t.slug===slug):ts.filter(t=>todos||t.estado!=='fuera');
  if(!chosen.length)throw new CliError('NOT_FOUND','No existe ese negociado.','Usa barbaritat tracks --todos.',4);
@@ -16,8 +17,8 @@ export async function expediente(ctx:Contexto){
  const [{usuario,equipo},evento,tracks,issues]=await Promise.all([identidad(ctx),ctx.registro.evento(),ctx.registro.tracks(),ctx.registro.issues()]);
  const track=tracks.find(t=>t.slug===equipo?.herramienta);const reloj=cuentaAtras(evento.fin);
  const turno=issues.find(i=>i.estado==='open'&&i.etiquetas.includes('ventanilla')&&i.autor.toLowerCase()===usuario.toLowerCase());
- const reglas=['Plantilla común','URL pública responde','Ficha completa','Fuentes citadas','Sin datos personales','Botón de aviso'].map(nombre=>({nombre,estado:'pendiente de revisar'}));
+ const revision=await revisar(ctx); const reglas=revision.reglas;
  const data={usuario,equipo:equipo??null,track:track??null,cuentaAtras:reloj,reglas,turno:turno??null};
  salida(data,banner()+'\n'+(track?trackLabel(track)+'\n':'')+panel('Su expediente',[
- `Bona vesprada, @${terminalText(usuario)}`,equipo?`Squad: ${equipo.nombre} · Mesa ${equipo.mesa}`:'Squad: pendiente de asignación',`Track: ${track?.slug??'pendiente'} · Pieza: ${equipo?.pieza??'pendiente'}`,`Fin del build: ${evento.fin} · Quedan ${reloj.texto}`,...reglas.map((r,i)=>`${i+1}. [pendiente] ${r.nombre}`),turno?`Ventanilla: ${turno.titulo}`:'Ventanilla: sin turno',`Parodia del hack · No es una sede oficial.`,`Siguiente trámite: barbaritat revisar`]),ctx.opts.json);
+ `Bona vesprada, @${terminalText(usuario)}`,equipo?`Squad: ${equipo.nombre} · Mesa ${equipo.mesa}`:'Squad: pendiente de asignación',`Track: ${track?.slug??'pendiente'} · Pieza: ${equipo?.pieza??'pendiente'}`,`Fin del build: ${evento.fin} · Quedan ${reloj.texto}`,...reglas.map((r,i)=>`${i+1}. [${r.ok?'OK':'FALTA'}] ${r.nombre}`),turno?`Ventanilla: ${turno.titulo}`:'Ventanilla: sin turno',`Parodia del hack · No es una sede oficial.`,`Siguiente trámite: barbaritat revisar`]),ctx.opts.json);
 }

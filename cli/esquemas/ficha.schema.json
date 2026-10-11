@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "nombre": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "frase": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 180
+    },
+    "icono": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 32
+    },
+    "herramienta": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "equipo": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "url": {
+      "type": "string",
+      "pattern": "^https?:\\/\\/"
+    },
+    "fuentes": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^https:\\/\\/"
+          }
+        },
+        "required": [
+          "nombre",
+          "url"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "datos": {
+      "type": "string",
+      "enum": [
+        "reales",
+        "simulados"
+      ]
+    }
+  },
+  "required": [
+    "nombre",
+    "frase",
+    "icono",
+    "herramienta",
+    "equipo",
+    "url",
+    "fuentes",
+    "datos"
+  ],
+  "additionalProperties": false
+}
