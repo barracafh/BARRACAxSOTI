@@ -1,0 +1,34 @@
+// Adaptado de style.ts del origen MIT. Todos los colores se deciden aquí.
+export const paleta = { roig:'#C8102E', tinta:'#1A1A1A', cal:'#F5F1E6', cobalto:'#1F4E9E', taronja:'#EE7F1B', horta:'#2F7D4A', arena:'#E8DCC4' } as const;
+export type Color = keyof typeof paleta;
+export const roles = {ok:'horta',error:'roig',aviso:'taronja',acento:'cobalto',marca:'roig',tenue:'arena'} as const;
+let enabled = Boolean(process.stdout.isTTY) && process.env.NO_COLOR === undefined && process.env.TERM !== 'dumb';
+export function setPlain(plain:boolean) { enabled = !plain && Boolean(process.stdout.isTTY) && process.env.NO_COLOR === undefined && process.env.TERM !== 'dumb'; }
+export function paint(color:Color,text:string) {
+  if (!enabled) return text;
+  const hex=paleta[color]; const rgb=[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16));
+  return `\x1b[38;2;${rgb.join(';')}m${text}\x1b[39m`;
+}
+// Badge: el token queda sobre cal/tinta, según contraste; funciona con ambos fondos.
+export function badge(color:Color,text:string) {
+  if (!enabled) return text;
+  const hex=paleta[color]; const rgb=[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16));
+  const ink=['roig','cobalto','horta','tinta'].includes(color)?'cal':'tinta';
+  return `\x1b[48;2;${rgb.join(';')}m${paint(ink,` ${text} `)}\x1b[49m`;
+}
+export const width = Bun.stringWidth;
+export const terminalText = (s:string) => Bun.stripANSI(s).replace(/\p{Bidi_Control}/gu,'').replace(/[\x00-\x08\x0b-\x1f\x7f]/g,'');
+export function fit(s:string,n:number):string {
+  if(width(s)<=n)return s;
+  let out='';for(const ch of new Intl.Segmenter(undefined,{granularity:'grapheme'}).segment(Bun.stripANSI(s))) {if(width(out+ch.segment)>n-1)break;out+=ch.segment;}return out+'…';
+}
+export function wrap(s:string,n:number):string[] {
+  const lines:string[]=[];
+  for(const line of s.split('\n')) {let rest=line;while(width(rest)>n){let chunk='';for(const ch of rest){if(width(chunk+ch)>n)break;chunk+=ch;}const space=chunk.lastIndexOf(' ');if(space>n/2)chunk=chunk.slice(0,space);lines.push(chunk);rest=rest.slice(chunk.length).trimStart();}lines.push(rest);}
+  return lines;
+}
+export function panel(title:string,lines:string[],columns=process.stdout.columns??80) {
+  const w=Math.max(12,Math.min(80,columns));const head=fit(` ${terminalText(title)} `,w-4);
+  return [paint('cobalto',`┌─${head}${'─'.repeat(Math.max(0,w-3-width(head)))}┐`),...lines.flatMap(x=>wrap(terminalText(x),w-4)).map(x=>`│ ${x}${' '.repeat(Math.max(0,w-4-width(x)))} │`),paint('cobalto',`└${'─┬─'.repeat(Math.ceil((w-2)/3)).slice(0,w-2)}┘`)].join('\n');
+}
+export const trackLabel = (t:{glifo:string;nombre:string;ventanilla:number;color:Color})=>`${badge(t.color,t.glifo)} Negociado de ${terminalText(t.nombre)} · Ventanilla ${t.ventanilla}`;

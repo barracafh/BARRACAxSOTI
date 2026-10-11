@@ -1,0 +1,489 @@
+[
+  {
+    "slug": "derechos",
+    "nombre": "Derechos",
+    "frase": "Encuentra las ayudas que te corresponden.",
+    "ciudadano": "Ayudas del Estado, GVA y ayuntamiento con requisitos y enlace de solicitud.",
+    "ventanilla": 2,
+    "color": "horta",
+    "glifo": "+",
+    "prefijo": "D",
+    "estado": "nucleo",
+    "lead": "por asignar",
+    "piezas": [
+      "Ayudas para ti",
+      "Compatibilidades y requisitos",
+      "Calendario de convocatorias"
+    ],
+    "paquetes": [
+      {
+        "id": "derechos-base",
+        "nombre": "Pack Derechos",
+        "url": "https://example.invalid/pendiente/derechos.zip",
+        "sha256": "PENDIENTE",
+        "pendiente": true
+      }
+    ],
+    "fuentes": [
+      {
+        "nombre": "www.infosubvenciones.es",
+        "url": "https://www.infosubvenciones.es/"
+      },
+      {
+        "nombre": "dadesobertes.gva.es",
+        "url": "https://dadesobertes.gva.es/"
+      }
+    ],
+    "dificultad": "Fácil",
+    "guias": [
+      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+    ]
+  },
+  {
+    "slug": "claridad",
+    "nombre": "Claridad",
+    "frase": "Del PDF a los pasos claros.",
+    "ciudadano": "Convierte convocatorias en listas de qué hacer y para cuándo.",
+    "ventanilla": 3,
+    "color": "taronja",
+    "glifo": "=",
+    "prefijo": "C",
+    "estado": "nucleo",
+    "lead": "por asignar",
+    "piezas": [
+      "PDF a checklist",
+      "¿Qué me piden y qué no pueden pedirme?",
+      "Dónde descargar cada documento"
+    ],
+    "paquetes": [
+      {
+        "id": "claridad-base",
+        "nombre": "Pack Claridad",
+        "url": "https://example.invalid/pendiente/claridad.zip",
+        "sha256": "PENDIENTE",
+        "pendiente": true
+      }
+    ],
+    "fuentes": [
+      {
+        "nombre": "www.boe.es",
+        "url": "https://www.boe.es/"
+      },
+      {
+        "nombre": "www.infosubvenciones.es",
+        "url": "https://www.infosubvenciones.es/"
+      }
+    ],
+    "dificultad": "Fácil",
+    "guias": [
+      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales.",
+      "Usa PDFs de convocatorias públicas, nunca notificaciones personales. El catálogo de documentos debe llegar revisado antes del hack."
+    ]
+  },
+  {
+    "slug": "sello",
+    "nombre": "Sello + estafas",
+    "frase": "Comprueba antes de confiar.",
+    "ciudadano": "Comprueba webs y mensajes con fuentes oficiales y señales de fraude.",
+    "ventanilla": 9,
+    "color": "roig",
+    "glifo": "#",
+    "prefijo": "S",
+    "estado": "nucleo",
+    "lead": "por asignar",
+    "piezas": [
+      "¿Esta web es oficial?",
+      "Las citas son gratis",
+      "¿Este aviso es oficial?"
+    ],
+    "paquetes": [
+      {
+        "id": "sello-base",
+        "nombre": "Pack Sello + estafas",
+        "url": "https://example.invalid/pendiente/sello.zip",
+        "sha256": "PENDIENTE",
+        "pendiente": true
+      }
+    ],
+    "fuentes": [
+      {
+        "nombre": "datos.gob.es",
+        "url": "https://datos.gob.es/"
+      },
+      {
+        "nombre": "www.incibe.es",
+        "url": "https://www.incibe.es/"
+      },
+      {
+        "nombre": "www.proteccioncivil.es",
+        "url": "https://www.proteccioncivil.es/"
+      }
+    ],
+    "dificultad": "Media",
+    "guias": [
+      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales.",
+      "Prepara dominios-oficiales.json; atribuye las comprobaciones a sus fuentes."
+    ]
+  },
+  {
+    "slug": "brujula",
+    "nombre": "Brújula (GVA y València)",
+    "frase": "Encuentra el trámite y el siguiente paso.",
+    "ciudadano": "Orienta en trámites de GVA y València con pasos y enlaces a sedes oficiales.",
+    "ventanilla": 1,
+    "color": "cobalto",
+    "glifo": ">",
+    "prefijo": "B",
+    "estado": "nucleo",
+    "lead": "por asignar",
+    "piezas": [
+      "Qué trámite necesito",
+      "¿Y si no hay cita?",
+      "Oficinas y canales oficiales"
+    ],
+    "paquetes": [
+      {
+        "id": "brujula-base",
+        "nombre": "Pack Brújula (GVA y València)",
+        "url": "https://example.invalid/pendiente/brujula.zip",
+        "sha256": "PENDIENTE",
+        "pendiente": true
+      }
+    ],
+    "fuentes": [
+      {
+        "nombre": "www.gva.es",
+        "url": "https://www.gva.es/"
+      },
+      {
+        "nombre": "sede.valencia.es",
+        "url": "https://sede.valencia.es/"
+      },
+      {
+        "nombre": "www.boe.es",
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565"
+      }
+    ],
+    "dificultad": "Fácil",
+    "guias": [
+      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+    ]
+  },
+  {
+    "slug": "como-voto",
+    "nombre": "¿Cómo voto? (29N)",
+    "frase": "El proceso electoral, explicado.",
+    "ciudadano": "Guía de voto por correo, consulta del censo y plazos con fuentes electorales.",
+    "ventanilla": 11,
+    "color": "arena",
+    "glifo": "*",
+    "prefijo": "V",
+    "estado": "nucleo",
+    "lead": "por asignar",
+    "piezas": [
+      "Voto por correo",
+      "Dónde votar y censo",
+      "Calendario con fuentes"
+    ],
+    "paquetes": [
+      {
+        "id": "como-voto-base",
+        "nombre": "Pack ¿Cómo voto? (29N)",
+        "url": "https://example.invalid/pendiente/como-voto.zip",
+        "sha256": "PENDIENTE",
+        "pendiente": true
+      }
+    ],
+    "fuentes": [
+      {
+        "nombre": "www.juntaelectoralcentral.es",
+        "url": "https://www.juntaelectoralcentral.es/"
+      },
+      {
+        "nombre": "www.ine.es",
+        "url": "https://www.ine.es/"
+      },
+      {
+        "nombre": "www.boe.es",
+        "url": "https://www.boe.es/"
+      },
+      {
+        "nombre": "www.correos.es",
+        "url": "https://www.correos.es/"
+      }
+    ],
+    "dificultad": "Fácil",
+    "guias": [
+      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales.",
+      "Cada fecha debe citar BOE o Junta Electoral. El comité verificará el calendario antes de publicar el pack."
+    ]
+  },
+  {
+    "slug": "radar",
+    "nombre": "Radar",
+    "frase": "Que no se te pase el plazo.",
+    "ciudadano": "Avisos de plazos de ayudas a partir de convocatorias públicas.",
+    "ventanilla": 5,
+    "color": "taronja",
+    "glifo": "~",
+    "prefijo": "R",
+    "estado": "si-hay-gente",
+    "lead": "por asignar",
+    "piezas": [
+      "Plazos de ayudas",
+      "Calendario descargable",
+      "Alertas sin datos personales"
+    ],
+    "paquetes": [
+      {
+        "id": "radar-base",
+        "nombre": "Pack Radar",
+        "url": "https://example.invalid/pendiente/radar.zip",
+        "sha256": "PENDIENTE",
+        "pendiente": true
+      }
+    ],
+    "fuentes": [
+      {
+        "nombre": "www.infosubvenciones.es",
+        "url": "https://www.infosubvenciones.es/"
+      }
+    ],
+    "dificultad": "Fácil",
+    "guias": [
+      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+    ]
+  },
+  {
+    "slug": "abierto",
+    "nombre": "Abierto",
+    "frase": "Los datos públicos se pueden consultar.",
+    "ciudadano": "Consulta contratos, presupuestos e indicadores con definición y fuente.",
+    "ventanilla": 8,
+    "color": "horta",
+    "glifo": "%",
+    "prefijo": "A",
+    "estado": "si-hay-gente",
+    "lead": "por asignar",
+    "piezas": [
+      "Contratos en claro",
+      "Presupuestos consultables",
+      "Dato oficial"
+    ],
+    "paquetes": [
+      {
+        "id": "abierto-base",
+        "nombre": "Pack Abierto",
+        "url": "https://example.invalid/pendiente/abierto.zip",
+        "sha256": "PENDIENTE",
+        "pendiente": true
+      }
+    ],
+    "fuentes": [
+      {
+        "nombre": "contrataciondelestado.es",
+        "url": "https://contrataciondelestado.es/"
+      },
+      {
+        "nombre": "dadesobertes.gva.es",
+        "url": "https://dadesobertes.gva.es/"
+      },
+      {
+        "nombre": "www.ine.es",
+        "url": "https://www.ine.es/"
+      }
+    ],
+    "dificultad": "Media",
+    "guias": [
+      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+    ]
+  },
+  {
+    "slug": "siguiente",
+    "nombre": "Siguiente",
+    "frase": "Entiende en qué paso estás.",
+    "ciudadano": "Explica los pasos sobre una sede oficial; solo con acompañamiento de Samu o Leo.",
+    "ventanilla": 4,
+    "color": "cobalto",
+    "glifo": ":",
+    "prefijo": "SG",
+    "estado": "condicional",
+    "lead": "por asignar",
+    "piezas": [
+      "En qué paso estoy",
+      "Qué viene después"
+    ],
+    "paquetes": [
+      {
+        "id": "siguiente-base",
+        "nombre": "Pack Siguiente",
+        "url": "https://example.invalid/pendiente/siguiente.zip",
+        "sha256": "PENDIENTE",
+        "pendiente": true
+      }
+    ],
+    "fuentes": [
+      {
+        "nombre": "sede.gva.es",
+        "url": "https://sede.gva.es/"
+      },
+      {
+        "nombre": "sede.valencia.es",
+        "url": "https://sede.valencia.es/"
+      }
+    ],
+    "dificultad": "Difícil",
+    "guias": [
+      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales.",
+      "Solo se activa si lo llevan Samu o Leo."
+    ]
+  },
+  {
+    "slug": "libre",
+    "nombre": "Track libre",
+    "frase": "Una pieza nueva para el centro.",
+    "ciudadano": "Cupo de un squad por orden de llegada, asignado por el comité.",
+    "ventanilla": 12,
+    "color": "tinta",
+    "glifo": "?",
+    "prefijo": "L",
+    "estado": "libre",
+    "lead": "por asignar",
+    "piezas": [
+      "Propuesta de utilidad ciudadana",
+      "Integración en el centro"
+    ],
+    "paquetes": [
+      {
+        "id": "libre-base",
+        "nombre": "Pack Track libre",
+        "url": "https://example.invalid/pendiente/libre.zip",
+        "sha256": "PENDIENTE",
+        "pendiente": true
+      }
+    ],
+    "fuentes": [
+      {
+        "nombre": "datos.gob.es",
+        "url": "https://datos.gob.es/"
+      }
+    ],
+    "dificultad": "Por acotar",
+    "guias": [
+      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+    ],
+    "cupo": 1
+  },
+  {
+    "slug": "turno",
+    "nombre": "Turno",
+    "frase": "Fuera: sin API de citas.",
+    "ciudadano": "La alternativa útil se rescata dentro de Brújula y Sello.",
+    "ventanilla": 6,
+    "color": "arena",
+    "glifo": "-",
+    "prefijo": "T",
+    "estado": "fuera",
+    "lead": "por asignar",
+    "piezas": [
+      "¿Y si no hay cita? → Brújula",
+      "Las citas son gratis → Sello"
+    ],
+    "paquetes": [],
+    "fuentes": [
+      {
+        "nombre": "datos.gob.es",
+        "url": "https://datos.gob.es/"
+      }
+    ],
+    "dificultad": "Difícil",
+    "guias": [
+      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+    ],
+    "motivo": "Fuera: sin API de citas. La alternativa útil se rescata dentro de Brújula y Sello."
+  },
+  {
+    "slug": "respuesta",
+    "nombre": "Respuesta (DANA)",
+    "frase": "Fuera: responsabilidad y alcance.",
+    "ciudadano": "Tema sensible; sin routing de crisis ni mapas de riesgo por dirección.",
+    "ventanilla": 7,
+    "color": "arena",
+    "glifo": "-",
+    "prefijo": "RS",
+    "estado": "fuera",
+    "lead": "por asignar",
+    "piezas": [
+      "¿Este aviso es oficial? → Sello",
+      "Ayudas públicas → Derechos, solo si se cura el contenido"
+    ],
+    "paquetes": [],
+    "fuentes": [
+      {
+        "nombre": "www.proteccioncivil.es",
+        "url": "https://www.proteccioncivil.es/"
+      }
+    ],
+    "dificultad": "Difícil",
+    "guias": [
+      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+    ],
+    "motivo": "Fuera: responsabilidad y alcance. Tema sensible; sin routing de crisis ni mapas de riesgo por dirección."
+  },
+  {
+    "slug": "carpeta",
+    "nombre": "Carpeta",
+    "frase": "Fuera: identidad y datos personales.",
+    "ciudadano": "No crea una cuarta carpeta ni almacena documentos personales.",
+    "ventanilla": 10,
+    "color": "arena",
+    "glifo": "-",
+    "prefijo": "CP",
+    "estado": "fuera",
+    "lead": "por asignar",
+    "piezas": [
+      "¿Qué me piden? → Claridad",
+      "Dónde descargar documentos → Claridad"
+    ],
+    "paquetes": [],
+    "fuentes": [
+      {
+        "nombre": "carpetaciudadana.gob.es",
+        "url": "https://carpetaciudadana.gob.es/"
+      }
+    ],
+    "dificultad": "Difícil",
+    "guias": [
+      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+    ],
+    "motivo": "Fuera: identidad y datos personales. No crea una cuarta carpeta ni almacena documentos personales."
+  },
+  {
+    "slug": "fact-checker",
+    "nombre": "Fact-checker",
+    "frase": "Fuera: verificación humana y campaña.",
+    "ciudadano": "Sin afirmaciones libres ni veredictos sobre candidatos.",
+    "ventanilla": 13,
+    "color": "arena",
+    "glifo": "-",
+    "prefijo": "F",
+    "estado": "fuera",
+    "lead": "por asignar",
+    "piezas": [
+      "Dato oficial → Abierto",
+      "Definiciones de indicadores → Abierto"
+    ],
+    "paquetes": [],
+    "fuentes": [
+      {
+        "nombre": "www.ine.es",
+        "url": "https://www.ine.es/"
+      }
+    ],
+    "dificultad": "Difícil",
+    "guias": [
+      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+    ],
+    "motivo": "Fuera: verificación humana y campaña. Sin afirmaciones libres ni veredictos sobre candidatos."
+  }
+]
