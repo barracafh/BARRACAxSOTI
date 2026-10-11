@@ -112,7 +112,7 @@ export function renderPantalla(
   );
   if (s.error) lines.push(terminalText(s.error));
   lines.push(
-    `${s.pausa ? "PAUSA" : "EN DIRECTO"} · p pausa · q salir · Parodia del hack`,
+    `${s.pausa ? "PAUSA" : "EN DIRECTO"} · p pausa · q salir · BARRACA × SOTI`,
   );
   return lines.map((l) => fit(l, Math.max(12, columns)));
 }

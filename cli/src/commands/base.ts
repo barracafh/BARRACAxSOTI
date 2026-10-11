@@ -98,7 +98,6 @@ export async function expediente(ctx: Contexto) {
         turno
           ? `Ventanilla: ${turno.turno} · ${turno.estado}`
           : "Ventanilla: sin turno",
-        `Parodia del hack · No es una sede oficial.`,
         `Siguiente trámite: barbaritat revisar`,
       ]),
     ctx.opts.json,

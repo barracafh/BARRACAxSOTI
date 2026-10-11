@@ -1,6 +1,6 @@
 # barbaritat
 
-La ventanilla de **Barbaritat Valenciana · BARRACA × SOTI**, 22 de octubre de 2026, MAISA (València). Bun + TypeScript, con GitHub como registro mediante `gh` o un directorio local. Parodia del procedimiento administrativo; no es una sede oficial. No almacena tokens ni modifica herramientas de IA.
+La ventanilla de **Barbaritat Valenciana · BARRACA × SOTI**, 22 de octubre de 2026, MAISA (València). Bun + TypeScript, con GitHub como registro mediante `gh` o un directorio local. Trámites, expedientes y turnos para coordinar el hack. No almacena credenciales ni modifica herramientas de IA.
 
 El build del evento va de **18:30 a 22:00 Europe/Madrid**. Los nueve tracks son los negociados; cada squad tiene una pieza y una mesa. Los cuatro descartados aparecen en `tracks --todos` con su motivo. El comité asigna squads, piezas y el cupo único del track libre en `equipos.json`.
 
@@ -164,6 +164,8 @@ En GitHub la URL debe resolver a una red pública; cada redirección se comprueb
 ## Consumo local (extra)
 
 `barbaritat consumo` lee contadores existentes de Claude Code y Codex, los filtra por directorio del proyecto (incluidos subdirectorios) y por la ventana de build, y muestra la contribución local al squad. No es el total de otras máquinas del equipo. No lee prompts para mostrarlos, no persiste historiales y no envía métricas; solo salen contadores agregados. El justificante añade «Tasa abonada: N tokens» cuando hay consumo atribuible.
+
+Es una consulta puntual: no incluye un watcher continuo, una clasificación compartida de tokens ni una web del evento. `pantalla` es el tablero de coordinación del proyector; no es un leaderboard de consumo.
 
 Rutas de lectura: `~/.claude/projects` (respeta `CLAUDE_CONFIG_DIR`) y `~/.codex/sessions` (respeta `CODEX_HOME`). Para un directorio de pruebas o una copia local usa `BARBARITAT_CLAUDE_DIR` y `BARBARITAT_CODEX_DIR`; esas variables no cambian ninguna configuración de los asistentes. Las líneas malformadas se ignoran; errores de lectura producen avisos de total parcial. Bloques repetidos de Claude y contadores acumulativos de Codex se deduplican; el razonamiento ya incluido en salida no se suma dos veces.
 
