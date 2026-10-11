@@ -2,6 +2,7 @@
 export const paleta = {
   roig: "#C8102E",
   tinta: "#1A1A1A",
+  noche: "#0B1426",
   cal: "#F5F1E6",
   cobalto: "#1F4E9E",
   taronja: "#EE7F1B",

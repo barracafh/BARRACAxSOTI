@@ -4,7 +4,7 @@ import {
   renderImage,
   type ImageProtocol,
 } from "./term-images";
-import { paint, wrap, terminalText, width } from "./estilo";
+import { paint, wrap, terminalText, width, fit } from "./estilo";
 import { eventoBase } from "@hacknight/shared/evento";
 import type { Evento } from "@hacknight/shared/modelo";
 // Mecánica de glifos del banner MIT, con las letras de la marca del evento.
@@ -71,7 +71,13 @@ export function banner(
     (mark ??
       (columns >= Math.max(...rows.map((row) => width(row)))
         ? rows.map((s) => paint("roig", s)).join("\n")
-        : paint("roig", terminalText(evento.nombre_corto)))) +
+        : paint(
+            "roig",
+            fit(
+              `☾ ${terminalText(evento.nombre_corto).toLowerCase()}`,
+              columns,
+            ),
+          ))) +
     "\n" +
     wrap(
       `${terminalText(evento.organizan)} · ${new Date(evento.inicio).toLocaleDateString("es-ES", { timeZone: "Europe/Madrid" })} · MAISA`,

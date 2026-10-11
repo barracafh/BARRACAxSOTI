@@ -1,4 +1,4 @@
-import { fit, panel, paint, terminalText } from "./estilo";
+import { fit, panel, paint, terminalText, fondo } from "./estilo";
 import { cuentaAtras } from "./tiempo";
 import { numeroRegistro, sello } from "./justificante";
 import type { EstadoEvento } from "@hacknight/shared/actividad";
@@ -82,7 +82,7 @@ export function renderPantalla(
       columns,
     ).split("\n"),
   );
-  if (s.registros.length) lines.push(...sello(s.evento).split("\n"));
+  if (s.registros.length) lines.push(...sello(s.evento, columns).split("\n"));
   const avisos = s.entradas.filter((e) => e.tipo === "aviso");
   lines.push(
     ...panel(
@@ -163,9 +163,12 @@ export function startScreen(
     const changes = force ? undefined : diffFrame(previous, next);
     out.write(
       changes === undefined
-        ? `\x1b[H${next.map((l) => l + "\x1b[K").join("\n")}\x1b[J`
+        ? `\x1b[H${next.map((l) => paint("cal", l) + "\x1b[K").join("\n")}\x1b[J`
         : changes
-            .map(({ row, line }) => `\x1b[${row + 1};1H${line}\x1b[K`)
+            .map(
+              ({ row, line }) =>
+                `\x1b[${row + 1};1H${paint("cal", line)}\x1b[K`,
+            )
             .join(""),
     );
     previous = next;
@@ -179,7 +182,7 @@ export function startScreen(
     }
   };
   const resize = () => draw(true);
-  out.write("\x1b[?1049h\x1b[?25l\x1b[2J");
+  out.write(`\x1b[?1049h\x1b[?25l${fondo("noche")}\x1b[2J`);
   stdin.setRawMode(true);
   stdin.resume();
   stdin.on("data", key);
@@ -193,7 +196,7 @@ export function startScreen(
       stdin.off("data", key);
       stdin.setRawMode(Boolean(originalRaw));
       stdin.pause();
-      out.write("\x1b[?25h\x1b[?1049l");
+      out.write(`${fondo()}\x1b[?25h\x1b[?1049l`);
     },
   };
 }

@@ -43,7 +43,19 @@ test("marca y azulejos caben en 80 columnas y marca pequeña en 30", () => {
   ).toBeLessThanOrEqual(80);
   for (const line of panel("Su expediente", ["a".repeat(200)]).split("\n"))
     expect(Bun.stringWidth(line)).toBeLessThanOrEqual(80);
-  expect(banner(30, null)).toContain("Hack night");
+  expect(wordmarkRows()).toHaveLength(6);
+  expect(new Set(wordmarkRows().map((s) => Bun.stringWidth(s))).size).toBe(1);
+  expect(banner(30, null)).toContain("☾ hack night");
+  expect(banner(80, null)).toContain("BARRACA × SOTI · 22/10/2026 · MAISA");
+  for (const columns of [30, 72, 73, 80])
+    for (const line of banner(columns, null).split("\n"))
+      expect(Bun.stringWidth(line)).toBeLessThanOrEqual(columns);
+  const lunar = panel("🌙 Hack night", ["Una noche 🌙 para construir"], 30);
+  expect(lunar).toContain("☾ Hack night");
+  expect(lunar).not.toContain("🌙");
+  expect(new Set(lunar.split("\n").map((s) => Bun.stringWidth(s))).size).toBe(
+    1,
+  );
 });
 for (const args of [
   [],

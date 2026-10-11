@@ -11,6 +11,7 @@ import { numeroRegistro, justificante, sello } from "../src/lib/justificante";
 import { revisar, comprobarUrl, direccionPublica } from "../src/lib/revision";
 import { validarFicha } from "../src/lib/ficha";
 import schema from "../esquemas/ficha.schema.json";
+import { eventoBase } from "@hacknight/shared/evento";
 export const fichaPrueba: Ficha = {
   nombre: "Ayudas de prueba",
   frase: "Encuentra ayudas.",
@@ -94,7 +95,29 @@ test("número y justificante deterministas", async () => {
   expect(justificante(r, track, false).csv).toHaveLength(16);
   expect(sello()).toContain("REGISTRO DE ENTRADA");
   expect(sello()).toContain("22 OCT 2026");
+  expect(sello()).toContain("HACK NIGHT");
 });
+test("el sello tiene doble borde, sangría fija y todas sus filas del mismo ancho", () => {
+  for (const columns of [30, 80]) {
+    for (const evento of [
+      eventoBase,
+      {
+        ...eventoBase,
+        nombre_corto: "Una noche 🌙 con un nombre mucho más largo",
+      },
+    ]) {
+      const rows = Bun.stripANSI(sello(evento, columns)).split("\n");
+      const widths = rows.map((row) => Bun.stringWidth(row));
+      expect(new Set(widths).size).toBe(1);
+      expect(widths[0]).toBeLessThanOrEqual(columns);
+      expect(rows[0]).toMatch(/^ {3}╔═+╗$/);
+      expect(rows.at(-1)).toMatch(/^ {3}╚═+╝$/);
+      for (const row of rows.slice(1, -1)) expect(row).toMatch(/^ {3}║ .* ║$/);
+      expect(rows.join("\n")).not.toContain("🌙");
+    }
+  }
+});
+
 test("local actualiza una ficha y conserva el número", async () => {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-reg-"));
   await mkdir(join(dir, "fichas"));

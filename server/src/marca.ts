@@ -1,4 +1,5 @@
 import type { Evento } from "@hacknight/shared/modelo";
+import { paleta } from "@hacknight/shared/paleta";
 
 const escaparHtml = (value: string) =>
   value.replace(
@@ -15,9 +16,10 @@ export function paginaEvento(html: string, evento: Evento) {
     nombre: evento.nombre,
     nombre_corto: evento.nombre_corto,
     organizan: evento.organizan,
+    noche: paleta.noche,
   };
   return html.replace(
-    /\{\{(nombre|nombre_corto|organizan)\}\}/g,
+    /\{\{(nombre|nombre_corto|organizan|noche)\}\}/g,
     (_, key: keyof typeof marca) => escaparHtml(marca[key]),
   );
 }

@@ -207,7 +207,7 @@ bun run embed-logo
 bun run build:bin:host
 ```
 
-El script aplana el PNG sobre blanco e incrusta una tarjeta para Kitty/Ghostty/WezTerm/iTerm2/VS Code. La prueba usa un PNG generado en un directorio temporal y no lo sube. Sin logo se muestra el wordmark (73 columnas); en terminal estrecho, marca pequeña.
+El script aplana el PNG sobre blanco e incrusta una tarjeta para Kitty/Ghostty/WezTerm/iTerm2/VS Code. La prueba usa un PNG generado en un directorio temporal y no lo sube. Sin logo se muestra el wordmark (73 columnas); en terminal estrecho, `☾ hack night`. Dentro de cajas se usa `☾` para mantener la alineación. El proyector usa el fondo `noche` de la paleta común; `--plain` produce una captura de texto y `NO_COLOR` desactiva el color.
 
 `scripts/build-all.sh` compila macOS/Linux x64/arm64 y Windows x64; produce `dist/SHA256SUMS`. `--host` solo compila esta máquina. No publica. Las releases deben usar tags `cli-vX.Y.Z`, assets `hacknight-<os>-<arch>[.exe]` y `SHA256SUMS`. Ajusta `package.json` y `src/version.ts` juntos antes de versionar.
 
