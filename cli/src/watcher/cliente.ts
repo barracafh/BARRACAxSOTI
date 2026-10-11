@@ -1,14 +1,10 @@
+import type { Uso } from "../consumo/colectores";
+import { usoSchema, type EventoUso } from "@barbaritat/shared/contrato-uso";
 import { hostname } from "node:os";
 import { resolve } from "node:path";
-import {
-  hash,
-  publicarUso,
-  servidorLocal,
-  ventanaId,
-  type Lote,
-} from "./contrato";
+import { hash, ventanaId, type Lote } from "@barbaritat/shared/contrato-uso";
 import { leerConsumo } from "../consumo/local";
-import type { Evento } from "../lib/modelo";
+import type { Evento } from "@barbaritat/shared/modelo";
 
 export async function escanear(options: {
   cwd: string;
@@ -63,4 +59,32 @@ export async function escanear(options: {
     }
   }
   return { ...resumen, sincronizado: Boolean(options.servidor), cambios };
+}
+
+export function publicarUso(e: Uso): EventoUso {
+  return usoSchema.parse({
+    id: hash(e.id),
+    herramienta: e.herramienta,
+    fecha: new Date(e.fecha).toISOString(),
+    input: e.input,
+    output: e.output,
+    cacheRead: e.cacheRead,
+    cacheWrite: e.cacheWrite,
+  });
+}
+export function servidorLocal(value: string): URL {
+  const url = new URL(value);
+  if (
+    url.protocol !== "http:" ||
+    !["127.0.0.1", "localhost", "[::1]"].includes(url.hostname) ||
+    url.username ||
+    url.password ||
+    url.pathname !== "/" ||
+    url.search ||
+    url.hash
+  )
+    throw new Error(
+      "Esta versión conecta solo con un servidor HTTP local, sin ruta ni credenciales.",
+    );
+  return url;
 }

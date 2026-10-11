@@ -1,8 +1,8 @@
 import { join } from "node:path";
 import { mkdir, rm, readFile } from "node:fs/promises";
 import { z } from "zod";
-import { leer, guardar, esAusente } from "../lib/io";
-import { CliError } from "../lib/errors";
+import { leer, guardar, esAusente } from "../io";
+import { CliError } from "../errors";
 import { leerGestion } from "./gestion";
 import {
   eventoSchema,
@@ -14,7 +14,7 @@ import {
   type Issue,
   type RegistroFicha,
   type Ficha,
-} from "../lib/modelo";
+} from "../modelo";
 const stateSchema = z.object({
   siguiente: z.number().int().positive(),
   issues: z.array(issueSchema),

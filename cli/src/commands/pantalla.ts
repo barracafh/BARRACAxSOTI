@@ -1,29 +1,13 @@
 import type { Contexto } from "../lib/contexto";
-import { entradas, obtenerCola } from "./social";
+import { snapshot as leerEstado } from "@barbaritat/shared/actividad";
 import {
   renderPantalla,
   startScreen,
   type EstadoPantalla,
 } from "../lib/screen";
 import { salida } from "../lib/output";
-export async function snapshot(ctx: Contexto): Promise<EstadoPantalla> {
-  const [evento, tracks, equipos, registros, cola, feed] = await Promise.all([
-    ctx.registro.evento(),
-    ctx.registro.tracks(),
-    ctx.registro.equipos(),
-    ctx.registro.fichas(),
-    obtenerCola(ctx),
-    entradas(ctx),
-  ]);
-  return {
-    evento,
-    tracks,
-    equipos,
-    registros: registros.sort((a, b) => b.fecha.localeCompare(a.fecha)),
-    cola,
-    entradas: feed,
-  };
-}
+export const snapshot = (ctx: Contexto): Promise<EstadoPantalla> =>
+  leerEstado(ctx.registro);
 export async function pantalla(ctx: Contexto, once = false) {
   let state = await snapshot(ctx);
   if (

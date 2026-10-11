@@ -1,7 +1,6 @@
 import { createHash } from "node:crypto";
 import { z } from "zod";
-import type { Uso } from "../consumo/colectores";
-import type { Evento } from "../lib/modelo";
+import type { Evento } from "./modelo";
 
 // Contrato propio; toma del watcher MIT la normalización y la deduplicación.
 // Nunca se serializan logs, rutas, prompts, respuestas ni IDs de sesión originales.
@@ -33,30 +32,3 @@ export type Lote = z.infer<typeof loteSchema>;
 export const totalUso = (
   e: Pick<EventoUso, "input" | "output" | "cacheRead" | "cacheWrite">,
 ) => e.input + e.output + e.cacheRead + e.cacheWrite;
-export function publicarUso(e: Uso): EventoUso {
-  return usoSchema.parse({
-    id: hash(e.id),
-    herramienta: e.herramienta,
-    fecha: new Date(e.fecha).toISOString(),
-    input: e.input,
-    output: e.output,
-    cacheRead: e.cacheRead,
-    cacheWrite: e.cacheWrite,
-  });
-}
-export function servidorLocal(value: string): URL {
-  const url = new URL(value);
-  if (
-    url.protocol !== "http:" ||
-    !["127.0.0.1", "localhost", "[::1]"].includes(url.hostname) ||
-    url.username ||
-    url.password ||
-    url.pathname !== "/" ||
-    url.search ||
-    url.hash
-  )
-    throw new Error(
-      "Esta versión conecta solo con un servidor HTTP local, sin ruta ni credenciales.",
-    );
-  return url;
-}

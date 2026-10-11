@@ -3,10 +3,10 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { strict as assert } from "node:assert";
-import { inicializarRegistro } from "../../src/registro/gestion";
-import { contexto } from "../../src/lib/contexto";
-import { RegistroLocal } from "../../src/registro/local";
-import { iniciarServidor } from "../../src/live/servidor";
+import { inicializarRegistro } from "@barbaritat/shared/registro/gestion";
+import { contexto } from "../../cli/src/lib/contexto";
+import { RegistroLocal } from "@barbaritat/shared/registro/local";
+import { iniciarServidor } from "../../server/src/servidor";
 
 const root = resolve(import.meta.dir, "../..");
 export async function prepararPruebaLive() {
@@ -150,7 +150,7 @@ export async function prepararPruebaLive() {
 
 export async function arrancarPruebaLive(puerto = 0) {
   const f = await prepararPruebaLive();
-  const server = await iniciarServidor(f.ctx, {
+  const server = await iniciarServidor(f.ctx.registro as RegistroLocal, {
     puerto,
     db: join(f.dir, "uso.sqlite"),
   });
@@ -190,7 +190,7 @@ export async function arrancarPruebaLive(puerto = 0) {
   const logs: Promise<unknown>[] = [];
   const cli = process.env.BARBARITAT_BIN
     ? [resolve(process.env.BARBARITAT_BIN)]
-    : [process.execPath, join(root, "src/index.ts")];
+    : [process.execPath, join(root, "cli/src/index.ts")];
   const command = (i: number) => [
     ...cli,
     "--registro",

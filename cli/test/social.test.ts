@@ -3,13 +3,13 @@ import { mkdtemp, cp } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { RegistroLocal } from "../src/registro/local";
+import { RegistroLocal } from "@barbaritat/shared/registro/local";
 import { entradas, obtenerCola } from "../src/commands/social";
 import { snapshot } from "../src/commands/pantalla";
 import { renderPantalla, frame, diffFrame } from "../src/lib/screen";
 async function fixture() {
   const dir = await mkdtemp(join(tmpdir(), "barbaritat-social-"));
-  await cp(join(import.meta.dir, "./fixtures/registro"), dir, {
+  await cp(join(import.meta.dir, "../../test/fixtures/registro"), dir, {
     recursive: true,
   });
   const r = new RegistroLocal(dir, "demo-alba");

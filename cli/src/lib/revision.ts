@@ -5,9 +5,9 @@ import { isIP } from "node:net";
 import { ejecutar } from "./proceso";
 import { leerFicha } from "./ficha";
 import { detectar, type Hallazgo } from "./detectores";
-import { CliError } from "./errors";
+import { CliError } from "@barbaritat/shared/errors";
 import type { Contexto } from "./contexto";
-import type { Ficha } from "./modelo";
+import type { Ficha } from "@barbaritat/shared/modelo";
 export interface Regla {
   numero: number;
   nombre: string;

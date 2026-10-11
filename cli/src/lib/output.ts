@@ -1,5 +1,5 @@
 import { spinner } from "@clack/prompts";
-import { CliError } from "./errors";
+import { CliError } from "@barbaritat/shared/errors";
 import { paint, terminalText, wrap } from "./estilo";
 export function salida(data: unknown, texto: string, json = false) {
   console.log(json ? JSON.stringify({ ok: true, data }) : texto);

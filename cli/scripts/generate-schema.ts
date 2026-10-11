@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { fichaSchema } from "../src/lib/modelo";
+import { fichaSchema } from "@barbaritat/shared/modelo";
 await Bun.write(
   new URL("../esquemas/ficha.schema.json", import.meta.url),
   JSON.stringify(

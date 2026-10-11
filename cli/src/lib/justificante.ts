@@ -1,4 +1,4 @@
-import type { RegistroFicha, Track } from "./modelo";
+import type { RegistroFicha, Track } from "@barbaritat/shared/modelo";
 import { fechaMadrid } from "./tiempo";
 import { paint, trackLabel, panel } from "./estilo";
 export const numeroRegistro = (n: number) =>

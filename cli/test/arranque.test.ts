@@ -3,7 +3,7 @@ import { mkdtemp, cp, writeFile, access } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { pathToFileURL } from "node:url";
-import { RegistroLocal } from "../src/registro/local";
+import { RegistroLocal } from "@barbaritat/shared/registro/local";
 import { descargar, sha256 } from "../src/lib/datos";
 import {
   assetName,
@@ -15,7 +15,7 @@ import {
 async function setup() {
   const dir = await mkdtemp(join(tmpdir(), "barbaritat-start-"));
   const reg = join(dir, "registro");
-  await cp(join(import.meta.dir, "./fixtures/registro"), reg, {
+  await cp(join(import.meta.dir, "../../test/fixtures/registro"), reg, {
     recursive: true,
   });
   return { dir, reg };

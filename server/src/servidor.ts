@@ -1,16 +1,18 @@
 import { mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
-import type { Contexto } from "../lib/contexto";
-import { snapshot } from "../commands/pantalla";
-import { paleta } from "../lib/estilo";
+import { snapshot } from "@barbaritat/shared/actividad";
+import { paleta } from "@barbaritat/shared/paleta";
 import { AlmacenUso } from "./almacen";
-import { loteSchema } from "./contrato";
+import { loteSchema } from "@barbaritat/shared/contrato-uso";
 import html from "../../web/index.html" with { type: "text" };
 import css from "../../web/style.css" with { type: "text" };
 import js from "../../web/app.js" with { type: "text" };
 
-import { RegistroLocal } from "../registro/local";
-import { administracion, ErrorGestion } from "../registro/gestion";
+import { RegistroLocal } from "@barbaritat/shared/registro/local";
+import {
+  administracion,
+  ErrorGestion,
+} from "@barbaritat/shared/registro/gestion";
 import {
   crearAdmin,
   claveAdministracion,
@@ -21,13 +23,12 @@ import adminHtml from "../../web/admin.html" with { type: "text" };
 import adminJs from "../../web/admin.js" with { type: "text" };
 
 export function crearHandler(
-  ctx: Contexto,
+  registro: RegistroLocal,
   almacen: AlmacenUso,
   clave?: string,
 ) {
-  if (!(ctx.registro instanceof RegistroLocal))
+  if (!(registro instanceof RegistroLocal))
     throw new Error("Se requiere registro local");
-  const registro = ctx.registro;
   const admin = crearAdmin(registro, clave);
   return async (req: Request) => {
     const url = new URL(req.url);
@@ -52,7 +53,7 @@ export function crearHandler(
           equipos: async () => gestion.equipos,
           comite: async () => gestion.comite,
         });
-        const estado = await snapshot({ ...ctx, registro: estable });
+        const estado = await snapshot(estable);
         const { vistas } = gestion;
         const consumo = vistas.clasificacion
           ? almacen.clasificacion(estado.evento, estado.equipos, estado.tracks)
@@ -84,8 +85,8 @@ export function crearHandler(
             400,
           );
         const [evento, equipos] = await Promise.all([
-          ctx.registro.evento(),
-          ctx.registro.equipos(),
+          registro.evento(),
+          registro.equipos(),
         ]);
         try {
           return json({
@@ -143,26 +144,24 @@ export function crearHandler(
 }
 
 export async function iniciarServidor(
-  ctx: Contexto,
+  registro: RegistroLocal,
   options: {
     puerto: number;
     db: string;
   },
 ) {
-  if (ctx.registro.tipo !== "local")
-    throw new Error("El servidor de pruebas requiere --registro file:///…");
+  if (registro.tipo !== "local")
+    throw new Error("El servidor requiere un directorio de registro local.");
   await mkdir(dirname(options.db), { recursive: true });
   const almacen = new AlmacenUso(options.db);
   try {
-    await snapshot(ctx);
-    const admin = await claveAdministracion(
-      (ctx.registro as RegistroLocal).dir,
-    );
+    await snapshot(registro);
+    const admin = await claveAdministracion(registro.dir);
     const server = Bun.serve({
       hostname: "127.0.0.1",
       port: options.puerto,
       maxRequestBodySize: 256_000,
-      fetch: crearHandler(ctx, almacen, admin.clave),
+      fetch: crearHandler(registro, almacen, admin.clave),
     });
     return {
       url: server.url.href,

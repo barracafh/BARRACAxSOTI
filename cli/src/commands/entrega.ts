@@ -5,13 +5,13 @@ import { join, resolve } from "node:path";
 import type { Contexto } from "../lib/contexto";
 import { miEquipo } from "../lib/contexto";
 import { leerFicha, validarFicha } from "../lib/ficha";
-import { guardar } from "../lib/io";
-import { CliError, usage } from "../lib/errors";
+import { guardar } from "@barbaritat/shared/io";
+import { CliError, usage } from "@barbaritat/shared/errors";
 import { salida } from "../lib/output";
 import { panel } from "../lib/estilo";
 import { revisar, revisionTexto, revisionPublica } from "../lib/revision";
 import { justificante, justificanteTexto } from "../lib/justificante";
-import type { Ficha } from "../lib/modelo";
+import type { Ficha } from "@barbaritat/shared/modelo";
 async function ask(message: string, initialValue = "") {
   const v = await text({
     message,

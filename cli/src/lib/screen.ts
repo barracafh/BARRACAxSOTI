@@ -1,16 +1,8 @@
 import { fit, panel, paint, terminalText } from "./estilo";
 import { cuentaAtras } from "./tiempo";
 import { numeroRegistro, sello } from "./justificante";
-import type { Evento, Equipo, Track, RegistroFicha } from "./modelo";
-import type { Cita } from "./cola";
-import type { Entrada } from "../commands/social";
-export interface EstadoPantalla {
-  evento: Evento;
-  tracks: Track[];
-  equipos: Equipo[];
-  registros: RegistroFicha[];
-  cola: Cita[];
-  entradas: Entrada[];
+import type { EstadoEvento } from "@barbaritat/shared/actividad";
+export interface EstadoPantalla extends EstadoEvento {
   pausa?: boolean;
   error?: string;
 }

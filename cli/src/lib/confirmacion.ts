@@ -1,6 +1,6 @@
 import { confirm, isCancel } from "@clack/prompts";
 import type { Contexto } from "./contexto";
-import { CliError } from "./errors";
+import { CliError } from "@barbaritat/shared/errors";
 export async function confirmar(ctx: Contexto, message: string) {
   if (ctx.opts.confirmar) return;
   if (ctx.opts.json || !process.stdin.isTTY || !process.stdout.isTTY)

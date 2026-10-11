@@ -2,8 +2,6 @@ dist/
 node_modules/
 .barbaritat-live/
 *.tmp
-registro-base/.estado.json
-registro-base/.lock/
 
 .admin-key
 .gestion.json

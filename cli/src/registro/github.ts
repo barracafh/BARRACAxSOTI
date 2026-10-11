@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { ejecutar, type Runner } from "../lib/proceso";
-import { CliError } from "../lib/errors";
+import { CliError } from "@barbaritat/shared/errors";
 import {
   eventoSchema,
   equipoSchema,
@@ -11,7 +11,7 @@ import {
   type Issue,
   type Ficha,
   type RegistroFicha,
-} from "../lib/modelo";
+} from "@barbaritat/shared/modelo";
 const ghIssue = z.object({
   number: z.number(),
   title: z.string(),

@@ -1,4 +1,4 @@
-import { CliError } from "./errors";
+import { CliError } from "@barbaritat/shared/errors";
 export type Runner = (
   args: string[],
   input?: unknown,

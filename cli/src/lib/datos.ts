@@ -2,8 +2,8 @@ import { readFile, mkdir, writeFile, rename } from "node:fs/promises";
 import { join, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { Contexto } from "./contexto";
-import type { Paquete } from "./modelo";
-import { CliError } from "./errors";
+import type { Paquete } from "@barbaritat/shared/modelo";
+import { CliError } from "@barbaritat/shared/errors";
 export const sha256 = (bytes: Uint8Array) =>
   new Bun.CryptoHasher("sha256").update(bytes).digest("hex");
 export async function descargar(

@@ -4,7 +4,7 @@ import { select, isCancel } from "@clack/prompts";
 import { contexto, type Contexto } from "./lib/contexto";
 import { setPlain } from "./lib/estilo";
 import { fallo, salida } from "./lib/output";
-import { CliError } from "./lib/errors";
+import { CliError } from "@barbaritat/shared/errors";
 import { tracks, expediente } from "./commands/base";
 import { ficha, revision, registrar } from "./commands/entrega";
 import { cita, ventanilla, tablon, publicar } from "./commands/social";
@@ -13,7 +13,6 @@ import { tramitar, datos } from "./commands/arranque";
 import { actualizar } from "./commands/actualizar";
 import { consumo } from "./commands/consumo";
 import { observar } from "./commands/observar";
-import { servidor } from "./commands/servidor";
 const program = new Command()
   .name("barbaritat")
   .description("Azulejo y ventanilla · BARRACA × SOTI")
@@ -150,13 +149,6 @@ for (const name of ["observar", "watch"]) {
     .option("--once", "Una lectura y salir")
     .action(async (o) => run((ctx) => observar(ctx, o))());
 }
-program
-  .command("servidor")
-  .description("Web y backend local para probar el hack en directo")
-  .option("--puerto <numero>", "Puerto HTTP local", "4310")
-  .option("--db <archivo>", "Persistencia SQLite de los contadores")
-  .option("--directorio <ruta>", "Crear o abrir una instancia local vacía")
-  .action(async (o) => run((ctx) => servidor(ctx, o))());
 program.command("status", { hidden: true }).action(run(expediente));
 program.command("vuelva-usted-mañana", { hidden: true }).action(() =>
   salida(

@@ -7,13 +7,13 @@ import {
   inicializarRegistro,
   administracion,
   type Gestion,
-} from "../src/registro/gestion";
-import { RegistroLocal } from "../src/registro/local";
-import { contexto, miEquipo } from "../src/lib/contexto";
-import { AlmacenUso } from "../src/live/almacen";
-import { crearHandler } from "../src/live/servidor";
-import { claveAdministracion } from "../src/live/admin";
-import { hash, ventanaId } from "../src/live/contrato";
+} from "@barbaritat/shared/registro/gestion";
+import { RegistroLocal } from "@barbaritat/shared/registro/local";
+import { contexto, miEquipo } from "../cli/src/lib/contexto";
+import { AlmacenUso } from "../server/src/almacen";
+import { crearHandler } from "../server/src/servidor";
+import { claveAdministracion } from "../server/src/admin";
+import { hash, ventanaId } from "@barbaritat/shared/contrato-uso";
 
 const equipo = {
   id: "test-equipo",
@@ -34,7 +34,7 @@ async function fixture() {
   const reg = ctx.registro as RegistroLocal;
   const almacen = new AlmacenUso(join(dir, "uso.sqlite"));
   const clave = "test-admin-key-only-for-isolated-unit-tests";
-  const handler = crearHandler(ctx, almacen, clave);
+  const handler = crearHandler(ctx.registro as RegistroLocal, almacen, clave);
   const request = (
     path: string,
     method = "GET",
@@ -203,7 +203,11 @@ test("equipos, comité y horario persisten y los comandos CLI ven la misma asign
     expect(publicText).not.toContain("test-builder");
     expect(publicText).not.toContain(f.clave);
     expect(publicText).not.toContain(f.dir);
-    const newHandler = crearHandler(f.ctx, f.almacen, f.clave);
+    const newHandler = crearHandler(
+      f.ctx.registro as RegistroLocal,
+      f.almacen,
+      f.clave,
+    );
     expect(
       (
         await newHandler(

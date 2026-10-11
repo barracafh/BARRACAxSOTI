@@ -1,8 +1,8 @@
 import { test, expect } from "bun:test";
 import { RegistroGitHub } from "../src/registro/github";
-import { CliError } from "../src/lib/errors";
+import { CliError } from "@barbaritat/shared/errors";
 import type { Runner } from "../src/lib/proceso";
-import type { Ficha } from "../src/lib/modelo";
+import type { Ficha } from "@barbaritat/shared/modelo";
 const f: Ficha = {
   nombre: "Demo",
   frase: "Texto",

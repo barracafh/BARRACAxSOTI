@@ -1,20 +1,17 @@
+import {
+  obtenerCola as leerCola,
+  entradas as leerEntradas,
+} from "@barbaritat/shared/actividad";
 import { text, isCancel } from "@clack/prompts";
 import { z } from "zod";
 import type { Contexto } from "../lib/contexto";
 import { miEquipo } from "../lib/contexto";
-import { CliError, usage } from "../lib/errors";
+import { CliError, usage } from "@barbaritat/shared/errors";
 import { salida } from "../lib/output";
 import { panel, trackLabel, terminalText, wrap } from "../lib/estilo";
-import { cola, citaBody, type Cita } from "../lib/cola";
+import { citaBody, type Cita } from "@barbaritat/shared/cola";
 import { confirmar } from "../lib/confirmacion";
-export async function obtenerCola(ctx: Contexto) {
-  const [issues, teams, tracks] = await Promise.all([
-    ctx.registro.issues(),
-    ctx.registro.equipos(),
-    ctx.registro.tracks(),
-  ]);
-  return cola(issues, teams, tracks);
-}
+export const obtenerCola = (ctx: Contexto) => leerCola(ctx.registro);
 export async function cita(ctx: Contexto, accion?: string, motivo?: string) {
   const { equipo, track } = await miEquipo(ctx);
   const q = await obtenerCola(ctx);
@@ -207,76 +204,7 @@ export async function ventanilla(
     ctx.opts.json,
   );
 }
-export interface Entrada {
-  id: string;
-  tipo: string;
-  fecha: string;
-  herramienta: string | null;
-  glifo: string;
-  texto: string;
-  url: string;
-}
-export async function entradas(ctx: Contexto): Promise<Entrada[]> {
-  const [issues, comite, registros, pushes, tracks, teams] = await Promise.all([
-    ctx.registro.issues(),
-    ctx.registro.comite(),
-    ctx.registro.fichas(),
-    ctx.registro.pushes(),
-    ctx.registro.tracks(),
-    ctx.registro.equipos(),
-  ]);
-  const out: Entrada[] = [];
-  const glifo = (slug: string | null) =>
-    tracks.find((t) => t.slug === slug)?.glifo ?? "·";
-  for (const i of issues) {
-    const aviso =
-      i.etiquetas.includes("aviso") &&
-      comite.some((c) => c.toLowerCase() === i.autor.toLowerCase());
-    if (i.etiquetas.includes("aviso") && !aviso) continue;
-    if (!aviso && !i.etiquetas.includes("tablon")) continue;
-    const track =
-      teams.find((t) =>
-        t.miembros.some((m) => m.toLowerCase() === i.autor.toLowerCase()),
-      )?.herramienta ?? null;
-    let texto = i.cuerpo || i.titulo;
-    try {
-      const parsed = z
-        .object({ texto: z.string() })
-        .safeParse(JSON.parse(i.cuerpo));
-      if (parsed.success) texto = parsed.data.texto;
-    } catch {}
-    out.push({
-      id: `issue-${i.numero}`,
-      tipo: aviso ? "aviso" : "publicacion",
-      fecha: i.fecha,
-      herramienta: track,
-      glifo: glifo(track),
-      texto: `@${i.autor}: ${texto}`,
-      url: i.url,
-    });
-  }
-  for (const r of registros)
-    out.push({
-      id: `registro-${r.numero}`,
-      tipo: "registro",
-      fecha: r.fecha,
-      herramienta: r.ficha.herramienta,
-      glifo: glifo(r.ficha.herramienta),
-      texto: `Registro ${r.ficha.nombre} · ${r.estado}`,
-      url: r.ficha.url,
-    });
-  for (const p of pushes)
-    out.push({
-      id: `push-${p.id}`,
-      tipo: "push",
-      fecha: p.fecha,
-      herramienta: p.herramienta,
-      glifo: glifo(p.herramienta),
-      texto: p.texto,
-      url: p.url,
-    });
-  return out.sort((a, b) => b.fecha.localeCompare(a.fecha));
-}
+export const entradas = (ctx: Contexto) => leerEntradas(ctx.registro);
 export async function tablon(ctx: Contexto, n = 20) {
   if (!Number.isInteger(n) || n < 1 || n > 100)
     throw usage("-n debe ser un entero entre 1 y 100.");

@@ -14,3 +14,7 @@ No se incluyen nombre comercial, logos, wordmark gráfico, ilustraciones ni logo
 El backend local y su contrato de contadores son propios. Se conservan los conceptos del watcher del origen: ventana del evento, deduplicación y separación entre uso y contenido. No se incorpora su backend Convex/RawTree ni sus mecanismos de instalación de hooks.
 
 La web propia toma como referente funcional la landing y el dashboard Insights de HackSpain, con marca, composición y código de interfaz propios. No se copian sus imágenes, fuentes, datos históricos ni componentes de terceros.
+
+## Organización del workspace
+
+Las extensiones del evento están separadas en `web/` y `server/`. Los modelos, la paleta y el registro local residen en `shared/`; conservan la atribución MIT descrita aquí. El CLI de participantes y su watcher permanecen en `cli/`. La web solo se incluye en el ejecutable del servidor.

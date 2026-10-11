@@ -1,20 +1,20 @@
+import { RegistroLocal } from "@barbaritat/shared/registro/local";
+import { publicarUso, servidorLocal } from "../cli/src/watcher/cliente";
 import { test, expect } from "bun:test";
 import { mkdtemp, cp, writeFile, mkdir } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { AlmacenUso } from "../src/live/almacen";
+import { AlmacenUso } from "../server/src/almacen";
 import {
   hash,
   loteSchema,
-  publicarUso,
-  servidorLocal,
   ventanaId,
   type Lote,
-} from "../src/live/contrato";
-import { contexto } from "../src/lib/contexto";
-import { crearHandler } from "../src/live/servidor";
-import { leerConsumo } from "../src/consumo/local";
+} from "@barbaritat/shared/contrato-uso";
+import { contexto } from "../cli/src/lib/contexto";
+import { crearHandler } from "../server/src/servidor";
+import { leerConsumo } from "../cli/src/consumo/local";
 
 async function fixture() {
   const dir = await mkdtemp(join(tmpdir(), "barbaritat-live-test-"));
@@ -100,7 +100,7 @@ test("los reintentos, reinicios y dos watchers no inflan la clasificación", asy
 
 test("API valida identidad de demo, ventana, cuerpo y origen sin guardar contenido arbitrario", async () => {
   const f = await fixture();
-  const handler = crearHandler(f.ctx, f.almacen);
+  const handler = crearHandler(f.ctx.registro as RegistroLocal, f.almacen);
   const post = (data: unknown, headers: Record<string, string> = {}) =>
     handler(
       new Request("http://127.0.0.1:4310/api/uso", {
@@ -205,7 +205,7 @@ test("observar --once --json funciona sin servidor, sin leer logs del usuario", 
   const p = Bun.spawn(
     [
       process.execPath,
-      join(import.meta.dir, "../src/index.ts"),
+      join(import.meta.dir, "../cli/src/index.ts"),
       "--registro",
       pathToFileURL(join(f.dir, "registro")).href,
       "--json",

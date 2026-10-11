@@ -1,8 +1,9 @@
+import { RegistroLocal } from "@barbaritat/shared/registro/local";
 import { strict as assert } from "node:assert";
 import { join } from "node:path";
 import { arrancarPruebaLive } from "../test/support/live-fixture";
-import { consumoLocal } from "../src/consumo/local";
-import { iniciarServidor } from "../src/live/servidor";
+import { consumoLocal } from "../cli/src/consumo/local";
+import { iniciarServidor } from "../server/src/servidor";
 
 const demo = await arrancarPruebaLive();
 const estado = async (base = demo.url) => {
@@ -122,7 +123,7 @@ try {
 } finally {
   await demo.close();
 }
-const restarted = await iniciarServidor(demo.ctx, {
+const restarted = await iniciarServidor(demo.ctx.registro as RegistroLocal, {
   puerto: 0,
   db: join(demo.dir, "uso.sqlite"),
 });
@@ -141,24 +142,23 @@ try {
 }
 console.log(`Circuito live completo. Archivos de prueba: ${demo.dir}`);
 
-// El comando servidor debe servir los assets también desde el binario autónomo.
-const cli = process.env.BARBARITAT_BIN
-  ? [process.env.BARBARITAT_BIN]
-  : [process.execPath, join(import.meta.dir, "../src/index.ts")];
-async function probarServidorCLI(vacio: boolean) {
+// El servidor independiente debe servir los assets también desde el binario autónomo.
+const serverCommand = process.env.BARBARITAT_SERVER_BIN
+  ? [process.env.BARBARITAT_SERVER_BIN]
+  : [process.execPath, join(import.meta.dir, "../server/src/index.ts")];
+async function probarServidor(vacio: boolean) {
   const serverProcess = Bun.spawn(
     [
-      ...cli,
-      ...(vacio ? [] : ["--registro", `file://${demo.reg}`]),
+      ...serverCommand,
+      ...(vacio ? [] : ["--directorio", demo.reg]),
       "--json",
-      "servidor",
       "--puerto",
       "0",
       ...(vacio
         ? ["--directorio", join(demo.dir, "instancia-vacia")]
         : ["--db", join(demo.dir, "uso.sqlite")]),
     ],
-    { stdout: "pipe", stderr: "pipe" },
+    { cwd: demo.dir, stdout: "pipe", stderr: "pipe" },
   );
   const killTimer = setTimeout(() => serverProcess.kill("SIGKILL"), 10000);
   try {
@@ -190,7 +190,7 @@ async function probarServidorCLI(vacio: boolean) {
       assert.deepEqual(s.equipos, []);
       assert.equal(s.consumo.activos, 0);
       console.log(
-        "PASS: CLI crea una instancia vacía sin participantes, consumo ni watchers.",
+        "PASS: Backend crea una instancia vacía sin participantes, consumo ni watchers.",
       );
     }
     serverProcess.kill("SIGTERM");
@@ -199,7 +199,7 @@ async function probarServidorCLI(vacio: boolean) {
     assert.equal(output.ok, true);
     assert.equal(output.data.detenido, true);
     console.log(
-      "PASS: comando servidor sirve assets embebidos y emite un único JSON al cerrar.",
+      "PASS: ejecutable del servidor sirve assets embebidos y emite un único JSON al cerrar.",
     );
   } finally {
     clearTimeout(killTimer);
@@ -207,5 +207,5 @@ async function probarServidorCLI(vacio: boolean) {
     await serverProcess.exited;
   }
 }
-await probarServidorCLI(false);
-await probarServidorCLI(true);
+await probarServidor(false);
+await probarServidor(true);

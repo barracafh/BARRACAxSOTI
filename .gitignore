@@ -43,3 +43,13 @@ Thumbs.db
 *.m4a
 *.mp3
 *.wav
+
+# Instancias locales del evento (fuera del directorio por defecto)
+.admin-key
+.gestion.json
+.admin-lock/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+shared/registro-base/.estado.json
+shared/registro-base/.lock/

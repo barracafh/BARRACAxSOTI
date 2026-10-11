@@ -2,8 +2,8 @@ import { join } from "node:path";
 import { homedir } from "node:os";
 import { readFile } from "node:fs/promises";
 import { z } from "zod";
-import { esAusente } from "./io";
-import { CliError } from "./errors";
+import { esAusente } from "@barbaritat/shared/io";
+import { CliError } from "@barbaritat/shared/errors";
 const schema = z.object({
   registro: z.string().optional(),
   plantilla: z.string().optional(),

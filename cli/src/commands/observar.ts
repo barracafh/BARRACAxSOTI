@@ -1,10 +1,10 @@
 import type { Contexto } from "../lib/contexto";
 import { miEquipo } from "../lib/contexto";
-import { CliError } from "../lib/errors";
+import { CliError } from "@barbaritat/shared/errors";
 import { salida } from "../lib/output";
 import { panel, trackLabel, fit } from "../lib/estilo";
-import { escanear } from "../live/cliente";
-import { servidorLocal } from "../live/contrato";
+import { escanear } from "../watcher/cliente";
+import { servidorLocal } from "../watcher/cliente";
 
 export async function observar(
   ctx: Contexto,
@@ -91,7 +91,7 @@ export async function observar(
       throw new CliError(
         "SYNC_PENDING",
         error,
-        "Arranca barbaritat servidor y vuelve a ejecutar observar.",
+        "Arranca el backend con bun run start desde la raíz del repo y vuelve a ejecutar observar.",
         5,
       );
     salida(

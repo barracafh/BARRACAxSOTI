@@ -1,9 +1,12 @@
 import { readFile, writeFile, chmod } from "node:fs/promises";
 import { join } from "node:path";
 import { createHash, timingSafeEqual } from "node:crypto";
-import { esAusente } from "../lib/io";
-import { administracion, guardarGestion } from "../registro/gestion";
-import type { RegistroLocal } from "../registro/local";
+import { esAusente } from "@barbaritat/shared/io";
+import {
+  administracion,
+  guardarGestion,
+} from "@barbaritat/shared/registro/gestion";
+import type { RegistroLocal } from "@barbaritat/shared/registro/local";
 
 export async function claveAdministracion(dir: string) {
   const path = join(dir, ".admin-key");

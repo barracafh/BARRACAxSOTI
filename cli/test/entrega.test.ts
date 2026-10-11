@@ -5,8 +5,8 @@ import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { z } from "zod";
 import { dniValido, ibanValido, detectar } from "../src/lib/detectores";
-import { RegistroLocal } from "../src/registro/local";
-import { fichaSchema, type Ficha } from "../src/lib/modelo";
+import { RegistroLocal } from "@barbaritat/shared/registro/local";
+import { fichaSchema, type Ficha } from "@barbaritat/shared/modelo";
 import { numeroRegistro, justificante, sello } from "../src/lib/justificante";
 import { revisar, comprobarUrl, direccionPublica } from "../src/lib/revision";
 import { validarFicha } from "../src/lib/ficha";
@@ -63,7 +63,7 @@ test("esquema compartido y slug activo", async () => {
     z.toJSONSchema(fichaSchema, { unrepresentable: "any" }),
   );
   const tracks = await new RegistroLocal(
-    join(import.meta.dir, "./fixtures/registro"),
+    join(import.meta.dir, "../../test/fixtures/registro"),
   ).tracks();
   expect(validarFicha(fichaPrueba, tracks)).toEqual(fichaPrueba);
   expect(() =>
@@ -79,7 +79,7 @@ test("esquema compartido y slug activo", async () => {
 test("número y justificante deterministas", async () => {
   const track = (
     await new RegistroLocal(
-      join(import.meta.dir, "./fixtures/registro"),
+      join(import.meta.dir, "../../test/fixtures/registro"),
     ).tracks()
   )[0]!;
   const r = {
@@ -145,7 +145,7 @@ test("revisión falla por DNI y botón, y se subsana", async () => {
     expect(await p.exited).toBe(0);
   }
   const r = new RegistroLocal(
-    join(import.meta.dir, "./fixtures/registro"),
+    join(import.meta.dir, "../../test/fixtures/registro"),
     "demo-alba",
   );
   const ctx = {
@@ -215,7 +215,7 @@ test("la ficha que se publicará se escanea aunque todavía no esté versionada"
     JSON.stringify({ ...fichaPrueba, nombre: "Persona 12345678Z" }),
   );
   const r = new RegistroLocal(
-    join(import.meta.dir, "./fixtures/registro"),
+    join(import.meta.dir, "../../test/fixtures/registro"),
     "demo-alba",
   );
   const ctx = {

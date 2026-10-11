@@ -1,12 +1,12 @@
 import type { Contexto } from "../lib/contexto";
 import { identidad } from "../lib/contexto";
-import { CliError } from "../lib/errors";
+import { CliError } from "@barbaritat/shared/errors";
 import { salida, tramitando } from "../lib/output";
 import { panel, trackLabel, terminalText } from "../lib/estilo";
 import { banner } from "../lib/banner";
 import { cuentaAtras } from "../lib/tiempo";
 import { revisar } from "../lib/revision";
-import { cola } from "../lib/cola";
+import { cola } from "@barbaritat/shared/cola";
 export async function tracks(ctx: Contexto, slug?: string, todos = false) {
   const ts = await tramitando("Consultando el registro…", ctx.opts.json, () =>
     ctx.registro.tracks(),

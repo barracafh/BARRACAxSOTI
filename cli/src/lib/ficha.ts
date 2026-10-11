@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { fichaSchema, type Ficha, type Track } from "./modelo";
-import { CliError } from "./errors";
+import { fichaSchema, type Ficha, type Track } from "@barbaritat/shared/modelo";
+import { CliError } from "@barbaritat/shared/errors";
 export function validarFicha(value: unknown, tracks: Track[]): Ficha {
   const parsed = fichaSchema.safeParse(value);
   if (!parsed.success)

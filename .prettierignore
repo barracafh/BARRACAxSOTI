@@ -1,0 +1,5 @@
+node_modules/
+**/dist/
+cli/src/assets/plantilla.ts
+cli/src/assets/logo.ts
+cli/esquemas/ficha.schema.json

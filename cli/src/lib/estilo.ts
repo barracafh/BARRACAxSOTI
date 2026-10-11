@@ -1,22 +1,5 @@
-// Adaptado de style.ts del origen MIT. Todos los colores se deciden aquí.
-export const paleta = {
-  roig: "#C8102E",
-  tinta: "#1A1A1A",
-  cal: "#F5F1E6",
-  cobalto: "#1F4E9E",
-  taronja: "#EE7F1B",
-  horta: "#2F7D4A",
-  arena: "#E8DCC4",
-} as const;
-export type Color = keyof typeof paleta;
-export const roles = {
-  ok: "horta",
-  error: "roig",
-  aviso: "taronja",
-  acento: "cobalto",
-  marca: "roig",
-  tenue: "arena",
-} as const;
+import { paleta, type Color } from "@barbaritat/shared/paleta";
+export { paleta, roles, type Color } from "@barbaritat/shared/paleta";
 let enabled =
   Boolean(process.stdout.isTTY) &&
   process.env.NO_COLOR === undefined &&
