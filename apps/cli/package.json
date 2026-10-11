@@ -19,7 +19,7 @@
     "format:check": "prettier --check src test scripts/*.ts esquemas README.md",
     "schema": "bun scripts/generate-schema.ts",
     "check": "bun run typecheck && bun test && bun run format:check",
-    "test:flujo": "cd .. && bun run test:flujo"
+    "test:flujo": "cd ../.. && bun run test:flujo"
   },
   "dependencies": {
     "@clack/prompts": "^1.7.0",

@@ -9,14 +9,14 @@ import {
   type Gestion,
 } from "@hacknight/shared/registro/gestion";
 import { RegistroLocal } from "@hacknight/shared/registro/local";
-import { contexto, miEquipo } from "../cli/src/lib/contexto";
-import { AlmacenUso } from "../server/src/almacen";
-import { crearHandler } from "../server/src/servidor";
-import { claveAdministracion } from "../server/src/admin";
+import { contexto, miEquipo } from "../apps/cli/src/lib/contexto";
+import { AlmacenUso } from "../apps/server/src/almacen";
+import { crearHandler } from "../apps/server/src/servidor";
+import { claveAdministracion } from "../apps/server/src/admin";
 import { hash, ventanaId } from "@hacknight/shared/contrato-uso";
 import { eventoBase } from "@hacknight/shared/evento";
-import { banner } from "../cli/src/lib/banner";
-import { sello } from "../cli/src/lib/justificante";
+import { banner } from "../apps/cli/src/lib/banner";
+import { sello } from "../apps/cli/src/lib/justificante";
 
 const equipo = {
   id: "test-equipo",

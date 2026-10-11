@@ -94,7 +94,7 @@ Comprueba que todo responde con `git --version`, `bun --version` y `gh auth stat
 git clone https://github.com/luisgonzaleznf/BARRACAxSOTI.git
 cd BARRACAxSOTI
 bun install
-bun run cli --registro "file://$PWD/shared/registro-base" tracks
+bun run cli --registro "file://$PWD/packages/shared/registro-base" tracks
 ```
 
 Ese registro local trae los tracks reales, sin equipos todavía. Para ver el recorrido completo de un squad con datos de prueba (ficha, revisión, registro, cita y pantalla), ejecuta `bun run test:flujo`.
@@ -111,30 +111,30 @@ Los trámites principales:
 | `hacknight cita`      | Pide ayuda: te da un turno y el comité te llama a tu mesa                    |
 | `hacknight tablon`    | Lo que está pasando en la sala                                               |
 
-La lista completa y la configuración están en [cli/README.md](cli/README.md).
+La lista completa y la configuración están en [apps/cli/README.md](apps/cli/README.md).
 
 ## Qué hay aquí
 
-| Carpeta                               | Contenido                                                                |
-| ------------------------------------- | ------------------------------------------------------------------------ |
-| [cli/](cli/)                          | `hacknight`, el CLI de participantes                                     |
-| [web/](web/) · [server/](server/)     | La web del evento (leaderboard, proyector y administración) y su backend |
-| [shared/](shared/)                    | Lo común: modelos, tracks, paleta y el nombre del evento                 |
-| [test/](test/) · [scripts/](scripts/) | Pruebas de integración y el circuito completo con datos aislados         |
-| [docs/](docs/)                        | Guías cortas para participantes y comité                                 |
+| Carpeta                                             | Contenido                                                                |
+| --------------------------------------------------- | ------------------------------------------------------------------------ |
+| [apps/cli/](apps/cli)                               | `hacknight`, el CLI de participantes                                     |
+| [apps/web/](apps/web) · [apps/server/](apps/server) | La web del evento (leaderboard, proyector y administración) y su backend |
+| [packages/shared/](packages/shared)                 | Lo común: modelos, tracks, paleta y el nombre del evento                 |
+| [test/](test) · [scripts/](scripts)                 | Pruebas de integración y el circuito completo con datos aislados         |
+| [docs/](docs)                                       | Guías cortas para participantes y comité                                 |
 
-El nombre del evento está en un solo sitio: [`shared/registro-base/evento.json`](shared/registro-base/evento.json).
+El nombre del evento está en un solo sitio: [`packages/shared/registro-base/evento.json`](packages/shared/registro-base/evento.json).
 
 ## Para el comité y quien desarrolle
 
 ```sh
 bun run start           # web y administración en http://127.0.0.1:4310
 bun run check           # tipos, tests y formato
-bun run build:bin:host  # binarios cli/dist/hacknight y server/dist/hacknight-server
+bun run build:bin:host  # binarios apps/cli/dist/hacknight y apps/server/dist/hacknight-server
 ```
 
-- **Montar el registro de la noche:** [cli/README.md](cli/README.md#montar-el-registro-guía-del-comité).
-- **Servidor y administración:** [server/README.md](server/README.md).
+- **Montar el registro de la noche:** [apps/cli/README.md](apps/cli/README.md#montar-el-registro-guía-del-comité).
+- **Servidor y administración:** [apps/server/README.md](apps/server/README.md).
 - **Pendiente antes del 22/10:**
   - crear el repo del registro y el de releases;
   - conectar la plantilla real;
@@ -143,4 +143,4 @@ bun run build:bin:host  # binarios cli/dist/hacknight y server/dist/hacknight-se
 
 ## Créditos
 
-El CLI parte del [CLI de HackSpain](https://github.com/HackSpain/hackspain26) (MIT, © Asociación Exponential Fellowship), sin su marca. Los detalles están en [cli/AVISO.md](cli/AVISO.md).
+El CLI parte del [CLI de HackSpain](https://github.com/HackSpain/hackspain26) (MIT, © Asociación Exponential Fellowship), sin su marca. Los detalles están en [apps/cli/AVISO.md](apps/cli/AVISO.md).

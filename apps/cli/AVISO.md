@@ -17,4 +17,4 @@ La web propia toma como referente funcional la landing y el dashboard Insights d
 
 ## Organización del workspace
 
-Las extensiones del evento están separadas en `web/` y `server/`. Los modelos, la paleta y el registro local residen en `shared/`; conservan la atribución MIT descrita aquí. El CLI de participantes y su watcher permanecen en `cli/`. La web solo se incluye en el ejecutable del servidor.
+Las extensiones del evento están separadas en `apps/web/` y `apps/server/`. Los modelos, la paleta y el registro local residen en `packages/shared/`; conservan la atribución MIT descrita aquí. El CLI de participantes y su watcher permanecen en `apps/cli/`. La web solo se incluye en el ejecutable del servidor.

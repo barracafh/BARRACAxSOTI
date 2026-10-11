@@ -9,7 +9,7 @@ import { snapshot } from "../src/commands/pantalla";
 import { renderPantalla, frame, diffFrame } from "../src/lib/screen";
 async function fixture() {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-social-"));
-  await cp(join(import.meta.dir, "../../test/fixtures/registro"), dir, {
+  await cp(join(import.meta.dir, "../../../test/fixtures/registro"), dir, {
     recursive: true,
   });
   const r = new RegistroLocal(dir, "demo-alba");

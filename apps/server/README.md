@@ -1,6 +1,6 @@
 # Servidor local de Hack night
 
-Backend del evento, independiente del CLI de participantes: HTTP, administración y SQLite. Sirve los assets de [web/](../web/) y utiliza los modelos de [shared/](../shared/). El ejecutable no importa código de `cli/`.
+Backend del evento, independiente del CLI de participantes: HTTP, administración y SQLite. Sirve los assets de [apps/web/](../web) y utiliza los modelos de [packages/shared/](../../packages/shared). El ejecutable no importa código de `apps/cli/`.
 
 ## Arranque local vacío
 
@@ -18,8 +18,8 @@ La terminal indica dónde está `.admin-key`; introduce el contenido de ese arch
 Después de `bun run build:bin:host` desde la raíz, también funciona desde su propio binario, sin Bun ni archivos web externos:
 
 ```sh
-./server/dist/hacknight-server
-./server/dist/hacknight-server --directorio /ruta/instancia --puerto 4320
+./apps/server/dist/hacknight-server
+./apps/server/dist/hacknight-server --directorio /ruta/instancia --puerto 4320
 ```
 
 Para un registro local que ya existe: `bun run start --directorio /ruta/registro`. `--directorio` crea o abre una instancia; nunca sobreescribe los JSON existentes. `--db` permite elegir la SQLite (por defecto, `uso.sqlite` dentro del registro). `Ctrl+C` cierra el servidor.
@@ -59,7 +59,7 @@ Desde la raíz:
 bun run check
 bun run test:live
 bun run build:bin:host
-HACKNIGHT_BIN="$PWD/cli/dist/hacknight" HACKNIGHT_SERVER_BIN="$PWD/server/dist/hacknight-server" bun run test:live
+HACKNIGHT_BIN="$PWD/apps/cli/dist/hacknight" HACKNIGHT_SERVER_BIN="$PWD/apps/server/dist/hacknight-server" bun run test:live
 ```
 
 `test:live` prueba administración, watcher, clasificación, privacidad del payload, controles de vistas, reintentos y reinicio con persistencia; cierra todos sus procesos. Los participantes ficticios solo existen en los fixtures de `test/`. Producción queda pendiente: [TODO de infraestructura](../web/README.md#todo-antes-de-alojarlo).

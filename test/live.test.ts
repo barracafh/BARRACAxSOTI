@@ -1,20 +1,20 @@
 import { RegistroLocal } from "@hacknight/shared/registro/local";
-import { publicarUso, servidorLocal } from "../cli/src/watcher/cliente";
+import { publicarUso, servidorLocal } from "../apps/cli/src/watcher/cliente";
 import { test, expect } from "bun:test";
 import { mkdtemp, cp, writeFile, mkdir } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { AlmacenUso } from "../server/src/almacen";
+import { AlmacenUso } from "../apps/server/src/almacen";
 import {
   hash,
   loteSchema,
   ventanaId,
   type Lote,
 } from "@hacknight/shared/contrato-uso";
-import { contexto } from "../cli/src/lib/contexto";
-import { crearHandler } from "../server/src/servidor";
-import { leerConsumo } from "../cli/src/consumo/local";
+import { contexto } from "../apps/cli/src/lib/contexto";
+import { crearHandler } from "../apps/server/src/servidor";
+import { leerConsumo } from "../apps/cli/src/consumo/local";
 
 async function fixture() {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-live-test-"));
@@ -205,7 +205,7 @@ test("observar --once --json funciona sin servidor, sin leer logs del usuario", 
   const p = Bun.spawn(
     [
       process.execPath,
-      join(import.meta.dir, "../cli/src/index.ts"),
+      join(import.meta.dir, "../apps/cli/src/index.ts"),
       "--registro",
       pathToFileURL(join(f.dir, "registro")).href,
       "--json",

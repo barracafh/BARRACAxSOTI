@@ -1,6 +1,6 @@
 # Web de Hack night
 
-Web del evento y dashboard local, servidos por [server/](../server/) (`bun run start` desde la raíz del repo). HTML, CSS y JavaScript sin dependencias de navegador ni servicios externos. Los assets se incluyen en `server/dist/hacknight-server`; el CLI no los incorpora. La paleta llega de `shared/src/paleta.ts` mediante `/paleta.css`; el token `noche` da el fondo a la web, el admin y el proyector. El logo gráfico sigue pendiente: se muestra la marca tipográfica con la luna.
+Web del evento y dashboard local, servidos por [apps/server/](../server) (`bun run start` desde la raíz del repo). HTML, CSS y JavaScript sin dependencias de navegador ni servicios externos. Los assets se incluyen en `apps/server/dist/hacknight-server`; el CLI no los incorpora. La paleta llega de `packages/shared/src/paleta.ts` mediante `/paleta.css`; el token `noche` da el fondo a la web, el admin y el proyector. El logo gráfico sigue pendiente: se muestra la marca tipográfica con la luna.
 
 Los títulos, metadatos y cabeceras se renderizan con el evento del registro; `marca.js` los actualiza tras las consultas o al guardar desde el admin. No hay un nombre de evento duplicado en el HTML.
 
@@ -12,7 +12,7 @@ Los títulos, metadatos y cabeceras se renderizan con el evento del registro; `m
 - `POST/DELETE /api/admin/sesion`: inicio/cierre de sesión local con clave; cookie HttpOnly/SameSite.
 - `GET/PUT /api/admin`: configuración con revisión, validación y escritura atómica.
 
-La instancia empieza vacía y nunca arranca watchers. Los fixtures y logs sintéticos viven en `../test/`; no hay generador ni endpoint de simulación en la aplicación. Las vistas deshabilitadas se filtran en la API, y el proyector apagado devuelve 403. Las asignaciones y ajustes persisten en `.gestion.json`, compartido por web y CLI. La clave `.admin-key` se guarda con permisos 0600; las sesiones caducan al reiniciar.
+La instancia empieza vacía y nunca arranca watchers. Los fixtures y logs sintéticos viven en `../../test/`; no hay generador ni endpoint de simulación en la aplicación. Las vistas deshabilitadas se filtran en la API, y el proyector apagado devuelve 403. Las asignaciones y ajustes persisten en `.gestion.json`, compartido por web y CLI. La clave `.admin-key` se guarda con permisos 0600; las sesiones caducan al reiniciar.
 
 El referente funcional es la web del evento y la sección Insights del dashboard de HackSpain `2865d19`. Esta interfaz está adaptada desde cero a «Azulejo y ventanilla»; no copia sus assets, signup, cuentas ni backend. MIT y atribución: [LICENSE](../cli/LICENSE) y [AVISO.md](../cli/AVISO.md).
 

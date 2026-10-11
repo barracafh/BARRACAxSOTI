@@ -31,4 +31,4 @@ La idea de fondo: **los equipos no se forman en la sala.** Se forman antes, con 
 - **En la sala:**
   - el check-in va de 17:00 a 17:30;
   - un squad que se quede con menos de 3 personas se fusiona con el otro squad de su track.
-- **En el CLI:** las asignaciones van en `equipos.json` del registro. Así `hacknight` enseña a cada persona su squad, su pieza y su mesa. El formato está en [cli/README.md](../cli/README.md#montar-el-registro-guía-del-comité).
+- **En el CLI:** las asignaciones van en `equipos.json` del registro. Así `hacknight` enseña a cada persona su squad, su pieza y su mesa. El formato está en [apps/cli/README.md](../apps/cli/README.md#montar-el-registro-guía-del-comité).

@@ -6,7 +6,7 @@ import { pathToFileURL } from "node:url";
 test("registro JSON: revisar, registrar, actualizar y plazo; sin red real", async () => {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-flujo-"));
   const reg = join(dir, "registro");
-  await cp(join(import.meta.dir, "../../test/fixtures/registro"), reg, {
+  await cp(join(import.meta.dir, "../../../test/fixtures/registro"), reg, {
     recursive: true,
   });
   const pre = join(dir, "network-mock.js");

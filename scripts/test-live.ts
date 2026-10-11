@@ -2,8 +2,8 @@ import { RegistroLocal } from "@hacknight/shared/registro/local";
 import { strict as assert } from "node:assert";
 import { join } from "node:path";
 import { arrancarPruebaLive } from "../test/support/live-fixture";
-import { consumoLocal } from "../cli/src/consumo/local";
-import { iniciarServidor } from "../server/src/servidor";
+import { consumoLocal } from "../apps/cli/src/consumo/local";
+import { iniciarServidor } from "../apps/server/src/servidor";
 
 const demo = await arrancarPruebaLive();
 const estado = async (base = demo.url) => {
@@ -145,7 +145,7 @@ console.log(`Circuito live completo. Archivos de prueba: ${demo.dir}`);
 // El servidor independiente debe servir los assets también desde el binario autónomo.
 const serverCommand = process.env.HACKNIGHT_SERVER_BIN
   ? [process.env.HACKNIGHT_SERVER_BIN]
-  : [process.execPath, join(import.meta.dir, "../server/src/index.ts")];
+  : [process.execPath, join(import.meta.dir, "../apps/server/src/index.ts")];
 async function probarServidor(vacio: boolean) {
   const serverProcess = Bun.spawn(
     [

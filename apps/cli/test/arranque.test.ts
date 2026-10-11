@@ -15,7 +15,7 @@ import {
 async function setup() {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-start-"));
   const reg = join(dir, "registro");
-  await cp(join(import.meta.dir, "../../test/fixtures/registro"), reg, {
+  await cp(join(import.meta.dir, "../../../test/fixtures/registro"), reg, {
     recursive: true,
   });
   return { dir, reg };

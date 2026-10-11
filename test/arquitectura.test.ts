@@ -40,9 +40,9 @@ async function dependencias(entrypoints: string[]) {
 }
 
 test("el CLI compilado incluye el watcher, sin servidor, SQLite ni assets web", async () => {
-  const graph = await dependencias(["cli/src/index.ts"]);
+  const graph = await dependencias(["apps/cli/src/index.ts"]);
   expect(
-    graph.files.some((p) => p.endsWith("cli/src/watcher/cliente.ts")),
+    graph.files.some((p) => p.endsWith("apps/cli/src/watcher/cliente.ts")),
   ).toBe(true);
   expect(graph.files.some((p) => /(^|\/)(server|web)\//.test(p))).toBe(false);
   expect(graph.code.includes("bun:sqlite")).toBe(false);
@@ -50,8 +50,10 @@ test("el CLI compilado incluye el watcher, sin servidor, SQLite ni assets web", 
 });
 
 test("el servidor incluye web y SQLite sin importar comandos del CLI", async () => {
-  const graph = await dependencias(["server/src/index.ts"]);
-  expect(graph.files.some((p) => p.endsWith("server/src/admin.ts"))).toBe(true);
+  const graph = await dependencias(["apps/server/src/index.ts"]);
+  expect(graph.files.some((p) => p.endsWith("apps/server/src/admin.ts"))).toBe(
+    true,
+  );
   expect(graph.code.includes("renderRanking")).toBe(true);
   expect(graph.code.includes("bun:sqlite")).toBe(true);
   expect(graph.files.some((p) => /(^|\/)cli\//.test(p))).toBe(false);
@@ -59,10 +61,10 @@ test("el servidor incluye web y SQLite sin importar comandos del CLI", async () 
 
 test("los contratos y el registro compartidos no dependen de ninguna aplicación", async () => {
   const graph = await dependencias([
-    "shared/src/registro/local.ts",
-    "shared/src/actividad.ts",
-    "shared/src/contrato-uso.ts",
-    "shared/src/paleta.ts",
+    "packages/shared/src/registro/local.ts",
+    "packages/shared/src/actividad.ts",
+    "packages/shared/src/contrato-uso.ts",
+    "packages/shared/src/paleta.ts",
   ]);
   expect(graph.files.some((p) => /(^|\/)(cli|server|web)\//.test(p))).toBe(
     false,

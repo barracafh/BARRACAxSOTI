@@ -8,7 +8,7 @@ import { wordmarkRows, banner } from "../src/lib/banner";
 import { panel } from "../src/lib/estilo";
 test("el fixture de pruebas tiene todos los negociados y cuatro squads", async () => {
   const r = new RegistroLocal(
-    join(import.meta.dir, "../../test/fixtures/registro"),
+    join(import.meta.dir, "../../../test/fixtures/registro"),
     "demo-alba",
   );
   expect((await r.tracks()).length).toBe(13);
@@ -18,7 +18,7 @@ test("el fixture de pruebas tiene todos los negociados y cuatro squads", async (
 });
 test("registro local persiste y cierra issues", async () => {
   const p = await mkdtemp(join(tmpdir(), "hacknight-test-"));
-  await cp(join(import.meta.dir, "../../test/fixtures/registro"), p, {
+  await cp(join(import.meta.dir, "../../../test/fixtures/registro"), p, {
     recursive: true,
   });
   const r = new RegistroLocal(p, "demo-alba");
@@ -73,7 +73,7 @@ for (const args of [
         join(import.meta.dir, "../src/index.ts"),
         "--json",
         "--registro",
-        new URL("../../test/fixtures/registro", import.meta.url).href,
+        new URL("../../../test/fixtures/registro", import.meta.url).href,
         ...args,
       ],
       {

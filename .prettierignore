@@ -1,5 +1,5 @@
 node_modules/
 **/dist/
-cli/src/assets/plantilla.ts
-cli/src/assets/logo.ts
-cli/esquemas/ficha.schema.json
+apps/cli/src/assets/plantilla.ts
+apps/cli/src/assets/logo.ts
+apps/cli/esquemas/ficha.schema.json

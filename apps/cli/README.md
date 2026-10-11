@@ -11,8 +11,8 @@ Desde la raíz del repo (un único workspace Bun y lockfile):
 ```sh
 bun install --frozen-lockfile
 bun run check
-bun run --cwd cli build:bin:host
-./cli/dist/hacknight --help
+bun run --cwd apps/cli build:bin:host
+./apps/cli/dist/hacknight --help
 ```
 
 El binario es autónomo. Cópialo a un directorio de tu `PATH` si quieres invocarlo como `hacknight`. Git es necesario para tramitar/revisar; para el backend GitHub también hace falta `gh` instalado y `gh auth login`. Se usa su sesión existente, sin guardar credenciales propias.
@@ -20,7 +20,7 @@ El binario es autónomo. Cópialo a un directorio de tu `PATH` si quieres invoca
 `install.sh` y `actualizar` están **desactivados sin repo de releases**. Cuando el comité lo cree, el instalador descargará el asset de la plataforma y comprobará `SHA256SUMS`:
 
 ```sh
-HACKNIGHT_RELEASES=organizacion/releases sh cli/install.sh
+HACKNIGHT_RELEASES=organizacion/releases sh apps/cli/install.sh
 hacknight actualizar --check
 hacknight actualizar
 ```
@@ -29,9 +29,9 @@ hacknight actualizar
 
 ## Web y administración
 
-Viven fuera de este paquete: [web/](../web/) contiene la interfaz y [server/](../server/) el backend local con administración, SQLite y proyector web. Desde la raíz del repo, `bun run start` abre una instancia vacía. El servidor tiene su propio ejecutable, `server/dist/hacknight-server`.
+Viven fuera de este paquete: [apps/web/](../web) contiene la interfaz y [apps/server/](../server) el backend local con administración, SQLite y proyector web. Desde la raíz del repo, `bun run start` abre una instancia vacía. El servidor tiene su propio ejecutable, `apps/server/dist/hacknight-server`.
 
-El CLI local lee las mismas asignaciones guardadas desde `/admin`. La configuración, la clave de administración y el control de vistas se explican en [server/README.md](../server/README.md). Para conectar el watcher, consulta [el circuito con uso real](#probar-web--watcher--leaderboard-con-uso-real).
+El CLI local lee las mismas asignaciones guardadas desde `/admin`. La configuración, la clave de administración y el control de vistas se explican en [apps/server/README.md](../server/README.md). Para conectar el watcher, consulta [el circuito con uso real](#probar-web--watcher--leaderboard-con-uso-real).
 
 ## Pruebas aisladas
 
@@ -43,14 +43,14 @@ bun run test:live
 bun run test:flujo
 ```
 
-Los participantes ficticios y los generadores de logs están **solo en `test/fixtures` y `test/support`**. `test:live` levanta sockets locales y procesos watcher con historiales sintéticos, comprueba sus totales y cierra todos sus procesos. No consulta tus historiales de IA ni llama a proveedores. `test:flujo` recorre expediente → tramitar → ficha → revisión fallida → corrección → registro → cita → llamada → pantalla, con el DNI sintético deliberado del stub. `cli/scripts/demo.sh` se conserva como alias de ese test de flujo.
+Los participantes ficticios y los generadores de logs están **solo en `test/fixtures` y `test/support`**. `test:live` levanta sockets locales y procesos watcher con historiales sintéticos, comprueba sus totales y cierra todos sus procesos. No consulta tus historiales de IA ni llama a proveedores. `test:flujo` recorre expediente → tramitar → ficha → revisión fallida → corrección → registro → cita → llamada → pantalla, con el DNI sintético deliberado del stub. `apps/cli/scripts/demo.sh` se conserva como alias de ese test de flujo.
 
 Para comprobar el ejecutable autónomo:
 
 ```sh
 bun run build:bin:host
-HACKNIGHT_BIN="$PWD/cli/dist/hacknight" HACKNIGHT_SERVER_BIN="$PWD/server/dist/hacknight-server" bun run test:live
-HACKNIGHT_BIN="$PWD/cli/dist/hacknight" bun run test:flujo
+HACKNIGHT_BIN="$PWD/apps/cli/dist/hacknight" HACKNIGHT_SERVER_BIN="$PWD/apps/server/dist/hacknight-server" bun run test:live
+HACKNIGHT_BIN="$PWD/apps/cli/dist/hacknight" bun run test:flujo
 ```
 
 No hay identidad local predeterminada. Indica `--usuario <tu-handle>` o `HACKNIGHT_USUARIO`. GitHub ignora esa variable y rechaza `--usuario`: allí la identidad procede de `gh api user`.
@@ -116,7 +116,7 @@ El registro por defecto es un **placeholder**. Variables equivalentes: `HACKNIGH
 
 ## Montar el registro: guía del comité
 
-Luis y el comité deben crear y configurar el repo central. La aplicación no provisiona esos repos ni sus releases. Copia los JSON de `shared/registro-base`, añade los equipos y handles del comité, sustituye los placeholders, y revisa los tracks antes de abrir el evento.
+Luis y el comité deben crear y configurar el repo central. La aplicación no provisiona esos repos ni sus releases. Copia los JSON de `packages/shared/registro-base`, añade los equipos y handles del comité, sustituye los placeholders, y revisa los tracks antes de abrir el evento.
 
 | Ruta                  | Formato                                                                                                                                                                                                                                       |
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -140,11 +140,11 @@ Ejemplo de evento (las fechas llevan el offset de Madrid del día del hack):
 }
 ```
 
-Cada track contiene `slug`, `nombre`, `frase`, `ciudadano`, `ventanilla` (número), `color` (token de la paleta), `glifo`, `prefijo` de turno, `estado`, `lead`, `piezas` (2–3 textos), `paquetes`, `fuentes`, `dificultad` y `guias`. `cupo` y `motivo` son opcionales; el track libre tiene cupo 1 y los descartados explican su motivo. Estados: `nucleo`, `si-hay-gente`, `condicional`, `libre` y `fuera`. Los leads siguen «por asignar»; Jesús, Iban, Pau y Alex todavía no tienen reparto. Véase el [catálogo completo](../shared/registro-base/tracks.json).
+Cada track contiene `slug`, `nombre`, `frase`, `ciudadano`, `ventanilla` (número), `color` (token de la paleta), `glifo`, `prefijo` de turno, `estado`, `lead`, `piezas` (2–3 textos), `paquetes`, `fuentes`, `dificultad` y `guias`. `cupo` y `motivo` son opcionales; el track libre tiene cupo 1 y los descartados explican su motivo. Estados: `nucleo`, `si-hay-gente`, `condicional`, `libre` y `fuera`. Los leads siguen «por asignar»; Jesús, Iban, Pau y Alex todavía no tienen reparto. Véase el [catálogo completo](../../packages/shared/registro-base/tracks.json).
 
 Un paquete es `{"id":"derechos-base","nombre":"BDNS","url":"https://…/datos.zip","sha256":"64 caracteres hexadecimales","pendiente":false}`. Mientras no se prepare, `pendiente:true`, URL `example.invalid` y SHA `PENDIENTE`. `tramitar` deja esos paquetes pendientes visibles; `datos <id>` los rechaza. En pruebas locales se aceptan URLs `file:`; en GitHub solo HTTPS. Se guardan como archivos, **sin extraer ZIPs ni ejecutar contenido**.
 
-La ficha tiene `nombre`, `frase`, `icono`, `herramienta`, `equipo`, `url`, `fuentes:[{nombre,url}]` y `datos:"reales"|"simulados"`. «Reales» significa datos públicos, nunca personales. El centro puede usar [esquemas/ficha.schema.json](esquemas/ficha.schema.json). El esquema se genera desde `fichaSchema` con `bun run --cwd cli schema`; una prueba evita que diverjan. La existencia del slug se valida adicionalmente contra `tracks.json`.
+La ficha tiene `nombre`, `frase`, `icono`, `herramienta`, `equipo`, `url`, `fuentes:[{nombre,url}]` y `datos:"reales"|"simulados"`. «Reales» significa datos públicos, nunca personales. El centro puede usar [esquemas/ficha.schema.json](esquemas/ficha.schema.json). El esquema se genera desde `fichaSchema` con `bun run --cwd apps/cli schema`; una prueba evita que diverjan. La existencia del slug se valida adicionalmente contra `tracks.json`.
 
 ### Etiquetas y permisos en GitHub
 
@@ -176,7 +176,7 @@ En GitHub la URL debe resolver a una red pública; cada redirección se comprueb
 hacknight --registro file:///ruta/instancia --usuario TU_HANDLE --cwd /ruta/proyecto observar --servidor http://127.0.0.1:4310
 ```
 
-Usa la URL `file://` del registro que imprime el servidor. Si aún no instalaste el binario, sustituye `hacknight` por `bun /ruta/a/cli/src/index.ts`.
+Usa la URL `file://` del registro que imprime el servidor. Si aún no instalaste el binario, sustituye `hacknight` por `bun /ruta/a/apps/cli/src/index.ts`.
 
 La web muestra clasificación por squads, personas (si se habilita) y tracks, desglose de entrada/salida/caché, herramientas y evolución. La ventanilla y el tablón consultan el mismo registro que el CLI; `/pantalla` es el proyector. Sin logs del proyecto en la ventana configurada, el contador permanece en cero. El watcher cuenta actividad existente dentro de esa ventana, además de la que se produzca a partir de su arranque.
 
@@ -188,7 +188,7 @@ La web muestra clasificación por squads, personas (si se habilita) y tracks, de
 
 Es una consulta puntual. Para lectura continua usa `observar` (alias oculto `watch`): sin `--servidor` mantiene todo local; con un servidor HTTP en loopback comparte los contadores de este proyecto durante el build. `--once` hace un único ciclo; `--intervalo 5` fija la cadencia; `p` pausa y `q` sale en TTY. También admite `--plain` y `--json` (un documento al terminar; progreso en stderr).
 
-El backend guarda y deduplica contadores por ventana, usuario e ID. Solo se envían campos del [contrato compartido](../shared/src/contrato-uso.ts), sin conversaciones ni rutas. Los detalles de persistencia y los requisitos de producción están en [server/README.md](../server/README.md#contadores-y-persistencia).
+El backend guarda y deduplica contadores por ventana, usuario e ID. Solo se envían campos del [contrato compartido](../../packages/shared/src/contrato-uso.ts), sin conversaciones ni rutas. Los detalles de persistencia y los requisitos de producción están en [apps/server/README.md](../server/README.md#contadores-y-persistencia).
 
 Rutas de lectura: `~/.claude/projects` (respeta `CLAUDE_CONFIG_DIR`) y `~/.codex/sessions` (respeta `CODEX_HOME`). Para un directorio de pruebas o una copia local usa `HACKNIGHT_CLAUDE_DIR` y `HACKNIGHT_CODEX_DIR`; esas variables no cambian ninguna configuración de los asistentes. Las líneas malformadas se ignoran; errores de lectura producen avisos de total parcial. Bloques repetidos de Claude y contadores acumulativos de Codex se deduplican; el razonamiento ya incluido en salida no se suma dos veces.
 
@@ -196,11 +196,11 @@ Cursor queda sin recolector: el origen necesitaba instalar hooks para obtener co
 
 ## Marca y releases
 
-La marca por defecto se define en [shared/registro-base/evento.json](../shared/registro-base/evento.json): `nombre` es el nombre oficial; `nombre_corto`, la marca de terminal y web; `organizan`, la firma del comité. El CLI y el servidor importan esos datos mediante `@hacknight/shared/evento`; las vistas leen el evento del registro activo. Cambiar el nombre oficial solo requiere editar `nombre`, sin buscar cadenas en el código. En instancias ya creadas, edita su `evento.json` o los campos de `/admin` si existe `.gestion.json`.
+La marca por defecto se define en [packages/shared/registro-base/evento.json](../../packages/shared/registro-base/evento.json): `nombre` es el nombre oficial; `nombre_corto`, la marca de terminal y web; `organizan`, la firma del comité. El CLI y el servidor importan esos datos mediante `@hacknight/shared/evento`; las vistas leen el evento del registro activo. Cambiar el nombre oficial solo requiere editar `nombre`, sin buscar cadenas en el código. En instancias ya creadas, edita su `evento.json` o los campos de `/admin` si existe `.gestion.json`.
 
-La paleta común está en [shared/src/paleta.ts](../shared/src/paleta.ts); [src/lib/estilo.ts](src/lib/estilo.ts) la aplica al terminal. Los badges de track usan fondo propio y tinta clara/oscura de la misma paleta: el significado también lleva glifo, nombre y ventanilla. No hay banderas, escudos ni logos de terceros.
+La paleta común está en [packages/shared/src/paleta.ts](../../packages/shared/src/paleta.ts); [src/lib/estilo.ts](src/lib/estilo.ts) la aplica al terminal. Los badges de track usan fondo propio y tinta clara/oscura de la misma paleta: el significado también lleva glifo, nombre y ventanilla. No hay banderas, escudos ni logos de terceros.
 
-El único slot de logo es `assets/logo.png`, todavía ausente. Cuando llegue, desde `cli/`:
+El único slot de logo es `assets/logo.png`, todavía ausente. Cuando llegue, desde `apps/cli/`:
 
 ```sh
 bun run embed-logo

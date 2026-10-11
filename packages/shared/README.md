@@ -10,6 +10,6 @@ Paquete interno `@hacknight/shared`, consumido por el CLI y el backend a través
 - `src/paleta.ts`: colores semánticos comunes de la marca.
 - `registro-base/`: horario y tracks reales; equipos y comité vacíos. Los participantes de prueba están en `test/fixtures/` en la raíz.
 
-El esquema JSON de la ficha permanece en `cli/esquemas/ficha.schema.json`, generado desde este modelo para que el centro pueda reutilizarlo. Desde la raíz: `bun run --cwd cli schema`.
+El esquema JSON de la ficha permanece en `apps/cli/esquemas/ficha.schema.json`, generado desde este modelo para que el centro pueda reutilizarlo. Desde la raíz: `bun run --cwd apps/cli schema`.
 
-Instalación, tipos y tests: `bun install --frozen-lockfile` y `bun run check` desde la raíz. Licencia MIT y atribución: [LICENSE](../cli/LICENSE) y [AVISO.md](../cli/AVISO.md).
+Instalación, tipos y tests: `bun install --frozen-lockfile` y `bun run check` desde la raíz. Licencia MIT y atribución: [LICENSE](../../apps/cli/LICENSE) y [AVISO.md](../../apps/cli/AVISO.md).
