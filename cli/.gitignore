@@ -1,5 +1,6 @@
 dist/
 node_modules/
+.barbaritat-live/
 *.tmp
 demo/registro/.estado.json
 demo/registro/.lock/

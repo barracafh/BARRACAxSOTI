@@ -18,6 +18,7 @@ venv/
 htmlcov/
 
 # Node
+.barbaritat-live/
 node_modules/
 .vite/
 .turbo/

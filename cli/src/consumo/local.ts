@@ -47,7 +47,7 @@ async function archivos(
   }
   return out;
 }
-export async function consumoLocal(
+export async function leerConsumo(
   cwd: string,
   inicio: string,
   fin: string,
@@ -63,7 +63,7 @@ export async function consumoLocal(
       join(process.env.CODEX_HOME ?? join(homedir(), ".codex"), "sessions"),
   },
   now = Date.now(),
-): Promise<Consumo> {
+): Promise<{ resumen: Consumo; usos: Uso[] }> {
   const since = Date.parse(inicio),
     until = Math.min(Date.parse(fin), now);
   const sum: Consumo = {
@@ -80,7 +80,7 @@ export async function consumoLocal(
       "Contribución local de este proyecto al squad; no incluye otras máquinas.",
     avisos: [],
   };
-  if (now < since) return sum;
+  if (now < since) return { resumen: sum, usos: [] };
   const seen = new Map<string, Uso>();
   for (const [kind, root] of Object.entries(rutas)) {
     for (const path of await archivos(root, sum.avisos, kind)) {
@@ -100,7 +100,14 @@ export async function consumoLocal(
               kind === "claude"
                 ? normalizarClaude(raw)
                 : normalizarCodex(raw, state);
-            if (!e || !e.cwd || e.fecha < since || e.fecha > until) continue;
+            if (
+              !e ||
+              !e.cwd ||
+              e.fecha < since ||
+              e.fecha >= Date.parse(fin) ||
+              e.fecha > until
+            )
+              continue;
             const rel = relative(resolve(cwd), resolve(e.cwd));
             if (
               rel === ".." ||
@@ -140,5 +147,11 @@ export async function consumoLocal(
     sum.porHerramienta[e.herramienta] =
       (sum.porHerramienta[e.herramienta] ?? 0) + total;
   }
-  return sum;
+  return { resumen: sum, usos: [...seen.values()] };
+}
+
+export async function consumoLocal(
+  ...args: Parameters<typeof leerConsumo>
+): Promise<Consumo> {
+  return (await leerConsumo(...args)).resumen;
 }

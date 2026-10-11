@@ -12,6 +12,8 @@ import { pantalla } from "./commands/pantalla";
 import { tramitar, datos } from "./commands/arranque";
 import { actualizar } from "./commands/actualizar";
 import { consumo } from "./commands/consumo";
+import { observar } from "./commands/observar";
+import { servidor } from "./commands/servidor";
 const program = new Command()
   .name("barbaritat")
   .description("Azulejo y ventanilla · BARRACA × SOTI")
@@ -139,6 +141,21 @@ program
   .command("consumo")
   .description("Tokens locales del proyecto durante el build")
   .action(run(consumo));
+for (const name of ["observar", "watch"]) {
+  program
+    .command(name, { hidden: name === "watch" })
+    .description("Watcher de tokens; envío opcional al servidor local")
+    .option("--servidor <url>", "Servidor local de la clasificación")
+    .option("--intervalo <segundos>", "Segundos entre lecturas", "5")
+    .option("--once", "Una lectura y salir")
+    .action(async (o) => run((ctx) => observar(ctx, o))());
+}
+program
+  .command("servidor")
+  .description("Web y backend local para probar el hack en directo")
+  .option("--puerto <numero>", "Puerto HTTP local", "4310")
+  .option("--db <archivo>", "Persistencia SQLite de los contadores")
+  .action(async (o) => run((ctx) => servidor(ctx, o))());
 program.command("status", { hidden: true }).action(run(expediente));
 program.command("vuelva-usted-mañana", { hidden: true }).action(() =>
   salida(

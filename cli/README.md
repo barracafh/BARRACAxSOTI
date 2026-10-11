@@ -165,7 +165,18 @@ En GitHub la URL debe resolver a una red pública; cada redirección se comprueb
 
 `barbaritat consumo` lee contadores existentes de Claude Code y Codex, los filtra por directorio del proyecto (incluidos subdirectorios) y por la ventana de build, y muestra la contribución local al squad. No es el total de otras máquinas del equipo. No lee prompts para mostrarlos, no persiste historiales y no envía métricas; solo salen contadores agregados. El justificante añade «Tasa abonada: N tokens» cuando hay consumo atribuible.
 
-Es una consulta puntual: no incluye un watcher continuo, una clasificación compartida de tokens ni una web del evento. `pantalla` es el tablero de coordinación del proyector; no es un leaderboard de consumo.
+Es una consulta puntual. Para lectura continua usa `observar` (alias oculto `watch`): sin `--servidor` mantiene todo local; con un servidor HTTP en loopback comparte los contadores de este proyecto durante el build. `--once` hace un único ciclo; `--intervalo 5` fija la cadencia; `p` pausa y `q` sale en TTY. También admite `--plain` y `--json` (un documento al terminar; progreso en stderr).
+
+### Backend de pruebas en directo
+
+```sh
+bun src/index.ts --registro file:///ruta/registro servidor --puerto 4310 --db /tmp/barbaritat-uso.sqlite
+bun src/index.ts --registro file:///ruta/registro --cwd /ruta/proyecto --usuario demo-alba observar --servidor http://127.0.0.1:4310
+```
+
+El backend local persiste en SQLite y deduplica cada evento por ventana, persona e ID: se puede reintentar o reiniciar sin sumar dos veces. El total incluye entrada, salida y caché, con desglose separado. Solo acepta miembros del registro, y el periodo es `[inicio, fin)`. Los IDs de eventos salen como hashes; no se envían conversaciones, rutas ni nombres de proyectos. El watcher vuelve a leer el historial retenido en cada ciclo y recupera envíos fallidos mientras esos archivos existan.
+
+La identidad `--usuario` es de pruebas: no equivale a autenticar a una persona. El servidor escucha exclusivamente en `127.0.0.1` y el watcher solo admite destinos locales. **TODO producción:** elegir y provisionar infraestructura propia, autenticar usuarios, autorizar el squad en el servidor, acordar visibilidad/retención de métricas, HTTPS, límites y copias de seguridad. No se transporta consumo mediante GitHub ni se ha desplegado ningún servicio.
 
 Rutas de lectura: `~/.claude/projects` (respeta `CLAUDE_CONFIG_DIR`) y `~/.codex/sessions` (respeta `CODEX_HOME`). Para un directorio de pruebas o una copia local usa `BARBARITAT_CLAUDE_DIR` y `BARBARITAT_CODEX_DIR`; esas variables no cambian ninguna configuración de los asistentes. Las líneas malformadas se ignoran; errores de lectura producen avisos de total parcial. Bloques repetidos de Claude y contadores acumulativos de Codex se deduplican; el razonamiento ya incluido en salida no se suma dos veces.
 
