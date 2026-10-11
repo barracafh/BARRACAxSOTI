@@ -18,6 +18,7 @@
     "apps/server/src/**/*.ts",
     "packages/shared/src/**/*.ts",
     "test/**/*.ts",
-    "scripts/**/*.ts"
+    "scripts/**/*.ts",
+    "infra/**/*.ts"
   ]
 }
