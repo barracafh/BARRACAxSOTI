@@ -1,3 +1,5 @@
 dist/
 node_modules/
 *.tmp
+demo/registro/.estado.json
+demo/registro/.lock/
