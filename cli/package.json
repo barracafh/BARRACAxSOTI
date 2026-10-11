@@ -1,0 +1,30 @@
+{
+  "name": "barbaritat",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "La ventanilla del hack BARRACA \u00d7 SOTI",
+  "bin": {
+    "barbaritat": "./src/index.ts"
+  },
+  "scripts": {
+    "dev": "bun src/index.ts",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "build:bin:host": "bash scripts/build-all.sh --host",
+    "build:bin": "bash scripts/build-all.sh",
+    "embed-logo": "bun scripts/embed-logo.ts",
+    "format": "prettier --write src test scripts/*.ts esquemas README.md",
+    "format:check": "prettier --check src test scripts/*.ts esquemas README.md",
+    "schema": "bun scripts/generate-schema.ts",
+    "check": "bun run typecheck && bun test && bun run format:check",
+    "test:flujo": "cd .. && bun run test:flujo"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.7.0",
+    "commander": "^14.0.3",
+    "zod": "^4.1.0",
+    "@barbaritat/shared": "workspace:*"
+  }
+}

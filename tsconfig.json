@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "Preserve",
+    "moduleResolution": "bundler",
+    "types": ["bun"],
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "noUncheckedIndexedAccess": true
+  },
+  "include": [
+    "cli/src/**/*.ts",
+    "cli/test/**/*.ts",
+    "cli/scripts/**/*.ts",
+    "server/src/**/*.ts",
+    "shared/src/**/*.ts",
+    "test/**/*.ts",
+    "scripts/**/*.ts"
+  ]
+}

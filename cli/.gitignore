@@ -1,0 +1,8 @@
+dist/
+node_modules/
+.barbaritat-live/
+*.tmp
+
+.admin-key
+.gestion.json
+.admin-lock/

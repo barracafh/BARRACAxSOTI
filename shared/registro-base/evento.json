@@ -1,0 +1,10 @@
+{
+  "nombre": "Barbaritat Valenciana",
+  "inicio": "2026-10-22T18:30:00+02:00",
+  "fin": "2026-10-22T22:00:00+02:00",
+  "enlaces": {
+    "centro": "https://example.invalid/centro",
+    "guia": "https://example.invalid/guia"
+  },
+  "registroFueraDePlazo": false
+}

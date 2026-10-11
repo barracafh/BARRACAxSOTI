@@ -1,0 +1,13 @@
+{
+  "name": "@barbaritat/shared",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "dependencies": {
+    "zod": "^4.1.0"
+  }
+}

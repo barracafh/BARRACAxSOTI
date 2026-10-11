@@ -1,0 +1,34 @@
+import { createHash } from "node:crypto";
+import { z } from "zod";
+import type { Evento } from "./modelo";
+
+// Contrato propio; toma del watcher MIT la normalización y la deduplicación.
+// Nunca se serializan logs, rutas, prompts, respuestas ni IDs de sesión originales.
+export const hash = (text: string) =>
+  createHash("sha256").update(text).digest("hex");
+export const ventanaId = (evento: Evento) =>
+  hash(
+    `${new Date(evento.inicio).toISOString()}|${new Date(evento.fin).toISOString()}`,
+  );
+const contador = z.number().int().min(0).max(1_000_000_000);
+export const usoSchema = z.strictObject({
+  id: z.string().regex(/^[a-f0-9]{64}$/),
+  herramienta: z.enum(["claude-code", "codex"]),
+  fecha: z.iso.datetime({ offset: true }),
+  input: contador,
+  output: contador,
+  cacheRead: contador,
+  cacheWrite: contador,
+});
+export const loteSchema = z.strictObject({
+  version: z.literal(1),
+  ventana: z.string().regex(/^[a-f0-9]{64}$/),
+  usuario: z.string().regex(/^[A-Za-z0-9-]{1,39}$/),
+  cliente: z.string().regex(/^[a-f0-9]{64}$/),
+  eventos: z.array(usoSchema).max(200),
+});
+export type EventoUso = z.infer<typeof usoSchema>;
+export type Lote = z.infer<typeof loteSchema>;
+export const totalUso = (
+  e: Pick<EventoUso, "input" | "output" | "cacheRead" | "cacheWrite">,
+) => e.input + e.output + e.cacheRead + e.cacheWrite;

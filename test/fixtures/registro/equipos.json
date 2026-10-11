@@ -1,0 +1,38 @@
+[
+  {
+    "id": "squad-taronja",
+    "nombre": "Taronja Mecànica",
+    "herramienta": "derechos",
+    "pieza": "Ayudas para ti",
+    "mesa": "1",
+    "miembros": ["demo-alba", "demo-bruno", "demo-celia"],
+    "repo": ""
+  },
+  {
+    "id": "squad-taulell",
+    "nombre": "Taulell Blau",
+    "herramienta": "claridad",
+    "pieza": "¿Qué me piden y qué no pueden pedirme?",
+    "mesa": "2",
+    "miembros": ["demo-dalia", "demo-enric", "demo-fina"],
+    "repo": ""
+  },
+  {
+    "id": "squad-segell",
+    "nombre": "Segell Roig",
+    "herramienta": "sello",
+    "pieza": "Las citas son gratis",
+    "mesa": "3",
+    "miembros": ["demo-gala", "demo-hugo", "demo-iris"],
+    "repo": ""
+  },
+  {
+    "id": "squad-nord",
+    "nombre": "Nord de Paper",
+    "herramienta": "brujula",
+    "pieza": "¿Y si no hay cita?",
+    "mesa": "4",
+    "miembros": ["demo-joan", "demo-kira", "demo-lluc"],
+    "repo": ""
+  }
+]
