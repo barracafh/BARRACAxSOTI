@@ -11,6 +11,7 @@ import {
   type Issue,
   type Ficha,
   type RegistroFicha,
+  type Equipo,
 } from "@hacknight/shared/modelo";
 const ghIssue = z.object({
   number: z.number(),
@@ -267,7 +268,7 @@ export class RegistroGitHub implements Registro {
       url: string;
     }[];
   };
-  async pushes() {
+  async pushes(equipos?: Equipo[]) {
     if (this.pushCache && Date.now() - this.pushCache.at < 180000)
       return this.pushCache.items;
     const out: {
@@ -277,7 +278,21 @@ export class RegistroGitHub implements Registro {
       texto: string;
       url: string;
     }[] = [];
-    for (const team of (await this.equipos()).filter((t) => t.repo)) {
+    for (const team of (equipos ?? (await this.equipos())).filter(
+      (t) => t.repo,
+    )) {
+      let raw: string;
+      try {
+        raw = await this.run([
+          "gh",
+          "api",
+          `repos/${team.repo}/events?per_page=30`,
+        ]);
+      } catch (e) {
+        // El squad puede estar configurado antes de crear su repositorio con tramitar.
+        if (e instanceof CliError && e.code === "NOT_FOUND") continue;
+        throw e;
+      }
       const rows = z
         .array(
           z.object({
@@ -287,15 +302,7 @@ export class RegistroGitHub implements Registro {
             actor: z.object({ login: z.string() }),
           }),
         )
-        .parse(
-          JSON.parse(
-            await this.run([
-              "gh",
-              "api",
-              `repos/${team.repo}/events?per_page=30`,
-            ]),
-          ),
-        );
+        .parse(JSON.parse(raw));
       for (const e of rows.filter((e) => e.type === "PushEvent"))
         out.push({
           id: e.id,

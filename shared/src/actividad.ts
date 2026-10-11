@@ -1,5 +1,12 @@
 import { z } from "zod";
-import type { Registro, Evento, Equipo, Track, RegistroFicha } from "./modelo";
+import type {
+  Registro,
+  Evento,
+  Equipo,
+  Track,
+  RegistroFicha,
+  Issue,
+} from "./modelo";
 import { cola, type Cita } from "./cola";
 export interface EstadoEvento {
   evento: Evento;
@@ -27,14 +34,24 @@ export interface Entrada {
   url: string;
 }
 export async function entradas(registro: Registro): Promise<Entrada[]> {
-  const [issues, comite, registros, pushes, tracks, teams] = await Promise.all([
+  const [issues, comite, registros, tracks, teams] = await Promise.all([
     registro.issues(),
     registro.comite(),
     registro.fichas(),
-    registro.pushes(),
     registro.tracks(),
     registro.equipos(),
   ]);
+  const pushes = await registro.pushes(teams);
+  return componerEntradas(issues, comite, registros, pushes, tracks, teams);
+}
+function componerEntradas(
+  issues: Issue[],
+  comite: string[],
+  registros: RegistroFicha[],
+  pushes: Awaited<ReturnType<Registro["pushes"]>>,
+  tracks: Track[],
+  teams: Equipo[],
+): Entrada[] {
   const out: Entrada[] = [];
   const glifo = (slug: string | null) =>
     tracks.find((t) => t.slug === slug)?.glifo ?? "·";
@@ -88,20 +105,29 @@ export async function entradas(registro: Registro): Promise<Entrada[]> {
   return out.sort((a, b) => b.fecha.localeCompare(a.fecha));
 }
 export async function snapshot(registro: Registro): Promise<EstadoEvento> {
-  const [evento, tracks, equipos, registros, cola, feed] = await Promise.all([
-    registro.evento(),
-    registro.tracks(),
-    registro.equipos(),
-    registro.fichas(),
-    obtenerCola(registro),
-    entradas(registro),
-  ]);
+  const [evento, tracks, equipos, registros, issues, comite] =
+    await Promise.all([
+      registro.evento(),
+      registro.tracks(),
+      registro.equipos(),
+      registro.fichas(),
+      registro.issues(),
+      registro.comite(),
+    ]);
+  const pushes = await registro.pushes(equipos);
   return {
     evento,
     tracks,
     equipos,
-    registros: registros.sort((a, b) => b.fecha.localeCompare(a.fecha)),
-    cola,
-    entradas: feed,
+    registros: [...registros].sort((a, b) => b.fecha.localeCompare(a.fecha)),
+    cola: cola(issues, equipos, tracks),
+    entradas: componerEntradas(
+      issues,
+      comite,
+      registros,
+      pushes,
+      tracks,
+      equipos,
+    ),
   };
 }

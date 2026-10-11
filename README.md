@@ -130,8 +130,13 @@ El nombre del evento está en un solo sitio: [`shared/registro-base/evento.json`
 ```sh
 bun run start           # web y administración en http://127.0.0.1:4310
 bun run check           # tipos, tests y formato
+bun run test:browser    # regresiones de la web y del admin en Chromium
 bun run build:bin:host  # binarios cli/dist/hacknight y server/dist/hacknight-server
 ```
+
+Para ejecutar las pruebas de navegador, instala Chromium una vez con `bunx playwright install chromium`. Usan una instancia temporal y participantes ficticios; no consultan historiales personales. La configuración sigue las [opciones de Playwright](https://playwright.dev/docs/test-configuration).
+
+GitHub Actions comprueba tipos, tests y formato en cada push y pull request. También ejecuta los circuitos `test:flujo` y `test:live`, las regresiones de navegador y los flujos con los binarios compilados. Chromium y sus dependencias se preparan según la [guía de CI de Playwright](https://playwright.dev/docs/ci-intro).
 
 - **Montar el registro de la noche:** [cli/README.md](cli/README.md#montar-el-registro-guía-del-comité).
 - **Servidor y administración:** [server/README.md](server/README.md).

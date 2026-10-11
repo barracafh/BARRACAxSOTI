@@ -86,10 +86,7 @@ export function crearHandler(
             },
             400,
           );
-        const [evento, equipos] = await Promise.all([
-          registro.evento(),
-          registro.equipos(),
-        ]);
+        const { evento, equipos } = await administracion(registro);
         try {
           return json({
             ok: true,

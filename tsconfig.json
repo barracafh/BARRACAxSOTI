@@ -18,6 +18,7 @@
     "server/src/**/*.ts",
     "shared/src/**/*.ts",
     "test/**/*.ts",
-    "scripts/**/*.ts"
+    "scripts/**/*.ts",
+    "e2e/**/*.ts"
   ]
 }

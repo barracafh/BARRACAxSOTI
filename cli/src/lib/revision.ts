@@ -214,6 +214,16 @@ export async function revisar(
     scanDetalle =
       "No se pudo enumerar el repositorio Git. Ejecuta git init y git add.";
   }
+  if (ficha) {
+    // El registro publica estos valores decodificados, no los escapes del JSON original.
+    for (const hallazgo of detectar(JSON.stringify(ficha), "ficha.json"))
+      if (
+        !hallazgos.some(
+          (h) => h.archivo === hallazgo.archivo && h.tipo === hallazgo.tipo,
+        )
+      )
+        hallazgos.push(hallazgo);
+  }
   reglas.push({
     numero: 5,
     nombre: "Datos personales",

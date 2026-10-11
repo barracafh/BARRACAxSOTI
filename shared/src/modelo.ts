@@ -116,7 +116,7 @@ export interface Registro {
   ): Promise<Issue>;
   fichas(): Promise<RegistroFicha[]>;
   registrar(ficha: Ficha, fecha: string): Promise<RegistroFicha>;
-  pushes(): Promise<
+  pushes(equipos?: Equipo[]): Promise<
     {
       id: string;
       fecha: string;

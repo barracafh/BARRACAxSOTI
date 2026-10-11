@@ -8,7 +8,13 @@ import { dniValido, ibanValido, detectar } from "../src/lib/detectores";
 import { RegistroLocal } from "@hacknight/shared/registro/local";
 import { fichaSchema, type Ficha } from "@hacknight/shared/modelo";
 import { numeroRegistro, justificante, sello } from "../src/lib/justificante";
-import { revisar, comprobarUrl, direccionPublica } from "../src/lib/revision";
+import {
+  revisar,
+  comprobarUrl,
+  direccionPublica,
+  revisionPublica,
+  revisionTexto,
+} from "../src/lib/revision";
 import { validarFicha } from "../src/lib/ficha";
 import schema from "../esquemas/ficha.schema.json";
 import { eventoBase } from "@hacknight/shared/evento";
@@ -255,4 +261,55 @@ test("la ficha que se publicará se escanea aunque todavía no esté versionada"
     tipo: "DNI",
     valor: "[DNI oculto]",
   });
+});
+
+test("la revisión detecta datos decodificados de la ficha y oculta sus valores", async () => {
+  const dir = await mkdtemp(join(tmpdir(), "hacknight-escaped-ficha-"));
+  await mkdir(join(dir, ".hacknight"));
+  await writeFile(
+    join(dir, ".hacknight/plantilla.json"),
+    JSON.stringify({ plantilla: "hacknight", version: "demo" }),
+  );
+  await writeFile(join(dir, "app.ts"), "<BotonAviso />");
+  const syntheticDni = "12345678Z";
+  const encodedDni = [...syntheticDni]
+    .map((char) => "\\u" + char.charCodeAt(0).toString(16).padStart(4, "0"))
+    .join("");
+  await writeFile(
+    join(dir, "ficha.json"),
+    JSON.stringify({
+      ...fichaPrueba,
+      nombre: `Persona ${syntheticDni}`,
+    }).replace(syntheticDni, encodedDni),
+  );
+  for (const args of [
+    ["git", "init"],
+    ["git", "add", "."],
+  ]) {
+    const p = Bun.spawn(args, { cwd: dir, stdout: "pipe", stderr: "pipe" });
+    expect(await p.exited).toBe(0);
+  }
+  const registro = new RegistroLocal(
+    join(import.meta.dir, "../../test/fixtures/registro"),
+    "demo-alba",
+  );
+  const result = await revisar(
+    {
+      opts: {},
+      registro,
+      cwd: dir,
+      config: { registro: "local", plantilla: undefined, releases: undefined },
+    },
+    (async () => new Response("ok")) as unknown as typeof fetch,
+  );
+  expect(result.ok).toBe(false);
+  expect(
+    result.reglas.filter((regla) => !regla.ok).map((regla) => regla.numero),
+  ).toEqual([5]);
+  expect(result.hallazgos).toEqual([
+    { archivo: "ficha.json", linea: 1, tipo: "DNI", valor: "[DNI oculto]" },
+  ]);
+  expect(result.ficha?.nombre).toContain(syntheticDni);
+  expect(JSON.stringify(revisionPublica(result))).not.toContain(syntheticDni);
+  expect(revisionTexto(result)).not.toContain(syntheticDni);
 });

@@ -2,7 +2,8 @@ import { test, expect } from "bun:test";
 import { RegistroGitHub } from "../src/registro/github";
 import { CliError } from "@hacknight/shared/errors";
 import type { Runner } from "../src/lib/proceso";
-import type { Ficha } from "@hacknight/shared/modelo";
+import type { Equipo, Ficha } from "@hacknight/shared/modelo";
+import { snapshot } from "@hacknight/shared/actividad";
 const f: Ficha = {
   nombre: "Demo",
   frase: "Texto",
@@ -95,3 +96,66 @@ test("GitHub pagina las issues sin mezclar PRs", async () => {
   expect(await r.issues()).toHaveLength(100);
   expect(count).toBe(2);
 });
+
+test("GitHub conserva la pantalla cuando un squad todavía no ha creado su repo", async () => {
+  const files: Record<string, unknown> = {};
+  for (const name of [
+    "evento.json",
+    "tracks.json",
+    "equipos.json",
+    "comite.json",
+  ])
+    files[name] = await Bun.file(
+      new URL(`../../test/fixtures/registro/${name}`, import.meta.url),
+    ).json();
+  const teams = (files["equipos.json"] as Equipo[]).map((team, index) => ({
+    ...team,
+    repo: index === 0 ? "owner/pending" : index === 1 ? "owner/ready" : "",
+  }));
+  files["equipos.json"] = teams;
+  const reg = new RegistroGitHub("owner/registry", async (args) => {
+    const path = args[2]!;
+    if (path.includes("/contents/"))
+      return JSON.stringify({
+        content: Buffer.from(
+          JSON.stringify(files[path.split("/contents/")[1]!]),
+        ).toString("base64"),
+      });
+    if (path.includes("/issues?") || path.includes("/pulls?")) return "[]";
+    if (path === "repos/owner/pending/events?per_page=30")
+      throw new CliError("NOT_FOUND", "No existe el repo.", "", 5);
+    if (path === "repos/owner/ready/events?per_page=30")
+      return JSON.stringify([
+        {
+          id: "push-demo",
+          type: "PushEvent",
+          created_at: "2026-10-22T19:00:00Z",
+          actor: { login: teams[1]!.miembros[0] },
+        },
+      ]);
+    throw new Error(path);
+  });
+  const state = await snapshot(reg);
+  expect(state.equipos).toHaveLength(teams.length);
+  expect(state.entradas).toHaveLength(1);
+  expect(state.entradas[0]).toMatchObject({
+    tipo: "push",
+    herramienta: teams[1]!.herramienta,
+    url: "https://github.com/owner/ready/commits",
+  });
+});
+
+for (const code of ["UNAUTHENTICATED", "NOT_ALLOWED", "NETWORK"])
+  test(`GitHub no oculta ${code} al consultar pushes`, async () => {
+    const teams: Equipo[] = await Bun.file(
+      new URL("../../test/fixtures/registro/equipos.json", import.meta.url),
+    ).json();
+    const failure = new CliError(code, "Fallo simulado.", "", 5);
+    const reg = new RegistroGitHub("owner/registry", async (args) => {
+      expect(args[2]).toBe("repos/owner/ready/events?per_page=30");
+      throw failure;
+    });
+    await expect(
+      reg.pushes([{ ...teams[0]!, repo: "owner/ready" }]),
+    ).rejects.toBe(failure);
+  });

@@ -22,6 +22,7 @@ let state,
   teams = [],
   editing = null,
   dirty = false,
+  draftVersion = 0,
   busy = false;
 function message(text, error = false) {
   $("mensaje").textContent = text;
@@ -29,6 +30,7 @@ function message(text, error = false) {
 }
 function markDirty() {
   dirty = true;
+  draftVersion += 1;
   $("estado-guardado").textContent = "Cambios pendientes de guardar.";
 }
 const handles = (value) =>
@@ -132,6 +134,7 @@ form.addEventListener("submit", async (e) => {
     return;
   }
   busy = true;
+  const savingVersion = draftVersion;
   form
     .querySelectorAll('button[type="submit"]')
     .forEach((b) => (b.disabled = true));
@@ -170,10 +173,15 @@ form.addEventListener("submit", async (e) => {
     });
     state = { ...saved, tracks };
     actualizarMarca(state.evento);
-    dirty = false;
-    $("estado-guardado").textContent =
-      `Configuración guardada · revisión ${saved.revision}.`;
-    message("Configuración guardada. Las vistas se actualizan en directo.");
+    dirty = draftVersion !== savingVersion;
+    $("estado-guardado").textContent = dirty
+      ? "Cambios pendientes de guardar."
+      : `Configuración guardada · revisión ${saved.revision}.`;
+    message(
+      dirty
+        ? "Se guardó la versión enviada. Quedan cambios posteriores por guardar."
+        : "Configuración guardada. Las vistas se actualizan en directo.",
+    );
   } catch (e) {
     message(e.message, true);
   } finally {
