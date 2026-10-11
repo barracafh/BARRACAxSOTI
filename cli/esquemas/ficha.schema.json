@@ -5,17 +5,20 @@
     "nombre": {
       "type": "string",
       "minLength": 1,
-      "maxLength": 80
+      "maxLength": 80,
+      "pattern": "\\S"
     },
     "frase": {
       "type": "string",
       "minLength": 1,
-      "maxLength": 180
+      "maxLength": 180,
+      "pattern": "\\S"
     },
     "icono": {
       "type": "string",
       "minLength": 1,
-      "maxLength": 32
+      "maxLength": 32,
+      "pattern": "\\S"
     },
     "herramienta": {
       "type": "string",
@@ -38,7 +41,8 @@
           "nombre": {
             "type": "string",
             "minLength": 1,
-            "maxLength": 120
+            "maxLength": 120,
+            "pattern": "\\S"
           },
           "url": {
             "type": "string",

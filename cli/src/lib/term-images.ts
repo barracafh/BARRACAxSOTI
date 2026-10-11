@@ -37,7 +37,7 @@ export type ImageBounds = { maxColumns?: number; maxRows?: number };
  */
 export function detectImageProtocol(
   env: Env,
-  isTty: boolean
+  isTty: boolean,
 ): ImageProtocol | null {
   if (!isTty || env.BARBARITAT_NO_IMAGES || env.TMUX || env.STY) {
     return null;
@@ -70,7 +70,7 @@ export function detectImageProtocol(
 
 /** Width and height from a PNG's IHDR chunk, or null if this is not a PNG. */
 export function pngSize(
-  bytes: Uint8Array
+  bytes: Uint8Array,
 ): { width: number; height: number } | null {
   if (bytes.length < 24) {
     return null;
@@ -97,23 +97,23 @@ export function pngSize(
 export function imageCells(
   width: number,
   height: number,
-  bounds: ImageBounds = {}
+  bounds: ImageBounds = {},
 ): ImageCells {
   const maxColumns = Math.max(1, bounds.maxColumns ?? IMAGE_COLUMNS);
   const maxRows = Math.max(1, bounds.maxRows ?? IMAGE_MAX_ROWS);
   let columns = Math.max(
     1,
-    Math.min(maxColumns, Math.ceil(width / PIXELS_PER_COLUMN))
+    Math.min(maxColumns, Math.ceil(width / PIXELS_PER_COLUMN)),
   );
   let rows = Math.max(
     1,
-    Math.round((columns * (height / width)) / CELL_ASPECT)
+    Math.round((columns * (height / width)) / CELL_ASPECT),
   );
   if (rows > maxRows) {
     rows = maxRows;
     columns = Math.max(
       1,
-      Math.min(maxColumns, Math.round((rows * CELL_ASPECT * width) / height))
+      Math.min(maxColumns, Math.round((rows * CELL_ASPECT * width) / height)),
     );
   }
   return { columns, rows };
@@ -155,7 +155,7 @@ export function kittySequence(
   png: Uint8Array,
   columns: number,
   rows: number,
-  id?: number
+  id?: number,
 ): string {
   const named = id === undefined ? "" : `,i=${id}`;
   return kittyCommand(`a=T,f=100,c=${columns},r=${rows}${named}`, png);
@@ -188,7 +188,7 @@ export function kittyDeleteAll(): string {
 export function itermSequence(
   png: Uint8Array,
   columns: number,
-  rows: number
+  rows: number,
 ): string {
   const data = base64(png);
   return `${ESC}]1337;File=inline=1;size=${png.byteLength};width=${columns};height=${rows};preserveAspectRatio=1:${data}${BEL}`;
@@ -201,7 +201,7 @@ export function itermSequence(
 export function renderImage(
   protocol: ImageProtocol,
   png: Uint8Array,
-  bounds: ImageBounds = {}
+  bounds: ImageBounds = {},
 ): string | null {
   const size = pngSize(png);
   if (!size) {

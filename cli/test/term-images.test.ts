@@ -31,22 +31,22 @@ describe("detectImageProtocol", () => {
   test("never draws when there is no TTY, in a multiplexer, or when opted out", () => {
     expect(detectImageProtocol({ KITTY_WINDOW_ID: "1" }, false)).toBeNull();
     expect(
-      detectImageProtocol({ KITTY_WINDOW_ID: "1", TMUX: "/tmp/x" }, true)
+      detectImageProtocol({ KITTY_WINDOW_ID: "1", TMUX: "/tmp/x" }, true),
     ).toBeNull();
     expect(
-      detectImageProtocol({ KITTY_WINDOW_ID: "1", STY: "1234.pts-0" }, true)
+      detectImageProtocol({ KITTY_WINDOW_ID: "1", STY: "1234.pts-0" }, true),
     ).toBeNull();
     expect(
       detectImageProtocol(
         { TERM_PROGRAM: "iTerm.app", STY: "1234.pts-0" },
-        true
-      )
+        true,
+      ),
     ).toBeNull();
     expect(
       detectImageProtocol(
         { BARBARITAT_NO_IMAGES: "1", TERM_PROGRAM: "iTerm.app" },
-        true
-      )
+        true,
+      ),
     ).toBeNull();
   });
 
@@ -54,32 +54,32 @@ describe("detectImageProtocol", () => {
     expect(detectImageProtocol({ TERM: "xterm-kitty" }, true)).toBe("kitty");
     expect(detectImageProtocol({ KITTY_WINDOW_ID: "3" }, true)).toBe("kitty");
     expect(detectImageProtocol({ TERM_PROGRAM: "ghostty" }, true)).toBe(
-      "kitty"
+      "kitty",
     );
     expect(detectImageProtocol({ TERM_PROGRAM: "WezTerm" }, true)).toBe(
-      "kitty"
+      "kitty",
     );
     expect(detectImageProtocol({ KONSOLE_VERSION: "230800" }, true)).toBe(
-      "kitty"
+      "kitty",
     );
     expect(detectImageProtocol({ KONSOLE_VERSION: "211200" }, true)).toBeNull();
   });
 
   test("iterm-protocol terminals", () => {
     expect(detectImageProtocol({ TERM_PROGRAM: "iTerm.app" }, true)).toBe(
-      "iterm"
+      "iterm",
     );
     expect(detectImageProtocol({ LC_TERMINAL: "iTerm2" }, true)).toBe("iterm");
     expect(detectImageProtocol({ TERM_PROGRAM: "vscode" }, true)).toBe("iterm");
     expect(detectImageProtocol({ TERM_PROGRAM: "WarpTerminal" }, true)).toBe(
-      "iterm"
+      "iterm",
     );
   });
 
   test("everything else gets the link", () => {
     expect(detectImageProtocol({ TERM: "xterm-256color" }, true)).toBeNull();
     expect(
-      detectImageProtocol({ TERM_PROGRAM: "Apple_Terminal" }, true)
+      detectImageProtocol({ TERM_PROGRAM: "Apple_Terminal" }, true),
     ).toBeNull();
     expect(detectImageProtocol({}, true)).toBeNull();
   });
@@ -157,7 +157,7 @@ describe("encoders", () => {
     const png = fakePng(100, 50);
     const seq = itermSequence(png, 36, 10);
     expect(seq).toStartWith(
-      `${ESC}]1337;File=inline=1;size=${png.byteLength};width=36;height=10;preserveAspectRatio=1:`
+      `${ESC}]1337;File=inline=1;size=${png.byteLength};width=36;height=10;preserveAspectRatio=1:`,
     );
     expect(seq).toEndWith(BEL);
     expect(seq).toContain(Buffer.from(png).toString("base64"));
@@ -166,11 +166,11 @@ describe("encoders", () => {
   test("renderImage picks the protocol, honours bounds, refuses non-PNG bytes", () => {
     expect(renderImage("kitty", fakePng(576, 324))).toContain("c=36,r=10");
     expect(renderImage("iterm", fakePng(576, 324))).toContain(
-      "width=36;height=10"
+      "width=36;height=10",
     );
     expect(renderImage("kitty", fakePng(2000, 2000))).toContain("c=24,r=12");
     expect(
-      renderImage("kitty", fakePng(2000, 2000), { maxColumns: 30, maxRows: 6 })
+      renderImage("kitty", fakePng(2000, 2000), { maxColumns: 30, maxRows: 6 }),
     ).toContain("c=12,r=6");
     expect(renderImage("kitty", new Uint8Array([1, 2, 3]))).toBeNull();
   });

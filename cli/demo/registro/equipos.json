@@ -5,11 +5,7 @@
     "herramienta": "derechos",
     "pieza": "Ayudas para ti",
     "mesa": "1",
-    "miembros": [
-      "demo-alba",
-      "demo-bruno",
-      "demo-celia"
-    ],
+    "miembros": ["demo-alba", "demo-bruno", "demo-celia"],
     "repo": ""
   },
   {
@@ -18,11 +14,7 @@
     "herramienta": "claridad",
     "pieza": "¿Qué me piden y qué no pueden pedirme?",
     "mesa": "2",
-    "miembros": [
-      "demo-dalia",
-      "demo-enric",
-      "demo-fina"
-    ],
+    "miembros": ["demo-dalia", "demo-enric", "demo-fina"],
     "repo": ""
   },
   {
@@ -31,11 +23,7 @@
     "herramienta": "sello",
     "pieza": "Las citas son gratis",
     "mesa": "3",
-    "miembros": [
-      "demo-gala",
-      "demo-hugo",
-      "demo-iris"
-    ],
+    "miembros": ["demo-gala", "demo-hugo", "demo-iris"],
     "repo": ""
   },
   {
@@ -44,11 +32,7 @@
     "herramienta": "brujula",
     "pieza": "¿Y si no hay cita?",
     "mesa": "4",
-    "miembros": [
-      "demo-joan",
-      "demo-kira",
-      "demo-lluc"
-    ],
+    "miembros": ["demo-joan", "demo-kira", "demo-lluc"],
     "repo": ""
   }
 ]
