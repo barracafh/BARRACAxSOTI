@@ -137,8 +137,13 @@ El nombre del evento está en un solo sitio: [`packages/shared/registro-base/eve
 ```sh
 bun run start           # web y administración en http://127.0.0.1:4310
 bun run check           # tipos, tests y formato
+bun run test:browser    # regresiones de la web y del admin en Chromium
 bun run build:bin:host  # binarios apps/cli/dist/hacknight y apps/server/dist/hacknight-server
 ```
+
+Para ejecutar las pruebas de navegador, instala Chromium una vez con `bunx playwright install chromium`. Usan una instancia temporal y participantes ficticios; no consultan historiales personales.
+
+GitHub Actions comprueba tipos, tests y formato en cada push y pull request, ejecuta los circuitos `test:flujo` y `test:live`, las regresiones de navegador y los flujos con los binarios compilados, y compila la plantilla.
 
 - **Registro y plantilla remotos:** planes en [infra/](infra/README.md), con `--dry-run` por defecto.
 - **Servidor y administración:** [apps/server/README.md](apps/server/README.md); el proveedor sigue pendiente.

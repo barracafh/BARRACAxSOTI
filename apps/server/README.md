@@ -38,6 +38,12 @@ La administración guarda un único `.gestion.json` de forma atómica. Desde el 
 
 Los contadores siguen al handle: reasignarlo cambia el squad al que se atribuye su consumo; retirarlo lo excluye del ranking, conservando el historial. Cambiar los instantes de inicio/fin abre otra ventana de consumo. Recuperar el horario anterior recupera sus cifras; cambiar solo el formato de zona horaria no las reinicia.
 
+### Recuperación de bloqueos
+
+Las escrituras de administración y del CLI usan reclamaciones por proceso en `.admin-lock.claims/` y `.lock.claims/`. Una operación nueva recupera automáticamente las reclamaciones de procesos que ya no existen, incluso después de una caída. Nunca se retira el bloqueo de un proceso vivo ni se decide por su antigüedad. Si el sistema no permite comprobar al propietario, se conserva el bloqueo; un PID reutilizado también se trata como vivo por precaución.
+
+Las versiones antiguas creaban los directorios `.admin-lock/` y `.lock/` sin identificar al propietario. Si aparece el aviso de bloqueo antiguo, primero detén el servidor y todos los comandos CLI que usan esa instancia. Solo entonces retira manualmente el directorio `.admin-lock` o `.lock` señalado dentro del registro y vuelve a arrancar. No lo borres mientras pueda quedar algún proceso escribiendo; reintentar o reiniciar por sí solo no elimina estos bloqueos heredados. No ejecutes versiones antiguas y nuevas simultáneamente sobre el mismo registro.
+
 ## Contadores y persistencia
 
 ```sh
