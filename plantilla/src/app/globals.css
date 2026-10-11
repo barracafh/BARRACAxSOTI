@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@import "../styles/paleta.css";
+
+body {
+  margin: 0;
+  background: var(--color-cal);
+  color: var(--color-tinta);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-cobalto);
+  outline-offset: 4px;
+}

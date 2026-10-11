@@ -1,0 +1,12 @@
+/* Copia de packages/shared/src/paleta.ts. Independiente del monorepo.
+   Sustitución por Reforma Digital pendiente del OK de Samu. */
+@theme {
+  --color-roig: #c8102e;
+  --color-tinta: #1a1a1a;
+  --color-noche: #0b1426;
+  --color-cal: #f5f1e6;
+  --color-cobalto: #1f4e9e;
+  --color-taronja: #ee7f1b;
+  --color-horta: #2f7d4a;
+  --color-arena: #e8dcc4;
+}

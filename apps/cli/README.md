@@ -112,7 +112,7 @@ Precedencia: flag → variable de entorno → `~/.config/hacknight/config.json` 
 }
 ```
 
-El registro por defecto es un **placeholder**. Variables equivalentes: `HACKNIGHT_REGISTRO`, `HACKNIGHT_PLANTILLA`, `HACKNIGHT_RELEASES`. En local, `plantilla` puede ser un directorio o `file:///ruta`; si falta se copian los bytes de `demo/plantilla-stub`, incluidos dentro del binario. La plantilla real debe llevar `.hacknight/plantilla.json` con `{"plantilla":"hacknight","version":"1"}` y no incluir una ficha de equipo.
+El registro por defecto es un **placeholder**. Variables equivalentes: `HACKNIGHT_REGISTRO`, `HACKNIGHT_PLANTILLA`, `HACKNIGHT_RELEASES`. En local, `plantilla` puede ser un directorio o `file:///ruta`; si falta se copian los bytes de `test/fixtures/plantilla-stub`, incluidos dentro del binario. La [plantilla real](../../plantilla/README.md) lleva `.hacknight/plantilla.json` y una ficha de ejemplo. `tramitar` solo sustituye una ficha con equipo `squad-ejemplo`, URL `https://example.invalid/pendiente` y marcador `exampleFicha: true`; después consume ese permiso. Las fichas de equipos existentes se rechazan. En copias locales se excluyen dependencias, builds y archivos `.env`. Para probarla, indica `--plantilla /ruta/al/monorepo/plantilla`.
 
 ## Montar el registro: guía del comité
 

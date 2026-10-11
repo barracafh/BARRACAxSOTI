@@ -1,0 +1,15 @@
+{
+  "nombre": "Una ayuda para empezar",
+  "frase": "Ejemplo de una respuesta breve con pasos y fuentes oficiales.",
+  "icono": "+",
+  "herramienta": "derechos",
+  "equipo": "squad-ejemplo",
+  "url": "https://example.invalid/pendiente",
+  "fuentes": [
+    {
+      "nombre": "BDNS · convocatorias públicas",
+      "url": "https://www.infosubvenciones.es/"
+    }
+  ],
+  "datos": "simulados"
+}

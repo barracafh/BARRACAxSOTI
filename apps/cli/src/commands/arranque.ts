@@ -1,9 +1,9 @@
 import { lstat, mkdir, cp, writeFile } from "node:fs/promises";
-import { resolve, join } from "node:path";
+import { resolve, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { Contexto } from "../lib/contexto";
 import { miEquipo } from "../lib/contexto";
-import { repo } from "@hacknight/shared/modelo";
+import { repo, fichaSchema } from "@hacknight/shared/modelo";
 import { esAusente, guardar } from "@hacknight/shared/io";
 import { ejecutar } from "../lib/proceso";
 import { confirmar } from "../lib/confirmacion";
@@ -88,7 +88,7 @@ export async function tramitar(
     negociado: track.nombre,
     ventanilla: track.ventanilla,
     destino: target,
-    plantilla: ctx.config.plantilla ?? "demo/plantilla-stub",
+    plantilla: ctx.config.plantilla ?? "test/fixtures/plantilla-stub",
     repo: equipo.repo,
     publico: ctx.registro.tipo === "github",
     paquetes: track.paquetes.map((p) => ({ id: p.id, pendiente: p.pendiente })),
@@ -137,7 +137,23 @@ export async function tramitar(
         recursive: true,
         errorOnExist: true,
         force: false,
-        filter: (p) => !p.split(/[\\/]/).includes(".git"),
+        filter: (p) =>
+          !relative(source, p)
+            .split(/[\\/]/)
+            .some(
+              (part) =>
+                [
+                  ".git",
+                  "node_modules",
+                  ".next",
+                  "out",
+                  ".vercel",
+                  "next-env.d.ts",
+                ].includes(part) ||
+                part === ".env" ||
+                part.startsWith(".env.") ||
+                part.endsWith(".tsbuildinfo"),
+            ),
       });
     } else {
       await mkdir(join(target, ".hacknight"), { recursive: true });
@@ -156,13 +172,31 @@ export async function tramitar(
     fuentes: track.fuentes,
     datos: "simulados",
   };
-  // Una plantilla real no debe incluir ficha: no se pisan metadatos de equipo.
+  // Only the explicitly marked starter example can be replaced.
   try {
     await lstat(join(target, "ficha.json"));
-    throw usage(
-      "La plantilla ya contiene ficha.json.",
-      "Revisa el archivo existente y adapta el equipo manualmente.",
-    );
+    let replaceable = false;
+    let marker;
+    try {
+      marker = await Bun.file(join(target, ".hacknight/plantilla.json")).json();
+      const existing = fichaSchema.parse(
+        await Bun.file(join(target, "ficha.json")).json(),
+      );
+      replaceable =
+        marker.plantilla === "hacknight" &&
+        marker.exampleFicha === true &&
+        existing.equipo === "squad-ejemplo" &&
+        existing.url === "https://example.invalid/pendiente";
+    } catch {}
+    if (!replaceable)
+      throw usage(
+        "La plantilla ya contiene ficha.json de un equipo.",
+        "Revisa el archivo existente y adapta el equipo manualmente.",
+      );
+    await guardar(join(target, ".hacknight/plantilla.json"), {
+      ...marker,
+      exampleFicha: false,
+    });
   } catch (e) {
     if (!esAusente(e)) throw e;
   }
