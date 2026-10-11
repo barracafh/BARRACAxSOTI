@@ -163,6 +163,37 @@ En GitHub la URL debe resolver a una red pública; cada redirección se comprueb
 
 ## Consumo local (extra)
 
+### Probar web + watcher + leaderboard en directo
+
+Desde `cli/`, tras `bun install`:
+
+```sh
+bun run demo:live
+```
+
+Abre **http://127.0.0.1:4310/**. La demo crea un registro temporal con el build abierto ahora, cuatro squads ficticios y cuatro procesos reales de `observar`. Un generador añade logs sintéticos de Claude Code/Codex; los watchers los leen y envían al backend SQLite, y la web consulta los nuevos totales cada dos segundos. Ninguna cifra del ranking está incrustada en la web.
+
+- **Web:** presentación del hack, cuenta atrás y detalle de los negociados con piezas y fuentes.
+- **Tokenmaxxing:** ranking por squads, personas o negociados, filtro por track, entrada/salida/caché, herramientas y evolución temporal.
+- **En directo:** ventanilla y tablón leen el mismo registro que el CLI. `/pantalla` muestra el modo proyector.
+- **Controles de ensayo:** pausa/reanuda la generación e «Impulso a Taronja» añade actividad ficticia por el mismo recorrido de logs y watchers. Pausar la simulación no detiene los watchers.
+- La terminal imprime un comando para abrir un watcher visible adicional; no duplica los tokens. `p` pausa ese watcher y `q` lo cierra.
+- `Ctrl+C` cierra servidor y procesos hijos. Conserva los temporales y los logs de cada watcher en la ruta impresa. No lee historiales reales ni modifica el registro demo versionado.
+
+`bun run demo:live --puerto 4320` cambia el puerto; `--sin-simulacion` carga el historial de ejemplo sin seguir generándolo automáticamente. La demo necesita Bun incluso si `BARBARITAT_BIN=./dist/barbaritat` hace que sus watchers utilicen el binario compilado.
+
+Prueba automatizada del recorrido completo, con sockets HTTP locales:
+
+```sh
+bun run test:live
+```
+
+Comprueba cuatro watchers, ranking exacto, reenvíos, recuperación tras reiniciar el watcher, cambio de líder, controles web, actualización de ventanilla y persistencia tras reiniciar el backend. La web y sus assets están también embebidos en el binario de `barbaritat servidor`.
+
+Para probar **uso real** en tu máquina, usa `servidor` con una copia local del registro que tenga una ventana de build vigente y tu usuario en `equipos.json`; ejecuta `observar` desde el proyecto real sin las variables `BARBARITAT_CLAUDE_DIR`/`BARBARITAT_CODEX_DIR` de la demo. Solo el consumo de ese proyecto y periodo se envía al servidor local. El registro original del evento conserva el 22/10; no recoge actividad antes del build.
+
+### Consulta puntual
+
 `barbaritat consumo` lee contadores existentes de Claude Code y Codex, los filtra por directorio del proyecto (incluidos subdirectorios) y por la ventana de build, y muestra la contribución local al squad. No es el total de otras máquinas del equipo. No lee prompts para mostrarlos, no persiste historiales y no envía métricas; solo salen contadores agregados. El justificante añade «Tasa abonada: N tokens» cuando hay consumo atribuible.
 
 Es una consulta puntual. Para lectura continua usa `observar` (alias oculto `watch`): sin `--servidor` mantiene todo local; con un servidor HTTP en loopback comparte los contadores de este proyecto durante el build. `--once` hace un único ciclo; `--intervalo 5` fija la cadencia; `p` pausa y `q` sale en TTY. También admite `--plain` y `--json` (un documento al terminar; progreso en stderr).

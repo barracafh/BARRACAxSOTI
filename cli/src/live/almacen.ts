@@ -43,7 +43,7 @@ export class AlmacenUso {
     const upsert = this.db.query(`INSERT INTO usos VALUES (?,?,?,?,?,?,?,?,?)
       ON CONFLICT(ventana,usuario,id) DO UPDATE SET
         input=excluded.input, output=excluded.output, cacheRead=excluded.cacheRead, cacheWrite=excluded.cacheWrite
-      WHERE usos.herramienta=excluded.herramienta AND usos.fecha=excluded.fecha
+      WHERE usos.herramienta=excluded.herramienta
         AND excluded.input+excluded.output+excluded.cacheRead+excluded.cacheWrite > usos.input+usos.output+usos.cacheRead+usos.cacheWrite`);
     let cambios = 0;
     this.db.transaction(() => {

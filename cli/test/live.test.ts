@@ -69,7 +69,12 @@ test("los reintentos, reinicios y dos watchers no inflan la clasificación", asy
     expect(db.recibir(f.lote, f.evento, f.equipos).cambios).toBe(0);
     const more = {
       ...f.lote,
-      eventos: f.lote.eventos.map((e) => ({ ...e, output: 30 })),
+      // Un bloque posterior de la misma respuesta puede tener otra fecha.
+      eventos: f.lote.eventos.map((e) => ({
+        ...e,
+        fecha: new Date(Date.parse(e.fecha) + 1).toISOString(),
+        output: 30,
+      })),
     };
     db.recibir(more, f.evento, f.equipos);
     db.recibir(f.lote, f.evento, f.equipos);

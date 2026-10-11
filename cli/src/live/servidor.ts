@@ -5,8 +5,21 @@ import { snapshot } from "../commands/pantalla";
 import { paleta } from "../lib/estilo";
 import { AlmacenUso } from "./almacen";
 import { loteSchema } from "./contrato";
+import html from "../../web/index.html" with { type: "text" };
+import css from "../../web/style.css" with { type: "text" };
+import js from "../../web/app.js" with { type: "text" };
 
-export function crearHandler(ctx: Contexto, almacen: AlmacenUso, demo = false) {
+export interface Simulacion {
+  estado(): { automatica: boolean };
+  accion(accion: "pausar" | "reanudar" | "impulso"): Promise<void>;
+}
+
+export function crearHandler(
+  ctx: Contexto,
+  almacen: AlmacenUso,
+  demo = false,
+  simulacion?: Simulacion,
+) {
   return async (req: Request) => {
     const url = new URL(req.url);
     const headers = {
@@ -25,6 +38,7 @@ export function crearHandler(ctx: Contexto, almacen: AlmacenUso, demo = false) {
         return json({
           ...estado,
           demo,
+          simulacion: simulacion?.estado(),
           paleta,
           consumo: almacen.clasificacion(
             estado.evento,
@@ -32,6 +46,27 @@ export function crearHandler(ctx: Contexto, almacen: AlmacenUso, demo = false) {
             estado.tracks,
           ),
         });
+      }
+      if (req.method === "POST" && url.pathname === "/api/demo" && simulacion) {
+        if (Number(req.headers.get("content-length")) > 100)
+          return json({ error: "Petición demasiado grande" }, 413);
+        const body = await req.text();
+        if (body.length > 100)
+          return json({ error: "Petición demasiado grande" }, 413);
+        let accion: unknown;
+        try {
+          accion = JSON.parse(body).accion;
+        } catch {
+          return json({ error: "Acción inválida" }, 400);
+        }
+        if (
+          accion !== "pausar" &&
+          accion !== "reanudar" &&
+          accion !== "impulso"
+        )
+          return json({ error: "Acción inválida" }, 400);
+        await simulacion.accion(accion);
+        return json({ ok: true, ...simulacion.estado() });
       }
       if (req.method === "POST" && url.pathname === "/api/uso") {
         const reader = req.body?.getReader();
@@ -79,10 +114,30 @@ export function crearHandler(ctx: Contexto, almacen: AlmacenUso, demo = false) {
           );
         }
       }
-      if (req.method === "GET" && url.pathname === "/")
-        return new Response("Barbaritat · API local en /api/estado", {
-          headers,
-        });
+      if (req.method === "GET") {
+        const assets: Record<string, [string, string]> = {
+          "/": [String(html), "text/html; charset=utf-8"],
+          "/pantalla": [String(html), "text/html; charset=utf-8"],
+          "/style.css": [css, "text/css; charset=utf-8"],
+          "/app.js": [js, "text/javascript; charset=utf-8"],
+          "/paleta.css": [
+            `:root{${Object.entries(paleta)
+              .map(([k, v]) => `--${k}:${v}`)
+              .join(";")}}`,
+            "text/css; charset=utf-8",
+          ],
+        };
+        const asset = assets[url.pathname];
+        if (asset)
+          return new Response(asset[0], {
+            headers: {
+              ...headers,
+              "Content-Type": asset[1],
+              "Content-Security-Policy":
+                "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'",
+            },
+          });
+      }
       return json({ error: "Ruta no encontrada" }, 404);
     } catch {
       return json({ error: "No se pudo leer el registro local" }, 500);
@@ -92,7 +147,12 @@ export function crearHandler(ctx: Contexto, almacen: AlmacenUso, demo = false) {
 
 export async function iniciarServidor(
   ctx: Contexto,
-  options: { puerto: number; db: string; demo?: boolean },
+  options: {
+    puerto: number;
+    db: string;
+    demo?: boolean;
+    simulacion?: Simulacion;
+  },
 ) {
   if (ctx.registro.tipo !== "local")
     throw new Error("El servidor de pruebas requiere --registro file:///…");
@@ -104,7 +164,7 @@ export async function iniciarServidor(
       hostname: "127.0.0.1",
       port: options.puerto,
       maxRequestBodySize: 256_000,
-      fetch: crearHandler(ctx, almacen, options.demo),
+      fetch: crearHandler(ctx, almacen, options.demo, options.simulacion),
     });
     return {
       url: server.url.href,

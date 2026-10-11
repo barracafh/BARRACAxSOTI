@@ -15,10 +15,12 @@
     "build:bin:host": "bash scripts/build-all.sh --host",
     "build:bin": "bash scripts/build-all.sh",
     "embed-logo": "bun scripts/embed-logo.ts",
-    "format": "prettier --write src test scripts/*.ts esquemas demo/registro/*.json README.md",
-    "format:check": "prettier --check src test scripts/*.ts esquemas demo/registro/*.json README.md",
+    "format": "prettier --write src test scripts/*.ts esquemas demo/registro/*.json README.md web",
+    "format:check": "prettier --check src test scripts/*.ts esquemas demo/registro/*.json README.md web",
     "schema": "bun scripts/generate-schema.ts",
-    "check": "bun run typecheck && bun test && bun run format:check"
+    "check": "bun run typecheck && bun test && bun run format:check",
+    "demo:live": "bun scripts/demo-live.ts",
+    "test:live": "bun scripts/test-live.ts"
   },
   "dependencies": {
     "@clack/prompts": "^1.7.0",

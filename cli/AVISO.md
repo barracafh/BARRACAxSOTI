@@ -9,6 +9,8 @@ Los normalizadores locales de Claude Code y Codex también se adaptan del watche
 No se incluyen nombre comercial, logos, wordmark gráfico, ilustraciones ni logos de herramientas del origen. No hay Convex, dependencia del dashboard, autenticación por dispositivo, telemetría remota, receptor OTel ni instalación de hooks. Ningún comando modifica configuraciones de asistentes del usuario.
 
 `assets/logo.png` es el slot pendiente del único logo del evento; el CLI funciona sin él. Los paquetes npm mantienen sus propias licencias. Véase `LICENSE`.
-# Extensión de pruebas en directo
+## Extensión de pruebas en directo
 
 El backend local y su contrato de contadores son propios. Se conservan los conceptos del watcher del origen: ventana del evento, deduplicación y separación entre uso y contenido. No se incorpora su backend Convex/RawTree ni sus mecanismos de instalación de hooks.
+
+La web propia toma como referente funcional la landing y el dashboard Insights de HackSpain, con marca, composición y código de interfaz propios. No se copian sus imágenes, fuentes, datos históricos ni componentes de terceros.

@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#F5F1E6" />
+    <title>Barbaritat Valenciana · BARRACA × SOTI</title>
+    <meta
+      name="description"
+      content="Una tarde para quitarle vueltas a los trámites. Negociados, squads y tokenmaxxing de Barbaritat Valenciana."
+    />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="/paleta.css" />
+    <link rel="stylesheet" href="/style.css" />
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#clasificacion">Saltar a la clasificación</a>
+    <div class="masthead">
+      <span>BARRACA × SOTI</span
+      ><span id="cabecera-evento">VALÈNCIA · 22 OCT 2026</span
+      ><span id="conexion" role="status">CONECTANDO…</span>
+    </div>
+    <header>
+      <a class="brand" href="/" aria-label="Barbaritat Valenciana, inicio"
+        >BARBARITAT<span>VALENCIANA</span></a
+      >
+      <div
+        id="tv-reloj"
+        class="tv-clock"
+        hidden
+        aria-label="Cuenta atrás del build"
+      >
+        --:--:--
+      </div>
+      <nav aria-label="Principal">
+        <a href="/#clasificacion">Tokenmaxxing</a
+        ><a href="/#negociados">Negociados</a
+        ><a href="/#ventanilla">Ventanilla</a
+        ><a class="outline" href="/pantalla" id="tv-link">Pantalla ↗</a>
+      </nav>
+    </header>
+    <main>
+      <section class="hero" aria-labelledby="titulo">
+        <div>
+          <p class="eyebrow">EXPEDIENTE COLECTIVO / 001</p>
+          <h1 id="titulo">Menos vueltas.<br />Más <em>soluciones.</em></h1>
+          <p class="intro">
+            Una tarde. Una plataforma ciudadana.<br />Un montón de gente con
+            ganas de construirla.
+          </p>
+          <a class="button red" href="#negociados"
+            >Encuentra tu negociado <span>↘</span></a
+          >
+          <p class="small">
+            BARRACA × SOTI · Herramientas que sirven a la gente.
+          </p>
+        </div>
+        <aside class="ticket" aria-label="Plazo del build">
+          <div class="ticket-top">
+            <span>REGISTRO DE ACTIVIDAD</span><span>N.º 22/10</span>
+          </div>
+          <div class="tile-strip" aria-hidden="true"></div>
+          <p class="eyebrow" id="plazo-label">EL PLAZO ES EL PLAZO</p>
+          <div id="reloj" class="clock">--:--:--</div>
+          <p id="plazo">Consultando el registro…</p>
+          <div class="ticket-bottom">
+            <span id="tipo-evento">BUILD · EUROPE/MADRID</span
+            ><span class="stamp">EN TRÁMITE</span>
+          </div>
+        </aside>
+      </section>
+      <div id="demo" class="demo" hidden>
+        <div>
+          <strong>ENSAYO GENERAL</strong
+          ><span
+            >Squads y consumo ficticios. Los logs pasan por watchers
+            reales.</span
+          >
+        </div>
+        <div class="demo-actions">
+          <button id="simular">Pausar simulación</button
+          ><button id="impulso">Impulso a Taronja +</button>
+        </div>
+      </div>
+      <p id="error" role="alert" class="error" hidden></p>
+      <section class="metrics" aria-label="Actividad del hack">
+        <div>
+          <span>TOKENS TRAMITADOS</span><strong id="total">—</strong
+          ><small>Entrada + salida + caché</small>
+        </div>
+        <div>
+          <span>PETICIONES</span><strong id="peticiones">—</strong
+          ><small>Llamadas con uso registrado</small>
+        </div>
+        <div>
+          <span>WATCHERS ACTIVOS</span><strong id="activos">—</strong
+          ><small>Personas vistas en los últimos 90 s</small>
+        </div>
+        <div>
+          <span>SQUADS EN MARCHA</span><strong id="squads">—</strong
+          ><small>Construyendo por negociados</small>
+        </div>
+      </section>
+      <section
+        id="clasificacion"
+        class="leaderboard"
+        aria-labelledby="ranking-titulo"
+      >
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">01 / CONTABILIDAD CREATIVA</p>
+            <h2 id="ranking-titulo">Tokenmaxxing<span class="dot">.</span></h2>
+          </div>
+          <span class="live-label">● ACTUALIZACIÓN EN DIRECTO</span>
+        </div>
+        <div class="ranking-layout">
+          <div class="ranking-main">
+            <div class="filters">
+              <div class="tabs" role="group" aria-label="Agrupar clasificación">
+                <button data-group="squads" aria-pressed="true">Squads</button
+                ><button data-group="personas" aria-pressed="false">
+                  Personas</button
+                ><button data-group="tracks" aria-pressed="false">
+                  Negociados
+                </button>
+              </div>
+              <label
+                >Track
+                <select id="filtro-track">
+                  <option value="">Todos</option>
+                </select></label
+              >
+            </div>
+            <div class="table-scroll">
+              <table>
+                <caption class="sr-only">
+                  Clasificación por tokens totales, incluyendo caché
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">N.º</th>
+                    <th scope="col" id="grupo-titulo">SQUAD / NEGOCIADO</th>
+                    <th scope="col" class="number">TOKENS</th>
+                    <th scope="col" class="number">PESO</th>
+                  </tr>
+                </thead>
+                <tbody id="ranking">
+                  <tr>
+                    <td colspan="4">Consultando contadores…</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-footer">
+              <span>La caché también cuenta. El impacto se construye.</span
+              ><span id="actualizado">—</span>
+            </div>
+            <p id="sin-consumo" class="empty" hidden>
+              Aún no hay consumo. Arranca un watcher en tu proyecto para
+              estrenar la clasificación.
+            </p>
+          </div>
+          <aside class="usage">
+            <p class="eyebrow">EL DESGLOSE</p>
+            <h3>Cada token,<br />en su casilla.</h3>
+            <div id="desglose"></div>
+            <div id="herramientas" class="tools"></div>
+            <p class="small">
+              Claude Code + Codex<br />Solo contadores del build.
+            </p>
+          </aside>
+        </div>
+        <div class="activity">
+          <div>
+            <p class="eyebrow">PULSO DEL BUILD</p>
+            <h3>Esto se está moviendo.</h3>
+            <p class="small">Tokens por tramo de tiempo</p>
+          </div>
+          <div class="chart-wrap">
+            <svg
+              id="grafico"
+              viewBox="0 0 720 100"
+              role="img"
+              aria-label="Actividad de tokens durante el build"
+            ></svg>
+            <div class="chart-labels">
+              <span id="inicio-grafico">Inicio</span
+              ><span>VENTANA DEL BUILD</span><span id="fin-grafico">Fin</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="negociados" aria-labelledby="tracks-titulo">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">02 / CADA COSA, EN SU VENTANILLA</p>
+            <h2 id="tracks-titulo">Los negociados<span class="dot">.</span></h2>
+          </div>
+          <p class="section-note">
+            Piezas pequeñas.<br />Una plataforma compartida.
+          </p>
+        </div>
+        <div id="tracks" class="tracks"></div>
+      </section>
+      <section
+        id="ventanilla"
+        class="operations"
+        aria-label="Ventanilla y tablón"
+      >
+        <div>
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">03 / LE TOCA</p>
+              <h2>Ventanilla<span class="dot">.</span></h2>
+            </div>
+            <span class="tag">AYUDA AL SQUAD</span>
+          </div>
+          <div id="turnos" class="turnos"></div>
+        </div>
+        <div>
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">04 / PARA QUE CONSTE</p>
+              <h2>El tablón<span class="dot">.</span></h2>
+            </div>
+          </div>
+          <div id="tablon" class="feed"></div>
+        </div>
+      </section>
+      <section class="join">
+        <div>
+          <p class="eyebrow">ABRE TU VENTANILLA</p>
+          <h2>El terminal también<br />forma parte del hack.</h2>
+          <p>
+            Deja el watcher abierto mientras construyes.<br />El registro se
+            encarga de llevar la cuenta.
+          </p>
+        </div>
+        <div>
+          <pre><code id="comando">barbaritat observar --servidor http://127.0.0.1:4310</code></pre>
+          <p class="small">
+            Ejecuta el comando desde tu proyecto y con el registro del evento
+            configurado.
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <a class="brand" href="/">BARBARITAT<span>VALENCIANA</span></a>
+      <p>Una ventanilla abierta a lo que viene.<br />BARRACA × SOTI · 2026</p>
+      <a href="#clasificacion">Volver arriba ↑</a>
+    </footer>
+    <dialog id="detalle">
+      <button class="close" aria-label="Cerrar detalle">×</button>
+      <div id="detalle-contenido"></div>
+    </dialog>
+  </body>
+</html>
