@@ -2,11 +2,11 @@ import { mkdtemp, cp, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
-const root = resolve(import.meta.dir, "..");
+const root = resolve(import.meta.dir, "../..");
 const dir = await mkdtemp(join(tmpdir(), "barbaritat-demo-"));
 const registro = join(dir, "registro"),
   project = join(dir, "squad-taronja");
-await cp(join(root, "demo/registro"), registro, { recursive: true });
+await cp(join(root, "test/fixtures/registro"), registro, { recursive: true });
 const evento = await Bun.file(join(registro, "evento.json")).json();
 evento.registroFueraDePlazo = true;
 await writeFile(join(registro, "evento.json"), JSON.stringify(evento, null, 2));

@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Administración · Barbaritat Valenciana</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="/paleta.css" />
+    <link rel="stylesheet" href="/style.css" />
+    <script type="module" src="/admin.js"></script>
+  </head>
+  <body class="admin-page">
+    <a class="skip" href="#administracion">Saltar a administración</a>
+    <div class="masthead">
+      <span>BARRACA × SOTI</span><span>MESA DEL COMITÉ</span
+      ><span>ADMINISTRACIÓN LOCAL</span>
+    </div>
+    <header>
+      <a class="brand" href="/">BARBARITAT<span>VALENCIANA</span></a>
+      <nav aria-label="Principal">
+        <a href="/">Ver como participante ↗</a
+        ><button id="salir" hidden>Cerrar sesión</button>
+      </nav>
+    </header>
+    <main id="administracion">
+      <div class="section-head admin-heading">
+        <div>
+          <p class="eyebrow">EL EVENTO, EN SU SITIO</p>
+          <h1>Mesa del <em>comité.</em></h1>
+        </div>
+        <span class="stamp">EN ORGANIZACIÓN</span>
+      </div>
+      <p id="mensaje" role="status" aria-live="polite"></p>
+      <form id="login" class="admin-card login-card" hidden>
+        <h2>Acceso al registro</h2>
+        <p>
+          Usa la clave local del archivo <code>.admin-key</code>. La terminal
+          que arranca el servidor indica su ruta.
+        </p>
+        <label
+          >Clave de administración<input
+            id="clave"
+            name="clave"
+            type="password"
+            autocomplete="current-password"
+            required
+        /></label>
+        <button class="button red" type="submit">
+          Entrar a administración →
+        </button>
+      </form>
+      <form id="configuracion" hidden>
+        <div class="admin-toolbar">
+          <p id="resumen">Sin equipos ni participantes.</p>
+          <div>
+            <button type="button" id="recargar">Recargar</button
+            ><button class="button red" type="submit">
+              Guardar configuración
+            </button>
+          </div>
+        </div>
+        <div class="admin-grid">
+          <section class="admin-card">
+            <p class="eyebrow">01 / CONVOCATORIA</p>
+            <h2>El evento</h2>
+            <label
+              >Nombre del evento<input name="nombre" required maxlength="160"
+            /></label>
+            <p class="small" id="zona-horaria"></p>
+            <div class="field-pair">
+              <label
+                >Inicio del build<input
+                  name="inicio"
+                  type="datetime-local"
+                  required
+                  step="1" /></label
+              ><label
+                >Fin del build<input
+                  name="fin"
+                  type="datetime-local"
+                  required
+                  step="1"
+              /></label>
+            </div>
+            <p class="small">
+              Cambiar el horario abre otra ventana de consumo. Los contadores
+              anteriores se conservan.
+            </p>
+            <label class="check"
+              ><input name="fueraPlazo" type="checkbox" />Admitir entregas fuera
+              de plazo</label
+            >
+            <label
+              >Comité · handles de GitHub<textarea
+                name="comite"
+                rows="2"
+                placeholder="Un handle por línea, sin @"
+              ></textarea>
+            </label>
+            <p class="small">
+              Estos handles autorizan avisos y ventanilla en el CLI. El acceso a
+              esta administración usa la clave local.
+            </p>
+          </section>
+          <section class="admin-card">
+            <p class="eyebrow">02 / PUERTAS ABIERTAS</p>
+            <h2>Vistas para participantes</h2>
+            <p>
+              Los cambios se aplican al guardar. Las vistas deshabilitadas dejan
+              de entregar datos a la web.
+            </p>
+            <div id="vistas" class="view-switches"></div>
+            <p class="small">
+              El ranking individual es opcional. Las publicaciones del tablón
+              pueden identificar a sus autores.
+            </p>
+            <div class="admin-note">
+              <strong>Watchers bajo demanda</strong>
+              <p>
+                El servidor no arranca watchers ni genera consumo. Cada
+                participante ejecuta <code>barbaritat observar</code> en su
+                proyecto.
+              </p>
+            </div>
+          </section>
+        </div>
+        <section class="admin-card">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">03 / CADA SQUAD, EN SU NEGOCIADO</p>
+              <h2>Equipos y participantes</h2>
+            </div>
+            <button type="button" id="nuevo-equipo" class="button">
+              Crear equipo +
+            </button>
+          </div>
+          <div id="equipos" class="admin-teams"></div>
+          <p class="small">
+            Un participante solo puede pertenecer a un equipo. Los contadores
+            siguen a su handle: cambiarlo de equipo reasigna su consumo;
+            quitarlo del registro lo excluye del ranking sin borrar el
+            historial.
+          </p>
+        </section>
+        <div class="admin-toolbar">
+          <p id="estado-guardado">Sin cambios pendientes.</p>
+          <button class="button red" type="submit">
+            Guardar configuración
+          </button>
+        </div>
+      </form>
+    </main>
+    <dialog id="equipo-dialog" aria-labelledby="equipo-titulo">
+      <form id="equipo-form">
+        <div class="section-head">
+          <h2 id="equipo-titulo">Crear equipo</h2>
+          <button
+            type="button"
+            id="cancelar-equipo"
+            aria-label="Cerrar editor de equipo"
+          >
+            ×
+          </button>
+        </div>
+        <div class="field-pair">
+          <label
+            >Id del equipo<input
+              name="id"
+              required
+              pattern="[a-z0-9]+(-[a-z0-9]+)*"
+              placeholder="nombre-del-equipo"
+              maxlength="80" /></label
+          ><label>Nombre<input name="nombre" required maxlength="120" /></label>
+        </div>
+        <label
+          >Negociado / track<select name="herramienta" required></select
+        ></label>
+        <label
+          >Pieza que construye<input
+            name="pieza"
+            required
+            maxlength="180"
+            list="piezas" /></label
+        ><datalist id="piezas"></datalist>
+        <div class="field-pair">
+          <label>Mesa<input name="mesa" required maxlength="40" /></label
+          ><label
+            >Repositorio · opcional<input
+              name="repo"
+              placeholder="organizacion/repositorio"
+              pattern="[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+"
+          /></label>
+        </div>
+        <label
+          >Miembros · hasta 5 handles de GitHub<textarea
+            name="miembros"
+            rows="4"
+            placeholder="Un handle por línea, sin @"
+          ></textarea>
+        </label>
+        <p class="small">
+          Puedes crear el equipo vacío y asignarle participantes después.
+        </p>
+        <p id="equipo-error" class="error" role="alert" hidden></p>
+        <button class="button red" type="submit">Aplicar al borrador</button>
+      </form>
+    </dialog>
+    <footer>
+      <span>BARBARITAT VALENCIANA · BARRACA × SOTI</span
+      ><span>Construimos una plataforma compartida.</span>
+    </footer>
+  </body>
+</html>

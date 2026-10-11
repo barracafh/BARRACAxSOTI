@@ -8,7 +8,9 @@ import type { Evento } from "../lib/modelo";
 export const hash = (text: string) =>
   createHash("sha256").update(text).digest("hex");
 export const ventanaId = (evento: Evento) =>
-  hash(`${evento.inicio}|${evento.fin}`);
+  hash(
+    `${new Date(evento.inicio).toISOString()}|${new Date(evento.fin).toISOString()}`,
+  );
 const contador = z.number().int().min(0).max(1_000_000_000);
 export const usoSchema = z.strictObject({
   id: z.string().regex(/^[a-f0-9]{64}$/),

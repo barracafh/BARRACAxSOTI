@@ -63,7 +63,7 @@ test("esquema compartido y slug activo", async () => {
     z.toJSONSchema(fichaSchema, { unrepresentable: "any" }),
   );
   const tracks = await new RegistroLocal(
-    join(import.meta.dir, "../demo/registro"),
+    join(import.meta.dir, "./fixtures/registro"),
   ).tracks();
   expect(validarFicha(fichaPrueba, tracks)).toEqual(fichaPrueba);
   expect(() =>
@@ -78,7 +78,9 @@ test("esquema compartido y slug activo", async () => {
 });
 test("número y justificante deterministas", async () => {
   const track = (
-    await new RegistroLocal(join(import.meta.dir, "../demo/registro")).tracks()
+    await new RegistroLocal(
+      join(import.meta.dir, "./fixtures/registro"),
+    ).tracks()
   )[0]!;
   const r = {
     numero: 42,
@@ -142,7 +144,10 @@ test("revisión falla por DNI y botón, y se subsana", async () => {
     const p = Bun.spawn(args, { cwd: dir, stdout: "pipe", stderr: "pipe" });
     expect(await p.exited).toBe(0);
   }
-  const r = new RegistroLocal(join(import.meta.dir, "../demo/registro"));
+  const r = new RegistroLocal(
+    join(import.meta.dir, "./fixtures/registro"),
+    "demo-alba",
+  );
   const ctx = {
     opts: {},
     registro: r,
@@ -178,7 +183,11 @@ test("revisión falla por DNI y botón, y se subsana", async () => {
         "--json",
         ...cmd,
       ],
-      { stdout: "pipe", stderr: "pipe" },
+      {
+        stdout: "pipe",
+        stderr: "pipe",
+        env: { ...process.env, BARBARITAT_USUARIO: "demo-alba" },
+      },
     );
     const data = JSON.parse(await new Response(p.stdout).text());
     expect(typeof data.ok).toBe("boolean");
@@ -205,7 +214,10 @@ test("la ficha que se publicará se escanea aunque todavía no esté versionada"
     join(dir, "ficha.json"),
     JSON.stringify({ ...fichaPrueba, nombre: "Persona 12345678Z" }),
   );
-  const r = new RegistroLocal(join(import.meta.dir, "../demo/registro"));
+  const r = new RegistroLocal(
+    join(import.meta.dir, "./fixtures/registro"),
+    "demo-alba",
+  );
   const ctx = {
     opts: {},
     registro: r,

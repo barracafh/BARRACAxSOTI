@@ -6,7 +6,9 @@ import { pathToFileURL } from "node:url";
 test("registro JSON: revisar, registrar, actualizar y plazo; sin red real", async () => {
   const dir = await mkdtemp(join(tmpdir(), "barbaritat-flujo-"));
   const reg = join(dir, "registro");
-  await cp(join(import.meta.dir, "../demo/registro"), reg, { recursive: true });
+  await cp(join(import.meta.dir, "./fixtures/registro"), reg, {
+    recursive: true,
+  });
   const pre = join(dir, "network-mock.js");
   await writeFile(pre, 'globalThis.fetch = async () => new Response("OK");');
   async function cli(args: string[], cwd = dir) {
@@ -23,7 +25,11 @@ test("registro JSON: revisar, registrar, actualizar y plazo; sin red real", asyn
         "--json",
         ...args,
       ],
-      { stdout: "pipe", stderr: "pipe" },
+      {
+        stdout: "pipe",
+        stderr: "pipe",
+        env: { ...process.env, BARBARITAT_USUARIO: "demo-alba" },
+      },
     );
     const out = await new Response(p.stdout).text();
     return { ...JSON.parse(out), status: await p.exited };

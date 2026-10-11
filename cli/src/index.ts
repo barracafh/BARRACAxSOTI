@@ -22,7 +22,7 @@ const program = new Command()
   .option("--json", "Un documento JSON; sin interacción")
   .option("--registro <repo|file-url>", "Registro central")
   .option("--cwd <directorio>", "Directorio del proyecto")
-  .option("--usuario <handle>", "Identidad de demo (solo local)")
+  .option("--usuario <handle>", "Handle de participante (solo local)")
   .option("--plantilla <repo|directorio>", "Plantilla del squad")
   .option("--releases <repo>", "Repositorio de releases")
   .option("--confirmar", "Confirmación explícita de una acción pública")
@@ -155,6 +155,7 @@ program
   .description("Web y backend local para probar el hack en directo")
   .option("--puerto <numero>", "Puerto HTTP local", "4310")
   .option("--db <archivo>", "Persistencia SQLite de los contadores")
+  .option("--directorio <ruta>", "Crear o abrir una instancia local vacía")
   .action(async (o) => run((ctx) => servidor(ctx, o))());
 program.command("status", { hidden: true }).action(run(expediente));
 program.command("vuelva-usted-mañana", { hidden: true }).action(() =>

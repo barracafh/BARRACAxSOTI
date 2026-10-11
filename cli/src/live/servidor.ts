@@ -9,17 +9,26 @@ import html from "../../web/index.html" with { type: "text" };
 import css from "../../web/style.css" with { type: "text" };
 import js from "../../web/app.js" with { type: "text" };
 
-export interface Simulacion {
-  estado(): { automatica: boolean };
-  accion(accion: "pausar" | "reanudar" | "impulso"): Promise<void>;
-}
+import { RegistroLocal } from "../registro/local";
+import { administracion, ErrorGestion } from "../registro/gestion";
+import {
+  crearAdmin,
+  claveAdministracion,
+  cuerpoJson,
+  ErrorHttp,
+} from "./admin";
+import adminHtml from "../../web/admin.html" with { type: "text" };
+import adminJs from "../../web/admin.js" with { type: "text" };
 
 export function crearHandler(
   ctx: Contexto,
   almacen: AlmacenUso,
-  demo = false,
-  simulacion?: Simulacion,
+  clave?: string,
 ) {
+  if (!(ctx.registro instanceof RegistroLocal))
+    throw new Error("Se requiere registro local");
+  const registro = ctx.registro;
+  const admin = crearAdmin(registro, clave);
   return async (req: Request) => {
     const url = new URL(req.url);
     const headers = {
@@ -33,62 +42,38 @@ export function crearHandler(
     if (req.headers.get("origin") && req.headers.get("origin") !== url.origin)
       return json({ error: "Origen no permitido" }, 403);
     try {
+      const adminResponse = await admin(req);
+      if (adminResponse) return adminResponse;
       if (req.method === "GET" && url.pathname === "/api/estado") {
-        const estado = await snapshot(ctx);
+        const gestion = await administracion(registro);
+        // Una revisión coherente para toda la respuesta, aunque se esté editando.
+        const estable = Object.assign(Object.create(registro), registro, {
+          evento: async () => gestion.evento,
+          equipos: async () => gestion.equipos,
+          comite: async () => gestion.comite,
+        });
+        const estado = await snapshot({ ...ctx, registro: estable });
+        const { vistas } = gestion;
+        const consumo = vistas.clasificacion
+          ? almacen.clasificacion(estado.evento, estado.equipos, estado.tracks)
+          : null;
+        if (consumo && !vistas.personas) consumo.personas = [];
         return json({
-          ...estado,
-          demo,
-          simulacion: simulacion?.estado(),
+          evento: estado.evento,
+          vistas,
           paleta,
-          consumo: almacen.clasificacion(
-            estado.evento,
-            estado.equipos,
-            estado.tracks,
-          ),
+          tracks: vistas.negociados ? estado.tracks : [],
+          equipos: vistas.negociados
+            ? estado.equipos.map(({ miembros, ...equipo }) => equipo)
+            : [],
+          registros: vistas.tablon ? estado.registros : [],
+          cola: vistas.ventanilla ? estado.cola : [],
+          entradas: vistas.tablon ? estado.entradas : [],
+          consumo,
         });
       }
-      if (req.method === "POST" && url.pathname === "/api/demo" && simulacion) {
-        if (Number(req.headers.get("content-length")) > 100)
-          return json({ error: "Petición demasiado grande" }, 413);
-        const body = await req.text();
-        if (body.length > 100)
-          return json({ error: "Petición demasiado grande" }, 413);
-        let accion: unknown;
-        try {
-          accion = JSON.parse(body).accion;
-        } catch {
-          return json({ error: "Acción inválida" }, 400);
-        }
-        if (
-          accion !== "pausar" &&
-          accion !== "reanudar" &&
-          accion !== "impulso"
-        )
-          return json({ error: "Acción inválida" }, 400);
-        await simulacion.accion(accion);
-        return json({ ok: true, ...simulacion.estado() });
-      }
       if (req.method === "POST" && url.pathname === "/api/uso") {
-        const reader = req.body?.getReader();
-        if (!reader) return json({ error: "Falta el lote" }, 400);
-        let bytes = 0;
-        const chunks: Uint8Array[] = [];
-        for (;;) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          bytes += value.byteLength;
-          if (bytes > 256_000) {
-            await reader.cancel();
-            return json({ error: "Lote demasiado grande" }, 413);
-          }
-          chunks.push(value);
-        }
-        let raw: unknown;
-        try {
-          raw = JSON.parse(Buffer.concat(chunks).toString());
-        } catch {
-          return json({ error: "JSON inválido" }, 400);
-        }
+        const raw = await cuerpoJson(req);
         const parsed = loteSchema.safeParse(raw);
         if (!parsed.success)
           return json(
@@ -115,7 +100,17 @@ export function crearHandler(
         }
       }
       if (req.method === "GET") {
+        if (
+          url.pathname === "/pantalla" &&
+          !(await administracion(registro)).vistas.pantalla
+        )
+          return new Response(
+            "La pantalla está deshabilitada por el comité. Vuelve a la web del evento.",
+            { status: 403, headers },
+          );
         const assets: Record<string, [string, string]> = {
+          "/admin": [String(adminHtml), "text/html; charset=utf-8"],
+          "/admin.js": [adminJs, "text/javascript; charset=utf-8"],
           "/": [String(html), "text/html; charset=utf-8"],
           "/pantalla": [String(html), "text/html; charset=utf-8"],
           "/style.css": [css, "text/css; charset=utf-8"],
@@ -139,7 +134,9 @@ export function crearHandler(
           });
       }
       return json({ error: "Ruta no encontrada" }, 404);
-    } catch {
+    } catch (e) {
+      if (e instanceof ErrorHttp || e instanceof ErrorGestion)
+        return json({ error: e.message }, e.status);
       return json({ error: "No se pudo leer el registro local" }, 500);
     }
   };
@@ -150,8 +147,6 @@ export async function iniciarServidor(
   options: {
     puerto: number;
     db: string;
-    demo?: boolean;
-    simulacion?: Simulacion;
   },
 ) {
   if (ctx.registro.tipo !== "local")
@@ -160,14 +155,18 @@ export async function iniciarServidor(
   const almacen = new AlmacenUso(options.db);
   try {
     await snapshot(ctx);
+    const admin = await claveAdministracion(
+      (ctx.registro as RegistroLocal).dir,
+    );
     const server = Bun.serve({
       hostname: "127.0.0.1",
       port: options.puerto,
       maxRequestBodySize: 256_000,
-      fetch: crearHandler(ctx, almacen, options.demo, options.simulacion),
+      fetch: crearHandler(ctx, almacen, admin.clave),
     });
     return {
       url: server.url.href,
+      clavePath: admin.path,
       close: async () => {
         await server.stop(true);
         almacen.close();

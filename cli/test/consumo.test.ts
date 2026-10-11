@@ -118,7 +118,9 @@ test("consumo filtra ventana y proyecto, deduplica bloques y nunca devuelve prom
 test("consumo --json y tasa en justificante con historiales sintéticos", async () => {
   const dir = await mkdtemp(join(tmpdir(), "barbaritat-tasa-"));
   const reg = join(dir, "registro");
-  await cp(join(import.meta.dir, "../demo/registro"), reg, { recursive: true });
+  await cp(join(import.meta.dir, "./fixtures/registro"), reg, {
+    recursive: true,
+  });
   const logs = join(dir, "logs");
   await mkdir(logs);
   const empty = join(dir, "sin-logs");
@@ -145,6 +147,7 @@ test("consumo --json y tasa en justificante con historiales sintéticos", async 
       {
         env: {
           ...process.env,
+          BARBARITAT_USUARIO: "demo-alba",
           BARBARITAT_CLAUDE_DIR: logs,
           BARBARITAT_CODEX_DIR: empty,
         },

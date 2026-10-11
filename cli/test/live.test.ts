@@ -19,7 +19,9 @@ import { leerConsumo } from "../src/consumo/local";
 async function fixture() {
   const dir = await mkdtemp(join(tmpdir(), "barbaritat-live-test-"));
   const reg = join(dir, "registro");
-  await cp(join(import.meta.dir, "../demo/registro"), reg, { recursive: true });
+  await cp(join(import.meta.dir, "./fixtures/registro"), reg, {
+    recursive: true,
+  });
   const ctx = await contexto({
     registro: pathToFileURL(reg).href,
     usuario: "demo-alba",
@@ -98,7 +100,7 @@ test("los reintentos, reinicios y dos watchers no inflan la clasificación", asy
 
 test("API valida identidad de demo, ventana, cuerpo y origen sin guardar contenido arbitrario", async () => {
   const f = await fixture();
-  const handler = crearHandler(f.ctx, f.almacen, true);
+  const handler = crearHandler(f.ctx, f.almacen);
   const post = (data: unknown, headers: Record<string, string> = {}) =>
     handler(
       new Request("http://127.0.0.1:4310/api/uso", {
@@ -130,7 +132,8 @@ test("API valida identidad de demo, ventana, cuerpo y origen sin guardar conteni
     const estado = await (
       await handler(new Request("http://127.0.0.1:4310/api/estado"))
     ).json();
-    expect(estado.demo).toBe(true);
+    expect(estado.vistas.clasificacion).toBe(true);
+    expect(estado.consumo.personas).toEqual([]);
     expect(estado.consumo.total).toBe(40);
     expect(JSON.stringify(estado)).not.toContain("NO GUARDAR");
     expect(
@@ -212,6 +215,7 @@ test("observar --once --json funciona sin servidor, sin leer logs del usuario", 
     {
       env: {
         ...process.env,
+        BARBARITAT_USUARIO: "demo-alba",
         BARBARITAT_CLAUDE_DIR: join(f.dir, "empty"),
         BARBARITAT_CODEX_DIR: join(f.dir, "empty"),
       },

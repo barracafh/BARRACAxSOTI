@@ -3,6 +3,7 @@ import { mkdir, rm, readFile } from "node:fs/promises";
 import { z } from "zod";
 import { leer, guardar, esAusente } from "../lib/io";
 import { CliError } from "../lib/errors";
+import { leerGestion } from "./gestion";
 import {
   eventoSchema,
   equipoSchema,
@@ -31,13 +32,27 @@ export class RegistroLocal implements Registro {
   readonly tipo = "local" as const;
   constructor(
     public dir: string,
-    private login = process.env.BARBARITAT_USUARIO ?? "demo-alba",
+    private login = process.env.BARBARITAT_USUARIO ?? "",
   ) {}
-  usuario = async () => this.login;
-  evento = () => leer(join(this.dir, "evento.json"), eventoSchema);
-  equipos = () => leer(join(this.dir, "equipos.json"), z.array(equipoSchema));
+  usuario = async () => {
+    if (!this.login)
+      throw new CliError(
+        "USAGE",
+        "Falta tu identidad local.",
+        "Indica --usuario <handle> o BARBARITAT_USUARIO.",
+        2,
+      );
+    return this.login;
+  };
+  evento = async () =>
+    (await leerGestion(this.dir))?.evento ??
+    leer(join(this.dir, "evento.json"), eventoSchema);
+  equipos = async () =>
+    (await leerGestion(this.dir))?.equipos ??
+    leer(join(this.dir, "equipos.json"), z.array(equipoSchema));
   tracks = () => leer(join(this.dir, "tracks.json"), z.array(trackSchema));
-  comite = () =>
+  comite = async () =>
+    (await leerGestion(this.dir))?.comite ??
     leer(join(this.dir, "comite.json"), z.array(z.string().min(1)));
   private async state() {
     try {
@@ -79,14 +94,14 @@ export class RegistroLocal implements Registro {
   }
   issues = async () => (await this.state()).issues;
   crearIssue = (titulo: string, cuerpo: string, etiquetas: string[]) =>
-    this.mutate((s) => {
+    this.mutate(async (s) => {
       const numero = s.siguiente++;
       const issue: Issue = {
         numero,
         titulo,
         cuerpo,
         etiquetas,
-        autor: this.login,
+        autor: await this.usuario(),
         estado: "open",
         fecha: new Date().toISOString(),
         url: `local:issue/${numero}`,

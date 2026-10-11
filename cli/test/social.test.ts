@@ -9,8 +9,10 @@ import { snapshot } from "../src/commands/pantalla";
 import { renderPantalla, frame, diffFrame } from "../src/lib/screen";
 async function fixture() {
   const dir = await mkdtemp(join(tmpdir(), "barbaritat-social-"));
-  await cp(join(import.meta.dir, "../demo/registro"), dir, { recursive: true });
-  const r = new RegistroLocal(dir);
+  await cp(join(import.meta.dir, "./fixtures/registro"), dir, {
+    recursive: true,
+  });
+  const r = new RegistroLocal(dir, "demo-alba");
   return {
     dir,
     r,
@@ -38,7 +40,11 @@ async function cli(dir: string, args: string[], user = "demo-alba") {
       user,
       ...args,
     ],
-    { stdout: "pipe", stderr: "pipe" },
+    {
+      stdout: "pipe",
+      stderr: "pipe",
+      env: { ...process.env, BARBARITAT_USUARIO: "demo-alba" },
+    },
   );
   const out = await new Response(p.stdout).text();
   const code = await p.exited;

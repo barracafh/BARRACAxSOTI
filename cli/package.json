@@ -15,11 +15,12 @@
     "build:bin:host": "bash scripts/build-all.sh --host",
     "build:bin": "bash scripts/build-all.sh",
     "embed-logo": "bun scripts/embed-logo.ts",
-    "format": "prettier --write src test scripts/*.ts esquemas demo/registro/*.json README.md web",
-    "format:check": "prettier --check src test scripts/*.ts esquemas demo/registro/*.json README.md web",
+    "format": "prettier --write src test scripts/*.ts esquemas registro-base/*.json README.md web",
+    "format:check": "prettier --check src test scripts/*.ts esquemas registro-base/*.json README.md web",
     "schema": "bun scripts/generate-schema.ts",
     "check": "bun run typecheck && bun test && bun run format:check",
-    "demo:live": "bun scripts/demo-live.ts",
+    "start": "bun src/index.ts servidor",
+    "test:flujo": "NO_COLOR=1 bun test/support/flujo.ts",
     "test:live": "bun scripts/test-live.ts"
   },
   "dependencies": {

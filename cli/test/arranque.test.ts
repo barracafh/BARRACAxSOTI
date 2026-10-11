@@ -15,7 +15,9 @@ import {
 async function setup() {
   const dir = await mkdtemp(join(tmpdir(), "barbaritat-start-"));
   const reg = join(dir, "registro");
-  await cp(join(import.meta.dir, "../demo/registro"), reg, { recursive: true });
+  await cp(join(import.meta.dir, "./fixtures/registro"), reg, {
+    recursive: true,
+  });
   return { dir, reg };
 }
 async function cli(reg: string, cwd: string, args: string[]) {
@@ -30,7 +32,11 @@ async function cli(reg: string, cwd: string, args: string[]) {
       "--json",
       ...args,
     ],
-    { stdout: "pipe", stderr: "pipe" },
+    {
+      stdout: "pipe",
+      stderr: "pipe",
+      env: { ...process.env, BARBARITAT_USUARIO: "demo-alba" },
+    },
   );
   const data = JSON.parse(await new Response(p.stdout).text());
   return { ...data, status: await p.exited };

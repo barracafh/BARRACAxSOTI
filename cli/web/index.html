@@ -15,7 +15,7 @@
     <script type="module" src="/app.js"></script>
   </head>
   <body>
-    <a class="skip" href="#clasificacion">Saltar a la clasificación</a>
+    <a class="skip" href="#contenido">Saltar al contenido</a>
     <div class="masthead">
       <span>BARRACA × SOTI</span
       ><span id="cabecera-evento">VALÈNCIA · 22 OCT 2026</span
@@ -34,13 +34,15 @@
         --:--:--
       </div>
       <nav aria-label="Principal">
-        <a href="/#clasificacion">Tokenmaxxing</a
-        ><a href="/#negociados">Negociados</a
-        ><a href="/#ventanilla">Ventanilla</a
-        ><a class="outline" href="/pantalla" id="tv-link">Pantalla ↗</a>
+        <a data-vista="clasificacion" href="/#clasificacion">Tokenmaxxing</a
+        ><a data-vista="negociados" href="/#negociados">Negociados</a
+        ><a data-vista="ventanilla" href="/#ventanilla">Ventanilla</a
+        ><a class="outline" href="/pantalla" data-vista="pantalla" id="tv-link"
+          >Pantalla ↗</a
+        >
       </nav>
     </header>
-    <main>
+    <main id="contenido">
       <section class="hero" aria-labelledby="titulo">
         <div>
           <p class="eyebrow">EXPEDIENTE COLECTIVO / 001</p>
@@ -49,7 +51,7 @@
             Una tarde. Una plataforma ciudadana.<br />Un montón de gente con
             ganas de construirla.
           </p>
-          <a class="button red" href="#negociados"
+          <a data-vista="negociados" class="button red" href="#negociados"
             >Encuentra tu negociado <span>↘</span></a
           >
           <p class="small">
@@ -70,21 +72,12 @@
           </div>
         </aside>
       </section>
-      <div id="demo" class="demo" hidden>
-        <div>
-          <strong>ENSAYO GENERAL</strong
-          ><span
-            >Squads y consumo ficticios. Los logs pasan por watchers
-            reales.</span
-          >
-        </div>
-        <div class="demo-actions">
-          <button id="simular">Pausar simulación</button
-          ><button id="impulso">Impulso a Taronja +</button>
-        </div>
-      </div>
       <p id="error" role="alert" class="error" hidden></p>
-      <section class="metrics" aria-label="Actividad del hack">
+      <section
+        data-vista="clasificacion"
+        class="metrics"
+        aria-label="Actividad del hack"
+      >
         <div>
           <span>TOKENS TRAMITADOS</span><strong id="total">—</strong
           ><small>Entrada + salida + caché</small>
@@ -104,6 +97,7 @@
       </section>
       <section
         id="clasificacion"
+        data-vista="clasificacion"
         class="leaderboard"
         aria-labelledby="ranking-titulo"
       >
@@ -119,7 +113,11 @@
             <div class="filters">
               <div class="tabs" role="group" aria-label="Agrupar clasificación">
                 <button data-group="squads" aria-pressed="true">Squads</button
-                ><button data-group="personas" aria-pressed="false">
+                ><button
+                  data-vista="personas"
+                  data-group="personas"
+                  aria-pressed="false"
+                >
                   Personas</button
                 ><button data-group="tracks" aria-pressed="false">
                   Negociados
@@ -191,7 +189,11 @@
           </div>
         </div>
       </section>
-      <section id="negociados" aria-labelledby="tracks-titulo">
+      <section
+        id="negociados"
+        data-vista="negociados"
+        aria-labelledby="tracks-titulo"
+      >
         <div class="section-head">
           <div>
             <p class="eyebrow">02 / CADA COSA, EN SU VENTANILLA</p>
@@ -208,7 +210,7 @@
         class="operations"
         aria-label="Ventanilla y tablón"
       >
-        <div>
+        <div data-vista="ventanilla">
           <div class="section-head">
             <div>
               <p class="eyebrow">03 / LE TOCA</p>
@@ -218,7 +220,7 @@
           </div>
           <div id="turnos" class="turnos"></div>
         </div>
-        <div>
+        <div data-vista="tablon">
           <div class="section-head">
             <div>
               <p class="eyebrow">04 / PARA QUE CONSTE</p>
@@ -247,6 +249,7 @@
       </section>
     </main>
     <footer>
+      <a href="/admin">Administración</a>
       <a class="brand" href="/">BARBARITAT<span>VALENCIANA</span></a>
       <p>Una ventanilla abierta a lo que viene.<br />BARRACA × SOTI · 2026</p>
       <a href="#clasificacion">Volver arriba ↑</a>

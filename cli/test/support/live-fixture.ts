@@ -1,16 +1,18 @@
-import { mkdtemp, cp, mkdir, appendFile, writeFile } from "node:fs/promises";
+import { mkdtemp, mkdir, appendFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
-import { contexto } from "../src/lib/contexto";
-import { RegistroLocal } from "../src/registro/local";
-import { iniciarServidor, type Simulacion } from "../src/live/servidor";
+import { strict as assert } from "node:assert";
+import { inicializarRegistro } from "../../src/registro/gestion";
+import { contexto } from "../../src/lib/contexto";
+import { RegistroLocal } from "../../src/registro/local";
+import { iniciarServidor } from "../../src/live/servidor";
 
-const root = resolve(import.meta.dir, "..");
-export async function prepararDemoLive() {
+const root = resolve(import.meta.dir, "../..");
+export async function prepararPruebaLive() {
   const dir = await mkdtemp(join(tmpdir(), "barbaritat-live-"));
   const reg = join(dir, "registro");
-  await cp(join(root, "demo/registro"), reg, { recursive: true });
+  await inicializarRegistro(reg);
   const evento = await Bun.file(join(reg, "evento.json")).json();
   evento.inicio = new Date(Date.now() - 30 * 60000).toISOString();
   evento.fin = new Date(Date.now() + 3.5 * 3600000).toISOString();
@@ -20,7 +22,9 @@ export async function prepararDemoLive() {
     cwd: dir,
     usuario: "demo-alba",
   });
-  const equipos = await ctx.registro.equipos();
+  const equipos: Awaited<ReturnType<RegistroLocal["equipos"]>> = await Bun.file(
+    join(root, "test/fixtures/registro/equipos.json"),
+  ).json();
   const participants = await Promise.all(
     equipos.map(async (e, i) => {
       const project = join(dir, e.id),
@@ -141,33 +145,47 @@ export async function prepararDemoLive() {
     "Ya tenemos la lista de dominios oficiales. Siguiente paso: comprobar los avisos sospechosos.",
     ["tablon"],
   );
-  return { dir, reg, ctx, participants, generar };
+  return { dir, reg, ctx, equipos, participants, generar };
 }
 
-export async function arrancarDemoLive(puerto = 4310, auto = true) {
-  const f = await prepararDemoLive();
-  let automatica = auto,
-    closed = false,
-    pending: Promise<unknown> | undefined;
-  const simulacion: Simulacion = {
-    estado: () => ({ automatica }),
-    accion: async (action) => {
-      if (action === "pausar") {
-        automatica = false;
-        await pending;
-      } else if (action === "reanudar") automatica = true;
-      else {
-        await pending;
-        await f.generar(0, 150);
-      }
-    },
-  };
+export async function arrancarPruebaLive(puerto = 0) {
+  const f = await prepararPruebaLive();
   const server = await iniciarServidor(f.ctx, {
     puerto,
     db: join(f.dir, "uso.sqlite"),
-    demo: true,
-    simulacion,
   });
+  const initial = await (
+    await fetch(new URL("/api/estado", server.url))
+  ).json();
+  assert.equal(initial.consumo.total, 0);
+  assert.deepEqual(initial.equipos, []);
+  const auth = await fetch(new URL("/api/admin/sesion", server.url), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      clave: (await Bun.file(server.clavePath).text()).trim(),
+    }),
+  });
+  assert.equal(auth.status, 200);
+  const cookie = auth.headers.get("set-cookie")!.split(";")[0]!;
+  async function admin(config?: unknown) {
+    const res = await fetch(new URL("/api/admin", server.url), {
+      method: config ? "PUT" : "GET",
+      headers: { "Content-Type": "application/json", Cookie: cookie },
+      ...(config ? { body: JSON.stringify(config) } : {}),
+    });
+    assert.equal(res.status, 200);
+    return res.json();
+  }
+  const { tracks, ...config } = await admin();
+  await admin({
+    ...config,
+    equipos: f.equipos,
+    comite: ["demo-mentor-ona", "demo-mentor-pau"],
+  });
+  console.log(
+    "PASS: instancia vacía → login admin → crear equipos → registro compartido con CLI.",
+  );
   const children: ReturnType<typeof Bun.spawn>[] = [];
   const logs: Promise<unknown>[] = [];
   const cli = process.env.BARBARITAT_BIN
@@ -210,32 +228,15 @@ export async function arrancarDemoLive(puerto = 4310, auto = true) {
     return p;
   }
   for (let i = 0; i < f.participants.length; i++) spawnWatcher(i);
-  const timer = setInterval(() => {
-    if (!automatica || closed || pending) return;
-    pending = Promise.all(f.participants.map((_, i) => f.generar(i)))
-      .catch((e) => {
-        automatica = false;
-        console.error(
-          "La simulación se ha detenido:",
-          e instanceof Error ? e.message : "Error de escritura",
-        );
-      })
-      .finally(() => {
-        pending = undefined;
-      });
-  }, 2500);
   return {
     ...f,
     ...server,
-    simulacion,
+    admin,
     command,
     watcherEnv,
     spawnWatcher,
     children,
     close: async () => {
-      closed = true;
-      clearInterval(timer);
-      await pending;
       for (const p of children) if (p.exitCode === null) p.kill("SIGTERM");
       const force = setTimeout(() => {
         for (const p of children) if (p.exitCode === null) p.kill("SIGKILL");

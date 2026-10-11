@@ -1,10 +1,10 @@
 import { strict as assert } from "node:assert";
 import { join } from "node:path";
-import { arrancarDemoLive } from "./live-fixture";
+import { arrancarPruebaLive } from "../test/support/live-fixture";
 import { consumoLocal } from "../src/consumo/local";
 import { iniciarServidor } from "../src/live/servidor";
 
-const demo = await arrancarDemoLive(0, false);
+const demo = await arrancarPruebaLive();
 const estado = async (base = demo.url) => {
   const res = await fetch(new URL("/api/estado", base));
   assert.equal(res.status, 200);
@@ -61,6 +61,19 @@ try {
   console.log(
     `PASS: 4 watchers → HTTP → SQLite → 4 squads; ${initial} tokens exactos.`,
   );
+  const { tracks, ...config } = await demo.admin();
+  const off = await demo.admin({
+    ...config,
+    vistas: { ...config.vistas, clasificacion: false, pantalla: false },
+  });
+  assert.equal((await estado()).consumo, null);
+  assert.equal((await fetch(new URL("/pantalla", demo.url))).status, 403);
+  await once(0);
+  await demo.admin({ ...off, vistas: config.vistas });
+  assert.equal((await estado()).consumo.total, initial);
+  console.log(
+    "PASS: admin deshabilita vistas en HTTP; el watcher sigue y al habilitar recupera el total.",
+  );
   await once(0);
   await once(0);
   assert.equal((await estado()).consumo.total, initial);
@@ -75,19 +88,14 @@ try {
   assert(caughtUp.consumo.total > initial);
   assert.equal(caughtUp.consumo.squads[0].id, "squad-taronja");
   console.log("PASS: reinicio recupera uso pendiente y cambia el líder.");
-  const res = await fetch(new URL("/api/demo", demo.url), {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ accion: "impulso" }),
-  });
-  assert.equal(res.status, 200);
+  await demo.generar(0, 150);
   finalTotal = await esperado();
   const final = await esperar(finalTotal);
   assert(finalTotal > caughtUp.consumo.total);
   assert(!JSON.stringify(final).includes("Texto ficticio"));
   assert(!JSON.stringify(final).includes(demo.dir));
   console.log(
-    "PASS: botón de demo → logs → watcher → clasificación, sin contenido ni rutas.",
+    "PASS: nuevos logs → watcher → clasificación, sin contenido ni rutas.",
   );
   const issue = (await demo.ctx.registro.issues()).find((i) =>
     i.etiquetas.includes("ventanilla"),
@@ -98,6 +106,8 @@ try {
   for (const path of [
     "/",
     "/pantalla",
+    "/admin",
+    "/admin.js",
     "/app.js",
     "/style.css",
     "/paleta.css",
@@ -135,53 +145,67 @@ console.log(`Circuito live completo. Archivos de prueba: ${demo.dir}`);
 const cli = process.env.BARBARITAT_BIN
   ? [process.env.BARBARITAT_BIN]
   : [process.execPath, join(import.meta.dir, "../src/index.ts")];
-const serverProcess = Bun.spawn(
-  [
-    ...cli,
-    "--registro",
-    `file://${demo.reg}`,
-    "--json",
-    "servidor",
-    "--puerto",
-    "0",
-    "--db",
-    join(demo.dir, "uso.sqlite"),
-  ],
-  { stdout: "pipe", stderr: "pipe" },
-);
-const killTimer = setTimeout(() => serverProcess.kill("SIGKILL"), 10000);
-try {
-  const reader = serverProcess.stderr.getReader();
-  let ready = "",
-    url: string | undefined;
+async function probarServidorCLI(vacio: boolean) {
+  const serverProcess = Bun.spawn(
+    [
+      ...cli,
+      ...(vacio ? [] : ["--registro", `file://${demo.reg}`]),
+      "--json",
+      "servidor",
+      "--puerto",
+      "0",
+      ...(vacio
+        ? ["--directorio", join(demo.dir, "instancia-vacia")]
+        : ["--db", join(demo.dir, "uso.sqlite")]),
+    ],
+    { stdout: "pipe", stderr: "pipe" },
+  );
+  const killTimer = setTimeout(() => serverProcess.kill("SIGKILL"), 10000);
   try {
-    while (!url) {
-      const { value, done } = await reader.read();
-      if (done) throw new Error(`Servidor no disponible: ${ready}`);
-      ready += new TextDecoder().decode(value);
-      url = ready.match(/http:\/\/127\.0\.0\.1:\d+\//)?.[0];
+    const reader = serverProcess.stderr.getReader();
+    let ready = "",
+      url: string | undefined;
+    try {
+      while (!url) {
+        const { value, done } = await reader.read();
+        if (done) throw new Error(`Servidor no disponible: ${ready}`);
+        ready += new TextDecoder().decode(value);
+        url = ready.match(/http:\/\/127\.0\.0\.1:\d+\//)?.[0];
+      }
+    } finally {
+      reader.releaseLock();
     }
+    const home = await fetch(url);
+    assert((await home.text()).includes("<!doctype html>"));
+    assert(
+      (await (await fetch(new URL("/app.js", url))).text()).includes(
+        "renderRanking",
+      ),
+    );
+    const s = await estado(url);
+    assert.equal(s.consumo.total, vacio ? 0 : finalTotal);
+    assert.equal((await fetch(new URL("/api/admin", url))).status, 401);
+    assert.equal((await fetch(new URL("/admin", url))).status, 200);
+    if (vacio) {
+      assert.deepEqual(s.equipos, []);
+      assert.equal(s.consumo.activos, 0);
+      console.log(
+        "PASS: CLI crea una instancia vacía sin participantes, consumo ni watchers.",
+      );
+    }
+    serverProcess.kill("SIGTERM");
+    assert.equal(await serverProcess.exited, 0);
+    const output = JSON.parse(await new Response(serverProcess.stdout).text());
+    assert.equal(output.ok, true);
+    assert.equal(output.data.detenido, true);
+    console.log(
+      "PASS: comando servidor sirve assets embebidos y emite un único JSON al cerrar.",
+    );
   } finally {
-    reader.releaseLock();
+    clearTimeout(killTimer);
+    if (serverProcess.exitCode === null) serverProcess.kill("SIGKILL");
+    await serverProcess.exited;
   }
-  const home = await fetch(url);
-  assert((await home.text()).includes("<!doctype html>"));
-  assert(
-    (await (await fetch(new URL("/app.js", url))).text()).includes(
-      "renderRanking",
-    ),
-  );
-  assert.equal((await estado(url)).consumo.total, finalTotal);
-  serverProcess.kill("SIGTERM");
-  assert.equal(await serverProcess.exited, 0);
-  const output = JSON.parse(await new Response(serverProcess.stdout).text());
-  assert.equal(output.ok, true);
-  assert.equal(output.data.detenido, true);
-  console.log(
-    "PASS: comando servidor sirve assets embebidos y emite un único JSON al cerrar.",
-  );
-} finally {
-  clearTimeout(killTimer);
-  if (serverProcess.exitCode === null) serverProcess.kill("SIGKILL");
-  await serverProcess.exited;
 }
+await probarServidorCLI(false);
+await probarServidorCLI(true);

@@ -71,12 +71,13 @@ function countdown() {
         ? "PLAZO CERRADO"
         : "EL PLAZO ES EL PLAZO";
   $("plazo").textContent = `${time(start)}–${time(end)} · Hora de València`;
-  $("tipo-evento").textContent = state.demo
-    ? "ENSAYO · HORARIO DE PRUEBAS"
-    : "BUILD · EUROPE/MADRID";
+  $("tipo-evento").textContent = "BUILD · EUROPE/MADRID";
 }
 function renderRanking() {
-  if (!state) return;
+  if (!state?.consumo) {
+    $("ranking").replaceChildren();
+    return;
+  }
   const consumo = state.consumo;
   const rows = consumo[group].filter(
     (r) =>
@@ -110,13 +111,39 @@ function detail(slug) {
   const t = state.tracks.find((t) => t.slug === slug);
   if (!t) return;
   selectedDetail = slug;
-  const squads = state.consumo.squads.filter((s) => s.track === slug);
+  const squads = state.equipos.filter((s) => s.herramienta === slug);
   $("detalle-contenido").innerHTML =
     `<p class="eyebrow">NEGOCIADO · VENTANILLA ${t.ventanilla} · TRACK ${esc(t.slug)}</p><h2>${esc(t.nombre)}</h2><p>${esc(t.ciudadano)}</p><h3>Piezas para construir</h3><ul>${t.piezas.map((p) => `<li>${esc(p)}</li>`).join("")}</ul><p><strong>Lead:</strong> ${esc(t.lead)}<br><strong>Dificultad:</strong> ${esc(t.dificultad)}</p><h3>Squads</h3><p>${squads.length ? squads.map((s) => `${esc(s.nombre)} · Mesa ${esc(s.mesa)}`).join("<br>") : "Pendiente de asignación"}</p><h3>Fuentes de referencia</h3><ul>${t.fuentes.map((f) => `<li><a href="${esc(safeUrl(f.url))}" target="_blank" rel="noopener noreferrer">${esc(f.nombre)} ↗</a></li>`).join("")}</ul>`;
   if (!$("detalle").open) $("detalle").showModal();
 }
 function render() {
-  const c = state.consumo;
+  const c = state.consumo ?? {
+    total: 0,
+    input: 0,
+    output: 0,
+    cacheRead: 0,
+    cacheWrite: 0,
+    peticiones: 0,
+    activos: 0,
+    squads: [],
+    herramientas: [],
+    evolucion: [],
+    generado: Date.now(),
+  };
+  document.querySelectorAll("[data-vista]").forEach((el) => {
+    el.hidden = !state.vistas[el.dataset.vista];
+  });
+  if (group === "personas" && !state.vistas.personas) {
+    group = "squads";
+    document
+      .querySelectorAll("[data-group]")
+      .forEach((b) =>
+        b.setAttribute("aria-pressed", String(b.dataset.group === group)),
+      );
+  }
+  $("ventanilla").hidden = !state.vistas.ventanilla && !state.vistas.tablon;
+  if (!state.vistas.negociados && $("detalle").open) $("detalle").close();
+  $("contenido").hidden = projector && !state.vistas.pantalla;
   $("total").textContent = compact(c.total);
   $("total").title = `${number(c.total)} tokens`;
   $("total").dataset.total = String(c.total);
@@ -125,22 +152,18 @@ function render() {
   $("squads").textContent = number(c.squads.length);
   $("actualizado").textContent =
     `ACT. ${new Date(c.generado).toLocaleTimeString("es-ES")}`;
-  $("demo").hidden = !state.demo;
-  $("cabecera-evento").textContent = state.demo
-    ? "ENSAYO GENERAL · DATOS FICTICIOS"
-    : "VALÈNCIA · 22 OCT 2026";
-  $("simular").textContent = state.simulacion?.automatica
-    ? "Pausar simulación"
-    : "Reanudar simulación";
+  $("cabecera-evento").textContent = state.evento.nombre.toUpperCase();
   $("comando").textContent =
     `barbaritat observar --servidor ${location.origin}`;
   const key = JSON.stringify([state.tracks, state.equipos]);
   if (key !== staticKey) {
     staticKey = key;
     const active = state.tracks.filter((t) => t.estado !== "fuera");
+    const filters = active.length ? active : (state.consumo?.tracks ?? []);
+    if (!filters.some((t) => t.slug === selectedTrack)) selectedTrack = "";
     $("filtro-track").innerHTML =
       '<option value="">Todos</option>' +
-      active
+      filters
         .map((t) => `<option value="${esc(t.slug)}">${esc(t.nombre)}</option>`)
         .join("");
     $("filtro-track").value = selectedTrack;
@@ -208,6 +231,8 @@ async function poll() {
     render();
     $("conexion").textContent = "● EN DIRECTO";
     $("error").hidden = true;
+    if (projector && !state.vistas.pantalla)
+      $("conexion").textContent = "PANTALLA DESHABILITADA";
   } catch {
     $("conexion").textContent = "○ RECONECTANDO";
     $("error").textContent =
@@ -238,34 +263,6 @@ $("detalle")
 $("detalle").addEventListener("click", (e) => {
   if (e.target === $("detalle")) $("detalle").close();
 });
-async function demoAction(accion, button) {
-  button.disabled = true;
-  try {
-    const res = await fetch("/api/demo", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ accion }),
-      signal: AbortSignal.timeout(5000),
-    });
-    if (!res.ok) throw new Error();
-    await poll();
-  } catch {
-    $("error").textContent =
-      "No se pudo cambiar la simulación. Vuelve a intentarlo.";
-    $("error").hidden = false;
-  } finally {
-    button.disabled = false;
-  }
-}
-$("simular").addEventListener("click", (e) =>
-  demoAction(
-    state?.simulacion?.automatica ? "pausar" : "reanudar",
-    e.currentTarget,
-  ),
-);
-$("impulso").addEventListener("click", (e) =>
-  demoAction("impulso", e.currentTarget),
-);
 setInterval(countdown, 1000);
 async function loop() {
   await poll();

@@ -6,8 +6,11 @@ import { RegistroLocal } from "../src/registro/local";
 import { cuentaAtras } from "../src/lib/tiempo";
 import { wordmarkRows, banner } from "../src/lib/banner";
 import { panel } from "../src/lib/estilo";
-test("el registro demo tiene todos los negociados y cuatro squads", async () => {
-  const r = new RegistroLocal(join(import.meta.dir, "../demo/registro"));
+test("el fixture de pruebas tiene todos los negociados y cuatro squads", async () => {
+  const r = new RegistroLocal(
+    join(import.meta.dir, "./fixtures/registro"),
+    "demo-alba",
+  );
   expect((await r.tracks()).length).toBe(13);
   expect((await r.equipos()).length).toBe(4);
   expect(await r.comite()).toHaveLength(2);
@@ -15,8 +18,10 @@ test("el registro demo tiene todos los negociados y cuatro squads", async () => 
 });
 test("registro local persiste y cierra issues", async () => {
   const p = await mkdtemp(join(tmpdir(), "barbaritat-test-"));
-  await cp(join(import.meta.dir, "../demo/registro"), p, { recursive: true });
-  const r = new RegistroLocal(p);
+  await cp(join(import.meta.dir, "./fixtures/registro"), p, {
+    recursive: true,
+  });
+  const r = new RegistroLocal(p, "demo-alba");
   const i = await r.crearIssue("Ayuda", "Texto", ["ventanilla"]);
   expect(i.numero).toBe(1);
   await r.editarIssue(i.numero, { estado: "closed" });
@@ -56,10 +61,14 @@ for (const args of [
         join(import.meta.dir, "../src/index.ts"),
         "--json",
         "--registro",
-        new URL("../demo/registro", import.meta.url).href,
+        new URL("./fixtures/registro", import.meta.url).href,
         ...args,
       ],
-      { stdout: "pipe", stderr: "pipe" },
+      {
+        stdout: "pipe",
+        stderr: "pipe",
+        env: { ...process.env, BARBARITAT_USUARIO: "demo-alba" },
+      },
     );
     const out = await new Response(p.stdout).text();
     expect(await p.exited).toBe(0);

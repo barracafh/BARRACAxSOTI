@@ -229,33 +229,6 @@ h1 em {
   font-weight: 700;
   white-space: nowrap;
 }
-.demo {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 14px 18px;
-  background: var(--arena);
-  border: 1px dashed var(--tinta);
-  margin: 8px 0 30px;
-  font-size: 12px;
-}
-.demo strong {
-  font: 700 11px monospace;
-  display: block;
-  margin-bottom: 5px;
-}
-.demo-actions {
-  display: flex;
-  gap: 8px;
-  flex-shrink: 0;
-}
-.demo button {
-  border: 1px solid var(--tinta);
-  background: var(--cal);
-  font-size: 11px;
-  padding: 10px;
-}
 .error {
   padding: 18px;
   border: 1px solid var(--roig);
@@ -706,7 +679,6 @@ dialog a {
   padding: 0 8px;
 }
 .proyector .hero,
-.proyector .demo,
 .proyector #negociados,
 .proyector .activity,
 .proyector .join,
@@ -769,12 +741,6 @@ dialog a {
   .metrics strong {
     font-size: 35px;
   }
-  .demo {
-    align-items: flex-start;
-  }
-  .demo-actions {
-    flex-direction: column;
-  }
   .operations {
     gap: 25px;
   }
@@ -827,13 +793,6 @@ dialog a {
   }
   .clock {
     font-size: 52px;
-  }
-  .demo {
-    flex-direction: column;
-    gap: 12px;
-  }
-  .demo-actions {
-    flex-direction: row;
   }
   .metrics {
     grid-template-columns: 1fr 1fr;
@@ -1052,5 +1011,186 @@ dialog a {
   }
   .proyector .error {
     grid-column: 1/-1;
+  }
+}
+
+/* Mesa del comité: los mismos materiales, formularios de trabajo. */
+.admin-heading {
+  padding-top: 48px;
+}
+.admin-heading h1 {
+  font-size: clamp(40px, 5vw, 66px);
+}
+.admin-card {
+  border: 1px solid var(--tinta);
+  padding: 28px;
+  margin: 0 0 26px;
+  background: var(--cal);
+  min-width: 0;
+}
+.admin-card h2 {
+  font-size: 28px;
+  margin: 0 0 22px;
+}
+.admin-card p {
+  line-height: 1.6;
+}
+.admin-card .eyebrow {
+  margin-bottom: 12px;
+}
+.admin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+}
+.admin-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+.admin-toolbar > div {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.admin-page label {
+  display: grid;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  margin: 18px 0;
+}
+.admin-page input,
+.admin-page textarea,
+.admin-page select {
+  font: inherit;
+  color: var(--tinta);
+  background: var(--cal);
+  border: 1px solid var(--tinta);
+  border-radius: 0;
+  padding: 12px;
+  width: 100%;
+  min-width: 0;
+}
+.admin-page textarea {
+  resize: vertical;
+}
+.admin-page .check {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 400;
+}
+.admin-page input[type="checkbox"] {
+  accent-color: var(--roig);
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.admin-page input[readonly] {
+  background: var(--arena);
+}
+.admin-page button:not(.button) {
+  background: var(--cal);
+  border: 1px solid var(--tinta);
+  padding: 10px 14px;
+}
+.field-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.admin-note {
+  border-top: 4px solid var(--cobalto);
+  padding-top: 20px;
+  margin-top: 26px;
+}
+.admin-note p {
+  font-size: 13px;
+}
+.admin-teams {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.admin-team {
+  background: var(--arena);
+  padding: 24px;
+  overflow-wrap: anywhere;
+}
+.admin-team h3 {
+  font-size: 24px;
+  margin: 12px 0;
+}
+.team-members {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.team-members span {
+  border: 1px solid var(--cobalto);
+  color: var(--cobalto);
+  font-family: monospace;
+  font-size: 12px;
+  padding: 3px 7px;
+}
+.team-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.admin-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px 20px;
+  border: 1px dashed var(--cobalto);
+}
+.admin-message:not(:empty) {
+  border-left: 4px solid var(--horta);
+  padding: 14px 20px;
+  background: var(--arena);
+}
+.login-card {
+  max-width: 600px;
+  margin: 20px auto 70px;
+}
+.admin-page dialog {
+  width: min(700px, 92vw);
+  max-height: 88vh;
+  padding: 28px;
+}
+@media (max-width: 760px) {
+  .admin-grid,
+  .admin-teams,
+  .field-pair {
+    grid-template-columns: 1fr;
+  }
+  .admin-heading .stamp {
+    display: none;
+  }
+  .admin-card {
+    padding: 20px;
+  }
+  .admin-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .admin-toolbar > div {
+    flex-wrap: wrap;
+  }
+  .admin-page header nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .admin-page header {
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .admin-page header .brand {
+    font-size: 25px;
   }
 }

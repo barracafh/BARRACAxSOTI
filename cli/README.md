@@ -1,6 +1,6 @@
 # barbaritat
 
-La ventanilla de **Barbaritat Valenciana · BARRACA × SOTI**, 22 de octubre de 2026, MAISA (València). Bun + TypeScript, con GitHub como registro mediante `gh` o un directorio local. Trámites, expedientes y turnos para coordinar el hack. No almacena credenciales ni modifica herramientas de IA.
+La ventanilla de **Barbaritat Valenciana · BARRACA × SOTI**, 22 de octubre de 2026, MAISA (València). Bun + TypeScript, con GitHub como registro mediante `gh` o un directorio local. Trámites, expedientes y turnos para coordinar el hack. No guarda tokens de GitHub ni modifica herramientas de IA.
 
 El build del evento va de **18:30 a 22:00 Europe/Madrid**. Los nueve tracks son los negociados; cada squad tiene una pieza y una mesa. Los cuatro descartados aparecen en `tracks --todos` con su motivo. El comité asigna squads, piezas y el cupo único del track libre en `equipos.json`.
 
@@ -28,31 +28,61 @@ barbaritat actualizar
 
 `actualizar` sustituye únicamente binarios compilados; nunca el ejecutable Bun de desarrollo. En Windows descarga `barbaritat-windows-x64.exe` de la release y verifica su hash. La actualización de un `.exe` conserva el anterior con sufijo `.old`. No hay publicación automática ni comprobaciones en segundo plano.
 
-## Demo sin GitHub
+## Arranque local vacío
+
+Desde `cli/`, con Bun instalado:
 
 ```sh
-./scripts/demo.sh
+bun install
+bun run start
 ```
 
-Copia `demo/registro` a un directorio temporal, arranca un servidor efímero en `127.0.0.1`, crea el proyecto stub y recorre expediente → tramitar → ficha → revisión fallida → corrección → revisión correcta → registro → cita → llamada → pantalla. Deja allí proyectos, registro y capturas; imprime la ruta. El DNI del stub es sintético y provoca un fallo deliberado. La demo permite entregas tardías en **su copia** de `evento.json` para seguir funcionando después del hack.
+Web: **http://127.0.0.1:4310/**. Administración: **http://127.0.0.1:4310/admin**. El primer arranque crea `.barbaritat-live/registro/` con los tracks reales, el horario del evento y **cero equipos, participantes, publicaciones o consumo**. Reiniciar conserva los datos. No arranca watchers ni genera tokens.
 
-Para probar el binario en ese mismo recorrido:
+La terminal indica dónde está `.admin-key`; introduce el contenido de ese archivo en el formulario de administración. Es una clave local, creada con permisos `0600`; no se imprime, no se sube a GitHub y no se guarda en el navegador. La sesión usa una cookie HttpOnly/SameSite y caduca en ocho horas o al reiniciar el servidor. `Cerrar sesión` la revoca.
+
+También funciona desde el binario, sin Bun:
 
 ```sh
-BARBARITAT_BIN="$PWD/dist/barbaritat" ./scripts/demo.sh
+./dist/barbaritat servidor
+./dist/barbaritat servidor --directorio /ruta/instancia --puerto 4320
 ```
 
-Para explorar sin crear un proyecto:
+Para un registro local que ya existe: `barbaritat --registro file:///ruta/registro servidor`. `--directorio` crea o abre una instancia; nunca sobreescribe los JSON existentes. `--db` permite elegir la SQLite (por defecto, `uso.sqlite` dentro del registro). `Ctrl+C` cierra el servidor.
+
+## Administración del evento
+
+En `/admin` el comité puede:
+
+- Editar nombre, inicio y fin del build, entregas tardías y handles del comité. Los campos de fecha muestran la zona horaria del navegador; la web pública siempre presenta la hora de València.
+- Crear, editar y quitar equipos; asignarles un negociado, pieza, mesa, repo y hasta cinco handles de GitHub. Se admiten equipos vacíos durante la preparación. Se rechazan participantes repetidos, tracks fuera del hack y cupos excedidos.
+- Habilitar tokenmaxxing, ranking individual, catálogo de negociados, ventanilla, tablón y proyector. El ranking individual empieza deshabilitado. Las vistas apagadas tampoco entregan sus datos desde la API. Los avisos y publicaciones pueden identificar a sus autores aunque el ranking individual esté oculto.
+
+Los equipos se editan en un borrador. **Guardar configuración** aplica el conjunto de cambios, con control de revisión para impedir que dos pestañas se sobreescriban. La web los recoge en su siguiente consulta, cada dos segundos. Los permisos de vistas son globales para esta web; no sustituyen los permisos de GitHub ni deshabilitan los comandos del CLI.
+
+La administración guarda un único `.gestion.json` de forma atómica. Desde el primer guardado, ese archivo es la fuente de evento, equipos, comité y vistas para **la web y el CLI local**; los cuatro JSON iniciales quedan como base, y `tracks.json` sigue siendo el catálogo editable. Para transportar la configuración a un registro GitHub, exporta las propiedades `evento`, `equipos` y `comite` de `.gestion.json` a sus JSON respectivos; no copies la clave ni la SQLite. La administración web actual edita solo instancias locales.
+
+Los contadores siguen al handle: reasignarlo cambia el squad al que se atribuye su consumo; retirarlo lo excluye del ranking, conservando el historial. Cambiar los instantes de inicio/fin abre otra ventana de consumo. Recuperar el horario anterior recupera sus cifras; cambiar solo el formato de zona horaria no las reinicia.
+
+## Pruebas aisladas
 
 ```sh
-export BARBARITAT_REGISTRO="file://$PWD/demo/registro"
-barbaritat tracks
-barbaritat tracks brujula
-barbaritat expediente
-barbaritat --usuario demo-mentor-ona ventanilla
+bun run check
+bun run test:live
+bun run test:flujo
 ```
 
-Los cuatro squads y todos los handles `demo-*` son ficticios. El usuario local predeterminado es `demo-alba`; se cambia con `--usuario` o `BARBARITAT_USUARIO`. GitHub ignora esa variable y rechaza `--usuario`: la identidad procede de `gh api user`.
+Los participantes ficticios y los generadores de logs están **solo en `test/fixtures` y `test/support`**. `test:live` levanta sockets locales y procesos watcher con historiales sintéticos, comprueba sus totales y cierra todos sus procesos. No consulta tus historiales de IA ni llama a proveedores. `test:flujo` recorre expediente → tramitar → ficha → revisión fallida → corrección → registro → cita → llamada → pantalla, con el DNI sintético deliberado del stub. `scripts/demo.sh` se conserva como alias de ese test de flujo.
+
+Para comprobar el ejecutable autónomo:
+
+```sh
+bun run build:bin:host
+BARBARITAT_BIN="$PWD/dist/barbaritat" bun run test:live
+BARBARITAT_BIN="$PWD/dist/barbaritat" bun run test:flujo
+```
+
+No hay identidad local predeterminada. Indica `--usuario <tu-handle>` o `BARBARITAT_USUARIO`. GitHub ignora esa variable y rechaza `--usuario`: allí la identidad procede de `gh api user`.
 
 ## Comandos
 
@@ -115,15 +145,15 @@ El registro por defecto es un **placeholder**. Variables equivalentes: `BARBARIT
 
 ## Montar el registro: guía del comité
 
-Luis y el comité deben crear y configurar el repo central. Este encargo **no crea repos, issues, PRs ni releases reales**. Copia los JSON de `demo/registro`, sustituye los handles ficticios y los placeholders, y revisa los tracks antes de abrir el evento.
+Luis y el comité deben crear y configurar el repo central. Este encargo **no crea repos, issues, PRs ni releases reales**. Copia los JSON de `registro-base`, añade los equipos y handles del comité, sustituye los placeholders, y revisa los tracks antes de abrir el evento.
 
-| Ruta                  | Formato                                                                                                                                                                                                          |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `evento.json`         | Objeto: `nombre`, `inicio`, `fin` ISO con offset, `enlaces` (mapa nombre→URL) y `registroFueraDePlazo` booleano.                                                                                                 |
-| `equipos.json`        | Array de `{id,nombre,herramienta,pieza,mesa,miembros,repo}`. `id` y `herramienta` son slugs; `mesa` es texto; `miembros` son handles sin `@`; `repo` es `owner/repo` (vacío solo en demo). Un usuario, un squad. |
-| `tracks.json`         | Array descrito abajo; es la autoridad de los slugs válidos.                                                                                                                                                      |
-| `comite.json`         | Array de handles con permiso de ventanilla y autoría de avisos.                                                                                                                                                  |
-| `fichas/<squad>.json` | Ficha validada; llega por PR, el comité la revisa e integra.                                                                                                                                                     |
+| Ruta                  | Formato                                                                                                                                                                                                                                       |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `evento.json`         | Objeto: `nombre`, `inicio`, `fin` ISO con offset, `enlaces` (mapa nombre→URL) y `registroFueraDePlazo` booleano.                                                                                                                              |
+| `equipos.json`        | Array de `{id,nombre,herramienta,pieza,mesa,miembros,repo}`. `id` y `herramienta` son slugs; `mesa` es texto; `miembros` son handles sin `@`; `repo` es `owner/repo` (puede estar vacío mientras se prepara el equipo). Un usuario, un squad. |
+| `tracks.json`         | Array descrito abajo; es la autoridad de los slugs válidos.                                                                                                                                                                                   |
+| `comite.json`         | Array de handles con permiso de ventanilla y autoría de avisos.                                                                                                                                                                               |
+| `fichas/<squad>.json` | Ficha validada; llega por PR, el comité la revisa e integra.                                                                                                                                                                                  |
 
 Ejemplo de evento (las fechas llevan el offset de Madrid del día del hack):
 
@@ -137,7 +167,7 @@ Ejemplo de evento (las fechas llevan el offset de Madrid del día del hack):
 }
 ```
 
-Cada track contiene `slug`, `nombre`, `frase`, `ciudadano`, `ventanilla` (número), `color` (token de la paleta), `glifo`, `prefijo` de turno, `estado`, `lead`, `piezas` (2–3 textos), `paquetes`, `fuentes`, `dificultad` y `guias`. `cupo` y `motivo` son opcionales; el track libre tiene cupo 1 y los descartados explican su motivo. Estados: `nucleo`, `si-hay-gente`, `condicional`, `libre` y `fuera`. Los leads siguen «por asignar»; Jesús, Iban, Pau y Alex todavía no tienen reparto. Véase el [catálogo completo](demo/registro/tracks.json).
+Cada track contiene `slug`, `nombre`, `frase`, `ciudadano`, `ventanilla` (número), `color` (token de la paleta), `glifo`, `prefijo` de turno, `estado`, `lead`, `piezas` (2–3 textos), `paquetes`, `fuentes`, `dificultad` y `guias`. `cupo` y `motivo` son opcionales; el track libre tiene cupo 1 y los descartados explican su motivo. Estados: `nucleo`, `si-hay-gente`, `condicional`, `libre` y `fuera`. Los leads siguen «por asignar»; Jesús, Iban, Pau y Alex todavía no tienen reparto. Véase el [catálogo completo](registro-base/tracks.json).
 
 Un paquete es `{"id":"derechos-base","nombre":"BDNS","url":"https://…/datos.zip","sha256":"64 caracteres hexadecimales","pendiente":false}`. Mientras no se prepare, `pendiente:true`, URL `example.invalid` y SHA `PENDIENTE`. `tramitar` deja esos paquetes pendientes visibles; `datos <id>` los rechaza. En pruebas locales se aceptan URLs `file:`; en GitHub solo HTTPS. Se guardan como archivos, **sin extraer ZIPs ni ejecutar contenido**.
 
@@ -163,34 +193,21 @@ En GitHub la URL debe resolver a una red pública; cada redirección se comprueb
 
 ## Consumo local (extra)
 
-### Probar web + watcher + leaderboard en directo
+### Probar web + watcher + leaderboard con uso real
 
-Desde `cli/`, tras `bun install`:
-
-```sh
-bun run demo:live
-```
-
-Abre **http://127.0.0.1:4310/**. La demo crea un registro temporal con el build abierto ahora, cuatro squads ficticios y cuatro procesos reales de `observar`. Un generador añade logs sintéticos de Claude Code/Codex; los watchers los leen y envían al backend SQLite, y la web consulta los nuevos totales cada dos segundos. Ninguna cifra del ranking está incrustada en la web.
-
-- **Web:** presentación del hack, cuenta atrás y detalle de los negociados con piezas y fuentes.
-- **Tokenmaxxing:** ranking por squads, personas o negociados, filtro por track, entrada/salida/caché, herramientas y evolución temporal.
-- **En directo:** ventanilla y tablón leen el mismo registro que el CLI. `/pantalla` muestra el modo proyector.
-- **Controles de ensayo:** pausa/reanuda la generación e «Impulso a Taronja» añade actividad ficticia por el mismo recorrido de logs y watchers. Pausar la simulación no detiene los watchers.
-- La terminal imprime un comando para abrir un watcher visible adicional; no duplica los tokens. `p` pausa ese watcher y `q` lo cierra.
-- `Ctrl+C` cierra servidor y procesos hijos. Conserva los temporales y los logs de cada watcher en la ruta impresa. No lee historiales reales ni modifica el registro demo versionado.
-
-`bun run demo:live --puerto 4320` cambia el puerto; `--sin-simulacion` carga el historial de ejemplo sin seguir generándolo automáticamente. La demo necesita Bun incluso si `BARBARITAT_BIN=./dist/barbaritat` hace que sus watchers utilicen el binario compilado.
-
-Prueba automatizada del recorrido completo, con sockets HTTP locales:
+1. Ejecuta `bun run start` y entra en `/admin`.
+2. Crea tu equipo con **tu handle real** y el track. Ajusta la ventana del build si pruebas antes del evento; guarda la configuración.
+3. Desde otra terminal, ejecuta explícitamente el watcher para tu proyecto:
 
 ```sh
-bun run test:live
+barbaritat --registro file:///ruta/instancia --usuario TU_HANDLE --cwd /ruta/proyecto observar --servidor http://127.0.0.1:4310
 ```
 
-Comprueba cuatro watchers, ranking exacto, reenvíos, recuperación tras reiniciar el watcher, cambio de líder, controles web, actualización de ventanilla y persistencia tras reiniciar el backend. La web y sus assets están también embebidos en el binario de `barbaritat servidor`.
+Usa la URL `file://` del registro que imprime el servidor. Si aún no instalaste el binario, sustituye `barbaritat` por `bun /ruta/a/cli/src/index.ts`.
 
-Para probar **uso real** en tu máquina, usa `servidor` con una copia local del registro que tenga una ventana de build vigente y tu usuario en `equipos.json`; ejecuta `observar` desde el proyecto real sin las variables `BARBARITAT_CLAUDE_DIR`/`BARBARITAT_CODEX_DIR` de la demo. Solo el consumo de ese proyecto y periodo se envía al servidor local. El registro original del evento conserva el 22/10; no recoge actividad antes del build.
+La web muestra clasificación por squads, personas (si se habilita) y tracks, desglose de entrada/salida/caché, herramientas y evolución. La ventanilla y el tablón consultan el mismo registro que el CLI; `/pantalla` es el proyector. Sin logs del proyecto en la ventana configurada, el contador permanece en cero. El watcher cuenta actividad existente dentro de esa ventana, además de la que se produzca a partir de su arranque.
+
+`p` pausa el watcher y `q` o `Ctrl+C` lo cierra. El watcher y el servidor son procesos independientes: cerrar uno no cierra el otro. No se instalan servicios de fondo. Infraestructura compartida entre máquinas queda pendiente.
 
 ### Consulta puntual
 
@@ -198,16 +215,16 @@ Para probar **uso real** en tu máquina, usa `servidor` con una copia local del 
 
 Es una consulta puntual. Para lectura continua usa `observar` (alias oculto `watch`): sin `--servidor` mantiene todo local; con un servidor HTTP en loopback comparte los contadores de este proyecto durante el build. `--once` hace un único ciclo; `--intervalo 5` fija la cadencia; `p` pausa y `q` sale en TTY. También admite `--plain` y `--json` (un documento al terminar; progreso en stderr).
 
-### Backend de pruebas en directo
+### Backend local en directo
 
 ```sh
 bun src/index.ts --registro file:///ruta/registro servidor --puerto 4310 --db /tmp/barbaritat-uso.sqlite
-bun src/index.ts --registro file:///ruta/registro --cwd /ruta/proyecto --usuario demo-alba observar --servidor http://127.0.0.1:4310
+bun src/index.ts --registro file:///ruta/registro --cwd /ruta/proyecto --usuario TU_HANDLE observar --servidor http://127.0.0.1:4310
 ```
 
 El backend local persiste en SQLite y deduplica cada evento por ventana, persona e ID: se puede reintentar o reiniciar sin sumar dos veces. El total incluye entrada, salida y caché, con desglose separado. Solo acepta miembros del registro, y el periodo es `[inicio, fin)`. Los IDs de eventos salen como hashes; no se envían conversaciones, rutas ni nombres de proyectos. El watcher vuelve a leer el historial retenido en cada ciclo y recupera envíos fallidos mientras esos archivos existan.
 
-La identidad `--usuario` es de pruebas: no equivale a autenticar a una persona. El servidor escucha exclusivamente en `127.0.0.1` y el watcher solo admite destinos locales. **TODO producción:** elegir y provisionar infraestructura propia, autenticar usuarios, autorizar el squad en el servidor, acordar visibilidad/retención de métricas, HTTPS, límites y copias de seguridad. No se transporta consumo mediante GitHub ni se ha desplegado ningún servicio.
+La identidad local `--usuario` es declarada por el cliente: no equivale a autenticar a una persona. El servidor escucha exclusivamente en `127.0.0.1` y el watcher solo admite destinos locales. **TODO producción:** elegir y provisionar infraestructura propia, autenticar usuarios, autorizar el squad en el servidor, acordar visibilidad/retención de métricas, HTTPS, límites y copias de seguridad. No se transporta consumo mediante GitHub ni se ha desplegado ningún servicio.
 
 Rutas de lectura: `~/.claude/projects` (respeta `CLAUDE_CONFIG_DIR`) y `~/.codex/sessions` (respeta `CODEX_HOME`). Para un directorio de pruebas o una copia local usa `BARBARITAT_CLAUDE_DIR` y `BARBARITAT_CODEX_DIR`; esas variables no cambian ninguna configuración de los asistentes. Las líneas malformadas se ignoran; errores de lectura producen avisos de total parcial. Bloques repetidos de Claude y contadores acumulativos de Codex se deduplican; el razonamiento ya incluido en salida no se suma dos veces.
 
@@ -232,7 +249,7 @@ El script aplana el PNG sobre blanco e incrusta una tarjeta para Kitty/Ghostty/W
 
 - Crear registro y repo de releases, decidir organización y permisos, proteger ramas.
 - Conectar la plantilla real; la stub es únicamente de ensayo.
-- Sustituir personas/squads/repos/enlaces ficticios por los del comité.
+- Introducir equipos y participantes reales, sus repos y enlaces. La instancia arranca vacía.
 - Asignar track leads, activar o descartar Siguiente y adjudicar el cupo libre.
 - Preparar los packs oficiales, sus hashes y contenido editorial; verificar los plazos de ¿Cómo voto? con sus fuentes.
 - Recibir el PNG final y validar la marca con Rubén y Marcos.
