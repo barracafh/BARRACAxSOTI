@@ -471,3 +471,35 @@ test("guardar el mismo horario con otro offset conserva la ventana y el consumo"
     f.almacen.close();
   }
 });
+
+test("la recepción de uso no mezcla ventana y miembros de dos revisiones", async () => {
+  const f = await fixture();
+  try {
+    const cookie = await f.login();
+    await f.request("/api/admin", "PUT", f.config, cookie);
+    const antes = await administracion(f.reg);
+    const despues = structuredClone(antes);
+    despues.evento.fin = new Date(
+      Date.parse(despues.evento.fin) + 60000,
+    ).toISOString();
+    despues.equipos = [];
+    expect((await f.request("/api/admin", "PUT", despues, cookie)).status).toBe(
+      200,
+    );
+    // Modela dos lecturas independientes que atraviesan el guardado atómico:
+    // una obtiene el nuevo horario y la otra aún conserva los miembros previos.
+    f.reg.evento = async () => despues.evento;
+    f.reg.equipos = async () => antes.equipos;
+    const lote = { ...f.lote, ventana: ventanaId(despues.evento) };
+    expect((await f.request("/api/uso", "POST", lote)).status).toBe(422);
+    expect(
+      f.almacen.clasificacion(
+        despues.evento,
+        antes.equipos,
+        await f.reg.tracks(),
+      ).total,
+    ).toBe(0);
+  } finally {
+    f.almacen.close();
+  }
+});

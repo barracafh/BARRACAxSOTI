@@ -25,6 +25,8 @@ node_modules/
 npm-debug.log*
 yarn-error.log*
 *.tsbuildinfo
+test-results/
+playwright-report/
 
 # OS / editor
 .DS_Store
@@ -41,6 +43,8 @@ Thumbs.db
 .admin-key
 .gestion.json
 .admin-lock/
+.admin-lock.claims/
+.lock.claims/
 *.sqlite
 *.sqlite-shm
 *.sqlite-wal

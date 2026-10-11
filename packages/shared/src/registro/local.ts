@@ -1,9 +1,10 @@
 import { join } from "node:path";
-import { mkdir, rm, readFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import { z } from "zod";
 import { leer, guardar, esAusente } from "../io";
 import { CliError } from "../errors";
 import { leerGestion } from "./gestion";
+import { conBloqueo, ErrorBloqueo } from "./bloqueo";
 import {
   eventoSchema,
   equipoSchema,
@@ -72,24 +73,24 @@ export class RegistroLocal implements Registro {
   private async mutate<T>(
     fn: (s: z.infer<typeof stateSchema>) => Promise<T> | T,
   ): Promise<T> {
-    const lock = join(this.dir, ".lock");
     try {
-      await mkdir(lock);
-    } catch {
-      throw new CliError(
-        "LOCKED",
-        "El registro local está ocupado.",
-        "Reintenta; si se interrumpió un proceso, revisa .lock.",
-        1,
-      );
-    }
-    try {
-      const s = await this.state();
-      const result = await fn(s);
-      await guardar(join(this.dir, ".estado.json"), s);
-      return result;
-    } finally {
-      await rm(lock, { recursive: true });
+      return await conBloqueo(join(this.dir, ".lock"), async () => {
+        const s = await this.state();
+        const result = await fn(s);
+        await guardar(join(this.dir, ".estado.json"), s);
+        return result;
+      });
+    } catch (error) {
+      if (error instanceof ErrorBloqueo)
+        throw new CliError(
+          "LOCKED",
+          error.message,
+          error.heredado
+            ? "El bloqueo antiguo está en .lock. Consulta la recuperación de bloqueos en server/README.md."
+            : "Reintenta cuando termine la otra operación.",
+          1,
+        );
+      throw error;
     }
   }
   issues = async () => (await this.state()).issues;

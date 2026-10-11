@@ -1,11 +1,12 @@
-import { mkdir, readFile, writeFile, rm } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { z } from "zod";
-import { guardar, esAusente } from "../io";
+import { guardar, leer, esAusente } from "../io";
 import { eventoSchema, equipoSchema, type Track } from "../modelo";
 import type { RegistroLocal } from "./local";
 import { eventoBase } from "../evento";
 import tracksBase from "../../registro-base/tracks.json";
+import { conBloqueo, ErrorBloqueo } from "./bloqueo";
 
 export const vistasIniciales = {
   clasificacion: true,
@@ -60,9 +61,9 @@ export async function administracion(reg: RegistroLocal): Promise<Gestion> {
   const saved = await leerGestion(reg.dir);
   if (saved) return saved;
   const [evento, equipos, comite] = await Promise.all([
-    reg.evento(),
-    reg.equipos(),
-    reg.comite(),
+    leer(join(reg.dir, "evento.json"), eventoSchema),
+    leer(join(reg.dir, "equipos.json"), z.array(equipoSchema)),
+    leer(join(reg.dir, "comite.json"), z.array(z.string().min(1))),
   ]);
   return {
     revision: 0,
@@ -111,24 +112,22 @@ export async function guardarGestion(reg: RegistroLocal, raw: unknown) {
         .join("; "),
     );
   validarAsignaciones(parsed.data, await reg.tracks());
-  const lock = join(reg.dir, ".admin-lock");
   try {
-    await mkdir(lock);
-  } catch {
-    throw new ErrorGestion("Otra edición está guardándose. Reintenta.", 409);
-  }
-  try {
-    const previo = await administracion(reg);
-    if (previo.revision !== parsed.data.revision)
-      throw new ErrorGestion(
-        "El registro ha cambiado en otra ventana. Recarga antes de guardar.",
-        409,
-      );
-    const next = { ...parsed.data, revision: previo.revision + 1 };
-    await guardar(join(reg.dir, ".gestion.json"), next);
-    return next;
-  } finally {
-    await rm(lock, { recursive: true });
+    return await conBloqueo(join(reg.dir, ".admin-lock"), async () => {
+      const previo = await administracion(reg);
+      if (previo.revision !== parsed.data.revision)
+        throw new ErrorGestion(
+          "El registro ha cambiado en otra ventana. Recarga antes de guardar.",
+          409,
+        );
+      const next = { ...parsed.data, revision: previo.revision + 1 };
+      await guardar(join(reg.dir, ".gestion.json"), next);
+      return next;
+    });
+  } catch (error) {
+    if (error instanceof ErrorBloqueo)
+      throw new ErrorGestion(error.message, 409);
+    throw error;
   }
 }
 // Solo valores reales del evento y el catálogo. Nunca crea personas, consumo o procesos.

@@ -30,6 +30,7 @@ let state,
   group = "squads",
   selectedTrack = "",
   staticKey = "",
+  filterKey = "",
   selectedDetail;
 const projector = location.pathname === "/pantalla";
 if (projector) {
@@ -155,11 +156,11 @@ function render() {
     `ACT. ${new Date(c.generado).toLocaleTimeString("es-ES")}`;
   actualizarMarca(state.evento);
   $("comando").textContent = `hacknight observar --servidor ${location.origin}`;
-  const key = JSON.stringify([state.tracks, state.equipos]);
-  if (key !== staticKey) {
-    staticKey = key;
-    const active = state.tracks.filter((t) => t.estado !== "fuera");
-    const filters = active.length ? active : (state.consumo?.tracks ?? []);
+  const active = state.tracks.filter((t) => t.estado !== "fuera");
+  const filters = active.length ? active : (state.consumo?.tracks ?? []);
+  const nextFilterKey = JSON.stringify(filters.map((t) => [t.slug, t.nombre]));
+  if (nextFilterKey !== filterKey) {
+    filterKey = nextFilterKey;
     if (!filters.some((t) => t.slug === selectedTrack)) selectedTrack = "";
     $("filtro-track").innerHTML =
       '<option value="">Todos</option>' +
@@ -167,12 +168,20 @@ function render() {
         .map((t) => `<option value="${esc(t.slug)}">${esc(t.nombre)}</option>`)
         .join("");
     $("filtro-track").value = selectedTrack;
+  }
+  const key = JSON.stringify([state.tracks, state.equipos]);
+  if (key !== staticKey) {
+    staticKey = key;
     $("tracks").innerHTML = active
       .map(
         (t) =>
           `<button class="track" data-track="${esc(t.slug)}"><span class="eyebrow">VENTANILLA ${String(t.ventanilla).padStart(2, "0")} / ${esc(trackStates[t.estado])}</span><h3>${esc(t.nombre)}</h3><p>${esc(t.frase)}</p><span class="track-bottom"><span>${state.equipos.filter((e) => e.herramienta === t.slug).length} SQUAD(S) · TRACK ${esc(t.slug)}</span><span aria-hidden="true">↗</span></span></button>`,
       )
       .join("");
+    if ($("detalle").open) {
+      if (active.some((t) => t.slug === selectedDetail)) detail(selectedDetail);
+      else $("detalle").close();
+    }
   }
   renderRanking();
   $("desglose").innerHTML = [
