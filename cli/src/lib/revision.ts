@@ -5,9 +5,9 @@ import { isIP } from "node:net";
 import { ejecutar } from "./proceso";
 import { leerFicha } from "./ficha";
 import { detectar, type Hallazgo } from "./detectores";
-import { CliError } from "@barbaritat/shared/errors";
+import { CliError } from "@hacknight/shared/errors";
 import type { Contexto } from "./contexto";
-import type { Ficha } from "@barbaritat/shared/modelo";
+import type { Ficha } from "@hacknight/shared/modelo";
 export interface Regla {
   numero: number;
   nombre: string;
@@ -112,9 +112,9 @@ export async function revisar(
   let marker = false;
   try {
     const m = JSON.parse(
-      await readFile(join(ctx.cwd, ".barbaritat/plantilla.json"), "utf8"),
+      await readFile(join(ctx.cwd, ".hacknight/plantilla.json"), "utf8"),
     );
-    marker = m.plantilla === "barbaritat" && typeof m.version === "string";
+    marker = m.plantilla === "hacknight" && typeof m.version === "string";
   } catch {}
   reglas.push({
     numero: 1,
@@ -122,7 +122,7 @@ export async function revisar(
     ok: marker,
     detalle: marker
       ? "Marcador de plantilla presente."
-      : "Falta .barbaritat/plantilla.json válido (plantilla y version).",
+      : "Falta .hacknight/plantilla.json válido (plantilla y version).",
   });
   let urlOK = false;
   let urlDetalle = "Falta una URL en una ficha válida.";

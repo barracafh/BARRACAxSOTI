@@ -1,6 +1,6 @@
 dist/
 node_modules/
-.barbaritat-live/
+.hacknight-live/
 *.tmp
 
 .admin-key

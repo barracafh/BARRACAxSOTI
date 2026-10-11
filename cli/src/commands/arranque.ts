@@ -3,11 +3,11 @@ import { resolve, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { Contexto } from "../lib/contexto";
 import { miEquipo } from "../lib/contexto";
-import { repo } from "@barbaritat/shared/modelo";
-import { esAusente, guardar } from "@barbaritat/shared/io";
+import { repo } from "@hacknight/shared/modelo";
+import { esAusente, guardar } from "@hacknight/shared/io";
 import { ejecutar } from "../lib/proceso";
 import { confirmar } from "../lib/confirmacion";
-import { CliError, usage } from "@barbaritat/shared/errors";
+import { CliError, usage } from "@hacknight/shared/errors";
 import { salida, tramitando } from "../lib/output";
 import { panel, trackLabel } from "../lib/estilo";
 import { descargar } from "../lib/datos";
@@ -40,7 +40,7 @@ export async function datos(ctx: Contexto, paquete?: string, track?: string) {
     throw new CliError(
       "NOT_FOUND",
       "No existe ese paquete.",
-      "Usa barbaritat datos.",
+      "Usa hacknight datos.",
       4,
     );
   const result = await tramitando("Compulsando…", ctx.opts.json, () =>
@@ -140,7 +140,7 @@ export async function tramitar(
         filter: (p) => !p.split(/[\\/]/).includes(".git"),
       });
     } else {
-      await mkdir(join(target, ".barbaritat"), { recursive: true });
+      await mkdir(join(target, ".hacknight"), { recursive: true });
       for (const [path, texto] of Object.entries(plantilla))
         await writeFile(join(target, path), texto);
     }
@@ -179,11 +179,11 @@ export async function tramitar(
       panel("Expediente abierto", [
         `Proyecto: ${target}`,
         `Squad: ${equipo.nombre} · Pieza: ${equipo.pieza}`,
-        "Ficha pre-rellenada. Completa su URL con barbaritat ficha.",
+        "Ficha pre-rellenada. Completa su URL con hacknight ficha.",
         ...track.paquetes
           .filter((p) => p.pendiente)
           .map((p) => `Pendiente del track lead: ${p.id}`),
-        "Siguiente: barbaritat revisar",
+        "Siguiente: hacknight revisar",
       ]),
     ctx.opts.json,
   );

@@ -44,7 +44,7 @@ describe("detectImageProtocol", () => {
     ).toBeNull();
     expect(
       detectImageProtocol(
-        { BARBARITAT_NO_IMAGES: "1", TERM_PROGRAM: "iTerm.app" },
+        { HACKNIGHT_NO_IMAGES: "1", TERM_PROGRAM: "iTerm.app" },
         true,
       ),
     ).toBeNull();

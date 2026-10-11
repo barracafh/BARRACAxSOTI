@@ -67,6 +67,8 @@ const zoned = z.iso.datetime({ offset: true });
 export const eventoSchema = z
   .object({
     nombre: text,
+    nombre_corto: text,
+    organizan: text,
     inicio: zoned,
     fin: zoned,
     enlaces: z.record(z.string(), z.url()),

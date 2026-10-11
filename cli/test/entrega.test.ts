@@ -5,12 +5,13 @@ import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { z } from "zod";
 import { dniValido, ibanValido, detectar } from "../src/lib/detectores";
-import { RegistroLocal } from "@barbaritat/shared/registro/local";
-import { fichaSchema, type Ficha } from "@barbaritat/shared/modelo";
+import { RegistroLocal } from "@hacknight/shared/registro/local";
+import { fichaSchema, type Ficha } from "@hacknight/shared/modelo";
 import { numeroRegistro, justificante, sello } from "../src/lib/justificante";
 import { revisar, comprobarUrl, direccionPublica } from "../src/lib/revision";
 import { validarFicha } from "../src/lib/ficha";
 import schema from "../esquemas/ficha.schema.json";
+import { eventoBase } from "@hacknight/shared/evento";
 export const fichaPrueba: Ficha = {
   nombre: "Ayudas de prueba",
   frase: "Encuentra ayudas.",
@@ -94,9 +95,31 @@ test("número y justificante deterministas", async () => {
   expect(justificante(r, track, false).csv).toHaveLength(16);
   expect(sello()).toContain("REGISTRO DE ENTRADA");
   expect(sello()).toContain("22 OCT 2026");
+  expect(sello()).toContain("HACK NIGHT");
 });
+test("el sello tiene doble borde, sangría fija y todas sus filas del mismo ancho", () => {
+  for (const columns of [30, 80]) {
+    for (const evento of [
+      eventoBase,
+      {
+        ...eventoBase,
+        nombre_corto: "Una noche 🌙 con un nombre mucho más largo",
+      },
+    ]) {
+      const rows = Bun.stripANSI(sello(evento, columns)).split("\n");
+      const widths = rows.map((row) => Bun.stringWidth(row));
+      expect(new Set(widths).size).toBe(1);
+      expect(widths[0]).toBeLessThanOrEqual(columns);
+      expect(rows[0]).toMatch(/^ {3}╔═+╗$/);
+      expect(rows.at(-1)).toMatch(/^ {3}╚═+╝$/);
+      for (const row of rows.slice(1, -1)) expect(row).toMatch(/^ {3}║ .* ║$/);
+      expect(rows.join("\n")).not.toContain("🌙");
+    }
+  }
+});
+
 test("local actualiza una ficha y conserva el número", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "barbaritat-reg-"));
+  const dir = await mkdtemp(join(tmpdir(), "hacknight-reg-"));
   await mkdir(join(dir, "fichas"));
   const r = new RegistroLocal(dir);
   const a = await r.registrar(fichaPrueba, "2026-10-22T19:00:00Z");
@@ -129,11 +152,11 @@ test("URL con timeout da error", async () => {
   await expect(comprobarUrl("http://localhost", true, f)).rejects.toThrow();
 });
 test("revisión falla por DNI y botón, y se subsana", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "barbaritat-revision-"));
-  await mkdir(join(dir, ".barbaritat"));
+  const dir = await mkdtemp(join(tmpdir(), "hacknight-revision-"));
+  await mkdir(join(dir, ".hacknight"));
   await writeFile(
-    join(dir, ".barbaritat/plantilla.json"),
-    JSON.stringify({ plantilla: "barbaritat", version: "demo" }),
+    join(dir, ".hacknight/plantilla.json"),
+    JSON.stringify({ plantilla: "hacknight", version: "demo" }),
   );
   await writeFile(join(dir, "ficha.json"), JSON.stringify(fichaPrueba));
   await writeFile(join(dir, "app.ts"), 'const dni="12345678Z"');
@@ -186,7 +209,7 @@ test("revisión falla por DNI y botón, y se subsana", async () => {
       {
         stdout: "pipe",
         stderr: "pipe",
-        env: { ...process.env, BARBARITAT_USUARIO: "demo-alba" },
+        env: { ...process.env, HACKNIGHT_USUARIO: "demo-alba" },
       },
     );
     const data = JSON.parse(await new Response(p.stdout).text());
@@ -201,7 +224,7 @@ test("revisión falla por DNI y botón, y se subsana", async () => {
 });
 
 test("la ficha que se publicará se escanea aunque todavía no esté versionada", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "barbaritat-untracked-"));
+  const dir = await mkdtemp(join(tmpdir(), "hacknight-untracked-"));
   await writeFile(join(dir, "app.ts"), "<BotonAviso />");
   for (const args of [
     ["git", "init"],

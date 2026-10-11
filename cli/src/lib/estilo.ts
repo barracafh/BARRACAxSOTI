@@ -1,5 +1,5 @@
-import { paleta, type Color } from "@barbaritat/shared/paleta";
-export { paleta, roles, type Color } from "@barbaritat/shared/paleta";
+import { paleta, type Color } from "@hacknight/shared/paleta";
+export { paleta, roles, type Color } from "@hacknight/shared/paleta";
 let enabled =
   Boolean(process.stdout.isTTY) &&
   process.env.NO_COLOR === undefined &&
@@ -17,12 +17,19 @@ export function paint(color: Color, text: string) {
   const rgb = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
   return `\x1b[38;2;${rgb.join(";")}m${text}\x1b[39m`;
 }
+// Fondo del proyector; sin color, conserva el texto plano y el fondo del usuario.
+export function fondo(color?: Color) {
+  if (!enabled) return "";
+  if (!color) return "\x1b[49m";
+  const rgb = [1, 3, 5].map((i) => parseInt(paleta[color].slice(i, i + 2), 16));
+  return `\x1b[48;2;${rgb.join(";")}m`;
+}
 // Badge: el token queda sobre cal/tinta, según contraste; funciona con ambos fondos.
 export function badge(color: Color, text: string) {
   if (!enabled) return text;
   const hex = paleta[color];
   const rgb = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
-  const ink = ["roig", "cobalto", "horta", "tinta"].includes(color)
+  const ink = ["roig", "cobalto", "horta", "tinta", "noche"].includes(color)
     ? "cal"
     : "tinta";
   return `\x1b[48;2;${rgb.join(";")}m${paint(ink, ` ${text} `)}\x1b[49m`;
@@ -30,6 +37,7 @@ export function badge(color: Color, text: string) {
 export const width = Bun.stringWidth;
 export const terminalText = (s: string) =>
   Bun.stripANSI(s)
+    .replace(/🌙\uFE0F?/gu, "☾")
     .replace(/\p{Bidi_Control}/gu, "")
     .replace(/[\x00-\x08\x0b-\x1f\x7f]/g, "");
 export function fit(s: string, n: number): string {

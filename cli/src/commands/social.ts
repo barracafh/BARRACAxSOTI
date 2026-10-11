@@ -1,15 +1,15 @@
 import {
   obtenerCola as leerCola,
   entradas as leerEntradas,
-} from "@barbaritat/shared/actividad";
+} from "@hacknight/shared/actividad";
 import { text, isCancel } from "@clack/prompts";
 import { z } from "zod";
 import type { Contexto } from "../lib/contexto";
 import { miEquipo } from "../lib/contexto";
-import { CliError, usage } from "@barbaritat/shared/errors";
+import { CliError, usage } from "@hacknight/shared/errors";
 import { salida } from "../lib/output";
 import { panel, trackLabel, terminalText, wrap } from "../lib/estilo";
-import { citaBody, type Cita } from "@barbaritat/shared/cola";
+import { citaBody, type Cita } from "@hacknight/shared/cola";
 import { confirmar } from "../lib/confirmacion";
 export const obtenerCola = (ctx: Contexto) => leerCola(ctx.registro);
 export async function cita(ctx: Contexto, accion?: string, motivo?: string) {
@@ -186,7 +186,7 @@ export async function ventanilla(
       accion === "llamar"
         ? "No hay turnos en espera."
         : "No se encontró un turno llamado.",
-      "Consulta barbaritat ventanilla.",
+      "Consulta hacknight ventanilla.",
       4,
     );
   const estado = accion === "llamar" ? "llamado" : "atendido";
@@ -239,7 +239,7 @@ export async function publicar(ctx: Contexto, texto: string) {
   );
   salida(
     { numero: issue.numero, url: issue.url },
-    "Publicación registrada. Xe, quina barbaritat.\n" + issue.url,
+    "Publicación registrada. Apa!\n" + issue.url,
     ctx.opts.json,
   );
 }

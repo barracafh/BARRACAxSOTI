@@ -1,5 +1,5 @@
 import type { Contexto } from "../lib/contexto";
-import { snapshot as leerEstado } from "@barbaritat/shared/actividad";
+import { snapshot as leerEstado } from "@hacknight/shared/actividad";
 import {
   renderPantalla,
   startScreen,

@@ -1,5 +1,5 @@
 /**
- * Inline pictures for `barbaritat feed` and the watcher's feed band.
+ * Inline pictures for `hacknight feed` and the watcher's feed band.
  * Terminals disagree on how to draw an image, so the CLI speaks the two
  * protocols that accept PNG bytes as they are (Kitty graphics and iTerm2
  * inline images) and falls back to printing the link everywhere else.
@@ -9,7 +9,7 @@
 
 export type ImageProtocol = "kitty" | "iterm";
 
-/** Columns an inline image may take in `barbaritat feed`. */
+/** Columns an inline image may take in `hacknight feed`. */
 export const IMAGE_COLUMNS = 36;
 /** Rows an inline image may take; wider-than-tall pictures hit the columns first. */
 const IMAGE_MAX_ROWS = 12;
@@ -39,7 +39,7 @@ export function detectImageProtocol(
   env: Env,
   isTty: boolean,
 ): ImageProtocol | null {
-  if (!isTty || env.BARBARITAT_NO_IMAGES || env.TMUX || env.STY) {
+  if (!isTty || env.HACKNIGHT_NO_IMAGES || env.TMUX || env.STY) {
     return null;
   }
   const program = (env.TERM_PROGRAM ?? "").toLowerCase();

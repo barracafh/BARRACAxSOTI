@@ -4,7 +4,7 @@ import { select, isCancel } from "@clack/prompts";
 import { contexto, type Contexto } from "./lib/contexto";
 import { setPlain } from "./lib/estilo";
 import { fallo, salida } from "./lib/output";
-import { CliError } from "@barbaritat/shared/errors";
+import { CliError } from "@hacknight/shared/errors";
 import { tracks, expediente } from "./commands/base";
 import { ficha, revision, registrar } from "./commands/entrega";
 import { cita, ventanilla, tablon, publicar } from "./commands/social";
@@ -13,9 +13,10 @@ import { tramitar, datos } from "./commands/arranque";
 import { actualizar } from "./commands/actualizar";
 import { consumo } from "./commands/consumo";
 import { observar } from "./commands/observar";
+import { eventoBase } from "@hacknight/shared/evento";
 const program = new Command()
-  .name("barbaritat")
-  .description("Azulejo y ventanilla · BARRACA × SOTI")
+  .name("hacknight")
+  .description(`La ventanilla de ${eventoBase.nombre}`)
   .version("0.1.0", "-V, --version", "Mostrar versión")
   .helpOption("-h, --help", "Mostrar ayuda")
   .option("--json", "Un documento JSON; sin interacción")
@@ -229,7 +230,7 @@ try {
         ? new CliError(
             "USAGE",
             "El comando o sus argumentos no son válidos.",
-            "Usa barbaritat --help para consultar los trámites y opciones.",
+            "Usa hacknight --help para consultar los trámites y opciones.",
             2,
           )
         : e,

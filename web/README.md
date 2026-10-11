@@ -1,6 +1,8 @@
-# Web de Barbaritat
+# Web de Hack night
 
-Web del evento y dashboard local, servidos por [server/](../server/) (`bun run start` desde la raíz del repo). HTML, CSS y JavaScript sin dependencias de navegador ni servicios externos. Los assets se incluyen en `server/dist/barbaritat-server`; el CLI no los incorpora. La paleta llega de `shared/src/paleta.ts` mediante `/paleta.css`.
+Web del evento y dashboard local, servidos por [server/](../server/) (`bun run start` desde la raíz del repo). HTML, CSS y JavaScript sin dependencias de navegador ni servicios externos. Los assets se incluyen en `server/dist/hacknight-server`; el CLI no los incorpora. La paleta llega de `shared/src/paleta.ts` mediante `/paleta.css`; el token `noche` da el fondo a la web, el admin y el proyector. El logo gráfico sigue pendiente: se muestra la marca tipográfica con la luna.
+
+Los títulos, metadatos y cabeceras se renderizan con el evento del registro; `marca.js` los actualiza tras las consultas o al guardar desde el admin. No hay un nombre de evento duplicado en el HTML.
 
 - `/`: evento, negociados, clasificación, evolución, ventanilla y tablón.
 - `/pantalla`: vista del proyector con cuenta atrás, ranking y turnos.

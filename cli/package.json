@@ -1,12 +1,12 @@
 {
-  "name": "barbaritat",
+  "name": "hacknight",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "license": "MIT",
   "description": "La ventanilla del hack BARRACA \u00d7 SOTI",
   "bin": {
-    "barbaritat": "./src/index.ts"
+    "hacknight": "./src/index.ts"
   },
   "scripts": {
     "dev": "bun src/index.ts",
@@ -25,6 +25,6 @@
     "@clack/prompts": "^1.7.0",
     "commander": "^14.0.3",
     "zod": "^4.1.0",
-    "@barbaritat/shared": "workspace:*"
+    "@hacknight/shared": "workspace:*"
   }
 }

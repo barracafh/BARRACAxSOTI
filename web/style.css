@@ -7,8 +7,8 @@ html {
 }
 body {
   margin: 0;
-  background: var(--cal);
-  color: var(--tinta);
+  background: var(--noche);
+  color: var(--cal);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
 }
@@ -94,12 +94,21 @@ header {
   font-weight: 950;
   letter-spacing: -1.7px;
   line-height: 0.85;
-  color: var(--roig);
+  color: var(--cal);
+  text-transform: uppercase;
+}
+.brand strong {
+  font-weight: inherit;
+}
+.brand-moon {
+  font-size: 0.7em;
+  font-style: normal;
+  margin-right: 0.3em;
 }
 .brand span {
   display: block;
   font-size: 12px;
-  letter-spacing: 5.1px;
+  letter-spacing: 2px;
   margin-top: 8px;
 }
 nav {
@@ -642,7 +651,7 @@ footer .brand {
 }
 footer .brand span {
   font-size: 10px;
-  letter-spacing: 3.5px;
+  letter-spacing: 1.5px;
 }
 footer p,
 footer > a:last-child {
@@ -765,7 +774,7 @@ dialog a {
   }
   .brand span {
     font-size: 10px;
-    letter-spacing: 3.6px;
+    letter-spacing: 1.5px;
   }
   nav {
     gap: 8px;
@@ -1192,5 +1201,79 @@ dialog a {
   }
   .admin-page header .brand {
     font-size: 25px;
+  }
+}
+
+/* Noche alrededor de los formularios y justificantes de la ventanilla. */
+header,
+footer {
+  border-color: color-mix(in srgb, var(--cal) 35%, transparent);
+}
+header {
+  gap: 24px;
+}
+.brand {
+  flex-shrink: 0;
+}
+header .outline {
+  border-color: var(--arena);
+}
+h1 em {
+  color: var(--taronja);
+}
+.ticket,
+.metrics,
+.ranking-layout,
+.tracks,
+.turno,
+.admin-card,
+.admin-team,
+.admin-message:not(:empty),
+.skip {
+  background: var(--cal);
+  color: var(--tinta);
+}
+.ticket {
+  color: var(--cobalto);
+  box-shadow: 8px 8px 0 color-mix(in srgb, var(--cobalto) 40%, var(--noche));
+}
+.admin-team {
+  background: var(--arena);
+}
+.admin-message:not(:empty) {
+  background: var(--arena);
+}
+.live-label,
+.tv-clock,
+.tag,
+.feed .eyebrow,
+.admin-heading .stamp {
+  color: var(--arena);
+}
+.tag,
+.admin-heading .stamp {
+  border-color: var(--arena);
+}
+.feed article,
+.activity {
+  border-color: color-mix(in srgb, var(--cal) 35%, transparent);
+}
+.error {
+  color: var(--cal);
+  background: var(--roig);
+}
+.proyector {
+  background: var(--noche);
+}
+@media (max-width: 420px) {
+  header .brand {
+    font-size: 20px;
+  }
+  header .brand span {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+  header nav {
+    min-width: 0;
   }
 }

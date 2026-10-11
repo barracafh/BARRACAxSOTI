@@ -1,4 +1,4 @@
-import { RegistroLocal } from "@barbaritat/shared/registro/local";
+import { RegistroLocal } from "@hacknight/shared/registro/local";
 import { publicarUso, servidorLocal } from "../cli/src/watcher/cliente";
 import { test, expect } from "bun:test";
 import { mkdtemp, cp, writeFile, mkdir } from "node:fs/promises";
@@ -11,13 +11,13 @@ import {
   loteSchema,
   ventanaId,
   type Lote,
-} from "@barbaritat/shared/contrato-uso";
+} from "@hacknight/shared/contrato-uso";
 import { contexto } from "../cli/src/lib/contexto";
 import { crearHandler } from "../server/src/servidor";
 import { leerConsumo } from "../cli/src/consumo/local";
 
 async function fixture() {
-  const dir = await mkdtemp(join(tmpdir(), "barbaritat-live-test-"));
+  const dir = await mkdtemp(join(tmpdir(), "hacknight-live-test-"));
   const reg = join(dir, "registro");
   await cp(join(import.meta.dir, "./fixtures/registro"), reg, {
     recursive: true,
@@ -215,9 +215,9 @@ test("observar --once --json funciona sin servidor, sin leer logs del usuario", 
     {
       env: {
         ...process.env,
-        BARBARITAT_USUARIO: "demo-alba",
-        BARBARITAT_CLAUDE_DIR: join(f.dir, "empty"),
-        BARBARITAT_CODEX_DIR: join(f.dir, "empty"),
+        HACKNIGHT_USUARIO: "demo-alba",
+        HACKNIGHT_CLAUDE_DIR: join(f.dir, "empty"),
+        HACKNIGHT_CODEX_DIR: join(f.dir, "empty"),
       },
       stdout: "pipe",
       stderr: "pipe",

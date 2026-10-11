@@ -7,13 +7,16 @@ import {
   inicializarRegistro,
   administracion,
   type Gestion,
-} from "@barbaritat/shared/registro/gestion";
-import { RegistroLocal } from "@barbaritat/shared/registro/local";
+} from "@hacknight/shared/registro/gestion";
+import { RegistroLocal } from "@hacknight/shared/registro/local";
 import { contexto, miEquipo } from "../cli/src/lib/contexto";
 import { AlmacenUso } from "../server/src/almacen";
 import { crearHandler } from "../server/src/servidor";
 import { claveAdministracion } from "../server/src/admin";
-import { hash, ventanaId } from "@barbaritat/shared/contrato-uso";
+import { hash, ventanaId } from "@hacknight/shared/contrato-uso";
+import { eventoBase } from "@hacknight/shared/evento";
+import { banner } from "../cli/src/lib/banner";
+import { sello } from "../cli/src/lib/justificante";
 
 const equipo = {
   id: "test-equipo",
@@ -25,7 +28,7 @@ const equipo = {
   repo: "",
 };
 async function fixture() {
-  const dir = await mkdtemp(join(tmpdir(), "barbaritat-admin-test-"));
+  const dir = await mkdtemp(join(tmpdir(), "hacknight-admin-test-"));
   await inicializarRegistro(dir);
   const ctx = await contexto({
     registro: pathToFileURL(dir).href,
@@ -123,6 +126,39 @@ test("el arranque es vacío, idempotente y no inventa una identidad local", asyn
     );
     await inicializarRegistro(f.dir);
     expect((await f.reg.evento()).nombre).toBe("Configurado por el comité");
+  } finally {
+    f.almacen.close();
+  }
+});
+
+test("la marca del registro llega a web, admin y CLI, con HTML escapado", async () => {
+  const f = await fixture();
+  try {
+    expect(await f.reg.evento()).toEqual(eventoBase);
+    for (const path of ["/", "/admin", "/pantalla"]) {
+      const html = await (await f.request(path)).text();
+      expect(html).toContain(eventoBase.nombre);
+      expect(html).toContain('property="og:title"');
+      expect(html).not.toContain("{{nombre");
+    }
+    const cookie = await f.login();
+    f.config.evento.nombre = 'Otra noche "<&>" 🌙';
+    f.config.evento.nombre_corto = "Otra noche";
+    f.config.evento.organizan = "Comité & builders";
+    expect(
+      (await f.request("/api/admin", "PUT", f.config, cookie)).status,
+    ).toBe(200);
+    for (const path of ["/", "/admin", "/pantalla"]) {
+      const html = await (await f.request(path)).text();
+      expect(html).toContain("Otra noche &quot;&lt;&amp;&gt;&quot; 🌙");
+      expect(html).toContain("Comité &amp; builders");
+      expect(html).not.toContain(eventoBase.nombre);
+    }
+    const evento = await f.ctx.registro.evento();
+    expect((await f.publico()).evento).toEqual(evento);
+    expect(banner(80, null, evento)).toContain("OTRA NOCHE");
+    expect(banner(80, null, evento)).toContain("Comité & builders");
+    expect(sello(evento)).toContain("OTRA NOCHE");
   } finally {
     f.almacen.close();
   }
@@ -389,7 +425,7 @@ test("reasignar o retirar personas y cambiar la ventana no borra ni duplica los 
 });
 
 test("la clave local se conserva al reiniciar y solo el propietario puede leer el archivo", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "barbaritat-key-test-"));
+  const dir = await mkdtemp(join(tmpdir(), "hacknight-key-test-"));
   const first = await claveAdministracion(dir),
     next = await claveAdministracion(dir);
   expect(next.clave).toBe(first.clave);

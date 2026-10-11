@@ -1,8 +1,8 @@
 import type { Contexto } from "../lib/contexto";
 import { miEquipo } from "../lib/contexto";
-import { CliError } from "@barbaritat/shared/errors";
+import { CliError } from "@hacknight/shared/errors";
 import { salida } from "../lib/output";
-import { panel, trackLabel, fit } from "../lib/estilo";
+import { panel, trackLabel, fit, terminalText } from "../lib/estilo";
 import { escanear } from "../watcher/cliente";
 import { servidorLocal } from "../watcher/cliente";
 
@@ -20,6 +20,7 @@ export async function observar(
     );
   if (opts.servidor) servidorLocal(opts.servidor);
   const { usuario, equipo, track } = await miEquipo(ctx);
+  let evento = await ctx.registro.evento();
   let ultimo: Awaited<ReturnType<typeof escanear>> | undefined;
   let error = "",
     cerrado = false,
@@ -31,7 +32,7 @@ export async function observar(
     process.stdin.isTTY &&
     process.stdout.isTTY;
   const lines = () => [
-    "BARBARITAT VALENCIANA · WATCHER",
+    `${terminalText(evento.nombre)} · WATCHER`,
     trackLabel(track),
     ...panel("Tasa de esfuerzo", [
       `${equipo.nombre} · @${usuario} · Mesa ${equipo.mesa}`,
@@ -70,7 +71,7 @@ export async function observar(
   };
   const tick = async () => {
     try {
-      const evento = await ctx.registro.evento();
+      evento = await ctx.registro.evento();
       ultimo = await escanear({
         cwd: ctx.cwd,
         usuario,

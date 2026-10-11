@@ -5,13 +5,13 @@ import { join, resolve } from "node:path";
 import type { Contexto } from "../lib/contexto";
 import { miEquipo } from "../lib/contexto";
 import { leerFicha, validarFicha } from "../lib/ficha";
-import { guardar } from "@barbaritat/shared/io";
-import { CliError, usage } from "@barbaritat/shared/errors";
+import { guardar } from "@hacknight/shared/io";
+import { CliError, usage } from "@hacknight/shared/errors";
 import { salida } from "../lib/output";
 import { panel } from "../lib/estilo";
 import { revisar, revisionTexto, revisionPublica } from "../lib/revision";
 import { justificante, justificanteTexto } from "../lib/justificante";
-import type { Ficha } from "@barbaritat/shared/modelo";
+import type { Ficha } from "@hacknight/shared/modelo";
 async function ask(message: string, initialValue = "") {
   const v = await text({
     message,
@@ -54,7 +54,7 @@ export async function ficha(ctx: Contexto, accion?: string, desde?: string) {
     await guardar(join(ctx.cwd, "ficha.json"), data);
     return salida(
       data,
-      "Ficha guardada. Sigue con barbaritat revisar.",
+      "Ficha guardada. Sigue con hacknight revisar.",
       ctx.opts.json,
     );
   }
@@ -128,7 +128,7 @@ export async function ficha(ctx: Contexto, accion?: string, desde?: string) {
   await guardar(join(ctx.cwd, "ficha.json"), data);
   salida(
     data,
-    "Ficha guardada. Apa! Sigue con barbaritat revisar.",
+    "Ficha guardada. Apa! Sigue con hacknight revisar.",
     ctx.opts.json,
   );
 }
@@ -179,5 +179,5 @@ export async function registrar(ctx: Contexto) {
   const entry = await ctx.registro.registrar(r.ficha, fecha);
   const tasa = await consumoLocal(ctx.cwd, evento.inicio, evento.fin);
   const j = justificante(entry, track, fueraDePlazo, tasa.total || undefined);
-  salida(j, justificanteTexto(j, track), ctx.opts.json);
+  salida(j, justificanteTexto(j, track, evento), ctx.opts.json);
 }

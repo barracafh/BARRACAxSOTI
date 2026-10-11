@@ -1,3 +1,4 @@
+import { actualizarMarca } from "./marca.js";
 const $ = (id) => document.getElementById(id);
 const form = $("configuracion"),
   teamForm = $("equipo-form");
@@ -78,7 +79,9 @@ async function load() {
   try {
     state = await request("/api/admin");
     teams = structuredClone(state.equipos);
-    field("nombre").value = state.evento.nombre;
+    actualizarMarca(state.evento);
+    for (const key of ["nombre", "nombre_corto", "organizan"])
+      field(key).value = state.evento[key];
     field("inicio").value = localDate(state.evento.inicio);
     field("fin").value = localDate(state.evento.fin);
     field("fueraPlazo").checked = state.evento.registroFueraDePlazo;
@@ -140,6 +143,8 @@ form.addEventListener("submit", async (e) => {
     evento: {
       ...state.evento,
       nombre: field("nombre").value,
+      nombre_corto: field("nombre_corto").value,
+      organizan: field("organizan").value,
       inicio:
         field("inicio").value === localDate(state.evento.inicio) ||
         Date.parse(field("inicio").value) ===
@@ -164,6 +169,7 @@ form.addEventListener("submit", async (e) => {
       body: JSON.stringify(next),
     });
     state = { ...saved, tracks };
+    actualizarMarca(state.evento);
     dirty = false;
     $("estado-guardado").textContent =
       `Configuración guardada · revisión ${saved.revision}.`;

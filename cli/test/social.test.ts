@@ -3,12 +3,12 @@ import { mkdtemp, cp } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { RegistroLocal } from "@barbaritat/shared/registro/local";
+import { RegistroLocal } from "@hacknight/shared/registro/local";
 import { entradas, obtenerCola } from "../src/commands/social";
 import { snapshot } from "../src/commands/pantalla";
 import { renderPantalla, frame, diffFrame } from "../src/lib/screen";
 async function fixture() {
-  const dir = await mkdtemp(join(tmpdir(), "barbaritat-social-"));
+  const dir = await mkdtemp(join(tmpdir(), "hacknight-social-"));
   await cp(join(import.meta.dir, "../../test/fixtures/registro"), dir, {
     recursive: true,
   });
@@ -43,7 +43,7 @@ async function cli(dir: string, args: string[], user = "demo-alba") {
     {
       stdout: "pipe",
       stderr: "pipe",
-      env: { ...process.env, BARBARITAT_USUARIO: "demo-alba" },
+      env: { ...process.env, HACKNIGHT_USUARIO: "demo-alba" },
     },
   );
   const out = await new Response(p.stdout).text();

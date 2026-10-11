@@ -2,8 +2,8 @@ import { join } from "node:path";
 import { homedir } from "node:os";
 import { readFile } from "node:fs/promises";
 import { z } from "zod";
-import { esAusente } from "@barbaritat/shared/io";
-import { CliError } from "@barbaritat/shared/errors";
+import { esAusente } from "@hacknight/shared/io";
+import { CliError } from "@hacknight/shared/errors";
 const schema = z.object({
   registro: z.string().optional(),
   plantilla: z.string().optional(),
@@ -22,10 +22,10 @@ export type Options = {
 export async function config(opts: Options) {
   let file: z.infer<typeof schema> = {};
   const path =
-    process.env.BARBARITAT_CONFIG ??
+    process.env.HACKNIGHT_CONFIG ??
     join(
       process.env.XDG_CONFIG_HOME ?? join(homedir(), ".config"),
-      "barbaritat",
+      "hacknight",
       "config.json",
     );
   try {
@@ -42,11 +42,11 @@ export async function config(opts: Options) {
   return {
     registro:
       opts.registro ??
-      process.env.BARBARITAT_REGISTRO ??
+      process.env.HACKNIGHT_REGISTRO ??
       file.registro ??
-      "barbaritat-valenciana/registro",
+      "hacknight/registro",
     plantilla:
-      opts.plantilla ?? process.env.BARBARITAT_PLANTILLA ?? file.plantilla,
-    releases: opts.releases ?? process.env.BARBARITAT_RELEASES ?? file.releases,
+      opts.plantilla ?? process.env.HACKNIGHT_PLANTILLA ?? file.plantilla,
+    releases: opts.releases ?? process.env.HACKNIGHT_RELEASES ?? file.releases,
   };
 }

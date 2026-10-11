@@ -1,10 +1,10 @@
 import type { Uso } from "../consumo/colectores";
-import { usoSchema, type EventoUso } from "@barbaritat/shared/contrato-uso";
+import { usoSchema, type EventoUso } from "@hacknight/shared/contrato-uso";
 import { hostname } from "node:os";
 import { resolve } from "node:path";
-import { hash, ventanaId, type Lote } from "@barbaritat/shared/contrato-uso";
+import { hash, ventanaId, type Lote } from "@hacknight/shared/contrato-uso";
 import { leerConsumo } from "../consumo/local";
-import type { Evento } from "@barbaritat/shared/modelo";
+import type { Evento } from "@hacknight/shared/modelo";
 
 export async function escanear(options: {
   cwd: string;

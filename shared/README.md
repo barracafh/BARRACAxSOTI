@@ -1,7 +1,8 @@
-# Código compartido de Barbaritat
+# Código compartido de Hack night
 
-Paquete interno `@barbaritat/shared`, consumido por el CLI y el backend a través del workspace Bun. No depende de ninguna aplicación ni de SQLite.
+Paquete interno `@hacknight/shared`, consumido por el CLI y el backend a través del workspace Bun. No depende de ninguna aplicación ni de SQLite.
 
+- `src/evento.ts`: exporta la marca por defecto desde `registro-base/evento.json` (`nombre`, `nombre_corto`, `organizan`).
 - `src/modelo.ts`: esquemas y tipos de evento, tracks, equipos, fichas e interfaz `Registro`.
 - `src/registro/`: persistencia del registro local, validación de equipos y configuración del comité.
 - `src/actividad.ts` y `src/cola.ts`: estado del evento, tablón y turnos para terminal y web.

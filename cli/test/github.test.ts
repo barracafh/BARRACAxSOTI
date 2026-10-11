@@ -1,8 +1,8 @@
 import { test, expect } from "bun:test";
 import { RegistroGitHub } from "../src/registro/github";
-import { CliError } from "@barbaritat/shared/errors";
+import { CliError } from "@hacknight/shared/errors";
 import type { Runner } from "../src/lib/proceso";
-import type { Ficha } from "@barbaritat/shared/modelo";
+import type { Ficha } from "@hacknight/shared/modelo";
 const f: Ficha = {
   nombre: "Demo",
   frase: "Texto",
@@ -42,7 +42,7 @@ test("GitHub registra en una rama y reutiliza un PR abierto", async () => {
     paths.push(path);
     if (body) bodies.push(body);
     if (path.endsWith("/")) return JSON.stringify({ default_branch: "main" });
-    if (path.includes("git/ref/heads/barbaritat"))
+    if (path.includes("git/ref/heads/hacknight"))
       return JSON.stringify({ object: { sha: "branch" } });
     if (path.includes("contents/"))
       return JSON.stringify(
@@ -60,7 +60,7 @@ test("GitHub registra en una rama y reutiliza un PR abierto", async () => {
   expect(result.estado).toBe("pendiente");
   expect(paths.some((p) => p.endsWith("/pulls"))).toBe(false);
   expect(bodies[0]).toMatchObject({
-    branch: "barbaritat/ficha-demo",
+    branch: "hacknight/ficha-demo",
     sha: "file",
   });
 });
