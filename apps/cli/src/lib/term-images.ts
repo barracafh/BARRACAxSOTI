@@ -1,24 +1,11 @@
-/**
- * Inline pictures for `hacknight feed` and the watcher's feed band.
- * Terminals disagree on how to draw an image, so the CLI speaks the two
- * protocols that accept PNG bytes as they are (Kitty graphics and iTerm2
- * inline images) and falls back to printing the link everywhere else.
- * Nothing here decodes pixels: the server returns a PNG already resized
- * (`/api/files/<id>?w=`) and the PNG header tells us the aspect ratio.
- */
-
 export type ImageProtocol = "kitty" | "iterm";
 
-/** Columns an inline image may take in `hacknight feed`. */
-export const IMAGE_COLUMNS = 36;
-/** Rows an inline image may take; wider-than-tall pictures hit the columns first. */
+const IMAGE_COLUMNS = 36;
 const IMAGE_MAX_ROWS = 12;
-/** Pixels asked from the server per column; ~cell width on a HiDPI screen. */
-export const PIXELS_PER_COLUMN = 16;
-/** A terminal cell is roughly twice as tall as it is wide. */
+const PIXELS_PER_COLUMN = 16;
+// Las celdas del terminal son aproximadamente el doble de altas que de anchas.
 const CELL_ASPECT = 2;
 const KITTY_CHUNK = 4096;
-// The 8-byte PNG signature, in decimal so Biome and oxlint agree on case.
 const PNG_SIGNATURE = [137, 80, 78, 71, 13, 10, 26, 10];
 const KONSOLE_WITH_KITTY_GRAPHICS = 220_400;
 const ESC = String.fromCodePoint(27);
@@ -26,15 +13,10 @@ const BEL = String.fromCodePoint(7);
 
 type Env = Record<string, string | undefined>;
 
-export type ImageCells = { columns: number; rows: number };
-export type ImageBounds = { maxColumns?: number; maxRows?: number };
+type ImageCells = { columns: number; rows: number };
+type ImageBounds = { maxColumns?: number; maxRows?: number };
 
-/**
- * Which protocol, if any, this terminal understands. Conservative on
- * purpose: an unsupported escape sequence prints garbage, a link never does.
- * tmux and GNU screen swallow these sequences without passthrough, so they
- * get the link too.
- */
+// Sin soporte conocido o passthrough de tmux/screen, el banner usa texto.
 export function detectImageProtocol(
   env: Env,
   isTty: boolean,
@@ -68,7 +50,6 @@ export function detectImageProtocol(
   return null;
 }
 
-/** Width and height from a PNG's IHDR chunk, or null if this is not a PNG. */
 export function pngSize(
   bytes: Uint8Array,
 ): { width: number; height: number } | null {
@@ -89,11 +70,6 @@ export function pngSize(
   return { height, width };
 }
 
-/**
- * Cells an image should occupy so it keeps its aspect on a 2:1 cell grid,
- * never wider than `maxColumns` nor taller than `maxRows`. Tall pictures
- * give up columns to stay under the row cap.
- */
 export function imageCells(
   width: number,
   height: number,
@@ -119,85 +95,33 @@ export function imageCells(
   return { columns, rows };
 }
 
-function base64(bytes: Uint8Array): string {
-  return Buffer.from(bytes).toString("base64");
-}
-
-/**
- * One Kitty graphics command, splitting the payload into 4 KiB base64
- * chunks with `m=1` on all but the last. `q=2` on every command stops the
- * terminal from answering on stdin, which would land in the next prompt.
- */
-function kittyCommand(control: string, payload?: Uint8Array): string {
-  if (!payload) {
-    return `${ESC}_G${control},q=2${ESC}\\`;
-  }
-  const data = base64(payload);
-  const chunks: string[] = [];
-  for (let i = 0; i < data.length; i += KITTY_CHUNK) {
-    chunks.push(data.slice(i, i + KITTY_CHUNK));
-  }
-  return chunks
-    .map((chunk, index) => {
-      const more = index === chunks.length - 1 ? 0 : 1;
-      const head = index === 0 ? `${control},q=2,m=${more}` : `m=${more}`;
-      return `${ESC}_G${head};${chunk}${ESC}\\`;
-    })
-    .join("");
-}
-
-/**
- * Kitty: transmit a PNG and display it at the cursor over `columns`×`rows`.
- * With `id`, the image is stored under that id so sending it again replaces
- * the earlier copy instead of piling up (the banner on a redrawn menu).
- */
+// Kitty limita cada bloque base64 a 4 KiB; q=2 evita respuestas en stdin.
 export function kittySequence(
   png: Uint8Array,
   columns: number,
   rows: number,
-  id?: number,
 ): string {
-  const named = id === undefined ? "" : `,i=${id}`;
-  return kittyCommand(`a=T,f=100,c=${columns},r=${rows}${named}`, png);
+  const data = Buffer.from(png).toString("base64");
+  const chunks: string[] = [];
+  for (let i = 0; i < data.length; i += KITTY_CHUNK) {
+    const more = i + KITTY_CHUNK < data.length ? 1 : 0;
+    const head = i === 0 ? `a=T,f=100,c=${columns},r=${rows},q=2,` : "";
+    chunks.push(
+      `${ESC}_G${head}m=${more};${data.slice(i, i + KITTY_CHUNK)}${ESC}\\`,
+    );
+  }
+  return chunks.join("");
 }
 
-/** Kitty: store a PNG under `id` without showing it (the watcher places it later). */
-export function kittyTransmit(png: Uint8Array, id: number): string {
-  return kittyCommand(`a=t,i=${id},f=100`, png);
-}
-
-/** Kitty: show stored image `id` at the cursor over `columns`×`rows`. */
-export function kittyPlace(id: number, columns: number, rows: number): string {
-  return kittyCommand(`a=p,i=${id},c=${columns},r=${rows}`);
-}
-
-/** Kitty: remove every placement of stored image `id`, keeping its data. */
-export function kittyDelete(id: number): string {
-  return kittyCommand(`a=d,d=i,i=${id}`);
-}
-
-/** Kitty: remove every visible placement and free all stored image data. */
-export function kittyDeleteAll(): string {
-  return kittyCommand("a=d,d=A");
-}
-
-/**
- * iTerm2 inline image (OSC 1337 File) scaled to fit `columns`×`rows` cells
- * with its aspect preserved. Also understood by WezTerm, Warp and VS Code.
- */
 export function itermSequence(
   png: Uint8Array,
   columns: number,
   rows: number,
 ): string {
-  const data = base64(png);
+  const data = Buffer.from(png).toString("base64");
   return `${ESC}]1337;File=inline=1;size=${png.byteLength};width=${columns};height=${rows};preserveAspectRatio=1:${data}${BEL}`;
 }
 
-/**
- * The escape sequence that draws `png` with `protocol`, or null when the
- * bytes are not a PNG (the caller then prints the link instead).
- */
 export function renderImage(
   protocol: ImageProtocol,
   png: Uint8Array,

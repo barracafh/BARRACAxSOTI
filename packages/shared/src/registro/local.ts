@@ -86,7 +86,7 @@ export class RegistroLocal implements Registro {
           "LOCKED",
           error.message,
           error.heredado
-            ? "El bloqueo antiguo está en .lock. Consulta la recuperación de bloqueos en server/README.md."
+            ? "El bloqueo antiguo está en .lock. Consulta la recuperación de bloqueos en apps/server/README.md."
             : "Reintenta cuando termine la otra operación.",
           1,
         );

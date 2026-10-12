@@ -1,42 +1,46 @@
 import { expect, test } from "bun:test";
 import { resolve, join } from "node:path";
-import { mkdtemp } from "node:fs/promises";
+import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 
 const root = resolve(import.meta.dir, "..");
 async function dependencias(entrypoints: string[]) {
   // Los source maps describen el código que realmente entra en cada bundle.
   const dir = await mkdtemp(join(tmpdir(), "hacknight-bundle-test-"));
-  const build = Bun.spawn(
-    [
-      process.execPath,
-      "build",
-      ...entrypoints,
-      "--target=bun",
-      "--sourcemap=external",
-      "--root",
-      root,
-      "--outdir",
-      dir,
-    ],
-    { cwd: root, stdout: "pipe", stderr: "pipe" },
-  );
-  const [exitCode, out, err] = await Promise.all([
-    build.exited,
-    new Response(build.stdout).text(),
-    new Response(build.stderr).text(),
-  ]);
-  if (exitCode !== 0) throw new Error(`Compilación fallida: ${out}${err}`);
-  const files: string[] = [];
-  let code = "";
-  for await (const path of new Bun.Glob("**/*.js*").scan(dir)) {
-    const output = Bun.file(join(dir, path));
-    if (path.endsWith(".map")) {
-      const map = await output.json();
-      files.push(...map.sources);
-    } else code += await output.text();
+  try {
+    const build = Bun.spawn(
+      [
+        process.execPath,
+        "build",
+        ...entrypoints,
+        "--target=bun",
+        "--sourcemap=external",
+        "--root",
+        root,
+        "--outdir",
+        dir,
+      ],
+      { cwd: root, stdout: "pipe", stderr: "pipe" },
+    );
+    const [exitCode, out, err] = await Promise.all([
+      build.exited,
+      new Response(build.stdout).text(),
+      new Response(build.stderr).text(),
+    ]);
+    if (exitCode !== 0) throw new Error(`Compilación fallida: ${out}${err}`);
+    const files: string[] = [];
+    let code = "";
+    for await (const path of new Bun.Glob("**/*.js*").scan(dir)) {
+      const output = Bun.file(join(dir, path));
+      if (path.endsWith(".map")) {
+        const map = await output.json();
+        files.push(...map.sources);
+      } else code += await output.text();
+    }
+    return { files, code };
+  } finally {
+    await rm(dir, { recursive: true, force: true });
   }
-  return { files, code };
 }
 
 test("el CLI compilado incluye el watcher, sin servidor, SQLite ni assets web", async () => {

@@ -14,10 +14,11 @@ import { actualizar } from "./commands/actualizar";
 import { consumo } from "./commands/consumo";
 import { observar } from "./commands/observar";
 import { eventoBase } from "@hacknight/shared/evento";
+import { VERSION } from "./version";
 const program = new Command()
   .name("hacknight")
   .description(`La ventanilla de ${eventoBase.nombre}`)
-  .version("0.1.0", "-V, --version", "Mostrar versión")
+  .version(VERSION, "-V, --version", "Mostrar versión")
   .helpOption("-h, --help", "Mostrar ayuda")
   .option("--json", "Un documento JSON; sin interacción")
   .option("--registro <repo|file-url>", "Registro central")
@@ -96,11 +97,7 @@ program
   .command("pantalla")
   .description("Proyector del local")
   .option("--once", "Una captura y salir")
-  .action(async (o) => {
-    const opts = program.opts();
-    setPlain(Boolean(opts.json || opts.plain));
-    await pantalla(await contexto(opts), o.once);
-  });
+  .action(async (o) => run((ctx) => pantalla(ctx, o.once))());
 program
   .command("help-me [motivo]", { hidden: true })
   .action(async (m) => run((ctx) => cita(ctx, undefined, m))());
@@ -111,11 +108,7 @@ program
 program
   .command("tv", { hidden: true })
   .option("--once")
-  .action(async (o) => {
-    const opts = program.opts();
-    setPlain(Boolean(opts.json || opts.plain));
-    await pantalla(await contexto(opts), o.once);
-  });
+  .action(async (o) => run((ctx) => pantalla(ctx, o.once))());
 program
   .command("tramitar")
   .description("Crear el proyecto desde la plantilla")

@@ -152,6 +152,17 @@ GitHub Actions comprueba tipos, tests y formato en cada push y pull request, eje
 
 El workspace se instala desde la raíz con `bun install --frozen-lockfile`. `plantilla/` es independiente: tiene su propio lockfile y se instala y compila desde su carpeta.
 
+### Trabajar con agentes de código
+
+Empieza por [AGENTS.md](AGENTS.md): recoge los límites del workspace y las comprobaciones según el cambio. Para reproducir CI, usa **Bun 1.3.11 y Node.js 22**, además de Git. **GitHub es necesario para colaborar**: necesitas cuenta, acceso al repo y `gh auth login`; allí gestionamos código, PRs, CI y releases. Los tests locales usan datos ficticios y no necesitan claves de proveedores de IA.
+
+**No hace falta ningún MCP.** Un agente con acceso a archivos y terminal puede arrancar el servidor y ejecutar los comandos anteriores. Para cambios de integración, ejecuta también `bun run test:flujo` y `bun run test:live`.
+
+Integraciones opcionales, configuradas en el agente:
+
+- **Navegador:** usa el navegador integrado de tu agente o [Playwright MCP](https://github.com/microsoft/playwright-mcp) para explorar la web y depurar interacciones. `bun run test:browser` ejecuta las regresiones sin MCP.
+- **GitHub:** [GitHub MCP](https://github.com/github/github-mcp-server) permite gestionar issues y PRs si prefieres esa integración; `gh` ya cubre el flujo de este repo.
+
 ## Créditos
 
 El CLI parte del [CLI de HackSpain](https://github.com/HackSpain/hackspain26) (MIT, © Asociación Exponential Fellowship), sin su marca. Los detalles están en [apps/cli/AVISO.md](apps/cli/AVISO.md).

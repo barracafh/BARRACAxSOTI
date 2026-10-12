@@ -46,14 +46,10 @@ export const runCommand: Runner = async ({ args, input }, cwd) => {
   const child = Bun.spawn(args, {
     cwd,
     stdin: input === undefined ? "ignore" : new Blob([input]),
-    stdout: "pipe",
-    stderr: "pipe",
+    stdout: "ignore",
+    stderr: "ignore",
   });
-  const [code] = await Promise.all([
-    child.exited,
-    new Response(child.stdout).text(),
-    new Response(child.stderr).text(),
-  ]);
+  const code = await child.exited;
   if (code !== 0)
     throw new Error(
       `Falló ${args[0]} ${args[1]} (salida ${code}). Revisa permisos y estado remoto antes de repetir.`,

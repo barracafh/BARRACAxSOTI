@@ -1,8 +1,13 @@
 import type { Uso } from "../consumo/colectores";
-import { usoSchema, type EventoUso } from "@hacknight/shared/contrato-uso";
+import {
+  usoSchema,
+  hash,
+  ventanaId,
+  type EventoUso,
+  type Lote,
+} from "@hacknight/shared/contrato-uso";
 import { hostname } from "node:os";
 import { resolve } from "node:path";
-import { hash, ventanaId, type Lote } from "@hacknight/shared/contrato-uso";
 import { leerConsumo } from "../consumo/local";
 import type { Evento } from "@hacknight/shared/modelo";
 
@@ -17,18 +22,20 @@ export async function escanear(options: {
     options.evento.inicio,
     options.evento.fin,
   );
-  const eventos = usos.map(publicarUso);
   let cambios = 0;
   if (options.servidor) {
     const base = servidorLocal(options.servidor);
+    const eventos = usos.map(publicarUso);
+    const ventana = ventanaId(options.evento);
+    const cliente = hash(`${hostname()}|${resolve(options.cwd)}`);
     // Reenviar es seguro: el backend deduplica por ventana, persona e ID.
     // Recupera el historial retenido también tras una caída o reinicio del watcher.
     for (let i = 0; i < Math.max(1, eventos.length); i += 200) {
       const lote: Lote = {
         version: 1,
-        ventana: ventanaId(options.evento),
+        ventana,
         usuario: options.usuario,
-        cliente: hash(`${hostname()}|${resolve(options.cwd)}`),
+        cliente,
         eventos: eventos.slice(i, i + 200),
       };
       const res = await fetch(new URL("/api/uso", base), {

@@ -1,5 +1,5 @@
-import { test, expect } from "bun:test";
-import { mkdtemp, cp } from "node:fs/promises";
+import { afterEach, test, expect } from "bun:test";
+import { mkdtemp, cp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -7,8 +7,14 @@ import { RegistroLocal } from "@hacknight/shared/registro/local";
 import { entradas, obtenerCola } from "../src/commands/social";
 import { snapshot } from "../src/commands/pantalla";
 import { renderPantalla, frame, diffFrame } from "../src/lib/screen";
+const tempDirs: string[] = [];
+afterEach(async () => {
+  for (const dir of tempDirs.splice(0))
+    await rm(dir, { recursive: true, force: true });
+});
 async function fixture() {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-social-"));
+  tempDirs.push(dir);
   await cp(join(import.meta.dir, "../../../test/fixtures/registro"), dir, {
     recursive: true,
   });

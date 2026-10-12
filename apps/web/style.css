@@ -58,6 +58,7 @@ select {
   border: 0;
 }
 .skip {
+  color: var(--tinta);
   position: absolute;
   top: -100px;
   padding: 15px;
@@ -83,12 +84,14 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 30px 0;
-  border-bottom: 1px solid var(--tinta);
+  gap: 24px;
+  border-bottom: 1px solid color-mix(in srgb, var(--cal) 35%, transparent);
   margin: 0 auto;
   max-width: 1280px;
   width: 90%;
 }
 .brand {
+  flex-shrink: 0;
   text-decoration: none;
   font-size: 32px;
   font-weight: 950;
@@ -125,6 +128,9 @@ nav a:hover {
   text-decoration: underline;
   text-underline-offset: 5px;
 }
+header .outline {
+  border-color: var(--arena);
+}
 .outline {
   border: 1px solid var(--tinta);
   padding: 13px 18px;
@@ -158,7 +164,7 @@ h1 {
 }
 h1 em {
   font-style: normal;
-  color: var(--roig);
+  color: var(--taronja);
 }
 .intro {
   font-size: 18px;
@@ -190,11 +196,12 @@ h1 em {
   border-color: var(--tinta);
 }
 .ticket {
+  background: var(--cal);
   border: 1px solid var(--cobalto);
   color: var(--cobalto);
   padding: 23px 25px 26px;
   transform: rotate(2deg);
-  box-shadow: 8px 8px 0 var(--arena);
+  box-shadow: 8px 8px 0 color-mix(in srgb, var(--cobalto) 40%, var(--noche));
 }
 .ticket-top,
 .ticket-bottom {
@@ -241,10 +248,13 @@ h1 em {
 .error {
   padding: 18px;
   border: 1px solid var(--roig);
-  color: var(--roig);
+  color: var(--cal);
+  background: var(--roig);
   font-weight: 700;
 }
 .metrics {
+  background: var(--cal);
+  color: var(--tinta);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   border: 1px solid var(--tinta);
@@ -297,10 +307,12 @@ h2 {
 .live-label {
   font: 10px monospace;
   letter-spacing: 0.07em;
-  color: var(--horta);
+  color: var(--arena);
   margin-bottom: 5px;
 }
 .ranking-layout {
+  background: var(--cal);
+  color: var(--tinta);
   display: grid;
   grid-template-columns: minmax(0, 1fr) 260px;
   border: 1px solid var(--tinta);
@@ -399,11 +411,6 @@ td:last-child {
   display: block;
   margin-left: auto;
 }
-.bar span {
-  display: block;
-  height: 100%;
-  background: var(--roig);
-}
 .table-footer {
   display: flex;
   justify-content: space-between;
@@ -467,7 +474,7 @@ progress::-webkit-progress-value {
   display: grid;
   grid-template-columns: 260px 1fr;
   gap: 30px;
-  border-bottom: 1px solid var(--tinta);
+  border-bottom: 1px solid color-mix(in srgb, var(--cal) 35%, transparent);
   padding: 30px 0 25px;
   margin-bottom: 65px;
 }
@@ -498,6 +505,8 @@ progress::-webkit-progress-value {
   margin: 0;
 }
 .tracks {
+  background: var(--cal);
+  color: var(--tinta);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   border-left: 1px solid var(--tinta);
@@ -555,11 +564,13 @@ progress::-webkit-progress-value {
 .tag {
   font: 9px monospace;
   padding: 8px;
-  border: 1px solid var(--cobalto);
-  color: var(--cobalto);
+  border: 1px solid var(--arena);
+  color: var(--arena);
   white-space: nowrap;
 }
 .turno {
+  background: var(--cal);
+  color: var(--tinta);
   display: flex;
   justify-content: space-between;
   gap: 20px;
@@ -582,13 +593,13 @@ progress::-webkit-progress-value {
   font: 12px monospace;
 }
 .feed article {
-  border-top: 1px solid var(--tinta);
+  border-top: 1px solid color-mix(in srgb, var(--cal) 35%, transparent);
   padding: 18px 0;
 }
 .feed .eyebrow {
   font-size: 10px;
   margin-bottom: 7px;
-  color: var(--cobalto);
+  color: var(--arena);
 }
 .feed p {
   margin: 0;
@@ -639,7 +650,7 @@ footer {
   max-width: 1280px;
   width: 90%;
   margin: auto;
-  border-top: 1px solid var(--tinta);
+  border-top: 1px solid color-mix(in srgb, var(--cal) 35%, transparent);
   padding: 30px 0 40px;
   display: flex;
   justify-content: space-between;
@@ -933,9 +944,6 @@ dialog a {
     flex-wrap: wrap;
     gap: 15px;
   }
-  .proyector .ranking-layout {
-    grid-template-columns: 1fr;
-  }
   .proyector .usage {
     display: none;
   }
@@ -958,7 +966,7 @@ dialog a {
 /* Pantalla del local: clasificación y turnos en paralelo. */
 .tv-clock {
   font: bold 30px monospace;
-  color: var(--cobalto);
+  color: var(--arena);
   font-variant-numeric: tabular-nums;
 }
 @media (min-width: 1000px) {
@@ -1027,10 +1035,15 @@ dialog a {
 .admin-heading {
   padding-top: 48px;
 }
+.admin-heading .stamp {
+  color: var(--arena);
+  border-color: var(--arena);
+}
 .admin-heading h1 {
   font-size: clamp(40px, 5vw, 66px);
 }
 .admin-card {
+  color: var(--tinta);
   border: 1px solid var(--tinta);
   padding: 28px;
   margin: 0 0 26px;
@@ -1125,6 +1138,7 @@ dialog a {
   gap: 20px;
 }
 .admin-team {
+  color: var(--tinta);
   background: var(--arena);
   padding: 24px;
   overflow-wrap: anywhere;
@@ -1158,6 +1172,7 @@ dialog a {
   border: 1px dashed var(--cobalto);
 }
 .admin-message:not(:empty) {
+  color: var(--tinta);
   border-left: 4px solid var(--horta);
   padding: 14px 20px;
   background: var(--arena);
@@ -1204,67 +1219,6 @@ dialog a {
   }
 }
 
-/* Noche alrededor de los formularios y justificantes de la ventanilla. */
-header,
-footer {
-  border-color: color-mix(in srgb, var(--cal) 35%, transparent);
-}
-header {
-  gap: 24px;
-}
-.brand {
-  flex-shrink: 0;
-}
-header .outline {
-  border-color: var(--arena);
-}
-h1 em {
-  color: var(--taronja);
-}
-.ticket,
-.metrics,
-.ranking-layout,
-.tracks,
-.turno,
-.admin-card,
-.admin-team,
-.admin-message:not(:empty),
-.skip {
-  background: var(--cal);
-  color: var(--tinta);
-}
-.ticket {
-  color: var(--cobalto);
-  box-shadow: 8px 8px 0 color-mix(in srgb, var(--cobalto) 40%, var(--noche));
-}
-.admin-team {
-  background: var(--arena);
-}
-.admin-message:not(:empty) {
-  background: var(--arena);
-}
-.live-label,
-.tv-clock,
-.tag,
-.feed .eyebrow,
-.admin-heading .stamp {
-  color: var(--arena);
-}
-.tag,
-.admin-heading .stamp {
-  border-color: var(--arena);
-}
-.feed article,
-.activity {
-  border-color: color-mix(in srgb, var(--cal) 35%, transparent);
-}
-.error {
-  color: var(--cal);
-  background: var(--roig);
-}
-.proyector {
-  background: var(--noche);
-}
 @media (max-width: 420px) {
   header .brand {
     font-size: 20px;

@@ -1,5 +1,5 @@
-import { test, expect } from "bun:test";
-import { mkdtemp, cp, writeFile, access } from "node:fs/promises";
+import { afterEach, test, expect } from "bun:test";
+import { mkdtemp, cp, writeFile, access, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { pathToFileURL } from "node:url";
@@ -12,8 +12,14 @@ import {
   instalarRelease,
   release,
 } from "../src/commands/actualizar";
+const tempDirs: string[] = [];
+afterEach(async () => {
+  for (const dir of tempDirs.splice(0))
+    await rm(dir, { recursive: true, force: true });
+});
 async function setup() {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-start-"));
+  tempDirs.push(dir);
   const reg = join(dir, "registro");
   await cp(join(import.meta.dir, "../../../test/fixtures/registro"), reg, {
     recursive: true,
@@ -111,6 +117,7 @@ test("assets, semver y SHA256 de actualización", () => {
 });
 test("actualización con fetch simulado reemplaza únicamente tras checksum correcto", async () => {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-update-"));
+  tempDirs.push(dir);
   const target = join(dir, "binary");
   await writeFile(target, "old");
   const bytes = Buffer.from("new");

@@ -3,11 +3,7 @@ import {
   detectImageProtocol,
   imageCells,
   itermSequence,
-  kittyDelete,
-  kittyDeleteAll,
-  kittyPlace,
   kittySequence,
-  kittyTransmit,
   pngSize,
   renderImage,
 } from "../src/lib/term-images";
@@ -110,7 +106,7 @@ describe("imageCells", () => {
     });
   });
 
-  test("the watcher's tighter bounds apply to both axes", () => {
+  test("el banner ajusta ambos ejes a sus límites", () => {
     expect(imageCells(1600, 900, { maxColumns: 30, maxRows: 6 })).toEqual({
       columns: 21,
       rows: 6,
@@ -143,14 +139,6 @@ describe("encoders", () => {
     const seq = kittySequence(fakePng(32, 32), 2, 1);
     expect(seq).toStartWith(`${ESC}_Ga=T,f=100,c=2,r=1,q=2,m=0;`);
     expect(seq.split(`${ESC}\\`).filter(Boolean)).toHaveLength(1);
-  });
-
-  test("kitty: the watcher stores once, then places, moves and deletes by id", () => {
-    const png = fakePng(32, 32);
-    expect(kittyTransmit(png, 7)).toStartWith(`${ESC}_Ga=t,i=7,f=100,q=2,m=0;`);
-    expect(kittyPlace(7, 12, 6)).toBe(`${ESC}_Ga=p,i=7,c=12,r=6,q=2${ESC}\\`);
-    expect(kittyDelete(7)).toBe(`${ESC}_Ga=d,d=i,i=7,q=2${ESC}\\`);
-    expect(kittyDeleteAll()).toBe(`${ESC}_Ga=d,d=A,q=2${ESC}\\`);
   });
 
   test("iterm: OSC 1337 with byte size and a cell box that keeps the aspect", () => {

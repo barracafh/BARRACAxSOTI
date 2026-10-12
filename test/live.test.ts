@@ -1,7 +1,7 @@
 import { RegistroLocal } from "@hacknight/shared/registro/local";
 import { publicarUso, servidorLocal } from "../apps/cli/src/watcher/cliente";
-import { test, expect } from "bun:test";
-import { mkdtemp, cp, writeFile, mkdir } from "node:fs/promises";
+import { test, expect, afterEach } from "bun:test";
+import { mkdtemp, cp, writeFile, mkdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -16,8 +16,15 @@ import { contexto } from "../apps/cli/src/lib/contexto";
 import { crearHandler } from "../apps/server/src/servidor";
 import { leerConsumo } from "../apps/cli/src/consumo/local";
 
+const directories: string[] = [];
+afterEach(async () => {
+  for (const dir of directories.splice(0))
+    await rm(dir, { recursive: true, force: true });
+});
+
 async function fixture() {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-live-test-"));
+  directories.push(dir);
   const reg = join(dir, "registro");
   await cp(join(import.meta.dir, "./fixtures/registro"), reg, {
     recursive: true,

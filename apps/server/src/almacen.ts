@@ -79,15 +79,15 @@ export class AlmacenUso {
     now = Date.now(),
   ) {
     const ventana = ventanaId(evento);
-    const usos = this.db
-      .query<Fila, [string]>("SELECT * FROM usos WHERE ventana=?")
-      .all(ventana);
     const watchers = this.db
       .query<
         { usuario: string; ultima: number },
         [string]
       >("SELECT usuario, MAX(ultima) AS ultima FROM watchers WHERE ventana=? GROUP BY usuario")
       .all(ventana);
+    const ultimaPorUsuario = new Map(
+      watchers.map((w) => [w.usuario, w.ultima]),
+    );
     const personas = equipos.flatMap((e) =>
       e.miembros.map((usuario) => ({
         usuario,
@@ -99,9 +99,7 @@ export class AlmacenUso {
         cacheRead: 0,
         cacheWrite: 0,
         peticiones: 0,
-        ultima:
-          watchers.find((w) => w.usuario === usuario.toLowerCase())?.ultima ??
-          null,
+        ultima: ultimaPorUsuario.get(usuario.toLowerCase()) ?? null,
       })),
     );
     const herramientas = ["claude-code", "codex"].map((id) => ({
@@ -109,21 +107,28 @@ export class AlmacenUso {
       total: 0,
       peticiones: 0,
     }));
+    const personaPorUsuario = new Map(
+      personas.map((p) => [p.usuario.toLowerCase(), p]),
+    );
+    const herramientaPorId = new Map(herramientas.map((h) => [h.id, h]));
     const inicio = Date.parse(evento.inicio),
       fin = Date.parse(evento.fin);
     const evolucion = Array.from({ length: 24 }, (_, i) => ({
       inicio: new Date(inicio + ((fin - inicio) * i) / 24).toISOString(),
       total: 0,
     }));
+    const usos = this.db
+      .query<Fila, [string]>("SELECT * FROM usos WHERE ventana=?")
+      .all(ventana);
     for (const u of usos) {
-      const p = personas.find((p) => p.usuario.toLowerCase() === u.usuario);
+      const p = personaPorUsuario.get(u.usuario);
       if (!p) continue;
       const total = totalUso(u);
       for (const key of ["input", "output", "cacheRead", "cacheWrite"] as const)
         p[key] += u[key];
       p.total += total;
       p.peticiones++;
-      const h = herramientas.find((h) => h.id === u.herramienta)!;
+      const h = herramientaPorId.get(u.herramienta)!;
       h.total += total;
       h.peticiones++;
       const i = Math.min(

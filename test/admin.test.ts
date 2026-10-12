@@ -1,5 +1,5 @@
-import { test, expect } from "bun:test";
-import { mkdtemp, readFile, stat, writeFile } from "node:fs/promises";
+import { test, expect, afterEach } from "bun:test";
+import { mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -18,6 +18,12 @@ import { eventoBase } from "@hacknight/shared/evento";
 import { banner } from "../apps/cli/src/lib/banner";
 import { sello } from "../apps/cli/src/lib/justificante";
 
+const directories: string[] = [];
+afterEach(async () => {
+  for (const dir of directories.splice(0))
+    await rm(dir, { recursive: true, force: true });
+});
+
 const equipo = {
   id: "test-equipo",
   nombre: "Equipo de prueba",
@@ -29,6 +35,7 @@ const equipo = {
 };
 async function fixture() {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-admin-test-"));
+  directories.push(dir);
   await inicializarRegistro(dir);
   const ctx = await contexto({
     registro: pathToFileURL(dir).href,
@@ -426,6 +433,7 @@ test("reasignar o retirar personas y cambiar la ventana no borra ni duplica los 
 
 test("la clave local se conserva al reiniciar y solo el propietario puede leer el archivo", async () => {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-key-test-"));
+  directories.push(dir);
   const first = await claveAdministracion(dir),
     next = await claveAdministracion(dir);
   expect(next.clave).toBe(first.clave);

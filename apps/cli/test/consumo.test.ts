@@ -1,5 +1,5 @@
-import { test, expect } from "bun:test";
-import { mkdtemp, mkdir, writeFile, cp } from "node:fs/promises";
+import { afterEach, test, expect } from "bun:test";
+import { mkdtemp, mkdir, writeFile, cp, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { pathToFileURL } from "node:url";
@@ -9,6 +9,11 @@ import {
   type EstadoCodex,
 } from "../src/consumo/colectores";
 import { consumoLocal } from "../src/consumo/local";
+const tempDirs: string[] = [];
+afterEach(async () => {
+  for (const dir of tempDirs.splice(0))
+    await rm(dir, { recursive: true, force: true });
+});
 const claude = (cwd: string, fecha: string, id = "msg1") => ({
   type: "assistant",
   sessionId: "s1",
@@ -73,6 +78,7 @@ test("Codex deduplica contadores acumulados y resta la caché del input", () => 
 });
 test("consumo filtra ventana y proyecto, deduplica bloques y nunca devuelve prompts", async () => {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-consumo-"));
+  tempDirs.push(dir);
   const rutas = { claude: join(dir, "claude"), codex: join(dir, "codex") };
   await mkdir(rutas.claude);
   await mkdir(rutas.codex);
@@ -117,6 +123,7 @@ test("consumo filtra ventana y proyecto, deduplica bloques y nunca devuelve prom
 });
 test("consumo --json y tasa en justificante con historiales sintéticos", async () => {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-tasa-"));
+  tempDirs.push(dir);
   const reg = join(dir, "registro");
   await cp(join(import.meta.dir, "../../../test/fixtures/registro"), reg, {
     recursive: true,
