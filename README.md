@@ -1,4 +1,4 @@
-# BARRACAxSOTI - Hack night 🌙
+# BARRACA x SOTI · BUILD NIGHT
 
 Una noche para construir entre todos **una plataforma de atención ciudadana**: un centro único («¿qué necesitas?») y las herramientas que lo llenan, una por squad. El reto es la fricción del día a día con la administración: trámites opacos, ayudas que nadie encuentra, PDFs ilegibles y citas imposibles.
 
@@ -7,7 +7,7 @@ Una noche para construir entre todos **una plataforma de atención ciudadana**: 
 | **Cuándo**    | Jueves 22 de octubre de 2026, de 17:00 a 23:00                                                     |
 | **Dónde**     | MAISA, València                                                                                    |
 | **Quién**     | Unos 50 builders en squads de 3 a 5 personas                                                       |
-| **Organizan** | BARRACA × SOTI                                                                                     |
+| **Organizan** | BARRACA x SOTI                                                                                     |
 | **Formato**   | No hay premios: se gana si la plataforma funciona. Cada squad publica su pieza antes de las 22:00. |
 
 Este es el monorepo de la organización: CLI, web, tracks, plantilla e infra. **Cada squad construye en su propio repo**, creado desde la [plantilla común](plantilla/README.md) con `hacknight tramitar`.
@@ -63,7 +63,7 @@ Los equipos se forman **antes** de la noche. En la sala solo se tapan huecos. Pl
 - **Vie 16/10:** el comité forma los equipos que falten y manda el contexto largo de los tracks.
 - **Dom 18/10:** fecha límite para formar equipo.
 - **Lun 19/10:** cierre de equipos y reparto por track; cada equipo recibe su paquete de accesos y los datos de su track.
-- **Jue 22/10:** Hack night.
+- **Jue 22/10:** Build night.
 
 ¿Vienes solo? Entras en un squad, o eliges una tarea del tablón de piezas sueltas. Los perfiles no técnicos también tienen trabajo: fuentes, contenido, diseño y pruebas.
 

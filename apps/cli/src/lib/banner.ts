@@ -10,6 +10,16 @@ import type { Evento } from "@hacknight/shared/modelo";
 // Mecánica de glifos del banner MIT, con las letras de la marca del evento.
 const glyphs: Record<string, string[]> = {
   B: ["██████╗ ", "██╔══██╗", "██████╔╝", "██╔══██╗", "██████╔╝", "╚═════╝ "],
+  U: [
+    "██╗   ██╗",
+    "██║   ██║",
+    "██║   ██║",
+    "██║   ██║",
+    "╚██████╔╝",
+    " ╚═════╝ ",
+  ],
+  L: ["██╗     ", "██║     ", "██║     ", "██║     ", "███████╗", "╚══════╝"],
+  D: ["██████╗ ", "██╔══██╗", "██║  ██║", "██║  ██║", "██████╔╝", "╚═════╝ "],
   A: [" █████╗ ", "██╔══██╗", "███████║", "██╔══██║", "██║  ██║", "╚═╝  ╚═╝"],
   R: ["██████╗ ", "██╔══██╗", "██████╔╝", "██╔══██╗", "██║  ██║", "╚═╝  ╚═╝"],
   H: ["██╗  ██╗", "██║  ██║", "███████║", "██╔══██║", "██║  ██║", "╚═╝  ╚═╝"],
@@ -70,9 +80,9 @@ export function banner(
   return (
     (mark ??
       (columns >= Math.max(...rows.map((row) => width(row)))
-        ? rows.map((s) => paint("roig", s)).join("\n")
+        ? rows.map((s) => paint("magenta", s)).join("\n")
         : paint(
-            "roig",
+            "magenta",
             fit(
               `☾ ${terminalText(evento.nombre_corto).toLowerCase()}`,
               columns,

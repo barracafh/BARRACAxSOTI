@@ -10,7 +10,7 @@ Plan de Íñigo del 11/10. **Los equipos se forman antes de la noche**: cada uno
 | **Vie 16/10** | El comité forma los equipos que falten y manda el contexto largo de los tracks.                          |
 | **Dom 18/10** | Fecha límite para formar equipo.                                                                         |
 | **Lun 19/10** | Cierre de equipos y reparto por track. Cada equipo recibe su paquete de accesos y los datos de su track. |
-| **Jue 22/10** | Hack night.                                                                                              |
+| **Jue 22/10** | Build night.                                                                                             |
 
 **Pau valida la lista final de tracks el lunes 12/10.** El catálogo actual se mantiene hasta esa validación.
 

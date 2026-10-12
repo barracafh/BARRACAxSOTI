@@ -30,7 +30,7 @@ export function renderPantalla(
 ): string[] {
   const reloj = cuentaAtras(s.evento.fin, now);
   const lines = [
-    paint("roig", fit(terminalText(s.evento.nombre), columns)),
+    paint("magenta", fit(terminalText(s.evento.nombre), columns)),
     `Fin del build · Europe/Madrid · ${reloj.cerrado ? "PLAZO CERRADO" : reloj.texto}`,
     ...(columns >= 40 ? digitos(reloj.texto) : []),
   ];
@@ -163,11 +163,11 @@ export function startScreen(
     const changes = force ? undefined : diffFrame(previous, next);
     out.write(
       changes === undefined
-        ? `\x1b[H${next.map((l) => paint("cal", l) + "\x1b[K").join("\n")}\x1b[J`
+        ? `\x1b[H${next.map((l) => paint("paper", l) + "\x1b[K").join("\n")}\x1b[J`
         : changes
             .map(
               ({ row, line }) =>
-                `\x1b[${row + 1};1H${paint("cal", line)}\x1b[K`,
+                `\x1b[${row + 1};1H${paint("paper", line)}\x1b[K`,
             )
             .join(""),
     );
@@ -182,7 +182,7 @@ export function startScreen(
     }
   };
   const resize = () => draw(true);
-  out.write(`\x1b[?1049h\x1b[?25l${fondo("noche")}\x1b[2J`);
+  out.write(`\x1b[?1049h\x1b[?25l${fondo("nit")}\x1b[2J`);
   stdin.setRawMode(true);
   stdin.resume();
   stdin.on("data", key);

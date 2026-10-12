@@ -4,9 +4,9 @@ export function Fuentes({ fuentes }: { fuentes: readonly Source[] }) {
   return (
     <aside
       aria-label="Fuentes oficiales"
-      className="mt-8 border-t border-arena pt-5"
+      className="mt-8 border-t border-dashed border-paper/25 pt-5"
     >
-      <h3 className="text-sm font-bold uppercase tracking-wider">
+      <h3 className="text-[0.7rem] font-bold tracking-[0.28em] text-magenta uppercase">
         Fuentes oficiales
       </h3>
       <ul className="mt-3 space-y-2">
@@ -14,7 +14,7 @@ export function Fuentes({ fuentes }: { fuentes: readonly Source[] }) {
           <li key={source.url}>
             <a
               href={source.url}
-              className="text-cobalto underline underline-offset-4"
+              className="text-sm text-acid underline underline-offset-4"
             >
               {source.nombre} <span aria-hidden="true">↗</span>
             </a>

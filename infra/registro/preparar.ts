@@ -60,9 +60,9 @@ export async function registryPlan(
         ],
       },
       ...[
-        ["ventanilla", "1F4E9E"],
-        ["aviso", "C8102E"],
-        ["tablon", "2F7D4A"],
+        ["ventanilla", "33E6FF"],
+        ["aviso", "FF2E88"],
+        ["tablon", "C8FF3D"],
       ].map(([label, color]) => ({
         args: [
           "gh",

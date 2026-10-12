@@ -39,6 +39,6 @@ El contrato es `apps/cli/esquemas/ficha.schema.json` en el monorepo del evento. 
 
 ## Diseño pendiente
 
-`src/styles/paleta.css` copia los tokens comunes del evento: no los importa. Ese archivo y `src/components/` son el punto de sustitución del diseño de Reforma Digital, **pendiente del OK de Samu**. Todavía no se ha importado ningún componente ni asset de ese repo.
+La plantilla lleva la marca de BARRACA: `src/styles/paleta.css` copia los tokens comunes del evento (no los importa) y `next/font` sirve Syne y Space Mono desde el propio sitio. Ese archivo y `src/components/` son el punto de sustitución del diseño de Reforma Digital, **pendiente del OK de Samu**. Todavía no se ha importado ningún componente ni asset de ese repo.
 
 Referencias: [exportación estática de Next.js](https://nextjs.org/docs/app/guides/static-exports) y [Tailwind con Next.js](https://tailwindcss.com/docs/installation/framework-guides/nextjs).

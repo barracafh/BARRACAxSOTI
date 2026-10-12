@@ -4,7 +4,7 @@
   "frase": "El proceso electoral, explicado.",
   "ciudadano": "Guía de voto por correo, consulta del censo y plazos con fuentes electorales.",
   "ventanilla": 11,
-  "color": "arena",
+  "color": "muted",
   "glifo": "*",
   "prefijo": "V",
   "estado": "nucleo",

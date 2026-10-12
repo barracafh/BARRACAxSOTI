@@ -1,6 +1,6 @@
 # hacknight
 
-La ventanilla de **BARRACAxSOTI - Hack night 🌙**, 22 de octubre de 2026, MAISA (València). Bun + TypeScript, con GitHub como registro mediante `gh` o un directorio local. Trámites, expedientes y turnos para coordinar el hack. No guarda tokens de GitHub ni modifica herramientas de IA.
+La ventanilla de **BARRACA x SOTI · BUILD NIGHT**, 22 de octubre de 2026, MAISA (València). Bun + TypeScript, con GitHub como registro mediante `gh` o un directorio local. Trámites, expedientes y turnos para coordinar el hack. No guarda tokens de GitHub ni modifica herramientas de IA.
 
 El build del evento va de **18:30 a 22:00 Europe/Madrid**. Los nueve tracks son los negociados; cada squad tiene una pieza y una mesa. Los cuatro descartados aparecen en `tracks --todos` con su motivo. El comité asigna squads, piezas y el cupo único del track libre en `equipos.json`.
 
@@ -130,9 +130,9 @@ Ejemplo de evento (las fechas llevan el offset de Madrid del día del hack):
 
 ```json
 {
-  "nombre": "BARRACAxSOTI - Hack night 🌙",
-  "nombre_corto": "Hack night",
-  "organizan": "BARRACA × SOTI",
+  "nombre": "BARRACA x SOTI · BUILD NIGHT",
+  "nombre_corto": "Build night",
+  "organizan": "BARRACA x SOTI",
   "inicio": "2026-10-22T18:30:00+02:00",
   "fin": "2026-10-22T22:00:00+02:00",
   "enlaces": { "centro": "https://example.invalid/pendiente" },
@@ -207,7 +207,7 @@ bun run embed-logo
 bun run build:bin:host
 ```
 
-El script aplana el PNG sobre blanco e incrusta una tarjeta para Kitty/Ghostty/WezTerm/iTerm2/VS Code. La prueba usa un PNG generado en un directorio temporal y no lo sube. Sin logo se muestra el wordmark (73 columnas); en terminal estrecho, `☾ hack night`. Dentro de cajas se usa `☾` para mantener la alineación. El proyector usa el fondo `noche` de la paleta común; `--plain` produce una captura de texto y `NO_COLOR` desactiva el color.
+El script aplana el PNG sobre blanco e incrusta una tarjeta para Kitty/Ghostty/WezTerm/iTerm2/VS Code. La prueba usa un PNG generado en un directorio temporal y no lo sube. Sin logo se muestra el wordmark (77 columnas); en terminal estrecho, `☾ build night`. Dentro de cajas se usa `☾` para mantener la alineación. El proyector usa el fondo `nit` de la paleta común; `--plain` produce una captura de texto y `NO_COLOR` desactiva el color.
 
 `scripts/build-all.sh` compila macOS/Linux x64/arm64 y Windows x64; produce `dist/SHA256SUMS`. `--host` solo compila esta máquina y `--target bun-<os>-<arch>` compila una plataforma de la matriz. El script no publica; [release-cli.yml](../../.github/workflows/release-cli.yml) publica al subir un tag válido, después de comprobar la versión y compilar los cinco targets. Las releases deben usar tags `cli-vX.Y.Z`, assets `hacknight-<os>-<arch>[.exe]` y `SHA256SUMS`. Ajusta `package.json` y `src/version.ts` juntos antes de versionar.
 
@@ -223,4 +223,4 @@ El script aplana el PNG sobre blanco e incrusta una tarjeta para Kitty/Ghostty/W
 
 ## Créditos
 
-Fork de la infraestructura de terminal de `apps/cli` de HackSpain/hackspain26, commit `2865d19`, MIT, © Asociación Exponential Fellowship; autor principal Samu (`samuelcorsan`). Adaptación para Hack night por Luis González y colaboradores. Véanse [AVISO.md](AVISO.md) y [LICENSE](LICENSE). No se reutilizan marcas ni ilustraciones del origen.
+Fork de la infraestructura de terminal de `apps/cli` de HackSpain/hackspain26, commit `2865d19`, MIT, © Asociación Exponential Fellowship; autor principal Samu (`samuelcorsan`). Adaptación para Build night por Luis González y colaboradores. Véanse [AVISO.md](AVISO.md) y [LICENSE](LICENSE). No se reutilizan marcas ni ilustraciones del origen.

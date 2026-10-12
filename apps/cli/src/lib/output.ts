@@ -27,7 +27,7 @@ export function fallo(e: unknown, json = false) {
   else
     console.error(
       wrap(
-        `${paint("roig", "Resolución desestimatoria")}\n${terminalText(err.message)}\nCómo subsanarlo: ${terminalText(err.hint)}`,
+        `${paint("magenta", "Resolución desestimatoria")}\n${terminalText(err.message)}\nCómo subsanarlo: ${terminalText(err.hint)}`,
         Math.max(20, Math.min(80, process.stdout.columns ?? 80)),
       ).join("\n"),
     );

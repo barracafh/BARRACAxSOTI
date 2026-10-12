@@ -51,8 +51,8 @@ test("marca y azulejos caben en 80 columnas y marca pequeña en 30", () => {
     expect(Bun.stringWidth(line)).toBeLessThanOrEqual(80);
   expect(wordmarkRows()).toHaveLength(6);
   expect(new Set(wordmarkRows().map((s) => Bun.stringWidth(s))).size).toBe(1);
-  expect(banner(30, null)).toContain("☾ hack night");
-  expect(banner(80, null)).toContain("BARRACA × SOTI · 22/10/2026 · MAISA");
+  expect(banner(30, null)).toContain("☾ build night");
+  expect(banner(80, null)).toContain("BARRACA x SOTI · 22/10/2026 · MAISA");
   for (const columns of [30, 72, 73, 80])
     for (const line of banner(columns, null).split("\n"))
       expect(Bun.stringWidth(line)).toBeLessThanOrEqual(columns);
