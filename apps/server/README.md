@@ -1,4 +1,4 @@
-# Servidor local de Hack night
+# Servidor local de Build night
 
 Backend del evento, independiente del CLI de participantes: HTTP, administración y SQLite. Sirve los assets de [apps/web/](../web) y utiliza los modelos de [packages/shared/](../../packages/shared). El ejecutable no importa código de `apps/cli/`.
 

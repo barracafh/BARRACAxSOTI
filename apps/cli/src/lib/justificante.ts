@@ -51,7 +51,7 @@ export function sello(
     fecha,
   ].flatMap((line) => wrap(line, inner));
   return paint(
-    "roig",
+    "magenta",
     [
       `   ╔${"═".repeat(inner + 2)}╗`,
       ...rows.map((line) => `   ║ ${line}${" ".repeat(inner - width(line))} ║`),

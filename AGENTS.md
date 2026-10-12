@@ -1,4 +1,4 @@
-# BARRACAxSOTI - Hack night
+# BARRACA x SOTI · BUILD NIGHT
 
 Este monorepo contiene lo que pone la organización. **Los squads construyen en sus propios repos**, creados desde `plantilla/` con `hacknight tramitar`; no añadas sus herramientas al workspace. Las decisiones y el contexto del comité viven en el repo privado `luisgonzaleznf/barrahack`, de solo lectura en esta tarea.
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="{{noche}}" />
+    <meta name="theme-color" content="{{nit}}" />
     <title data-evento="nombre" data-prefix="">{{nombre}}</title>
     <meta
       name="description"
@@ -39,8 +39,12 @@
     </div>
     <header>
       <a class="brand" href="/" aria-label="{{nombre}}, inicio"
-        ><i class="brand-moon" aria-hidden="true">🌙</i
-        ><strong data-evento="nombre_corto">{{nombre_corto}}</strong
+        ><i class="brand-moon" aria-hidden="true">☾</i
+        ><strong
+          class="plate"
+          data-plate="{{nombre_corto}}"
+          data-evento="nombre_corto"
+          >{{nombre_corto}}</strong
         ><span data-evento="organizan">{{organizan}}</span></a
       >
       <div
@@ -61,15 +65,21 @@
       </nav>
     </header>
     <main id="contenido">
-      <section class="hero" aria-labelledby="titulo">
+      <section class="hero" aria-labelledby="titulo" data-register>
         <div>
           <p class="eyebrow">EXPEDIENTE COLECTIVO / 001</p>
-          <h1 id="titulo">Menos vueltas.<br />Más <em>soluciones.</em></h1>
+          <h1
+            id="titulo"
+            class="plate"
+            data-plate="Menos vueltas.&#10;Más soluciones."
+          >
+            Menos vueltas.<br />Más soluciones.
+          </h1>
           <p class="intro">
             Una tarde. Una plataforma ciudadana.<br />Un montón de gente con
             ganas de construirla.
           </p>
-          <a data-vista="negociados" class="button red" href="#negociados"
+          <a data-vista="negociados" class="button acid" href="#negociados"
             >Encuentra tu negociado <span>↘</span></a
           >
           <p class="small">
@@ -270,8 +280,12 @@
     <footer>
       <a href="/admin">Administración</a>
       <a class="brand" href="/" aria-label="{{nombre}}, inicio"
-        ><i class="brand-moon" aria-hidden="true">🌙</i
-        ><strong data-evento="nombre_corto">{{nombre_corto}}</strong
+        ><i class="brand-moon" aria-hidden="true">☾</i
+        ><strong
+          class="plate"
+          data-plate="{{nombre_corto}}"
+          data-evento="nombre_corto"
+          >{{nombre_corto}}</strong
         ><span data-evento="organizan">{{organizan}}</span></a
       >
       <p>

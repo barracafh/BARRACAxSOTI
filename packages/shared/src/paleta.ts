@@ -1,20 +1,22 @@
-// Paleta común de terminal y web; adaptada del patrón MIT de style.ts.
+// Paleta común de terminal y web: los tokens de BARRACA, con sus nombres.
+// Origen: packages/brand/src/tokens.css del repo de BARRACA Founders House.
 export const paleta = {
-  roig: "#C8102E",
-  tinta: "#1A1A1A",
-  noche: "#0B1426",
-  cal: "#F5F1E6",
-  cobalto: "#1F4E9E",
-  taronja: "#EE7F1B",
-  horta: "#2F7D4A",
-  arena: "#E8DCC4",
+  nit: "#0C0912",
+  "nit-2": "#150F1F",
+  magenta: "#FF2E88",
+  "magenta-deep": "#E01F74",
+  cian: "#33E6FF",
+  acid: "#C8FF3D",
+  after: "#FF9B42",
+  paper: "#F3ECE0",
+  muted: "#8A7F94",
 } as const;
 export type Color = keyof typeof paleta;
 export const roles = {
-  ok: "horta",
-  error: "roig",
-  aviso: "taronja",
-  acento: "cobalto",
-  marca: "roig",
-  tenue: "arena",
+  ok: "acid",
+  error: "magenta",
+  aviso: "after",
+  acento: "cian",
+  marca: "magenta",
+  tenue: "muted",
 } as const;

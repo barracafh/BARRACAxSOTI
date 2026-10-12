@@ -22,6 +22,9 @@ import {
 import adminHtml from "../../web/admin.html" with { type: "text" };
 import adminJs from "../../web/admin.js" with { type: "text" };
 import marcaJs from "../../web/marca.js" with { type: "text" };
+import syne from "../../web/fonts/syne.woff2" with { type: "file" };
+import mono400 from "../../web/fonts/space-mono-400.woff2" with { type: "file" };
+import mono700 from "../../web/fonts/space-mono-700.woff2" with { type: "file" };
 import { paginaEvento } from "./marca";
 
 const headers = {
@@ -30,7 +33,7 @@ const headers = {
 };
 const json = (data: unknown, status = 200) =>
   Response.json(data, { status, headers });
-const assets: Record<string, [string, string]> = {
+const assets: Record<string, [string | Blob, string]> = {
   "/admin": [String(adminHtml), "text/html; charset=utf-8"],
   "/admin.js": [adminJs, "text/javascript; charset=utf-8"],
   "/marca.js": [marcaJs, "text/javascript; charset=utf-8"],
@@ -44,6 +47,9 @@ const assets: Record<string, [string, string]> = {
       .join(";")}}`,
     "text/css; charset=utf-8",
   ],
+  "/fonts/syne.woff2": [Bun.file(syne), "font/woff2"],
+  "/fonts/space-mono-400.woff2": [Bun.file(mono400), "font/woff2"],
+  "/fonts/space-mono-700.woff2": [Bun.file(mono700), "font/woff2"],
 };
 
 export function crearHandler(
@@ -121,7 +127,7 @@ export function crearHandler(
         const asset = assets[url.pathname];
         if (asset)
           return new Response(
-            asset[1].startsWith("text/html")
+            typeof asset[0] === "string" && asset[1].startsWith("text/html")
               ? paginaEvento(asset[0], await registro.evento())
               : asset[0],
             {

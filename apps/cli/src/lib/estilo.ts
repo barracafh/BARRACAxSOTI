@@ -24,14 +24,12 @@ export function fondo(color?: Color) {
   const rgb = [1, 3, 5].map((i) => parseInt(paleta[color].slice(i, i + 2), 16));
   return `\x1b[48;2;${rgb.join(";")}m`;
 }
-// Badge: el token queda sobre cal/tinta, según contraste; funciona con ambos fondos.
+// Badge: las tintas de BARRACA son claras y llevan texto nit; la noche, paper.
 export function badge(color: Color, text: string) {
   if (!enabled) return text;
   const hex = paleta[color];
   const rgb = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
-  const ink = ["roig", "cobalto", "horta", "tinta", "noche"].includes(color)
-    ? "cal"
-    : "tinta";
+  const ink = color.startsWith("nit") ? "paper" : "nit";
   return `\x1b[48;2;${rgb.join(";")}m${paint(ink, ` ${text} `)}\x1b[49m`;
 }
 export const width = Bun.stringWidth;
@@ -78,17 +76,11 @@ export function panel(
   const w = Math.max(12, Math.min(80, columns));
   const head = fit(` ${terminalText(title)} `, w - 4);
   return [
-    paint(
-      "cobalto",
-      `┌─${head}${"─".repeat(Math.max(0, w - 3 - width(head)))}┐`,
-    ),
+    paint("cian", `┌─${head}${"─".repeat(Math.max(0, w - 3 - width(head)))}┐`),
     ...lines
       .flatMap((x) => wrap(terminalText(x), w - 4))
       .map((x) => `│ ${x}${" ".repeat(Math.max(0, w - 4 - width(x)))} │`),
-    paint(
-      "cobalto",
-      `└${"─┬─".repeat(Math.ceil((w - 2) / 3)).slice(0, w - 2)}┘`,
-    ),
+    paint("cian", `└${"─┬─".repeat(Math.ceil((w - 2) / 3)).slice(0, w - 2)}┘`),
   ].join("\n");
 }
 export const trackLabel = (t: {

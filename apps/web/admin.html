@@ -26,7 +26,7 @@
     />
     <meta property="og:site_name" data-evento="nombre" content="{{nombre}}" />
     <meta property="og:type" content="website" />
-    <meta name="theme-color" content="{{noche}}" />
+    <meta name="theme-color" content="{{nit}}" />
     <link rel="icon" href="data:," />
     <link rel="stylesheet" href="/paleta.css" />
     <link rel="stylesheet" href="/style.css" />
@@ -40,8 +40,12 @@
     </div>
     <header>
       <a class="brand" href="/" aria-label="{{nombre}}, inicio"
-        ><i class="brand-moon" aria-hidden="true">🌙</i
-        ><strong data-evento="nombre_corto">{{nombre_corto}}</strong
+        ><i class="brand-moon" aria-hidden="true">☾</i
+        ><strong
+          class="plate"
+          data-plate="{{nombre_corto}}"
+          data-evento="nombre_corto"
+          >{{nombre_corto}}</strong
         ><span data-evento="organizan">{{organizan}}</span></a
       >
       <nav aria-label="Principal">
@@ -53,7 +57,7 @@
       <div class="section-head admin-heading">
         <div>
           <p class="eyebrow">EL EVENTO, EN SU SITIO</p>
-          <h1>Mesa del <em>comité.</em></h1>
+          <h1 class="plate" data-plate="Mesa del comité.">Mesa del comité.</h1>
         </div>
         <span class="stamp">EN ORGANIZACIÓN</span>
       </div>
@@ -72,7 +76,7 @@
             autocomplete="current-password"
             required
         /></label>
-        <button class="button red" type="submit">
+        <button class="button acid" type="submit">
           Entrar a administración →
         </button>
       </form>
@@ -81,7 +85,7 @@
           <p id="resumen">Sin equipos ni participantes.</p>
           <div>
             <button type="button" id="recargar">Recargar</button
-            ><button class="button red" type="submit">
+            ><button class="button acid" type="submit">
               Guardar configuración
             </button>
           </div>
@@ -177,7 +181,7 @@
         </section>
         <div class="admin-toolbar">
           <p id="estado-guardado">Sin cambios pendientes.</p>
-          <button class="button red" type="submit">
+          <button class="button acid" type="submit">
             Guardar configuración
           </button>
         </div>
@@ -235,7 +239,7 @@
           Puedes crear el equipo vacío y asignarle participantes después.
         </p>
         <p id="equipo-error" class="error" role="alert" hidden></p>
-        <button class="button red" type="submit">Aplicar al borrador</button>
+        <button class="button acid" type="submit">Aplicar al borrador</button>
       </form>
     </dialog>
     <footer>

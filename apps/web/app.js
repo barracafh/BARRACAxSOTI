@@ -102,7 +102,7 @@ function renderRanking() {
                 ? `${consumo.squads.find((s) => s.id === r.equipo)?.nombre ?? r.equipo} · ${trackName(r.track)}`
                 : r.slug;
           const fraction = sum ? (r.total / sum) * 100 : 0;
-          return `<tr><td>${String(i + 1).padStart(2, "0")}</td><td><strong>${esc(name)}</strong><small>${esc(sub)}</small></td><td class="number" title="${esc(number(r.total))} tokens">${esc(number(r.total))}</td><td class="number"><svg class="bar" viewBox="0 0 65 5" role="img" aria-label="${fraction.toFixed(1)}% del total filtrado"><rect width="65" height="5" fill="var(--arena)"/><rect width="${fraction * 0.65}" height="5" fill="var(--roig)"/></svg></td></tr>`;
+          return `<tr><td>${String(i + 1).padStart(2, "0")}</td><td><strong>${esc(name)}</strong><small>${esc(sub)}</small></td><td class="number" title="${esc(number(r.total))} tokens">${esc(number(r.total))}</td><td class="number"><svg class="bar" viewBox="0 0 65 5" role="img" aria-label="${fraction.toFixed(1)}% del total filtrado"><rect width="65" height="5" fill="var(--nit)"/><rect width="${fraction * 0.65}" height="5" fill="var(--magenta)"/></svg></td></tr>`;
         })
         .join("")
     : '<tr><td colspan="4">No hay participantes asignados a este negociado.</td></tr>';
@@ -204,7 +204,7 @@ function render() {
   $("grafico").innerHTML = c.evolucion
     .map(
       (b, i) =>
-        `<rect x="${i * 30 + 2}" y="${98 - Math.max(2, (b.total / peak) * 94)}" width="22" height="${Math.max(2, (b.total / peak) * 94)}" fill="${b.total ? "var(--cobalto)" : "var(--arena)"}"><title>${esc(time(b.inicio))}: ${esc(number(b.total))} tokens</title></rect>`,
+        `<rect x="${i * 30 + 2}" y="${98 - Math.max(2, (b.total / peak) * 94)}" width="22" height="${Math.max(2, (b.total / peak) * 94)}" fill="${b.total ? "var(--magenta)" : "var(--muted)"}"><title>${esc(time(b.inicio))}: ${esc(number(b.total))} tokens</title></rect>`,
     )
     .join("");
   $("inicio-grafico").textContent = time(state.evento.inicio);

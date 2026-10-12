@@ -1,3 +1,41 @@
+/* Marca de BARRACA: dos tintas sobre la noche, Syne para gritar y Space Mono
+   para la voz del ticket. Los colores llegan de /paleta.css; las fuentes se
+   sirven desde el propio servidor. */
+@font-face {
+  font-family: "Syne Variable";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(/fonts/syne.woff2) format("woff2-variations");
+}
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/space-mono-400.woff2) format("woff2");
+}
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/fonts/space-mono-700.woff2) format("woff2");
+}
+:root {
+  color-scheme: dark;
+  --display: "Syne Variable", "Syne", ui-sans-serif, system-ui, sans-serif;
+  --mono: "Space Mono", ui-monospace, "SFMono-Regular", monospace;
+  --line: color-mix(in srgb, var(--paper) 15%, transparent);
+  --line-strong: color-mix(in srgb, var(--paper) 30%, transparent);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Medido, no a ojo: en Syne ExtraBold «TOKENMAXXING.» ocupa 14,2 veces su
+     tamaño y «SOLUCIONES.» 11,3. El suelo es lo que imprime una pantalla de
+     320px (288px útiles) sin partir la palabra. */
+  --text-section: clamp(1.25rem, 5.6vw, 2.75rem);
+  --text-lead: clamp(1.05rem, 2.2vw, 1.35rem);
+  --text-ticket: 0.7rem;
+}
 * {
   box-sizing: border-box;
 }
@@ -7,17 +45,22 @@ html {
 }
 body {
   margin: 0;
-  background: var(--noche);
-  color: var(--cal);
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
+  background: var(--nit);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 a {
   color: inherit;
 }
 button,
-select {
+select,
+input,
+textarea {
   font: inherit;
+  color: inherit;
 }
 button,
 a,
@@ -35,13 +78,16 @@ button:disabled {
   cursor: wait;
   opacity: 0.6;
 }
-:focus-visible {
-  outline: 3px solid var(--cobalto);
-  outline-offset: 4px;
+::selection {
+  background: var(--magenta);
+  color: var(--nit);
 }
-button,
-select {
-  color: var(--tinta);
+:focus-visible {
+  outline: 2px solid var(--acid);
+  outline-offset: 3px;
+}
+code {
+  color: var(--acid);
 }
 [hidden] {
   display: none !important;
@@ -58,34 +104,99 @@ select {
   border: 0;
 }
 .skip {
-  color: var(--tinta);
   position: absolute;
   top: -100px;
-  padding: 15px;
-  background: var(--cal);
+  padding: 10px 16px;
+  background: var(--acid);
+  color: var(--nit);
+  font: 800 13px var(--display);
+  text-transform: uppercase;
   z-index: 10;
 }
 .skip:focus {
-  top: 0;
+  top: 12px;
+  left: 12px;
 }
+
+/* Titulares: Syne en caja alta. Las palabras largas cortan con guion solo si
+   de verdad no caben. */
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  font-weight: 800;
+  text-transform: uppercase;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  hyphenate-limit-chars: 12 6 6;
+}
+
+/* Desregistro: las planchas magenta y cian caen un poco fuera del papel.
+   Solo bajo texto paper: el acid nunca lleva sobreimpresión. */
+.plate {
+  position: relative;
+  isolation: isolate;
+  --plate-x: 0.028em;
+  --plate-y: 0.02em;
+}
+.plate::before,
+.plate::after {
+  content: attr(data-plate);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  white-space: pre-line;
+  pointer-events: none;
+  user-select: none;
+  transform: translate(var(--tx), var(--ty));
+}
+.plate::before {
+  --tx: calc(var(--plate-x) * -1);
+  --ty: var(--plate-y);
+  color: var(--magenta);
+}
+.plate::after {
+  --tx: var(--plate-x);
+  --ty: calc(var(--plate-y) * -1);
+  color: var(--cian);
+}
+[data-register] .plate::before,
+[data-register] .plate::after {
+  animation: plate-register 1100ms var(--ease) both;
+}
+[data-register] .plate::after {
+  animation-delay: 90ms;
+}
+@keyframes plate-register {
+  from {
+    transform: translate(calc(var(--tx) * 7), calc(var(--ty) * 7));
+    opacity: 0;
+  }
+  to {
+    transform: translate(var(--tx), var(--ty));
+    opacity: 1;
+  }
+}
+
 .masthead {
-  background: var(--roig);
-  color: var(--cal);
+  background: var(--magenta);
+  color: var(--nit);
   display: flex;
   justify-content: space-between;
-  padding: 12px max(5vw, 20px);
-  font-family: monospace;
-  font-size: 11px;
+  gap: 16px;
+  padding: 9px max(5vw, 20px);
+  font-size: var(--text-ticket);
   font-weight: 700;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.18em;
 }
 header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 30px 0;
+  padding: 28px 0;
   gap: 24px;
-  border-bottom: 1px solid color-mix(in srgb, var(--cal) 35%, transparent);
+  border-bottom: 1px solid var(--line);
   margin: 0 auto;
   max-width: 1280px;
   width: 90%;
@@ -93,47 +204,58 @@ header {
 .brand {
   flex-shrink: 0;
   text-decoration: none;
-  font-size: 32px;
-  font-weight: 950;
-  letter-spacing: -1.7px;
-  line-height: 0.85;
-  color: var(--cal);
+  font: 800 30px/0.85 var(--display);
+  letter-spacing: -0.02em;
+  color: var(--paper);
   text-transform: uppercase;
 }
 .brand strong {
+  display: inline-block;
   font-weight: inherit;
 }
 .brand-moon {
-  font-size: 0.7em;
   font-style: normal;
-  margin-right: 0.3em;
+  color: var(--magenta);
+  margin-right: 0.25em;
 }
+/* Sin text-transform: el nombre oficial ya viene en mayúsculas y su «x» es
+   minúscula. */
 .brand span {
   display: block;
-  font-size: 12px;
-  letter-spacing: 2px;
-  margin-top: 8px;
+  font: 700 11px var(--mono);
+  letter-spacing: 0.28em;
+  text-transform: none;
+  margin-top: 10px;
+  color: var(--acid);
 }
 nav {
   display: flex;
   align-items: center;
   gap: 28px;
-  font-size: 13px;
+  font-size: var(--text-ticket);
   font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 nav a {
   text-decoration: none;
+  transition: color 180ms var(--ease);
 }
 nav a:hover {
-  text-decoration: underline;
-  text-underline-offset: 5px;
-}
-header .outline {
-  border-color: var(--arena);
+  color: var(--paper);
 }
 .outline {
-  border: 1px solid var(--tinta);
-  padding: 13px 18px;
+  border: 1px solid var(--line-strong);
+  padding: 10px 14px;
+  color: var(--paper);
+  font: 800 12px var(--display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+nav .outline:hover {
+  border-color: var(--paper);
 }
 main {
   max-width: 1280px;
@@ -142,66 +264,87 @@ main {
 }
 .hero {
   display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 9%;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 8%;
   align-items: center;
-  padding: 62px 0 48px;
+  padding: 56px 0 48px;
 }
+
+/* Etiquetas: marcador magenta en mono; en la cabecera, sello acid. */
 .eyebrow {
-  font-family: monospace;
-  font-size: 11px;
-  letter-spacing: 0.1em;
+  font-size: var(--text-ticket);
+  letter-spacing: 0.28em;
   font-weight: 700;
   line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--magenta);
   margin: 0 0 20px;
 }
-h1 {
-  font-size: clamp(46px, 5.8vw, 82px);
-  letter-spacing: -0.055em;
-  line-height: 0.99;
-  margin: 0 0 26px;
-  font-weight: 900;
+.hero > div > .eyebrow,
+.admin-heading .eyebrow {
+  display: inline-block;
+  background: var(--acid);
+  color: var(--nit);
+  padding: 4px 10px;
+  letter-spacing: 0.18em;
 }
-h1 em {
-  font-style: normal;
-  color: var(--taronja);
+h1 {
+  font-size: clamp(1.55rem, 4vw, 3.25rem);
+  letter-spacing: -0.02em;
+  line-height: 0.92;
+  margin: 0 0 26px;
 }
 .intro {
-  font-size: 18px;
-  line-height: 1.55;
-  margin: 0 0 28px;
+  font: 700 var(--text-lead) / 1.35 var(--display);
+  max-width: 32ch;
+  margin: 0 0 30px;
 }
 .small {
-  font-size: 12px;
-  line-height: 1.6;
+  font-size: var(--text-ticket);
+  letter-spacing: 0.06em;
+  line-height: 1.7;
+  color: var(--muted);
   margin: 16px 0 0;
 }
+
+/* Botones: bloque de tinta con un segundo pase duro detrás. Sin sombras suaves. */
 .button {
   display: inline-flex;
-  gap: 34px;
+  gap: 28px;
   align-items: center;
-  padding: 17px 20px;
+  justify-content: center;
+  padding: 14px 20px;
   text-decoration: none;
-  font-size: 13px;
-  font-weight: 700;
-  border: 1px solid var(--tinta);
+  font: 800 13px var(--display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  --ink-offset: var(--cian);
+  box-shadow: 3px 3px 0 0 var(--ink-offset);
+  transition:
+    box-shadow 180ms var(--ease),
+    transform 180ms var(--ease);
 }
-.red {
-  background: var(--roig);
-  color: var(--cal);
-  border-color: var(--roig);
+.button:hover,
+.button:focus-visible {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 0 var(--ink-offset);
 }
-.button:hover {
-  background: var(--tinta);
-  border-color: var(--tinta);
+.button.acid {
+  background: var(--acid);
+  color: var(--nit);
+  border-color: var(--acid);
+  --ink-offset: var(--magenta);
 }
+
+/* El ticket del plazo: un flyer de la casa sobre la noche. */
 .ticket {
-  background: var(--cal);
-  border: 1px solid var(--cobalto);
-  color: var(--cobalto);
-  padding: 23px 25px 26px;
-  transform: rotate(2deg);
-  box-shadow: 8px 8px 0 color-mix(in srgb, var(--cobalto) 40%, var(--noche));
+  background: var(--nit-2);
+  border: 1px solid var(--magenta);
+  padding: 22px 24px 24px;
+  transform: rotate(-1.5deg);
 }
 .ticket-top,
 .ticket-bottom {
@@ -209,142 +352,168 @@ h1 em {
   justify-content: space-between;
   align-items: center;
   gap: 14px;
-  font: 11px monospace;
+  font-size: var(--text-ticket);
+  letter-spacing: 0.12em;
+  color: var(--muted);
 }
 .tile-strip {
   height: 28px;
-  margin: 20px -25px 27px;
-  border-top: 1px solid var(--cobalto);
-  border-bottom: 1px solid var(--cobalto);
-  background: repeating-conic-gradient(var(--cobalto) 0 25%, transparent 0 50%)
-    50%/26px 26px;
+  margin: 20px -24px 24px;
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--magenta) 0 14px,
+    var(--magenta-deep) 14px 28px
+  );
 }
 .ticket .eyebrow {
   margin: 0;
 }
 .clock {
-  font: bold clamp(32px, 4.8vw, 64px) monospace;
-  letter-spacing: -0.05em;
+  font: 700 clamp(32px, 4.6vw, 60px) var(--mono);
+  letter-spacing: -0.04em;
   font-variant-numeric: tabular-nums;
-  margin: 12px 0;
+  color: var(--acid);
+  margin: 10px 0;
 }
 .ticket > p:not(.eyebrow) {
-  font: 12px monospace;
+  font-size: 12px;
   line-height: 1.6;
+  color: var(--paper);
 }
 .ticket-bottom {
-  margin-top: 24px;
-  border-top: 1px dashed var(--cobalto);
-  padding-top: 20px;
+  margin-top: 22px;
+  border-top: 1px dashed var(--line-strong);
+  padding-top: 18px;
 }
 .stamp {
-  border: 2px solid var(--roig);
-  color: var(--roig);
-  padding: 8px;
+  border: 2px solid var(--magenta);
+  color: var(--magenta);
+  padding: 6px 8px;
   transform: rotate(-8deg);
+  font-size: var(--text-ticket);
   font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 .error {
-  padding: 18px;
-  border: 1px solid var(--roig);
-  color: var(--cal);
-  background: var(--roig);
+  padding: 16px 18px;
+  color: var(--nit);
+  background: var(--magenta);
   font-weight: 700;
 }
 .metrics {
-  background: var(--cal);
-  color: var(--tinta);
+  background: var(--nit-2);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border: 1px solid var(--tinta);
-  margin: 0 0 58px;
+  border: 1px solid var(--line);
+  margin: 0 0 64px;
 }
 .metrics > div {
-  padding: 23px 26px;
-  border-right: 1px solid var(--tinta);
+  padding: 22px 24px;
+  border-right: 1px solid var(--line);
+  min-width: 0;
 }
 .metrics > div:last-child {
-  border: 0;
+  border-right: 0;
 }
 .metrics span,
 .metrics small {
   display: block;
-  font: 10px monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
   line-height: 1.6;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.metrics span {
+  font-weight: 700;
 }
 .metrics strong {
   display: block;
-  font-size: 42px;
-  font-weight: 850;
-  letter-spacing: -0.05em;
-  margin: 12px 0;
+  font: 800 42px/1 var(--display);
+  letter-spacing: -0.03em;
+  margin: 14px 0 12px;
   font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
 }
 .metrics > div:first-child {
-  color: var(--cal);
-  background: var(--roig);
+  background: var(--magenta);
+  color: var(--nit);
+}
+.metrics > div:first-child span,
+.metrics > div:first-child small {
+  color: var(--nit);
 }
 .section-head {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
   gap: 20px;
-  margin-bottom: 25px;
+  margin-bottom: 24px;
 }
 .section-head .eyebrow {
-  margin: 0 0 12px;
+  margin: 0 0 10px;
 }
 h2 {
-  font-size: clamp(30px, 3.5vw, 46px);
-  letter-spacing: -0.055em;
+  font-size: var(--text-section);
+  letter-spacing: -0.01em;
   margin: 0;
-  line-height: 1.02;
+  line-height: 1;
 }
 .dot {
-  color: var(--roig);
+  color: var(--magenta);
 }
 .live-label {
-  font: 10px monospace;
-  letter-spacing: 0.07em;
-  color: var(--arena);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--acid);
   margin-bottom: 5px;
 }
+
+/* Clasificación */
 .ranking-layout {
-  background: var(--cal);
-  color: var(--tinta);
+  background: var(--nit-2);
   display: grid;
   grid-template-columns: minmax(0, 1fr) 260px;
-  border: 1px solid var(--tinta);
+  border: 1px solid var(--line);
 }
 .ranking-main {
   min-width: 0;
 }
 .filters {
-  padding: 18px;
+  padding: 16px 18px;
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  border-bottom: 1px solid var(--tinta);
+  border-bottom: 1px solid var(--line);
   align-items: center;
 }
 .tabs {
   display: flex;
-  gap: 0;
 }
 .tabs button {
-  border: 1px solid var(--tinta);
+  border: 1px solid var(--line-strong);
   margin-right: -1px;
   background: transparent;
-  padding: 10px 13px;
-  font-size: 12px;
+  padding: 9px 13px;
+  font: 800 12px var(--display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 .tabs button[aria-pressed="true"] {
-  background: var(--tinta);
-  color: var(--cal);
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--nit);
 }
 .filters label {
-  font: 11px monospace;
+  font-size: var(--text-ticket);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -352,9 +521,13 @@ h2 {
 .filters select {
   max-width: 155px;
   padding: 8px;
-  border: 1px solid var(--tinta);
-  background: transparent;
+  border: 1px solid var(--line-strong);
+  border-radius: 0;
+  background: var(--nit);
+  color: var(--paper);
   font-size: 12px;
+  letter-spacing: 0;
+  text-transform: none;
 }
 .table-scroll {
   overflow-x: auto;
@@ -365,31 +538,36 @@ table {
   text-align: left;
 }
 th {
-  font: 10px monospace;
-  letter-spacing: 0.06em;
-  padding: 15px 18px;
-  border-bottom: 1px solid var(--tinta);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
 }
 td {
-  padding: 20px 18px;
-  border-bottom: 1px solid var(--arena);
+  padding: 18px;
+  border-bottom: 1px solid var(--line);
   font-size: 14px;
 }
 td:first-child {
   width: 50px;
-  font: 14px monospace;
-  color: var(--cobalto);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--magenta);
 }
 tbody tr:first-child {
-  background: var(--arena);
+  box-shadow: inset 3px 0 0 var(--acid);
 }
 td strong {
   display: block;
-  font-size: 15px;
+  font: 800 16px/1.15 var(--display);
+  text-transform: uppercase;
 }
 td small {
   display: block;
   font-size: 11px;
+  color: var(--muted);
   margin-top: 6px;
   line-height: 1.4;
 }
@@ -399,7 +577,8 @@ td small {
   font-variant-numeric: tabular-nums;
 }
 td.number {
-  font: 700 17px monospace;
+  font-size: 17px;
+  font-weight: 700;
 }
 td:last-child {
   width: 90px;
@@ -407,7 +586,6 @@ td:last-child {
 .bar {
   width: 65px;
   height: 5px;
-  background: var(--arena);
   display: block;
   margin-left: auto;
 }
@@ -415,20 +593,21 @@ td:last-child {
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  font: 10px monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
   line-height: 1.6;
-  padding: 18px;
+  padding: 16px 18px;
 }
 .usage {
   padding: 26px;
-  border-left: 1px solid var(--tinta);
-  background: var(--cobalto);
-  color: var(--cal);
+  border-left: 1px solid var(--line);
+  background: var(--nit);
 }
 h3 {
-  font-size: 25px;
-  line-height: 1.1;
-  letter-spacing: -0.04em;
+  font-size: 24px;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
   margin: 0 0 20px;
 }
 .usage .eyebrow {
@@ -439,18 +618,19 @@ h3 {
   justify-content: space-between;
   gap: 15px;
   font-size: 11px;
+  letter-spacing: 0.06em;
   padding: 10px 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--cal) 30%, transparent);
+  border-bottom: 1px solid var(--line);
 }
 .breakdown-row strong {
-  font: 12px monospace;
+  font-size: 12px;
 }
 .tools {
   margin-top: 25px;
 }
 .tool {
   margin: 18px 0 0;
-  font: 11px monospace;
+  font-size: 11px;
 }
 .tool div {
   display: flex;
@@ -458,25 +638,29 @@ h3 {
   margin-bottom: 8px;
 }
 .tool progress {
+  appearance: none;
   width: 100%;
   height: 5px;
-  accent-color: var(--taronja);
   border: 0;
-  background: var(--cal);
+  background: var(--nit-2);
+  accent-color: var(--magenta);
 }
 progress::-webkit-progress-bar {
-  background: var(--cal);
+  background: var(--nit-2);
 }
 progress::-webkit-progress-value {
-  background: var(--taronja);
+  background: var(--magenta);
+}
+progress::-moz-progress-bar {
+  background: var(--magenta);
 }
 .activity {
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 260px minmax(0, 1fr);
   gap: 30px;
-  border-bottom: 1px solid color-mix(in srgb, var(--cal) 35%, transparent);
+  border-bottom: 1px solid var(--line);
   padding: 30px 0 25px;
-  margin-bottom: 65px;
+  margin-bottom: 72px;
 }
 .activity .eyebrow {
   margin-bottom: 10px;
@@ -496,50 +680,61 @@ progress::-webkit-progress-value {
 .chart-labels {
   display: flex;
   justify-content: space-between;
-  font: 9px monospace;
+  gap: 8px;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
   margin-top: 8px;
 }
 .section-note {
-  font-size: 13px;
-  line-height: 1.5;
+  font-size: var(--text-ticket);
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+  color: var(--muted);
+  text-align: right;
   margin: 0;
 }
+
+/* Negociados */
 .tracks {
-  background: var(--cal);
-  color: var(--tinta);
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-left: 1px solid var(--tinta);
-  border-top: 1px solid var(--tinta);
-  margin-bottom: 65px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 72px;
 }
 .track {
-  background: transparent;
-  border: 0;
-  border-right: 1px solid var(--tinta);
-  border-bottom: 1px solid var(--tinta);
-  padding: 24px;
+  background: var(--nit-2);
+  border: 1px solid var(--line);
+  padding: 22px;
   text-align: left;
   display: flex;
   flex-direction: column;
-  min-height: 214px;
-  transition: background 0.15s;
+  min-width: 0;
+  min-height: 210px;
+  --ink-offset: var(--magenta);
+  transition:
+    border-color 180ms var(--ease),
+    box-shadow 180ms var(--ease),
+    transform 180ms var(--ease);
 }
-.track:hover {
-  background: var(--arena);
+.track:hover,
+.track:focus-visible {
+  border-color: var(--magenta);
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 0 var(--ink-offset);
 }
 .track .eyebrow {
   font-size: 10px;
-  margin-bottom: 24px;
-  color: var(--cobalto);
+  margin-bottom: 22px;
 }
 .track h3 {
-  font-size: 28px;
+  font-size: clamp(18px, 2vw, 26px);
   margin: 0 0 12px;
 }
 .track p {
   font-size: 13px;
-  line-height: 1.5;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--paper) 80%, transparent);
   margin: 0 0 20px;
 }
 .track-bottom {
@@ -547,156 +742,200 @@ progress::-webkit-progress-value {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font: 10px monospace;
+  gap: 10px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
 }
 .track-bottom span:last-child {
   font-size: 20px;
+  color: var(--acid);
 }
+
+/* Ventanilla y tablón */
 .operations {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 40px;
-  margin-bottom: 65px;
+  margin-bottom: 72px;
 }
 .operations h2 {
-  font-size: 37px;
+  font-size: clamp(1.25rem, 3vw, 2.25rem);
 }
 .tag {
-  font: 9px monospace;
-  padding: 8px;
-  border: 1px solid var(--arena);
-  color: var(--arena);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  padding: 7px 8px;
+  border: 1px solid var(--line-strong);
+  color: var(--muted);
   white-space: nowrap;
 }
 .turno {
-  background: var(--cal);
-  color: var(--tinta);
+  background: var(--nit-2);
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  padding: 22px;
-  border: 1px solid var(--tinta);
+  padding: 20px 22px;
+  border: 1px solid var(--line);
   margin-bottom: 10px;
 }
 .turno strong {
-  font: bold 29px monospace;
-  color: var(--roig);
+  font: 700 29px var(--mono);
+  color: var(--acid);
 }
 .turno small {
   display: block;
   font-size: 12px;
-  margin-top: 10px;
+  color: var(--muted);
+  margin-top: 8px;
   line-height: 1.5;
 }
 .turno > div:last-child {
   text-align: right;
-  font: 12px monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
 }
 .feed article {
-  border-top: 1px solid color-mix(in srgb, var(--cal) 35%, transparent);
-  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  padding: 16px 0;
 }
 .feed .eyebrow {
   font-size: 10px;
-  margin-bottom: 7px;
-  color: var(--arena);
+  margin-bottom: 6px;
+  color: var(--muted);
 }
 .feed p {
   margin: 0;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 .empty {
   font-size: 13px;
-  padding: 25px;
+  padding: 24px;
   line-height: 1.6;
-  border: 1px dashed var(--arena);
+  color: color-mix(in srgb, var(--paper) 80%, transparent);
+  border: 1px dashed var(--line-strong);
 }
+
+/* La hoja invertida: papel con tinta de noche, como las llamadas de la casa. */
 .join {
-  padding: 35px;
-  background: var(--tinta);
-  color: var(--cal);
+  padding: 40px;
+  background: var(--paper);
+  color: var(--nit);
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 35px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 36px;
   align-items: center;
-  margin-bottom: 55px;
+  margin-bottom: 56px;
+}
+.join::before {
+  content: "";
+  grid-column: 1 / -1;
+  width: 128px;
+  height: 32px;
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--magenta) 0 14px,
+    var(--magenta-deep) 14px 28px
+  );
 }
 .join h2 {
-  font-size: 32px;
-  line-height: 1.1;
+  font-size: clamp(1.4rem, 3.2vw, 2.25rem);
+  line-height: 1.05;
 }
 .join p {
   font-size: 13px;
-  line-height: 1.5;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--nit) 75%, transparent);
 }
 .join .eyebrow {
   font-size: 10px;
-  color: var(--arena);
+  color: var(--nit);
 }
 pre {
+  margin: 0;
   padding: 20px;
-  border: 1px solid var(--arena);
+  background: var(--nit);
+  color: var(--acid);
   font-size: 13px;
   line-height: 1.7;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
 .join .small {
-  color: var(--arena);
-  font-size: 11px;
+  color: color-mix(in srgb, var(--nit) 70%, transparent);
 }
 footer {
   max-width: 1280px;
   width: 90%;
   margin: auto;
-  border-top: 1px solid color-mix(in srgb, var(--cal) 35%, transparent);
+  border-top: 1px solid var(--line);
   padding: 30px 0 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 30px;
+  font-size: var(--text-ticket);
+  letter-spacing: 0.08em;
+  color: var(--muted);
 }
 footer .brand {
-  font-size: 25px;
+  font-size: 22px;
 }
 footer .brand span {
-  font-size: 10px;
-  letter-spacing: 1.5px;
+  font-size: 9px;
 }
-footer p,
-footer > a:last-child {
-  font-size: 11px;
+footer p {
   line-height: 1.7;
+  margin: 0;
+}
+footer > a:not(.brand) {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+}
+footer > a:not(.brand):hover {
+  color: var(--paper);
 }
 dialog {
   width: min(580px, 90vw);
   max-height: 85vh;
-  padding: 36px;
-  background: var(--cal);
-  color: var(--tinta);
-  border: 1px solid var(--tinta);
+  padding: 32px;
+  background: var(--nit-2);
+  color: var(--paper);
+  border: 1px solid var(--magenta);
 }
 dialog::backdrop {
-  background: color-mix(in srgb, var(--tinta) 65%, transparent);
+  background: color-mix(in srgb, var(--nit) 85%, transparent);
 }
 dialog h2 {
   margin: 20px 0;
 }
+dialog h3 {
+  font-size: 15px;
+  margin: 24px 0 8px;
+}
 dialog p,
 dialog li {
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.7;
 }
 dialog a {
-  color: var(--cobalto);
+  color: var(--acid);
+  text-underline-offset: 3px;
 }
 .close {
   float: right;
-  border: 1px solid var(--tinta);
+  border: 1px solid var(--line-strong);
   background: transparent;
-  font-size: 24px;
-  padding: 0 8px;
+  font-size: 22px;
+  line-height: 1;
+  padding: 4px 9px 6px;
+}
+.close:hover {
+  border-color: var(--paper);
 }
 .proyector .hero,
 .proyector #negociados,
@@ -726,7 +965,7 @@ dialog a {
   font-size: 22px;
 }
 .proyector .section-head h2 {
-  font-size: 35px;
+  font-size: min(35px, var(--text-section));
 }
 @media (min-width: 1500px) {
   .hero {
@@ -735,8 +974,16 @@ dialog a {
   }
 }
 @media (max-width: 1000px) {
+  .brand {
+    font-size: 24px;
+  }
   nav {
-    gap: 16px;
+    gap: 10px 16px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .usage h3 {
+    font-size: 20px;
   }
   .ranking-layout {
     grid-template-columns: minmax(0, 1fr) 225px;
@@ -759,7 +1006,7 @@ dialog a {
     padding: 20px 18px;
   }
   .metrics strong {
-    font-size: 35px;
+    font-size: 34px;
   }
   .operations {
     gap: 25px;
@@ -771,7 +1018,7 @@ dialog a {
 @media (max-width: 700px) {
   .masthead {
     font-size: 9px;
-    padding: 10px 5%;
+    padding: 8px 5%;
   }
   .masthead span:nth-child(2) {
     display: none;
@@ -781,54 +1028,55 @@ dialog a {
     align-items: flex-start;
   }
   .brand {
-    font-size: 25px;
+    font-size: 24px;
   }
   .brand span {
-    font-size: 10px;
-    letter-spacing: 1.5px;
+    font-size: 9px;
+    letter-spacing: 0.2em;
   }
   nav {
-    gap: 8px;
+    gap: 8px 12px;
     flex-wrap: wrap;
     justify-content: flex-end;
     max-width: 180px;
-    font-size: 10px;
+    font-size: 9px;
   }
   nav .outline {
-    padding: 7px;
+    padding: 7px 9px;
+    font-size: 11px;
   }
   .hero {
-    grid-template-columns: 1fr;
-    padding-top: 38px;
-    gap: 30px;
+    grid-template-columns: minmax(0, 1fr);
+    padding-top: 36px;
+    gap: 36px;
   }
   h1 {
-    font-size: 53px;
+    font-size: clamp(1.55rem, 7.8vw, 3.4rem);
   }
-  .intro {
-    font-size: 16px;
+  .operations h2 {
+    font-size: var(--text-section);
   }
   .ticket {
     margin: 4px 5px 10px;
   }
   .clock {
-    font-size: 52px;
+    font-size: 44px;
   }
   .metrics {
     grid-template-columns: 1fr 1fr;
-    margin-bottom: 38px;
+    margin-bottom: 40px;
   }
   .metrics > div {
-    border-bottom: 1px solid var(--tinta);
+    border-bottom: 1px solid var(--line);
   }
   .metrics > div:nth-child(2) {
     border-right: 0;
   }
-  .metrics > div:nth-child(3) {
+  .metrics > div:nth-child(n + 3) {
     border-bottom: 0;
   }
   .metrics strong {
-    font-size: 35px;
+    font-size: 32px;
   }
   .metrics span,
   .metrics small {
@@ -844,21 +1092,18 @@ dialog a {
     line-height: 1.6;
   }
   .ranking-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .usage {
     border-left: 0;
-    border-top: 1px solid var(--tinta);
-    padding: 25px;
-  }
-  .usage h3 {
-    font-size: 25px;
+    border-top: 1px solid var(--line);
+    padding: 24px;
   }
   .usage .small {
     margin-top: 20px;
   }
   .breakdown-row {
-    font-size: 13px;
+    font-size: 12px;
   }
   .tools {
     display: grid;
@@ -873,7 +1118,7 @@ dialog a {
   }
   td,
   th {
-    padding: 15px 10px;
+    padding: 12px 7px;
   }
   td strong {
     font-size: 13px;
@@ -885,22 +1130,22 @@ dialog a {
     width: 30px;
   }
   .bar {
-    width: 35px;
+    width: 28px;
   }
   td:last-child {
-    width: 45px;
+    width: 40px;
   }
   .filters {
     padding: 12px;
   }
   .tabs button {
-    padding: 10px;
+    padding: 9px 10px;
     font-size: 11px;
   }
   .activity {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 15px;
-    margin-bottom: 40px;
+    margin-bottom: 44px;
   }
   .activity .small {
     margin-top: 8px;
@@ -909,46 +1154,44 @@ dialog a {
     height: 95px;
   }
   .tracks {
-    grid-template-columns: 1fr 1fr;
-    margin-bottom: 40px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    margin-bottom: 44px;
   }
   .track {
     padding: 18px;
-    min-height: 220px;
+    min-height: 0;
   }
   .track h3 {
-    font-size: 24px;
-  }
-  .track p {
-    font-size: 12px;
+    font-size: 20px;
   }
   .track .eyebrow {
     font-size: 9px;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
   }
   .section-note {
     display: none;
   }
   .operations {
-    grid-template-columns: 1fr;
-    gap: 30px;
-    margin-bottom: 40px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    margin-bottom: 44px;
   }
   .join {
-    grid-template-columns: 1fr;
-    padding: 24px;
-    gap: 8px;
-    margin-bottom: 35px;
+    grid-template-columns: minmax(0, 1fr);
+    padding: 28px 22px;
+    gap: 16px;
+    margin-bottom: 36px;
   }
   footer {
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 16px;
   }
   .proyector .usage {
     display: none;
   }
   dialog {
-    padding: 25px;
+    padding: 22px;
   }
   .eyebrow {
     font-size: 10px;
@@ -961,12 +1204,22 @@ dialog a {
   * {
     transition: none !important;
   }
+  [data-register] .plate::before,
+  [data-register] .plate::after {
+    animation: none;
+  }
+  .button:hover,
+  .button:focus-visible,
+  .track:hover,
+  .track:focus-visible {
+    transform: none;
+  }
 }
 
 /* Pantalla del local: clasificación y turnos en paralelo. */
 .tv-clock {
-  font: bold 30px monospace;
-  color: var(--arena);
+  font: 700 30px var(--mono);
+  color: var(--acid);
   font-variant-numeric: tabular-nums;
 }
 @media (min-width: 1000px) {
@@ -986,7 +1239,7 @@ dialog a {
     padding: 14px 20px;
   }
   .proyector .metrics strong {
-    margin: 5px 0;
+    margin: 6px 0;
     font-size: 32px;
   }
   .proyector .leaderboard {
@@ -1036,22 +1289,21 @@ dialog a {
   padding-top: 48px;
 }
 .admin-heading .stamp {
-  color: var(--arena);
-  border-color: var(--arena);
+  color: var(--muted);
+  border-color: var(--muted);
 }
 .admin-heading h1 {
-  font-size: clamp(40px, 5vw, 66px);
+  font-size: clamp(2rem, 5vw, 3.5rem);
 }
 .admin-card {
-  color: var(--tinta);
-  border: 1px solid var(--tinta);
+  border: 1px solid var(--line);
   padding: 28px;
-  margin: 0 0 26px;
-  background: var(--cal);
+  margin: 0 0 24px;
+  background: var(--nit-2);
   min-width: 0;
 }
 .admin-card h2 {
-  font-size: 28px;
+  font-size: 26px;
   margin: 0 0 22px;
 }
 .admin-card p {
@@ -1062,8 +1314,8 @@ dialog a {
 }
 .admin-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 26px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
 }
 .admin-toolbar {
   display: flex;
@@ -1080,21 +1332,31 @@ dialog a {
 .admin-page label {
   display: grid;
   gap: 8px;
-  font-size: 13px;
+  font-size: var(--text-ticket);
   font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
   margin: 18px 0;
 }
 .admin-page input,
 .admin-page textarea,
 .admin-page select {
-  font: inherit;
-  color: var(--tinta);
-  background: var(--cal);
-  border: 1px solid var(--tinta);
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--paper);
+  background: var(--nit);
+  border: 1px solid var(--line-strong);
   border-radius: 0;
   padding: 12px;
   width: 100%;
   min-width: 0;
+}
+.admin-page input:focus,
+.admin-page textarea:focus,
+.admin-page select:focus {
+  border-color: var(--paper);
 }
 .admin-page textarea {
   resize: vertical;
@@ -1103,29 +1365,40 @@ dialog a {
   display: flex;
   align-items: center;
   gap: 12px;
+  font-size: 13px;
   font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--paper);
 }
 .admin-page input[type="checkbox"] {
-  accent-color: var(--roig);
+  accent-color: var(--acid);
   width: 20px;
   height: 20px;
   flex-shrink: 0;
 }
 .admin-page input[readonly] {
-  background: var(--arena);
+  background: var(--nit-2);
+  color: var(--muted);
 }
-.admin-page button:not(.button) {
-  background: var(--cal);
-  border: 1px solid var(--tinta);
-  padding: 10px 14px;
+.admin-page button:not(.button):not(.close) {
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  padding: 9px 14px;
+  font: 800 12px var(--display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.admin-page button:not(.button):not(.close):hover {
+  border-color: var(--paper);
 }
 .field-pair {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 16px;
 }
 .admin-note {
-  border-top: 4px solid var(--cobalto);
+  border-top: 4px solid var(--magenta);
   padding-top: 20px;
   margin-top: 26px;
 }
@@ -1135,16 +1408,16 @@ dialog a {
 .admin-teams {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  gap: 16px;
 }
 .admin-team {
-  color: var(--tinta);
-  background: var(--arena);
-  padding: 24px;
+  background: var(--nit);
+  border: 1px solid var(--line);
+  padding: 22px;
   overflow-wrap: anywhere;
 }
 .admin-team h3 {
-  font-size: 24px;
+  font-size: 22px;
   margin: 12px 0;
 }
 .team-members {
@@ -1153,11 +1426,10 @@ dialog a {
   flex-wrap: wrap;
 }
 .team-members span {
-  border: 1px solid var(--cobalto);
-  color: var(--cobalto);
-  font-family: monospace;
+  border: 1px solid var(--magenta);
+  color: var(--magenta);
   font-size: 12px;
-  padding: 3px 7px;
+  padding: 2px 7px;
 }
 .team-actions {
   display: flex;
@@ -1169,13 +1441,11 @@ dialog a {
   grid-column: 1 / -1;
   text-align: center;
   padding: 40px 20px;
-  border: 1px dashed var(--cobalto);
 }
 .admin-message:not(:empty) {
-  color: var(--tinta);
-  border-left: 4px solid var(--horta);
+  border-left: 4px solid var(--acid);
   padding: 14px 20px;
-  background: var(--arena);
+  background: var(--nit-2);
 }
 .login-card {
   max-width: 600px;
@@ -1190,7 +1460,7 @@ dialog a {
   .admin-grid,
   .admin-teams,
   .field-pair {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .admin-heading .stamp {
     display: none;
@@ -1215,19 +1485,19 @@ dialog a {
     gap: 24px;
   }
   .admin-page header .brand {
-    font-size: 25px;
+    font-size: 24px;
   }
 }
 
-@media (max-width: 420px) {
-  header .brand {
-    font-size: 20px;
+@media (max-width: 520px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
   }
-  header .brand span {
-    font-size: 9px;
-    letter-spacing: 1px;
-  }
-  header nav {
-    min-width: 0;
+  header nav,
+  .admin-page header nav {
+    max-width: none;
+    justify-content: flex-start;
   }
 }

@@ -106,7 +106,7 @@ test("número y justificante deterministas", async () => {
   expect(justificante(r, track, false).csv).toHaveLength(16);
   expect(sello()).toContain("REGISTRO DE ENTRADA");
   expect(sello()).toContain("22 OCT 2026");
-  expect(sello()).toContain("HACK NIGHT");
+  expect(sello()).toContain("BUILD NIGHT");
 });
 test("el sello tiene doble borde, sangría fija y todas sus filas del mismo ancho", () => {
   for (const columns of [30, 80]) {
