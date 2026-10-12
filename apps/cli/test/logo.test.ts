@@ -1,10 +1,16 @@
-import { test, expect } from "bun:test";
+import { afterEach, test, expect } from "bun:test";
 import { PNG } from "pngjs";
-import { mkdtemp, writeFile, readFile } from "node:fs/promises";
+import { mkdtemp, writeFile, readFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
+const tempDirs: string[] = [];
+afterEach(async () => {
+  for (const dir of tempDirs.splice(0))
+    await rm(dir, { recursive: true, force: true });
+});
 test("embed-logo aplana un PNG de prueba sobre blanco sin guardarlo en el repo", async () => {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-logo-"));
+  tempDirs.push(dir);
   const png = new PNG({ width: 8, height: 4 });
   png.data.fill(0);
   await writeFile(join(dir, "test.png"), PNG.sync.write(png));

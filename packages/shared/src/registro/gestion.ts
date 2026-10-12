@@ -8,15 +8,7 @@ import { eventoBase } from "../evento";
 import tracksBase from "../../registro-base/tracks.json";
 import { conBloqueo, ErrorBloqueo } from "./bloqueo";
 
-export const vistasIniciales = {
-  clasificacion: true,
-  personas: false,
-  negociados: true,
-  ventanilla: true,
-  tablon: true,
-  pantalla: true,
-};
-export const handle = z
+const handle = z
   .string()
   .regex(
     /^[a-z\d](?:[a-z\d-]{0,37}[a-z\d])?$/i,
@@ -70,10 +62,17 @@ export async function administracion(reg: RegistroLocal): Promise<Gestion> {
     evento,
     equipos,
     comite,
-    vistas: { ...vistasIniciales },
+    vistas: {
+      clasificacion: true,
+      personas: false,
+      negociados: true,
+      ventanilla: true,
+      tablon: true,
+      pantalla: true,
+    },
   };
 }
-export function validarAsignaciones(data: Gestion, tracks: Track[]) {
+function validarAsignaciones(data: Gestion, tracks: Track[]) {
   const ids = new Set<string>(),
     usuarios = new Set<string>();
   for (const e of data.equipos) {

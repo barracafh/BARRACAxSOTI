@@ -10,13 +10,13 @@ import {
 } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { tmpdir } from "node:os";
-import { conBloqueo } from "../packages/shared/src/registro/bloqueo";
+import { conBloqueo } from "@hacknight/shared/registro/bloqueo";
 import {
   administracion,
   guardarGestion,
   inicializarRegistro,
-} from "../packages/shared/src/registro/gestion";
-import { RegistroLocal } from "../packages/shared/src/registro/local";
+} from "@hacknight/shared/registro/gestion";
+import { RegistroLocal } from "@hacknight/shared/registro/local";
 
 const childScript = resolve(import.meta.dir, "support/lock-process.ts");
 async function fixture() {

@@ -46,6 +46,13 @@ function localDate(iso) {
     .toISOString()
     .slice(0, 19);
 }
+function eventDate(name) {
+  const value = field(name).value;
+  const previous = state.evento[name];
+  return Date.parse(value) === Date.parse(localDate(previous))
+    ? previous
+    : new Date(value).toISOString();
+}
 async function request(path, options = {}) {
   const res = await fetch(path, {
     ...options,
@@ -148,18 +155,8 @@ form.addEventListener("submit", async (e) => {
       nombre: field("nombre").value,
       nombre_corto: field("nombre_corto").value,
       organizan: field("organizan").value,
-      inicio:
-        field("inicio").value === localDate(state.evento.inicio) ||
-        Date.parse(field("inicio").value) ===
-          Date.parse(localDate(state.evento.inicio))
-          ? state.evento.inicio
-          : new Date(field("inicio").value).toISOString(),
-      fin:
-        field("fin").value === localDate(state.evento.fin) ||
-        Date.parse(field("fin").value) ===
-          Date.parse(localDate(state.evento.fin))
-          ? state.evento.fin
-          : new Date(field("fin").value).toISOString(),
+      inicio: eventDate("inicio"),
+      fin: eventDate("fin"),
       registroFueraDePlazo: field("fueraPlazo").checked,
     },
     vistas: Object.fromEntries(

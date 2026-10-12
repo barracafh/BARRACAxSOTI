@@ -1,5 +1,5 @@
-import { test, expect } from "bun:test";
-import { mkdtemp, mkdir, cp, writeFile } from "node:fs/promises";
+import { afterEach, test, expect } from "bun:test";
+import { mkdtemp, mkdir, cp, writeFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -18,6 +18,11 @@ import {
 import { validarFicha } from "../src/lib/ficha";
 import schema from "../esquemas/ficha.schema.json";
 import { eventoBase } from "@hacknight/shared/evento";
+const tempDirs: string[] = [];
+afterEach(async () => {
+  for (const dir of tempDirs.splice(0))
+    await rm(dir, { recursive: true, force: true });
+});
 export const fichaPrueba: Ficha = {
   nombre: "Ayudas de prueba",
   frase: "Encuentra ayudas.",
@@ -126,6 +131,7 @@ test("el sello tiene doble borde, sangría fija y todas sus filas del mismo anch
 
 test("local actualiza una ficha y conserva el número", async () => {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-reg-"));
+  tempDirs.push(dir);
   await mkdir(join(dir, "fichas"));
   const r = new RegistroLocal(dir);
   const a = await r.registrar(fichaPrueba, "2026-10-22T19:00:00Z");
@@ -159,6 +165,7 @@ test("URL con timeout da error", async () => {
 });
 test("revisión falla por DNI y botón, y se subsana", async () => {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-revision-"));
+  tempDirs.push(dir);
   await mkdir(join(dir, ".hacknight"));
   await writeFile(
     join(dir, ".hacknight/plantilla.json"),
@@ -231,6 +238,7 @@ test("revisión falla por DNI y botón, y se subsana", async () => {
 
 test("la ficha que se publicará se escanea aunque todavía no esté versionada", async () => {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-untracked-"));
+  tempDirs.push(dir);
   await writeFile(join(dir, "app.ts"), "<BotonAviso />");
   for (const args of [
     ["git", "init"],
@@ -265,6 +273,7 @@ test("la ficha que se publicará se escanea aunque todavía no esté versionada"
 
 test("la revisión detecta datos decodificados de la ficha y oculta sus valores", async () => {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-escaped-ficha-"));
+  tempDirs.push(dir);
   await mkdir(join(dir, ".hacknight"));
   await writeFile(
     join(dir, ".hacknight/plantilla.json"),

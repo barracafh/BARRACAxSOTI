@@ -104,15 +104,18 @@ function componerEntradas(
     });
   return out.sort((a, b) => b.fecha.localeCompare(a.fecha));
 }
-export async function snapshot(registro: Registro): Promise<EstadoEvento> {
+export async function snapshot(
+  registro: Registro,
+  configuracion?: { evento: Evento; equipos: Equipo[]; comite: string[] },
+): Promise<EstadoEvento> {
   const [evento, tracks, equipos, registros, issues, comite] =
     await Promise.all([
-      registro.evento(),
+      configuracion?.evento ?? registro.evento(),
       registro.tracks(),
-      registro.equipos(),
+      configuracion?.equipos ?? registro.equipos(),
       registro.fichas(),
       registro.issues(),
-      registro.comite(),
+      configuracion?.comite ?? registro.comite(),
     ]);
   const pushes = await registro.pushes(equipos);
   return {

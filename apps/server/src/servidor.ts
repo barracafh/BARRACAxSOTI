@@ -24,6 +24,28 @@ import adminJs from "../../web/admin.js" with { type: "text" };
 import marcaJs from "../../web/marca.js" with { type: "text" };
 import { paginaEvento } from "./marca";
 
+const headers = {
+  "Cache-Control": "no-store",
+  "X-Content-Type-Options": "nosniff",
+};
+const json = (data: unknown, status = 200) =>
+  Response.json(data, { status, headers });
+const assets: Record<string, [string, string]> = {
+  "/admin": [String(adminHtml), "text/html; charset=utf-8"],
+  "/admin.js": [adminJs, "text/javascript; charset=utf-8"],
+  "/marca.js": [marcaJs, "text/javascript; charset=utf-8"],
+  "/": [String(html), "text/html; charset=utf-8"],
+  "/pantalla": [String(html), "text/html; charset=utf-8"],
+  "/style.css": [css, "text/css; charset=utf-8"],
+  "/app.js": [js, "text/javascript; charset=utf-8"],
+  "/paleta.css": [
+    `:root{${Object.entries(paleta)
+      .map(([k, v]) => `--${k}:${v}`)
+      .join(";")}}`,
+    "text/css; charset=utf-8",
+  ],
+};
+
 export function crearHandler(
   registro: RegistroLocal,
   almacen: AlmacenUso,
@@ -34,12 +56,6 @@ export function crearHandler(
   const admin = crearAdmin(registro, clave);
   return async (req: Request) => {
     const url = new URL(req.url);
-    const headers = {
-      "Cache-Control": "no-store",
-      "X-Content-Type-Options": "nosniff",
-    };
-    const json = (data: unknown, status = 200) =>
-      Response.json(data, { status, headers });
     if (!["127.0.0.1", "localhost", "[::1]"].includes(url.hostname))
       return json({ error: "Host no permitido" }, 403);
     if (req.headers.get("origin") && req.headers.get("origin") !== url.origin)
@@ -49,13 +65,7 @@ export function crearHandler(
       if (adminResponse) return adminResponse;
       if (req.method === "GET" && url.pathname === "/api/estado") {
         const gestion = await administracion(registro);
-        // Una revisión coherente para toda la respuesta, aunque se esté editando.
-        const estable = Object.assign(Object.create(registro), registro, {
-          evento: async () => gestion.evento,
-          equipos: async () => gestion.equipos,
-          comite: async () => gestion.comite,
-        });
-        const estado = await snapshot(estable);
+        const estado = await snapshot(registro, gestion);
         const { vistas } = gestion;
         const consumo = vistas.clasificacion
           ? almacen.clasificacion(estado.evento, estado.equipos, estado.tracks)
@@ -108,21 +118,6 @@ export function crearHandler(
             "La pantalla está deshabilitada por el comité. Vuelve a la web del evento.",
             { status: 403, headers },
           );
-        const assets: Record<string, [string, string]> = {
-          "/admin": [String(adminHtml), "text/html; charset=utf-8"],
-          "/admin.js": [adminJs, "text/javascript; charset=utf-8"],
-          "/marca.js": [marcaJs, "text/javascript; charset=utf-8"],
-          "/": [String(html), "text/html; charset=utf-8"],
-          "/pantalla": [String(html), "text/html; charset=utf-8"],
-          "/style.css": [css, "text/css; charset=utf-8"],
-          "/app.js": [js, "text/javascript; charset=utf-8"],
-          "/paleta.css": [
-            `:root{${Object.entries(paleta)
-              .map(([k, v]) => `--${k}:${v}`)
-              .join(";")}}`,
-            "text/css; charset=utf-8",
-          ],
-        };
         const asset = assets[url.pathname];
         if (asset)
           return new Response(

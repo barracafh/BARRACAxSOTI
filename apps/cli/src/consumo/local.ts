@@ -1,7 +1,7 @@
 import { createReadStream } from "node:fs";
 import { readdir } from "node:fs/promises";
 import { createInterface } from "node:readline";
-import { join, resolve, relative, isAbsolute } from "node:path";
+import { join, resolve, relative, isAbsolute, sep } from "node:path";
 import { homedir } from "node:os";
 import {
   normalizarClaude,
@@ -65,7 +65,9 @@ export async function leerConsumo(
   now = Date.now(),
 ): Promise<{ resumen: Consumo; usos: Uso[] }> {
   const since = Date.parse(inicio),
-    until = Math.min(Date.parse(fin), now);
+    end = Date.parse(fin),
+    until = Math.min(end, now);
+  const project = resolve(cwd);
   const sum: Consumo = {
     total: 0,
     input: 0,
@@ -104,18 +106,12 @@ export async function leerConsumo(
               !e ||
               !e.cwd ||
               e.fecha < since ||
-              e.fecha >= Date.parse(fin) ||
+              e.fecha >= end ||
               e.fecha > until
             )
               continue;
-            const rel = relative(resolve(cwd), resolve(e.cwd));
-            if (
-              rel === ".." ||
-              rel.startsWith(
-                ".." + (process.platform === "win32" ? "\\" : "/"),
-              ) ||
-              isAbsolute(rel)
-            )
+            const rel = relative(project, resolve(e.cwd));
+            if (rel === ".." || rel.startsWith(".." + sep) || isAbsolute(rel))
               continue;
             const old = seen.get(e.id);
             if (

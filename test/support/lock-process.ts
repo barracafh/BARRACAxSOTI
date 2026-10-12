@@ -1,8 +1,5 @@
 import { readFile, rm, writeFile } from "node:fs/promises";
-import {
-  conBloqueo,
-  ErrorBloqueo,
-} from "../../packages/shared/src/registro/bloqueo";
+import { conBloqueo, ErrorBloqueo } from "@hacknight/shared/registro/bloqueo";
 
 const [mode, path, counter] = process.argv.slice(2);
 if (!path) throw new Error("Falta el directorio del bloqueo de prueba.");

@@ -1,11 +1,16 @@
-import { test, expect } from "bun:test";
-import { mkdtemp, cp } from "node:fs/promises";
+import { afterEach, test, expect } from "bun:test";
+import { mkdtemp, cp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { RegistroLocal } from "@hacknight/shared/registro/local";
 import { cuentaAtras } from "../src/lib/tiempo";
 import { wordmarkRows, banner } from "../src/lib/banner";
 import { panel } from "../src/lib/estilo";
+const tempDirs: string[] = [];
+afterEach(async () => {
+  for (const dir of tempDirs.splice(0))
+    await rm(dir, { recursive: true, force: true });
+});
 test("el fixture de pruebas tiene todos los negociados y cuatro squads", async () => {
   const r = new RegistroLocal(
     join(import.meta.dir, "../../../test/fixtures/registro"),
@@ -18,6 +23,7 @@ test("el fixture de pruebas tiene todos los negociados y cuatro squads", async (
 });
 test("registro local persiste y cierra issues", async () => {
   const p = await mkdtemp(join(tmpdir(), "hacknight-test-"));
+  tempDirs.push(p);
   await cp(join(import.meta.dir, "../../../test/fixtures/registro"), p, {
     recursive: true,
   });

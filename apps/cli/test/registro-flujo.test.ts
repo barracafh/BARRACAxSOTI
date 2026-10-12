@@ -1,10 +1,16 @@
-import { test, expect } from "bun:test";
-import { mkdtemp, cp, writeFile } from "node:fs/promises";
+import { afterEach, test, expect } from "bun:test";
+import { mkdtemp, cp, writeFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
+const tempDirs: string[] = [];
+afterEach(async () => {
+  for (const dir of tempDirs.splice(0))
+    await rm(dir, { recursive: true, force: true });
+});
 test("registro JSON: revisar, registrar, actualizar y plazo; sin red real", async () => {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-flujo-"));
+  tempDirs.push(dir);
   const reg = join(dir, "registro");
   await cp(join(import.meta.dir, "../../../test/fixtures/registro"), reg, {
     recursive: true,

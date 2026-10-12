@@ -8,18 +8,17 @@ const esc = (value) =>
         c
       ],
   );
-const number = (n) => new Intl.NumberFormat("es-ES").format(n);
-const compact = (n) =>
-  new Intl.NumberFormat("es-ES", {
-    notation: "compact",
-    maximumFractionDigits: 2,
-  }).format(n);
-const time = (value) =>
-  new Intl.DateTimeFormat("es-ES", {
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZone: "Europe/Madrid",
-  }).format(new Date(value));
+const number = new Intl.NumberFormat("es-ES").format;
+const compact = new Intl.NumberFormat("es-ES", {
+  notation: "compact",
+  maximumFractionDigits: 2,
+}).format;
+const clock = new Intl.DateTimeFormat("es-ES", {
+  hour: "2-digit",
+  minute: "2-digit",
+  timeZone: "Europe/Madrid",
+});
+const time = (value) => clock.format(new Date(value));
 const trackStates = {
   nucleo: "NÚCLEO",
   "si-hay-gente": "SI HAY GENTE",

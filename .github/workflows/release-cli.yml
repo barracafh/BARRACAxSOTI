@@ -6,7 +6,21 @@ on:
 permissions:
   contents: read
 jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.11
+      - run: bun install --frozen-lockfile
+      - name: Comprobar versión del tag
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: bun scripts/check-release.ts
+      - run: bun run check
   build:
+    needs: validate
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -23,11 +37,6 @@ jobs:
         with:
           bun-version: 1.3.11
       - run: bun install --frozen-lockfile
-      - name: Comprobar versión del tag
-        env:
-          RELEASE_TAG: ${{ github.ref_name }}
-        run: bun scripts/check-release.ts
-      - run: bun run check
       - name: Compilar binario
         env:
           BUILD_TARGET: ${{ matrix.target }}
