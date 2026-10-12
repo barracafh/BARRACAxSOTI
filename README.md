@@ -154,7 +154,7 @@ El workspace se instala desde la raíz con `bun install --frozen-lockfile`. `pla
 
 ### Trabajar con agentes de código
 
-Empieza por [AGENTS.md](AGENTS.md): recoge los límites del workspace y las comprobaciones según el cambio. Para reproducir CI, usa **Bun 1.3.11 y Node.js 22**, además de Git; `gh` con sesión iniciada permite trabajar con GitHub. Los tests locales usan datos ficticios y no necesitan claves de proveedores de IA.
+Empieza por [AGENTS.md](AGENTS.md): recoge los límites del workspace y las comprobaciones según el cambio. Para reproducir CI, usa **Bun 1.3.11 y Node.js 22**, además de Git. **GitHub es necesario para colaborar**: necesitas cuenta, acceso al repo y `gh auth login`; allí gestionamos código, PRs, CI y releases. Los tests locales usan datos ficticios y no necesitan claves de proveedores de IA.
 
 **No hace falta ningún MCP.** Un agente con acceso a archivos y terminal puede arrancar el servidor y ejecutar los comandos anteriores. Para cambios de integración, ejecuta también `bun run test:flujo` y `bun run test:live`.
 
