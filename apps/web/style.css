@@ -134,47 +134,20 @@ h3 {
 /* Desregistro: las planchas magenta y cian caen un poco fuera del papel.
    Solo bajo texto paper: el acid nunca lleva sobreimpresión. */
 .plate {
-  position: relative;
-  isolation: isolate;
   --plate-x: 0.028em;
   --plate-y: 0.02em;
+  text-shadow:
+    calc(var(--plate-x) * -1) var(--plate-y) 0 var(--magenta),
+    var(--plate-x) calc(var(--plate-y) * -1) 0 var(--cian);
 }
-.plate::before,
-.plate::after {
-  content: attr(data-plate);
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  white-space: pre-line;
-  pointer-events: none;
-  user-select: none;
-  transform: translate(var(--tx), var(--ty));
-}
-.plate::before {
-  --tx: calc(var(--plate-x) * -1);
-  --ty: var(--plate-y);
-  color: var(--magenta);
-}
-.plate::after {
-  --tx: var(--plate-x);
-  --ty: calc(var(--plate-y) * -1);
-  color: var(--cian);
-}
-[data-register] .plate::before,
-[data-register] .plate::after {
+[data-register] .plate {
   animation: plate-register 1100ms var(--ease) both;
-}
-[data-register] .plate::after {
-  animation-delay: 90ms;
 }
 @keyframes plate-register {
   from {
-    transform: translate(calc(var(--tx) * 7), calc(var(--ty) * 7));
-    opacity: 0;
-  }
-  to {
-    transform: translate(var(--tx), var(--ty));
-    opacity: 1;
+    text-shadow:
+      calc(var(--plate-x) * -7) calc(var(--plate-y) * 7) 0 transparent,
+      calc(var(--plate-x) * 7) calc(var(--plate-y) * -7) 0 transparent;
   }
 }
 
@@ -1204,8 +1177,7 @@ dialog a {
   * {
     transition: none !important;
   }
-  [data-register] .plate::before,
-  [data-register] .plate::after {
+  [data-register] .plate {
     animation: none;
   }
   .button:hover,

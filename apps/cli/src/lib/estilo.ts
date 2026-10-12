@@ -76,7 +76,7 @@ export function panel(
   const w = Math.max(12, Math.min(80, columns));
   const head = fit(` ${terminalText(title)} `, w - 4);
   return [
-    paint("cian", `┌─${head}${"─".repeat(Math.max(0, w - 3 - width(head)))}┐`),
+    `┌─${head}${"─".repeat(Math.max(0, w - 3 - width(head)))}┐`,
     ...lines
       .flatMap((x) => wrap(terminalText(x), w - 4))
       .map((x) => `│ ${x}${" ".repeat(Math.max(0, w - 4 - width(x)))} │`),
