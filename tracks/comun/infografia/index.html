@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Marco de conocimiento BUILD NIGHT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;700&family=Space+Mono:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500..700&display=swap"
+    />
+    <link rel="stylesheet" href="estilo.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="hero">
+        <div class="eyebrow">
+          <b>BARRACA × SOTI</b> · BUILD NIGHT · 22/10/2026 ·
+          <code>tracks/comun/</code>
+        </div>
+        <h1>Marco de conocimiento</h1>
+        <p class="lede">
+          Lo que un squad necesita saber de la administración pública española
+          para construir su herramienta sin investigarlo durante la noche:
+          territorio, competencias, normativa y tecnología. Ocho ficheros,
+          verificados en fuente oficial.
+        </p>
+        <div class="meta">
+          <a
+            class="btn"
+            data-d="readme"
+            data-s=""
+            href="#"
+            style="--c: var(--magenta)"
+            >README del marco ↗</a
+          >
+          <span class="pill">Verificado 12/10/2026</span>
+          <span class="pill">Auditado 13/10/2026</span>
+          <span class="pill">Pre-read 19/10/2026</span>
+        </div>
+      </section>
+
+      <div class="kpis">
+        <div class="kpi">
+          <span class="n">8</span
+          ><span class="l"
+            >ficheros Markdown, cada uno se entiende por sí solo
+            <button
+              class="info"
+              data-tip="Cada fichero empieza con su ámbito, su fecha de verificación y sus fuentes principales. Los ficheros 00 y 00b valen para todos los tracks, y el 04b sirve a los tracks 2, 3 y 4."
+            >
+              i
+            </button></span
+          >
+        </div>
+        <div class="kpi">
+          <span class="n">86.447</span
+          ><span class="l">palabras en total, unas 4.000 líneas</span>
+        </div>
+        <div class="kpi">
+          <span class="n">5</span
+          ><span class="l"
+            >tracks del evento cubiertos, más una base común</span
+          >
+        </div>
+        <div class="kpi">
+          <span class="n">+250</span
+          ><span class="l"
+            >correcciones de la auditoría del 13/10, todas con fuente
+            <button
+              class="info"
+              data-tip="Cada cambio queda registrado con su texto anterior, el nuevo, el motivo y la fuente. Ese registro no forma parte del marco, para que nadie confunda el texto corregido con el vigente."
+            >
+              i
+            </button></span
+          >
+        </div>
+        <div class="kpi" style="--c: var(--after)">
+          <span class="n">388</span
+          ><span class="l"
+            >marcas <code>[sin verificar]</code>: confirmar antes de mostrar
+            <button
+              class="info"
+              data-tip="Marca lo que no se pudo comprobar, lo parcial y lo inferido. Hay que confirmarlo en la fuente oficial antes de mostrárselo a un ciudadano. Lo que no lleva marca se comprobó en fuente oficial entre el 12 y el 13/10/2026."
+            >
+              i
+            </button></span
+          >
+        </div>
+      </div>
+
+      <div class="section-title">
+        <h2>
+          ¿Qué leo para mi track?
+          <button
+            class="info"
+            data-tip="Cada track tiene su fichero. El 04b sirve a los tracks 2, 3 y 4, y los ficheros 00 y 00b son la base de todos. Cada fichero se entiende por sí solo, así que puedes leer solo el tuyo."
+          >
+            i
+          </button>
+        </h2>
+        <span>Mapa del marco</span>
+      </div>
+      <p class="sub" style="margin-top: 6px">
+        Cada track tiene su fichero. 04b sirve a tres tracks y 00 y 00b son la
+        base de todos. Pulsa un fichero para ver su infografía.
+      </p>
+      <div class="map" style="margin-top: 16px">
+        <div class="track c-01">
+          <span class="k">TRACK 1</span
+          ><span class="t"
+            >Buscador de ayudas
+            <button
+              class="info"
+              data-tip="El campo abierto de la BDNS solo vale true cuando el plazo es indefinido. Para saber si una convocatoria está abierta hoy hay que mirar las fechas y los textos de plazo de la ficha. Además, regiones no es jerárquico y los identificadores de órgano se repiten (01, apartados 2 y 3.3)."
+            >
+              i
+            </button></span
+          ><span class="s">derechos</span>
+          <p>
+            La BDNS tiene API pública sin clave, pero <code>abierto</code> no
+            dice si está abierta hoy.
+          </p>
+        </div>
+        <div class="track c-02">
+          <span class="k">TRACK 2</span
+          ><span class="t"
+            >Traductor de documentos
+            <button
+              class="info"
+              data-tip="Una notificación electrónica obligatoria que no se abre se da por rechazada a los 10 días naturales, sin prórroga si el décimo día es inhábil (Ley 39/2015 art. 43.2). Para identificar al conductor de una multa son 20 días naturales por ley, aunque la web de la DGT diga 10 (02, apartados 3 y 6)."
+            >
+              i
+            </button></span
+          ><span class="s">claridad</span>
+          <p>Cada plazo con su artículo y su tipo de día, hábil o natural.</p>
+        </div>
+        <div class="track c-03">
+          <span class="k">TRACK 3</span
+          ><span class="t"
+            >Verificador de webs
+            <button
+              class="info"
+              data-tip="Un subdominio de *.sede.gob.es o *.sedelectronica.es siempre resuelve por el DNS comodín, y eso no prueba nada. Organismos muy suplantados usan dominios anteriores a .gob.es, como dgt.es o seg-social.es. No hay censo nacional de sedes municipales y DIR3 no incluye URLs (03, apartados 2, 3 y 6)."
+            >
+              i
+            </button></span
+          ><span class="s">sello</span>
+          <p>
+            Que un dominio resuelva no prueba que sea oficial: hay DNS comodín.
+          </p>
+        </div>
+        <div class="track c-04">
+          <span class="k">TRACK 4</span
+          ><span class="t"
+            >Asistente de trámites
+            <button
+              class="info"
+              data-tip="La sede electrónica se regula en la Ley 40/2015 art. 38 y en el RD 203/2021; el procedimiento, en la Ley 39/2015. La DEHú prohíbe el acceso automatizado salvo por los servicios web de Gran Destinatario. La AEAD sustituyó a la Secretaría General de Administración Digital (04, apartados 1, 3 y 6)."
+            >
+              i
+            </button></span
+          ><span class="s">brujula</span>
+          <p>
+            La DEHú prohíbe el acceso automatizado. 33 situaciones vitales
+            mapeadas.
+          </p>
+        </div>
+        <div class="track c-05">
+          <span class="k">TRACK 5</span
+          ><span class="t"
+            >Guía electoral
+            <button
+              class="info"
+              data-tip="Convocatoria por RD 806/2026. Para votar sirven DNI, pasaporte o permiso de conducir con foto, en original. La JEC suspendió miDGT y miDNI como identificación (Acuerdo 94/2026), aunque la FAQ de Interior aún cite miDGT (05, apartados 1 y 2)."
+            >
+              i
+            </button></span
+          ><span class="s">como-voto</span>
+          <p>Votación el 29/11. miDGT y miDNI no valen para votar.</p>
+        </div>
+
+        <a class="tile c-01" href="01-buscador-ayudas.html"
+          ><span class="code">01</span><span class="t">Buscador de ayudas</span
+          ><span class="d"
+            >Quién concede, BDNS y algoritmo de proveedor</span
+          ></a
+        >
+        <a class="tile c-02" href="02-traductor-documentos.html"
+          ><span class="code">02</span
+          ><span class="t">Traductor de documentos</span
+          ><span class="d"
+            >Emisor, significado, plazo, obligación y respuesta</span
+          ></a
+        >
+        <a class="tile c-03" href="03-verificador-webs-y-mensajes.html"
+          ><span class="code">03</span
+          ><span class="t">Verificador de webs y mensajes</span
+          ><span class="d">Dominios oficiales, fraudes y algoritmo</span></a
+        >
+        <a class="tile c-04" href="04-asistente-tramites.html"
+          ><span class="code">04</span
+          ><span class="t">Asistente de trámites</span
+          ><span class="d">Leyes 39 y 40, sede, DEHú, identidad, datos</span></a
+        >
+        <a class="tile c-05" href="05-guia-elecciones.html"
+          ><span class="code">05</span
+          ><span class="t">Guía de las elecciones</span
+          ><span class="d"
+            >Calendario, cómo votar, D'Hondt, fact-checker</span
+          ></a
+        >
+
+        <span class="map-label">Transversal a los tracks 2, 3 y 4</span>
+        <a class="tile c-04b span3" href="04b-gestores-expedientes.html"
+          ><span class="code">04b</span
+          ><span class="t">Gestores de expedientes y plataformas de sede</span
+          ><span class="d"
+            >Quién usa qué plataforma: AGE, comunidades, diputaciones y grandes
+            ayuntamientos</span
+          ></a
+        >
+
+        <span class="map-label">Base común de todos los tracks</span>
+        <a class="tile c-00 base-a" href="00-territorio.html"
+          ><span class="code">00</span><span class="t">Territorio</span
+          ><span class="d"
+            >Niveles, 17 CCAA + 2 ciudades, 50 provincias, regímenes forales e
+            identificadores (INE, DIR3, NIF)</span
+          ></a
+        >
+        <a
+          class="tile c-00b base-b"
+          href="00b-competencias-y-sector-publico.html"
+          ><span class="code">00b</span
+          ><span class="t">Competencias y sector público</span
+          ><span class="d"
+            >Quién es competente en cada materia y cómo clasificar a un emisor:
+            administración, empresa pública o privada</span
+          ></a
+        >
+      </div>
+
+      <div class="section-title">
+        <h2>
+          Los ocho documentos
+          <button
+            class="info"
+            data-tip="La barra de cada tarjeta compara el número de palabras del fichero con el más largo, el 02. Entre los ocho suman 86.447 palabras, unas 4.000 líneas."
+          >
+            i
+          </button>
+        </h2>
+        <span>Tamaño relativo y puntos clave</span>
+      </div>
+      <div class="docs" style="margin-top: 16px">
+        <a class="doc c-00" href="00-territorio.html">
+          <div class="hd">
+            <span class="code">00</span><span class="t">Territorio</span>
+          </div>
+          <p>
+            El mapa administrativo de España y los códigos para cruzar datos sin
+            equivocarse.
+          </p>
+          <div class="sizebar"><i style="width: 70%"></i></div>
+          <div class="nums">
+            <div><b>8.132</b><span>municipios</span></div>
+            <div><b>50</b><span>provincias</span></div>
+            <div><b>7</b><span>CCAA uniprovinciales</span></div>
+          </div>
+          <span class="go">Ver infografía →</span>
+        </a>
+        <a class="doc c-00b" href="00b-competencias-y-sector-publico.html">
+          <div class="hd">
+            <span class="code">00b</span
+            ><span class="t">Competencias y sector público</span>
+          </div>
+          <p>
+            Qué nivel es competente en cada materia y si quien te escribe es una
+            administración.
+          </p>
+          <div class="sizebar"><i style="width: 65%"></i></div>
+          <div class="nums">
+            <div><b>14</b><span>tipos de entidad</span></div>
+            <div><b>16</b><span>letras de NIF</span></div>
+            <div><b>8</b><span>pasos para clasificar</span></div>
+          </div>
+          <span class="go">Ver infografía →</span>
+        </a>
+        <a class="doc c-01" href="01-buscador-ayudas.html">
+          <div class="hd">
+            <span class="code">01</span
+            ><span class="t">Buscador de ayudas</span>
+          </div>
+          <p>
+            La BDNS como fuente única, sus trampas y cómo atribuir bien quién da
+            cada ayuda.
+          </p>
+          <div class="sizebar"><i style="width: 52%"></i></div>
+          <div class="nums">
+            <div><b>657.531</b><span>convocatorias en BDNS</span></div>
+            <div><b>15</b><span>errores a evitar</span></div>
+          </div>
+          <span class="go">Ver infografía →</span>
+        </a>
+        <a class="doc c-02" href="02-traductor-documentos.html">
+          <div class="hd">
+            <span class="code">02</span
+            ><span class="t">Traductor de documentos</span>
+          </div>
+          <p>
+            Cinco preguntas para leer cualquier carta de la administración, con
+            plazos calculables.
+          </p>
+          <div class="sizebar"><i style="width: 100%"></i></div>
+          <div class="nums">
+            <div><b>15</b><span>tipos de acto</span></div>
+            <div><b>6</b><span>categorías de obligación</span></div>
+            <div><b>8</b><span>casos resueltos</span></div>
+          </div>
+          <span class="go">Ver infografía →</span>
+        </a>
+        <a class="doc c-03" href="03-verificador-webs-y-mensajes.html">
+          <div class="hd">
+            <span class="code">03</span
+            ><span class="t">Verificador de webs y mensajes</span>
+          </div>
+          <p>
+            Tres veredictos honestos: oficial, no oficial o no determinable.
+            Nunca «es seguro».
+          </p>
+          <div class="sizebar"><i style="width: 85%"></i></div>
+          <div class="nums">
+            <div><b>80</b><span>hosts AGE semilla</span></div>
+            <div><b>12</b><span>pasos por URL</span></div>
+            <div><b>9</b><span>fraudes tipo</span></div>
+          </div>
+          <span class="go">Ver infografía →</span>
+        </a>
+        <a class="doc c-04" href="04-asistente-tramites.html">
+          <div class="hd">
+            <span class="code">04</span
+            ><span class="t">Asistente de trámites</span>
+          </div>
+          <p>
+            El marco legal del trámite electrónico y lo que una herramienta de
+            terceros puede y no puede hacer.
+          </p>
+          <div class="sizebar"><i style="width: 86%"></i></div>
+          <div class="nums">
+            <div><b>33</b><span>situaciones vitales</span></div>
+            <div><b>10</b><span>días naturales DEHú</span></div>
+          </div>
+          <span class="go">Ver infografía →</span>
+        </a>
+        <a class="doc c-04b" href="04b-gestores-expedientes.html">
+          <div class="hd">
+            <span class="code">04b</span
+            ><span class="t">Gestores de expedientes</span>
+          </div>
+          <p>
+            Pocas familias tecnológicas detrás de miles de sedes, y cómo
+            reconocerlas.
+          </p>
+          <div class="sizebar"><i style="width: 48%"></i></div>
+          <div class="nums">
+            <div><b>899</b><span>entidades en Sedipualba</span></div>
+            <div><b>25</b><span>grandes ayuntamientos</span></div>
+          </div>
+          <span class="go">Ver infografía →</span>
+        </a>
+        <a class="doc c-05" href="05-guia-elecciones.html">
+          <div class="hd">
+            <span class="code">05</span
+            ><span class="t">Guía de las elecciones</span>
+          </div>
+          <p>
+            Generales del 29/11/2026: calendario, modalidades de voto, sistema y
+            fact-checker.
+          </p>
+          <div class="sizebar"><i style="width: 54%"></i></div>
+          <div class="nums">
+            <div><b>350</b><span>diputados</span></div>
+            <div><b>209</b><span>senadores directos</span></div>
+            <div><b>29/11</b><span>votación</span></div>
+          </div>
+          <span class="go">Ver infografía →</span>
+        </a>
+      </div>
+      <p class="note" style="margin-top: 8px">
+        La barra de cada tarjeta es el número de palabras del fichero respecto
+        al más largo (02, 15.436 palabras).
+      </p>
+
+      <div class="grid">
+        <section class="panel w8">
+          <div class="ph">
+            <h2>
+              Cómo se ha verificado
+              <button
+                class="info"
+                data-tip="Cuatro pasos: autor, revisor independiente, control cruzado entre ficheros y auditoría externa. Que algo esté comprobado en fuente no quiere decir que sea infalible. Ante un ciudadano hay que citar siempre la fuente oficial, no el marco."
+              >
+                i
+              </button>
+            </h2>
+            <a
+              class="sx"
+              data-d="readme"
+              data-s="cómo-se-ha-verificado"
+              href="#"
+              >README ↗</a
+            >
+          </div>
+          <div class="flow">
+            <div>
+              <span class="k">12/10 · Paso 1</span>
+              <div class="t">Autor</div>
+              <div class="d">
+                Consulta las fuentes oficiales y repasa sus datos.
+              </div>
+            </div>
+            <div>
+              <span class="k">12/10 · Paso 2</span>
+              <div class="t">Revisor independiente</div>
+              <div class="d">
+                Vuelve a abrir las fuentes y corrige el fichero.
+              </div>
+            </div>
+            <div>
+              <span class="k">12/10 · Paso 3</span>
+              <div class="t">
+                Control cruzado
+                <button
+                  class="info"
+                  data-tip="El coordinador contrastó las correcciones dudosas con el texto consolidado del BOE. Dos de las de los revisores eran erróneas y se revirtieron: la deducción de IRPF en Ceuta y Melilla es del 60 %, y las cuotas nacionales y provinciales del IAE las cobra la AEAT."
+                >
+                  i
+                </button>
+              </div>
+              <div class="d">
+                El coordinador cruza ficheros y contrasta con el BOE. Revierte 2
+                correcciones erróneas.
+              </div>
+            </div>
+            <div>
+              <span class="k">13/10 · Paso 4</span>
+              <div class="t">
+                Auditoría externa
+                <button
+                  class="info"
+                  data-tip="La hizo Codex, con una pasada por fichero y otra de coherencia entre ficheros, buscando errores de legalidad, conceptos, explicaciones y cálculos. Un verificador independiente comprobó cada hallazgo en la fuente primaria y solo se corrigió lo confirmado."
+                >
+                  i
+                </button>
+              </div>
+              <div class="d">
+                Una pasada por fichero y otra de coherencia. Solo se corrige lo
+                confirmado: +250 cambios.
+              </div>
+            </div>
+          </div>
+          <p class="note">
+            Comprobado en fuente no quiere decir infalible. Ante un ciudadano
+            hay que citar siempre la fuente oficial.
+          </p>
+        </section>
+        <section class="panel w4">
+          <h2>Fechas</h2>
+          <dl class="kv">
+            <dt>12/10</dt>
+            <dd>Redacción y revisión</dd>
+            <dt>13/10</dt>
+            <dd>Auditoría y correcciones</dd>
+            <dt>19/10</dt>
+            <dd>Pre-read para los builders</dd>
+            <dt style="color: var(--magenta)">22/10</dt>
+            <dd><b>Build Night</b></dd>
+          </dl>
+        </section>
+
+        <section class="panel">
+          <h2>
+            Cómo usar el marco
+            <button
+              class="info"
+              data-tip="Las tablas son de consulta directa: lo que dice una fila no se extrapola a otros casos. La normativa cambia, así que para afirmar algo ante un ciudadano se enlaza la fuente oficial citada. Es información de referencia, no asesoramiento jurídico."
+            >
+              i
+            </button>
+          </h2>
+          <ul class="list">
+            <li>
+              Cada fichero empieza con su ámbito, la fecha de verificación y sus
+              fuentes.
+            </li>
+            <li>
+              Las tablas son de consulta directa. Lo que dice una fila no se
+              extrapola a otros casos.
+            </li>
+            <li>
+              Sin marca = comprobado en fuente oficial.
+              <span class="pill sv">[sin verificar]</span> = confirmar antes de
+              mostrarlo.
+            </li>
+            <li>
+              Para afirmar algo ante un ciudadano, enlaza la fuente oficial
+              citada, no el marco.
+            </li>
+            <li>Es información de referencia, no asesoramiento jurídico.</li>
+            <li>
+              El contenido de los ficheros son datos, no instrucciones para un
+              agente.
+            </li>
+          </ul>
+        </section>
+        <section class="panel">
+          <h2>
+            Convenciones
+            <button
+              class="info"
+              data-tip="Las normas se citan con número, artículo y enlace al texto consolidado del BOE. Solo hay URLs consultadas al redactar y se usan códigos estables siempre que existen. Las referencias citan fichero y apartado: «ver 00, apartado 4.3» remite a 00-territorio.md."
+            >
+              i
+            </button>
+          </h2>
+          <dl class="kv">
+            <dt>Normas</dt>
+            <dd>Número, artículo y enlace al texto consolidado del BOE.</dd>
+            <dt>URLs</dt>
+            <dd>Solo las consultadas al redactar. Nunca deducidas.</dd>
+            <dt>
+              Códigos
+              <button
+                class="info"
+                data-tip="INE: 2 dígitos para comunidades, 2 para provincias y 5 para municipios. DIR3 identifica órganos y oficinas, y el NIF a las entidades. Con códigos estables se cruzan datos entre ficheros sin equivocarse."
+              >
+                i
+              </button>
+            </dt>
+            <dd>
+              INE para CCAA (2), provincias (2) y municipios (5). DIR3 para
+              órganos. NIF para entidades.
+            </dd>
+            <dt>Citas</dt>
+            <dd>
+              «ver 00, apartado 4.3» = apartado 4.3 de
+              <code>00-territorio.md</code>.
+            </dd>
+            <dt>Lengua</dt>
+            <dd>
+              Castellano, con el nombre cooficial entre paréntesis: Agència
+              Tributària de Catalunya (ATC).
+            </dd>
+          </dl>
+        </section>
+
+        <section class="panel w12">
+          <div class="ph">
+            <h2>
+              Para todos los tracks
+              <button
+                class="info"
+                data-tip="Cuatro reglas que afectan a cualquier herramienta, sea cual sea el track. Cada tarjeta resume un punto de los ficheros 00, 00b o 02."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="00b" data-s="3.4"></a>
+          </div>
+          <div class="cols">
+            <div class="card c-00b">
+              <span class="k"
+                >NIF con Q
+                <button
+                  class="info"
+                  data-tip="Un NIF que empieza por Q no basta para afirmar que el emisor es una administración, porque también lo tienen universidades y cámaras de comercio. El orden para clasificar un emisor está en 00b, apartado 3.4."
+                >
+                  i
+                </button></span
+              ><span
+                >No basta para decir que el emisor es una administración:
+                también lo llevan universidades y cámaras de comercio.</span
+              >
+            </div>
+            <div class="card c-00">
+              <span class="k"
+                >Uniprovinciales
+                <button
+                  class="info"
+                  data-tip="Son siete: Asturias, Illes Balears, Cantabria, Madrid, Murcia, Navarra y La Rioja. La comunidad asume las competencias de la diputación (LBRL art. 40). Baleares es la excepción, porque las ejercen sus 4 consells insulars. En Navarra hace de diputación el Gobierno de Navarra (00, apartado 4.7)."
+                >
+                  i
+                </button></span
+              ><span
+                >Sin diputación provincial: en Asturias, Cantabria, Madrid,
+                Murcia y La Rioja la asume la comunidad; en Navarra, el Gobierno
+                foral; en Baleares, los consells.</span
+              >
+            </div>
+            <div class="card c-00">
+              <span class="k"
+                >Forales
+                <button
+                  class="info"
+                  data-tip="País Vasco y Navarra tienen régimen foral y fiscalidad propia. Navarra se rige por el Convenio Económico y puede regular su régimen tributario (LORAFNA art. 45). También tienen ayudas propias, así que no vale aplicarles el modelo común (00, apartados 4.1 y 4.2)."
+                >
+                  i
+                </button></span
+              ><span
+                >País Vasco y Navarra tienen fiscalidad y ayudas propias.</span
+              >
+            </div>
+            <div class="card c-02">
+              <span class="k"
+                >Agosto
+                <button
+                  class="info"
+                  data-tip="En vía administrativa agosto es hábil. En los procesos judiciales es inhábil (LEC art. 130.2; LJCA art. 128.2), y en el social también con excepciones (LRJS art. 43.4). Los plazos judiciales son improrrogables. Cualquier cómputo debe hacerlo un profesional (02, apartados 2.15 y 3)."
+                >
+                  i
+                </button></span
+              ><span
+                >Es hábil en vía administrativa. No corre en el contencioso ni,
+                salvo excepciones, en la demanda social.</span
+              >
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="foot">
+        <div>
+          Infografía generada a partir de <code>tracks/comun/</code>. Los
+          enlaces «§» abren el apartado exacto del Markdown; elige arriba si se
+          abren en GitHub o en tu copia local.
+        </div>
+      </footer>
+    </main>
+    <script src="comun.js"></script>
+  </body>
+</html>

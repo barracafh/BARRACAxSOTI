@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>03 · Verificador de webs y mensajes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;700&family=Space+Mono:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500..700&display=swap"
+    />
+    <link rel="stylesheet" href="estilo.css" />
+  </head>
+  <body data-doc="03">
+    <main class="wrap">
+      <section class="hero">
+        <div class="eyebrow"><b>03</b> · Track 3 · <code>sello</code></div>
+        <h1><span class="code">03</span> Verificador de webs y mensajes</h1>
+        <p class="lede">
+          Cómo decidir si una web, un SMS, un correo o una llamada vienen de un
+          organismo público español, sin presumir una certeza que no existe.
+        </p>
+        <div class="meta">
+          <a class="btn" data-d="03" data-s=""
+            >Abrir 03-verificador-webs-y-mensajes.md ↗</a
+          >
+          <span class="pill">624 líneas · 13.121 palabras</span>
+          <span class="pill sv">39 sin verificar</span>
+          <a class="pill" href="#indice">Índice completo ↓</a>
+        </div>
+      </section>
+
+      <section class="panel w12">
+        <div class="ph">
+          <h2>
+            Solo tres veredictos posibles
+            <button
+              class="info"
+              data-tip="La certeza solo existe por dos vías: el dominio está en una allowlist construida desde una fuente oficial, o su sufijo es gob.es. Fuera de ahí solo hay heurísticas. Por eso un dominio desconocido nunca se declara «falso»: se queda en «no determinable»."
+            >
+              i
+            </button>
+          </h2>
+          <a class="sx" data-d="03" data-s="1.1"></a>
+        </div>
+        <div class="verdicts">
+          <div class="verdict" style="--vc: var(--acid)">
+            <code>oficial_verificado</code>
+            <p>
+              El dominio está en la allowlist con fuente oficial, o es
+              <code>gob.es</code> sin señales de manipulación. Se muestra
+              organismo, nivel, fuente y fecha.
+            </p>
+          </div>
+          <div class="verdict" style="--vc: var(--magenta)">
+            <code>no_oficial</code>
+            <p>
+              Hay evidencia positiva de suplantación: aviso de INCIBE, imitación
+              de un dominio de la lista o contenido que contradice una regla
+              publicada.
+            </p>
+          </div>
+          <div class="verdict" style="--vc: var(--after)">
+            <code>no_determinable</code>
+            <p>
+              Ninguna de las dos. Un dominio fuera de la lista es «no
+              determinable», nunca «falso». Indica el canal oficial y que no se
+              metan datos.
+            </p>
+          </div>
+        </div>
+        <p class="note">
+          Nunca se dice «es seguro»: el verificador no ve el contenido de la
+          web.
+        </p>
+      </section>
+
+      <div class="kpis" style="margin-top: 16px">
+        <div class="kpi">
+          <span class="n">80</span
+          ><span class="l"
+            >hosts en el directorio de sedes de la AGE: la semilla de la
+            allowlist
+            <button
+              class="info"
+              data-tip="Es el directorio de sedes electrónicas del Punto de Acceso General, medido el 12/10/2026. Es HTML sin CSV ni API y todos los hosts resuelven. Tiene erratas, como el portal de Educación enlazado a ciencia.gob.es, y no es exhaustivo: falta puertos.sede.gob.es."
+            >
+              i
+            </button></span
+          >
+        </div>
+        <div class="kpi">
+          <span class="n">77 / 80</span
+          ><span class="l"
+            >de esos hosts están bajo <code>gob.es</code>
+            <button
+              class="info"
+              data-tip="Son el 96 %. Las tres excepciones son sede.uned.es, www.boe.es y www.casa47.es. Aun así, exigir gob.es a todo el mundo falla: DGT, Seguridad Social, SEPE o Policía conservan portales legados, y las CCAA y los ayuntamientos usan otros dominios."
+            >
+              i
+            </button></span
+          >
+        </div>
+        <div class="kpi">
+          <span class="n">0</span
+          ><span class="l"
+            >de 534 webs municipales de Castilla-La Mancha usan
+            <code>gob.es</code>
+            <button
+              class="info"
+              data-tip="Sale del registro de entidades locales de la Junta (fichero de junio de 2025, 961 filas, 534 con web). Es una sola comunidad y no debe extrapolarse a toda España, pero basta para ver que marcar «falso» por no ser gob.es produciría falsos positivos masivos."
+            >
+              i
+            </button></span
+          >
+        </div>
+        <div class="kpi">
+          <span class="n">12</span
+          ><span class="l">pasos deterministas para verificar una URL</span>
+        </div>
+        <div class="kpi">
+          <span class="n">15/09</span
+          ><span class="l"
+            >2026: Registro de Alias SMS obligatorio (CNMC)
+            <button
+              class="info"
+              data-tip="Desde esa fecha los operadores deben bloquear los SMS con alias no inscritos (Orden TDF/149/2025 art. 8, con efectos fijados por la Orden TDF/558/2026; la fecha original era el 07/06/2026). Es una señal reforzada, no concluyente. Su buscador público dio HTTP 500 el 12/10/2026 (sin verificar en el documento)."
+            >
+              i
+            </button></span
+          >
+        </div>
+      </div>
+
+      <div class="grid">
+        <section class="panel">
+          <div class="ph">
+            <h2>
+              Señales concluyentes
+              <button
+                class="info"
+                data-tip="Estas señales sí prueban algo porque tienen base legal o una fuente oficial. Aun así cada una tiene límites: la lista solo cubre lo listado, y gob.es garantiza quién es el titular del nombre, no lo que se aloje en sus subdominios."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="03" data-s="1.2"></a>
+          </div>
+          <dl class="kv">
+            <dt>C1</dt>
+            <dd>Dominio en una lista oficial</dd>
+            <dt>
+              C2
+              <button
+                class="info"
+                data-tip="Red.es verifica antes de asignar, y solo pueden pedirlo las administraciones públicas y sus entidades de Derecho público (Orden ITC/1542/2005). Las sociedades mercantiles no pueden: por eso Correos usa correos.es. El procedimiento interno de Red.es no está comprobado (sin verificar en el documento)."
+              >
+                i
+              </button>
+            </dt>
+            <dd>Sufijo <code>gob.es</code>, de registro restringido</dd>
+            <dt>
+              C3
+              <button
+                class="info"
+                data-tip="RD 203/2021 arts. 6.2 y 18.2. La excepción (DT 2ª.5) deja con su dominio a los portales de la AGE «muy reconocidos» anteriores al reglamento. Por eso existen dgt.es, seg-social.es, sepe.es y boe.es."
+              >
+                i
+              </button>
+            </dt>
+            <dd>
+              La AGE debe usar <code>gob.es</code> en sedes nuevas (salvo
+              legados)
+            </dd>
+            <dt>
+              C4
+              <button
+                class="info"
+                data-tip="Ley 40/2015 art. 38.6 y RD 203/2021 art. 18. La norma está comprobada, pero el cumplimiento es desigual: sede.seg-social.gob.es usa un certificado OV sin qcStatements, un posible incumplimiento (sin verificar en el documento). El certificado hay que cruzarlo con la allowlist."
+              >
+                i
+              </button>
+            </dt>
+            <dd>Certificado cualificado de sitio web de la sede</dd>
+            <dt>C5</dt>
+            <dd>Acto de creación de la sede publicado en boletín</dd>
+            <dt>C6</dt>
+            <dd>Comunicación vista dentro de la sede, DEHú o Carpeta</dd>
+          </dl>
+        </section>
+
+        <section class="panel">
+          <div class="ph">
+            <h2>
+              Señales heurísticas
+              <button
+                class="info"
+                data-tip="Ninguna concluye sola porque todas tienen explicaciones legítimas: una sede nueva también es un dominio reciente, y un colegio profesional puede parecerse a un organismo. El parecido solo da «no oficial» si concurre otra señal independiente."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="03" data-s="1.4"></a>
+          </div>
+          <p class="sub">Suman, pero por sí solas no concluyen.</p>
+          <div class="chips">
+            <span class="chip">Dominio recién registrado</span
+            ><span class="chip"
+              >Parecido tipográfico (<code>rn</code>/<code>m</code>,
+              <code>0</code>/<code>o</code>)</span
+            ><span class="chip"
+              >Homógrafos IDN
+              <button
+                class="info"
+                data-tip="Son caracteres Unicode confundibles o mezclas de alfabetos. Ojo: .es admite 13 caracteres multilingües legítimos (á à é è í ï ó ò ú ü ñ ç ŀl), así que una ñ o una ç no son sospechosas por sí mismas."
+              >
+                i
+              </button></span
+            ><span class="chip">Acortadores</span
+            ><span class="chip"
+              >TLD baratos: <code>.top</code> <code>.click</code>
+              <code>.cfd</code></span
+            ><span class="chip">Organismo como subdominio ajeno</span
+            ><span class="chip">Urgencia</span
+            ><span class="chip"
+              >Remitente con nombre del servicio y dominio ajeno</span
+            >
+          </div>
+          <p class="note">
+            Un certificado gratuito no indica nada. Las campañas recientes están
+            bien redactadas: las faltas ya no delatan.
+          </p>
+        </section>
+
+        <section class="panel w12">
+          <div class="ph">
+            <h2>
+              Dominios oficiales de los más suplantados
+              <button
+                class="info"
+                data-tip="«Legado» es un dominio que no sigue el patrón gob.es pero es del organismo. El patrón de sede con el nombre del organismo no se puede deducir: dehu.gob.es o www.dgt.gob.es no existen. Solo vale lo que figura en la lista."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="03" data-s="2.1"></a>
+          </div>
+          <div class="tw">
+            <table>
+              <thead>
+                <tr>
+                  <th>Organismo</th>
+                  <th>Sede oficial</th>
+                  <th>Legado o canal válido</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>AEAT</b></td>
+                  <td><code>sede.agenciatributaria.gob.es</code></td>
+                  <td>
+                    <code>agenciatributaria.es</code> · avisos de
+                    <code>correo.aeat.es</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>DGT</b></td>
+                  <td><code>sede.dgt.gob.es</code></td>
+                  <td><code>dgt.es</code></td>
+                </tr>
+                <tr>
+                  <td><b>Seguridad Social</b></td>
+                  <td><code>sede.seg-social.gob.es</code></td>
+                  <td>
+                    <code>seg-social.es</code> · Importass en
+                    <code>portal.seg-social.gob.es</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>SEPE</b></td>
+                  <td><code>sede.sepe.gob.es</code></td>
+                  <td><code>sepe.es</code> · 060 y 91 926 79 70</td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>DEHú</b>
+                    <button
+                      class="info"
+                      data-tip="Vive en redsara.es, no en gob.es. Se entra con Cl@ve permanente o móvil por SMS, DNIe o certificado. Un aviso «puesta a disposición de nueva notificación electrónica REF-» con enlace que pide usuario y contraseña es fraude (INCIBE-2026-077)."
+                    >
+                      i
+                    </button>
+                  </td>
+                  <td><code>dehu.redsara.es</code></td>
+                  <td>No es <code>gob.es</code></td>
+                </tr>
+                <tr>
+                  <td><b>Cl@ve</b></td>
+                  <td><code>clave.gob.es</code></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><b>Carpeta Ciudadana</b></td>
+                  <td><code>carpetaciudadana.gob.es</code></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><b>Policía Nacional</b></td>
+                  <td><code>sede.policia.gob.es</code></td>
+                  <td>
+                    <code>policia.es</code> · cita DNI en
+                    <code>citapreviadnie.es</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>Guardia Civil</b></td>
+                  <td><code>sede.guardiacivil.gob.es</code></td>
+                  <td><code>guardiacivil.es</code></td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Correos</b>
+                    <button
+                      class="info"
+                      data-tip="Es una sociedad estatal mercantil, no una administración, y no puede registrar gob.es. Su dominio comercial es legítimo, también correos.com. Sus correos oficiales llevan un código seguro en un recuadro amarillo, comprobable en su verificador de email."
+                    >
+                      i
+                    </button>
+                  </td>
+                  <td><code>www.correos.es</code></td>
+                  <td>Correo desde <code>correos@correos.com</code></td>
+                </tr>
+                <tr>
+                  <td><b>FNMT</b></td>
+                  <td><code>www.sede.fnmt.gob.es</code></td>
+                  <td><code>fnmt.es</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="ph">
+            <h2>
+              Legítimos sin <code>gob.es</code>
+              <button
+                class="info"
+                data-tip="Esta tabla evita falsos positivos masivos. Los dominios están enlazados desde fuentes oficiales como el Punto de Acceso General. En las ciudades grandes conviven .es, .org, .cat, .eus y .gal, pero la lista no es exhaustiva (sin verificar en el documento)."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="03" data-s="2.2"></a>
+          </div>
+          <p class="sub">
+            Exigir <code>gob.es</code> produce falsos positivos masivos.
+          </p>
+          <h3>Órganos constitucionales</h3>
+          <div class="chips">
+            <span class="chip"><code>congreso.es</code></span
+            ><span class="chip"><code>senado.es</code></span
+            ><span class="chip"><code>poderjudicial.es</code></span
+            ><span class="chip"><code>casareal.es</code></span>
+          </div>
+          <h3>Comunidades</h3>
+          <div class="chips">
+            <span class="chip"><code>gva.es</code></span
+            ><span class="chip"><code>gencat.cat</code></span
+            ><span class="chip"><code>xunta.gal</code></span
+            ><span class="chip"><code>euskadi.eus</code></span
+            ><span class="chip"><code>juntadeandalucia.es</code></span
+            ><span class="chip"><code>comunidad.madrid</code></span>
+          </div>
+          <h3>Ayuntamientos</h3>
+          <div class="chips">
+            <span class="chip"><code>madrid.es</code></span
+            ><span class="chip"><code>sevilla.org</code></span
+            ><span class="chip"><code>bilbao.eus</code></span
+            ><span class="chip"><code>coruna.gal</code></span>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="ph">
+            <h2>
+              Webs municipales de Castilla-La Mancha
+              <button
+                class="info"
+                data-tip="No hay censo nacional de sedes de ayuntamientos: el Ministerio respondió que «no está disponible» y la solicitud figura como «No viable». DIR3 no sirve para dominios. Por eso la lista hay que construirla con registros autonómicos y la guía 04b."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="03" data-s="3.4"></a>
+          </div>
+          <p class="sub">
+            Muestra de 534 webs; porcentajes sobre las 528 con dominio válido.
+            Un <code>.com</code> no es sospechoso por sí solo.
+          </p>
+          <div class="stack">
+            <div style="width: 79%; background: var(--acid)">.es 79 %</div>
+            <div style="width: 13%; background: var(--after)">.com 13 %</div>
+            <div style="width: 7%; background: var(--cian)">.org</div>
+            <div style="width: 1%; background: var(--muted)"></div>
+          </div>
+          <p class="note">
+            .org 7 %. Ninguna bajo <code>gob.es</code>. No hay censo nacional de
+            sedes municipales y DIR3 no incluye URLs: la lista hay que
+            construirla.
+          </p>
+          <h3>Patrones por nivel</h3>
+          <dl class="kv">
+            <dt>AGE</dt>
+            <dd><code>sede.&lt;org&gt;.gob.es</code> en la mayoría</dd>
+            <dt>CCAA</dt>
+            <dd><code>sede.</code> + dominio del portal, con excepciones</dd>
+            <dt>Diputaciones</dt>
+            <dd>Sede propia, alojan municipios o usan plataformas</dd>
+            <dt>Ayuntamientos</dt>
+            <dd>Dominio propio o plataforma compartida</dd>
+          </dl>
+        </section>
+
+        <section class="panel w12">
+          <div class="ph">
+            <h2>
+              Algoritmo para una URL
+              <button
+                class="info"
+                data-tip="Son 12 pasos deterministas. Primero se rechazan las trampas evidentes, luego se compara con la allowlist. Si nada concluye, el resultado por defecto es «no determinable» con el texto «No he podido confirmar que sea oficial. No introduzcas datos»."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="03" data-s="5.2"></a>
+          </div>
+          <div
+            class="cols"
+            style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))"
+          >
+            <ol class="steps">
+              <li>
+                Extraer URLs (también <code>hxxp</code>, <code>[.]</code> y QR)
+                y resolver redirecciones.
+              </li>
+              <li>
+                IP como host o credenciales en la URL: <code>no_oficial</code>.
+              </li>
+              <li>Normalizar con IDNA/UTS #46.</li>
+              <li>
+                Homógrafo de un dominio de la lista: <code>no_oficial</code>.
+              </li>
+            </ol>
+            <ol class="steps" start="5" style="counter-reset: s 4">
+              <li>Dominio registrable con la Public Suffix List.</li>
+              <li>
+                Plataforma compartida: verificar por inquilino, no por DNS.
+              </li>
+              <li>
+                Coincide con la allowlist: <code>oficial_verificado</code>.
+              </li>
+              <li>
+                Termina en <code>.gob.es</code>, resuelve y no es comodín:
+                oficial con menos confianza.
+              </li>
+            </ol>
+            <ol class="steps" start="9" style="counter-reset: s 8">
+              <li>TLS solo para confirmar y para sospechosos.</li>
+              <li>
+                Parecido a la lista: <code>no_oficial</code> solo con otra señal
+                independiente.
+                <button
+                  class="info"
+                  data-tip="Se mide distancia de edición hasta 2, guiones, cambios rn/m, 0/o y 1/l, y tokens de marca. Por sí sola la semejanza solo anota una posible imitación: ugt.es y cgt.es están a distancia 1 de dgt y son sindicatos. Hace falta además un TLD barato, una regla de contenido o un indicador publicado."
+                >
+                  i
+                </button>
+              </li>
+              <li>Aviso de INCIBE que califique el dominio de fraudulento.</li>
+              <li>
+                Por defecto: <code>no_determinable</code> y «llama al 060».
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="panel w8">
+          <div class="ph">
+            <h2>
+              Fraudes recurrentes
+              <button
+                class="info"
+                data-tip="Cada fraude del documento indica la señal, el canal legítimo y el aviso oficial. La detección por lista siempre llega tarde: la DGT dice que por cada web falsa que cae «salen varias nuevas». Por eso pesan más la allowlist y las reglas de contenido."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="03" data-s="4.4"></a>
+          </div>
+          <div class="cols">
+            <div class="card">
+              <span class="k"
+                >DGT
+                <button
+                  class="info"
+                  data-tip="El plazo reglamentario de pago es de 20 días naturales, así que un plazo con descuento de 9 días delata la falsificación. La DGT dice que ninguna sanción lleva QR ni enlaces de pago, y que nunca notifica multas por correo. La DEV solo avisa a quien se dio de alta."
+                >
+                  i
+                </button></span
+              ><span
+                >Multa por SMS con urgencia, QR y «descuento». Más de 830
+                intentos en cinco años.</span
+              >
+            </div>
+            <div class="card">
+              <span class="k">Hacienda</span
+              ><span>Enlace para cobrar una devolución.</span>
+            </div>
+            <div class="card">
+              <span class="k">DEHú / AEAT</span
+              ><span
+                >«Aviso puesta a disposición… REF-» que pide usuario y
+                contraseña.</span
+              >
+            </div>
+            <div class="card">
+              <span class="k">Correos</span
+              ><span
+                >Paquete retenido o tasas de aduana con pasarela falsa.</span
+              >
+            </div>
+            <div class="card">
+              <span class="k">Seguridad Social</span
+              ><span>Réplica de Importass o datos bancarios por WhatsApp.</span>
+            </div>
+            <div class="card">
+              <span class="k">Carpeta Ciudadana</span
+              ><span>«Ingreso» de 552,97 € que pide responder al correo.</span>
+            </div>
+            <div class="card">
+              <span class="k">Policía</span
+              ><span>Sextorsión y «citaciones» con plazo de 48 o 72 h.</span>
+            </div>
+            <div class="card">
+              <span class="k"
+                >Cita previa
+                <button
+                  class="info"
+                  data-tip="Los 807 son de tarificación adicional (Orden IET/2733/2015 art. 6.2). Llamar a un 800 o a un 900 es gratuito (Orden TDF/149/2025 art. 10), aunque eso no prueba que sean del organismo. No consta un aviso de INCIBE específico de cita previa (sin verificar en el documento)."
+                >
+                  i
+                </button></span
+              ><span>Webs o teléfonos 807 de pago. La cita es gratuita.</span>
+            </div>
+            <div class="card">
+              <span class="k">Cl@ve</span
+              ><span>Correo que pide entrar con email y contraseña.</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel w4">
+          <div class="ph">
+            <h2>
+              Lo que nunca hacen
+              <button
+                class="info"
+                data-tip="Estas reglas las publica cada organismo y pesan más que cualquier análisis del dominio. La regla de pago por enlace vale para AEAT, DGT, Seguridad Social, SEPE y Correos, no para todos: la Agencia Municipal Tributaria de Murcia envía por SMS enlaces de pago legítimos (memoria de 2020)."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="03" data-s="4.2"></a>
+          </div>
+          <ul class="list">
+            <li>
+              <b>AEAT</b>: pedir cuentas o tarjetas por correo o SMS, ni enlaces
+              para cobrar.
+            </li>
+            <li>
+              <b>DGT</b>: notificar multas por correo electrónico, ni QR ni
+              enlaces de pago.
+            </li>
+            <li>
+              <b>Seguridad Social</b>: pedir datos bancarios por WhatsApp, SMS o
+              llamada.
+            </li>
+            <li><b>Correos</b>: pedir datos personales o bancarios.</li>
+            <li><b>Carpeta Ciudadana</b>: pedir que respondas a un email.</li>
+            <li><b>Policía</b>: amenazar con arresto en 48 o 72 h.</li>
+          </ul>
+          <p class="note">
+            Un aviso por SMS o correo no es la notificación (Ley 39/2015).
+          </p>
+        </section>
+
+        <section class="panel w12">
+          <h2>
+            Ojo con esto
+            <button
+              class="info"
+              data-tip="Casos donde el verificador puede equivocarse. Su salida es «oficial verificado» (de quién es la web), no «seguro» (qué contiene). Por eso no se fía solo del DNS, del certificado ni del parecido, y acepta el resultado «no determinable»."
+            >
+              i
+            </button>
+          </h2>
+          <ul class="ojo">
+            <li>
+              <span
+                >Que un dominio resuelva no prueba nada:
+                <code>*.sede.gob.es</code> y
+                <code>*.sedelectronica.es</code> tienen DNS comodín. Y hosts
+                «obvios» como <code>dehu.gob.es</code> no existen.</span
+              ><a class="sx" data-d="03" data-s="3.1"></a>
+            </li>
+            <li>
+              <span
+                >En plataformas compartidas el certificado es del proveedor o de
+                la diputación, y una misma plataforma vive en varios dominios.
+                Se verifica por inquilino.</span
+              ><a class="sx" data-d="03" data-s="3.3"></a>
+            </li>
+            <li>
+              <span
+                ><code>ugt.es</code> y <code>cgt.es</code> están a distancia 1
+                de <code>dgt</code>. El parecido solo no concluye.</span
+              ><a class="sx" data-d="03" data-s="5.2"></a>
+            </li>
+            <li>
+              <span
+                >Los avisos voluntarios de AEAT o DGT son reales. Y la AMT de
+                Murcia envía enlaces de pago legítimos: comprueba la deuda por
+                otro canal.</span
+              ><a class="sx" data-d="03" data-s="5.4"></a>
+            </li>
+            <li>
+              <span
+                >Falsos negativos: webs legítimas comprometidas, dominios
+                caducados reutilizados, redirecciones abiertas.</span
+              ><a class="sx" data-d="03" data-s="7.2"></a>
+            </li>
+            <li>
+              <span
+                >Algunos servidores oficiales bloquean clientes automáticos
+                (403, 500). No exijas respuesta HTTP para validar.</span
+              ><a class="sx" data-d="03" data-s="7.1"></a>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <script src="comun.js"></script>
+  </body>
+</html>

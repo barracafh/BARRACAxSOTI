@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>05 · Guía de las elecciones</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;700&family=Space+Mono:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500..700&display=swap"
+    />
+    <link rel="stylesheet" href="estilo.css" />
+  </head>
+  <body data-doc="05">
+    <main class="wrap">
+      <section class="hero">
+        <div class="eyebrow"><b>05</b> · Track 5 · <code>como-voto</code></div>
+        <h1>
+          <span class="code">05</span> Guía de las elecciones generales 2026
+        </h1>
+        <p class="lede">
+          Elecciones del 29/11/2026: convocatoria, calendario oficial, cómo
+          votar en cada situación, el sistema electoral y una propuesta acotada
+          de fact-checker.
+        </p>
+        <div class="meta">
+          <a class="btn" data-d="05" data-s=""
+            >Abrir 05-guia-elecciones.md ↗</a
+          >
+          <span class="pill">498 líneas · 8.299 palabras</span>
+          <span class="pill sv">23 sin verificar</span>
+          <a class="pill" href="#indice">Índice completo ↓</a>
+        </div>
+      </section>
+
+      <div class="kpis">
+        <div class="kpi">
+          <span class="n">29/11</span
+          ><span class="l"
+            >votación, de 9:00 a 20:00
+            <button
+              class="info"
+              data-tip="El Real Decreto 806/2026 convoca las elecciones para el domingo 29/11/2026. El horario de los colegios sale del art. 84.1 de la LOREG. La campaña dura 15 días, del 13/11 a las 24:00 del 27/11 (art. 4 del RD)."
+            >
+              i
+            </button></span
+          >
+        </div>
+        <div class="kpi">
+          <span class="n">350</span
+          ><span class="l"
+            >diputados en 52 circunscripciones
+            <button
+              class="info"
+              data-tip="Son 50 provincias más Ceuta y Melilla. Cada provincia parte de 2 diputados y Ceuta y Melilla de 1 (50×2+2 = 102). Los otros 248 se reparten por población (art. 162 LOREG). El decreto de convocatoria fija la cifra de cada una."
+            >
+              i
+            </button></span
+          >
+        </div>
+        <div class="kpi">
+          <span class="n">209</span
+          ><span class="l"
+            >senadores de elección directa
+            <button
+              class="info"
+              data-tip="Cuenta: 47 provincias × 4 = 188, más 17 de las circunscripciones insulares, más 4 de Ceuta y Melilla. Las comunidades autónomas designan además otros senadores. Ese número no figura en el decreto y el documento no lo calcula (sin verificar)."
+            >
+              i
+            </button></span
+          >
+        </div>
+        <div class="kpi">
+          <span class="n">38,7 M</span
+          ><span class="l"
+            >electores; 2,77 M residen en el extranjero
+            <button
+              class="info"
+              data-tip="Dato del INE (nota de prensa del 09/10/2026): 38.728.356 electores. De ellos, 35.958.711 residen en España y 2.769.645 son residentes ausentes en el extranjero (CERA). Además, 1.615.127 votan por primera vez en unas generales."
+            >
+              i
+            </button></span
+          >
+        </div>
+        <div class="kpi">
+          <span class="n">3 %</span
+          ><span class="l"
+            >barrera por circunscripción (blancos incluidos)
+            <button
+              class="info"
+              data-tip="Las candidaturas que no llegan al 3 % de los votos válidos de la circunscripción quedan fuera del reparto (art. 163.1 LOREG). Los votos en blanco cuentan como válidos, así que suben el umbral en números absolutos."
+            >
+              i
+            </button></span
+          >
+        </div>
+      </div>
+
+      <div class="grid">
+        <section class="panel w12">
+          <div class="ph">
+            <h2>
+              Calendario oficial
+              <button
+                class="info"
+                data-tip="Sale del calendario de la Junta Electoral Central (PDF del 05/10/2026). Los plazos se cuentan desde la convocatoria: el día 0 es el 6/10, el día 38 es el 13/11 (inicio de campaña) y el día 54 es el 29/11 (votación). Si un medio da otra fecha, valen las de la JEC."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="05" data-s="1.2"></a>
+          </div>
+          <p class="sub">
+            La línea magenta es hoy, 13/10/2026. Prevalecen las fechas de la
+            Junta Electoral Central.
+          </p>
+          <div class="gantt">
+            <div class="gantt-in" id="gantt">
+              <div class="g-axis" id="axis"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel w12">
+          <div class="ph">
+            <h2>
+              Cómo votar
+              <button
+                class="info"
+                data-tip="Cada situación tiene sus plazos y sus vías. Las normas y los plazos cambian: ante un ciudadano hay que enlazar la fuente oficial, no esta guía. Es información de referencia y no asesoramiento jurídico."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="05" data-s="2."></a>
+          </div>
+          <div class="cols">
+            <div class="card">
+              <span class="k"
+                >2.1 · Presencial
+                <button
+                  class="info"
+                  data-tip="Hay que votar en la sección y mesa asignadas. La Junta Electoral Central suspendió miDGT y miDNI como identificación (Acuerdo 94/2026). El texto del acuerdo no se leyó y no se ha visto otro que lo levante (sin verificar). Con un documento caducado, no afirmes que vale hasta confirmarlo."
+                >
+                  i
+                </button></span
+              ><span class="t">29/11, 9:00-20:00</span
+              ><span
+                >DNI, pasaporte o carné de conducir originales con foto. Ni
+                fotocopias, ni miDGT, ni miDNI.</span
+              >
+            </div>
+            <div class="card">
+              <span class="k"
+                >2.2 · Por correo
+                <button
+                  class="info"
+                  data-tip="Quien lo solicita y es aceptado queda anotado en el censo y no puede votar en mesa (art. 73.1). El voto se envía certificado y sin franqueo. Correos entrega a las mesas a las 9:00 y sigue hasta las 20:00. Lo que llega después se remite a la Junta de Zona y no se cuenta."
+                >
+                  i
+                </button></span
+              ><span class="t">Pedir hasta el 19/11</span
+              ><span
+                >En Correos con DNI o en la web con certificado. Depositar hasta
+                el 25/11. Ya no puedes votar en mesa.</span
+              >
+            </div>
+            <div class="card">
+              <span class="k"
+                >2.3 · CERA
+                <button
+                  class="info"
+                  data-tip="Desde la LO 12/2022 ya no hay que pedir el voto: se eliminó el «voto rogado» y la Oficina del Censo envía la documentación de oficio. El voto por correo debe ir al consulado, nunca a la Junta en España. Por ley el sobre no vale si llega al consulado después del 27/11."
+                >
+                  i
+                </button></span
+              ><span class="t">Sin solicitud</span
+              ><span
+                >Urna en el consulado del 21 al 26/11, o correo al consulado
+                hasta el 24/11.</span
+              >
+            </div>
+            <div class="card">
+              <span class="k"
+                >2.4 · ERTA
+                <button
+                  class="info"
+                  data-tip="Son residentes en España que están temporalmente fuera. Hay que estar inscrito en el Registro de Matrícula Consular como no residente y prever seguir fuera el día de la votación. La documentación se pide a la Oficina del Censo de la provincia, en persona en el consulado."
+                >
+                  i
+                </button></span
+              ><span class="t">Pedir hasta el 31/10</span
+              ><span
+                >Temporalmente en el extranjero. Devolución hasta el 25/11. No
+                pueden pedirlo en Correos.</span
+              >
+            </div>
+            <div class="card">
+              <span class="k"
+                >2.5 · Accesible
+                <button
+                  class="info"
+                  data-tip="El kit Braille es para quien lea Braille y tenga discapacidad del 33 % o más, o sea afiliado a la ONCE. Se entrega en la mesa y es incompatible con el voto por correo. Desde la LO 2/2018 solo pierden el sufragio los condenados con pena que lo prive."
+                >
+                  i
+                </button></span
+              ><span class="t">Braille hasta el 2/11</span
+              ><span
+                >Kit en mesa, persona de confianza, voto ante notario a
+                domicilio, locales accesibles.</span
+              >
+            </div>
+            <div class="card">
+              <span class="k"
+                >2.6 · Permiso laboral
+                <button
+                  class="info"
+                  data-tip="Las cuatro horas retribuidas salen del art. 13.1 del RD 605/1999. Las horas concretas de 2026 las fijan las medidas de cada proceso y no se han consultado (sin verificar). La LOREG no da una cifra general. Los miembros de mesa tienen además 5 horas menos de jornada al día siguiente (art. 28.1)."
+                >
+                  i
+                </button></span
+              ><span class="t">Hasta 4 horas</span
+              ><span
+                >Retribuidas (RD 605/1999; las de 2026, sin verificar). Miembros
+                de mesa: jornada completa y dieta de 75 €.</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <section class="panel w8">
+          <div class="ph">
+            <h2>
+              D'Hondt, con el ejemplo del documento
+              <button
+                class="info"
+                data-tip="Pasos del art. 163.1: se descartan las listas bajo el 3 %, se divide cada cifra entre 1, 2, 3… y los escaños van a los cocientes mayores. En caso de empate gana la lista con más votos totales; si coinciden, el primer empate se sortea. Los datos del ejemplo son inventados."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="05" data-s="3.2"></a>
+          </div>
+          <p class="sub">
+            6 escaños y 180.300 votos válidos (8.000 en blanco). Umbral: 3 % =
+            5.409, así que E (5.300) queda fuera. Los 6 cocientes mayores se
+            llevan los escaños.
+          </p>
+          <div class="tw">
+            <table class="dh">
+              <thead>
+                <tr>
+                  <th>Candidatura</th>
+                  <th>Votos</th>
+                  <th>÷1</th>
+                  <th>÷2</th>
+                  <th>÷3</th>
+                  <th>÷4</th>
+                  <th>Escaños</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>A</td>
+                  <td>71.000</td>
+                  <td class="win">71.000</td>
+                  <td class="win">35.500</td>
+                  <td class="win">23.667</td>
+                  <td>17.750</td>
+                  <td><b>3</b></td>
+                </tr>
+                <tr>
+                  <td>B</td>
+                  <td>48.000</td>
+                  <td class="win">48.000</td>
+                  <td class="win">24.000</td>
+                  <td>16.000</td>
+                  <td>12.000</td>
+                  <td><b>2</b></td>
+                </tr>
+                <tr>
+                  <td>C</td>
+                  <td>31.000</td>
+                  <td class="win">31.000</td>
+                  <td>15.500</td>
+                  <td>10.333</td>
+                  <td>7.750</td>
+                  <td><b>1</b></td>
+                </tr>
+                <tr>
+                  <td>D</td>
+                  <td>17.000</td>
+                  <td>17.000</td>
+                  <td>8.500</td>
+                  <td>5.667</td>
+                  <td></td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>
+                    E
+                    <button
+                      class="info"
+                      data-tip="E tiene 5.300 votos, un 2,9 % de los 180.300 válidos. El umbral es 5.409, así que queda fuera y sus votos no cuentan para el reparto. Sin los 8.000 blancos el umbral sería 5.169 y E sí entraría."
+                    >
+                      i
+                    </button>
+                  </td>
+                  <td>5.300</td>
+                  <td class="out">bajo el 3 %</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note">
+            Sin contar los blancos, el umbral sería 5.169 y E entraría al
+            reparto: el voto en blanco eleva la barrera.
+          </p>
+        </section>
+
+        <section class="panel w4">
+          <div class="ph">
+            <h2>
+              Blanco, nulo y abstención
+              <button
+                class="info"
+                data-tip="Los tres se confunden a menudo. Solo el voto en blanco es válido y cambia el reparto, porque eleva el umbral del 3 %. El nulo y la abstención no computan. Votar no es obligatorio (art. 5 LOREG)."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="05" data-s="3.3"></a>
+          </div>
+          <dl class="kv">
+            <dt>Blanco</dt>
+            <dd>Es válido. Cuenta para el 3 % y no va a nadie.</dd>
+            <dt>
+              Nulo
+              <button
+                class="info"
+                data-tip="Papeleta o sobre que no son del modelo oficial, papeleta sin sobre, papeletas de distintas candidaturas en un sobre, o papeletas alteradas (art. 96). Según la Instrucción JEC 1/2012, una cruz junto a un candidato no anula el voto si no altera la papeleta ni expresa reproche."
+              >
+                i
+              </button>
+            </dt>
+            <dd>
+              Papeleta no oficial, sin sobre o alterada. No cuenta para nada.
+            </dd>
+            <dt>Abstención</dt>
+            <dd>No computa ni altera el reparto. Votar no es obligatorio.</dd>
+          </dl>
+          <h3>Senado</h3>
+          <p style="margin: 0; font-size: 14.5px">
+            Voto limitado: hasta 3, 2 o 1 candidatos según la circunscripción.
+            Ganan los más votados, sin D'Hondt ni barrera.
+          </p>
+        </section>
+
+        <section class="panel">
+          <div class="ph">
+            <h2>
+              Reparto del Congreso
+              <button
+                class="info"
+                data-tip="Los 248 diputados restantes se reparten así: cuota = población de derecho de las provincias / 248. Cada provincia recibe la parte entera de su cociente y los que faltan van a las de mayor parte decimal (art. 162.3). Las cifras del gráfico son las del anexo del RD 806/2026."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="05" data-s="3.1"></a>
+          </div>
+          <div class="stack" style="height: 34px">
+            <div style="width: 29.1%; background: var(--c)">102 mínimos</div>
+            <div style="width: 70.9%; background: var(--cian)">
+              248 por población
+            </div>
+          </div>
+          <p class="note">
+            2 por provincia y 1 para Ceuta y para Melilla; el resto según
+            población.
+          </p>
+          <div class="bars" id="circ"></div>
+        </section>
+
+        <section class="panel">
+          <div class="ph">
+            <h2>
+              Normas de campaña para una herramienta
+              <button
+                class="info"
+                data-tip="Son normas de la LOREG que afectan a quien publique información electoral. Sobre todo los arts. 50.5, 53 y 69.7. Una entidad que no sea candidatura no debe hacer campaña ni pedir o desaconsejar el voto a nadie. Informar y verificar sí está permitido."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="05" data-s="5."></a>
+          </div>
+          <ul class="list">
+            <li>
+              Sondeos prohibidos del 24 al 28/11.
+              <button
+                class="info"
+                data-tip="Es el art. 69.7: en los cinco días previos a la votación no se pueden publicar, difundir ni reproducir sondeos por ningún medio. Una herramienta no debe mostrarlos, enlazarlos ni resumirlos. Si los incluye, debe apagarlos el 24/11."
+              >
+                i
+              </button>
+            </li>
+            <li>Sin captación de voto el 28 ni el 29/11.</li>
+            <li>Neutralidad y sin perfilado político.</li>
+            <li>
+              No hay repositorio oficial de programas: cita con captura, hash y
+              texto literal.
+              <button
+                class="info"
+                data-tip="El documento no encontró un repositorio oficial de programas (sin verificar). Hay que citar la URL del partido, la fecha de captura, el hash SHA-256 y una copia archivada, porque los partidos retiran y cambian programas. Se cita el fragmento literal y no se parafrasea."
+              >
+                i
+              </button>
+            </li>
+          </ul>
+        </section>
+
+        <section class="panel w12">
+          <div class="ph">
+            <h2>
+              Fact-checker: propuesta de alcance
+              <button
+                class="info"
+                data-tip="Es una propuesta técnica para decidir con la organización. No emite veredictos de veracidad: compara la afirmación con una fuente oficial citada, y solo si existe. Un clasificador decide el tipo, pero el resultado sale de reglas y fuentes, no del modelo. Si hay duda, se trata como tipo (d)."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="05" data-s="6."></a>
+          </div>
+          <p class="sub">
+            El track <code>fact-checker</code> está descartado
+            (<code>tracks/fuera/</code>); el activo es <code>como-voto</code>.
+            Si se retoma, solo afirmaciones sobre el proceso electoral.
+          </p>
+          <div class="cols">
+            <div class="card">
+              <span class="k"
+                >Tipos de afirmación
+                <button
+                  class="info"
+                  data-tip="Solo el tipo (a) se verifica de forma determinista, y solo si está en el corpus. Los tipos (b) y (c) son parciales: hacen falta una serie definida o un texto fuente con búsqueda literal. Las promesas y opiniones (d) no se verifican: se muestra su contexto, sin veredicto."
+                >
+                  i
+                </button></span
+              >
+              <dl class="kv">
+                <dt>(a)</dt>
+                <dd>Proceso electoral: verificable</dd>
+                <dt>(b)</dt>
+                <dd>Dato estadístico: parcial</dd>
+                <dt>(c)</dt>
+                <dd>Qué dice una ley o programa: parcial</dd>
+                <dt>(d)</dt>
+                <dd>Promesas y opiniones: no verificable</dd>
+              </dl>
+            </div>
+            <div class="card">
+              <span class="k"
+                >Tres resultados
+                <button
+                  class="info"
+                  data-tip="«Coincide» significa que afirmación y fuente dicen lo mismo en la fecha indicada, no que la intención del autor sea correcta. «No coincide» exige citar la fuente que contradice. Sin corpus o sin serie, la salida es «no verificable», nunca un valor por defecto."
+                >
+                  i
+                </button></span
+              >
+              <div class="chips">
+                <span
+                  class="chip"
+                  style="
+                    background: color-mix(
+                      in srgb,
+                      var(--acid) 25%,
+                      transparent
+                    );
+                  "
+                  >COINCIDE</span
+                ><span
+                  class="chip"
+                  style="
+                    background: color-mix(
+                      in srgb,
+                      var(--magenta) 25%,
+                      transparent
+                    );
+                  "
+                  >NO COINCIDE</span
+                ><span class="chip">NO VERIFICABLE CON FUENTES OFICIALES</span>
+              </div>
+              <span
+                >Siempre con la cita literal de la fuente. Nunca «verdadero»,
+                «falso» o «bulo».</span
+              >
+            </div>
+          </div>
+          <h3>Plan para 4,5 horas</h3>
+          <div
+            class="stack"
+            style="height: auto; font-size: 11.5px; line-height: 1.3"
+          >
+            <div style="width: 22.2%; background: var(--c); padding: 8px">
+              1 h · Corpus de 30-40 fichas
+            </div>
+            <div style="width: 22.2%; background: var(--cian); padding: 8px">
+              1 h · Recuperación con umbral
+            </div>
+            <div style="width: 22.2%; background: var(--lila); padding: 8px">
+              1 h · Plantilla de salida
+            </div>
+            <div style="width: 11.2%; background: var(--after); padding: 8px">
+              0,5 h · Tipos b-d
+            </div>
+            <div style="width: 22.2%; background: var(--acid); padding: 8px">
+              1 h · Demo y 15 pruebas
+            </div>
+          </div>
+        </section>
+
+        <section class="panel w12">
+          <h2>
+            Ojo con esto
+            <button
+              class="info"
+              data-tip="Son los errores más probables al informar a un ciudadano. Cada línea enlaza con el apartado del documento que la respalda. Ante la duda, remite a la fuente oficial y no afirmes nada que el documento marque como sin verificar."
+            >
+              i
+            </button>
+          </h2>
+          <ul class="ojo">
+            <li>
+              <span
+                >No recomiendes miDGT ni miDNI para votar (Acuerdo JEC 94/2026,
+                cuyo texto está sin verificar). Tampoco fotocopias ni
+                resguardos.</span
+              ><a class="sx" data-d="05" data-s="2.1"></a>
+            </li>
+            <li>
+              <span
+                >Si pides el voto por correo y te lo aceptan, quedas anotado en
+                el censo y ya no puedes votar en mesa.</span
+              ><a class="sx" data-d="05" data-s="2.2"></a>
+            </li>
+            <li>
+              <span
+                >El voto CERA no se envía a la Junta Provincial en España: sería
+                nulo. Si llega al consulado después del 27/11, no vale.</span
+              ><a class="sx" data-d="05" data-s="2.3"></a>
+            </li>
+            <li>
+              <span
+                >Algunos medios dan el 2/12 para el escrutinio y el 26/11 para
+                el correo. Valen las fechas de la JEC: 4-7/12 y 25/11.</span
+              ><a class="sx" data-d="05" data-s="1.2"></a>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <script src="comun.js"></script>
+    <script>
+      // Escala de fechas del 05/10 al 23/12/2026.
+      const D0 = Date.UTC(2026, 9, 5),
+        D1 = Date.UTC(2026, 11, 23);
+      const d = (s) => {
+        const [dd, mm] = s.split("/").map(Number);
+        return Date.UTC(2026, mm - 1, dd);
+      };
+      const pct = (s, end) =>
+        ((d(s) + (end ? 864e5 : 0) - D0) / (D1 + 864e5 - D0)) * 100;
+      const G = [
+        ["Solicitar voto por correo", "06/10", "19/11"],
+        ["Solicitud ERTA", "06/10", "31/10"],
+        ["Pedir kit Braille", "06/10", "02/11"],
+        ["Consulta del censo y reclamaciones", "12/10", "19/10"],
+        ["Presentar candidaturas", "21/10", "26/10"],
+        ["Proclamación de candidaturas", "02/11"],
+        ["Envío de tarjetas censales", "02/11", "10/11"],
+        ["La OCE envía el voto por correo", "09/11", "22/11"],
+        ["Campaña electoral", "13/11", "27/11", "m"],
+        ["CERA: urna en consulados", "21/11", "26/11"],
+        ["Sondeos prohibidos", "24/11", "28/11", "m"],
+        ["Último día para depositar el voto", "25/11"],
+        ["Jornada de reflexión", "28/11", null, "m"],
+        ["Votación", "29/11", null, "m"],
+        ["Escrutinio general", "04/12", "07/12"],
+        ["Constitución de las Cortes", "23/12"],
+      ];
+      const g = document.getElementById("gantt");
+      g.insertAdjacentHTML(
+        "beforeend",
+        G.map(([n, a, b, m]) => {
+          const cls = "g-bar" + (b ? "" : " p") + (m ? " m" : "");
+          const style = b
+            ? `left:${pct(a)}%;width:${pct(b, 1) - pct(a)}%`
+            : `left:${(pct(a) + pct(a, 1)) / 2}%`;
+          const when = b ? `${a} → ${b}` : a;
+          return `<div class="g-row"><span class="lb" title="${n} · ${when}">${n} <span class="mono" style="color:var(--muted)">${when}</span></span><div class="g-track"><span class="${cls}" style="${style}"></span></div></div>`;
+        }).join(""),
+      );
+      const ticks = ["05/10", "01/11", "29/11", "23/12"];
+      document.getElementById("axis").innerHTML =
+        ticks
+          .map(
+            (t, k) =>
+              `<span ${k === ticks.length - 1 ? 'class="end"' : ""} style="left:${pct(t)}%">${t}</span><i style="left:${pct(t)}%"></i>`,
+          )
+          .join("") +
+        `<span class="today" style="left:${pct("13/10")}%">hoy</span><i class="today" style="left:${pct("13/10")}%"></i>`;
+
+      const C = [
+        ["Madrid", 38],
+        ["Barcelona", 32],
+        ["Valencia", 16],
+        ["Alicante", 12],
+        ["Sevilla", 12],
+        ["Málaga", 11],
+        ["Murcia", 10],
+        ["Soria", 2],
+        ["Ceuta · Melilla", 1],
+      ];
+      document.getElementById("circ").innerHTML = C.map(
+        ([n, v]) =>
+          `<div class="bar"><span class="lb">${n}</span><span class="tr"><span class="fl" style="display:block;width:${((v / 38) * 100).toFixed(1)}%"></span></span><span class="v">${v}</span></div>`,
+      ).join("");
+    </script>
+  </body>
+</html>

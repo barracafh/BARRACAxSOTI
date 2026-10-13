@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>00 · Territorio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;700&family=Space+Mono:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500..700&display=swap"
+    />
+    <link rel="stylesheet" href="estilo.css" />
+  </head>
+  <body data-doc="00">
+    <main class="wrap">
+      <section class="hero">
+        <div class="eyebrow"><b>00</b> · Base común · Todos los tracks</div>
+        <h1><span class="code">00</span> Territorio</h1>
+        <p class="lede">
+          El mapa administrativo de España: niveles, comunidades, provincias e
+          islas, regímenes forales y especiales, y los identificadores oficiales
+          para construir tablas que no fallen.
+        </p>
+        <div class="meta">
+          <a class="btn" data-d="00" data-s="">Abrir 00-territorio.md ↗</a>
+          <span class="pill">415 líneas · 10.790 palabras</span>
+          <span class="pill sv">46 sin verificar</span>
+          <a class="pill" href="#indice">Índice completo ↓</a>
+        </div>
+      </section>
+
+      <div class="kpis">
+        <div class="kpi">
+          <span class="n">17</span><span class="l">comunidades autónomas</span>
+        </div>
+        <div class="kpi">
+          <span class="n">2</span
+          ><span class="l"
+            >ciudades autónomas: Ceuta y Melilla
+            <button
+              class="info"
+              data-tip="La CE (disp. transitoria 5.ª) les permitía constituirse en comunidades autónomas, pero optaron por ser ciudades con estatuto (LO 1/1995 y LO 2/1995). Que no tengan potestad legislativa se infiere de los arts. 21, 22 y 29 del Estatuto: sin verificar en el documento."
+            >
+              i
+            </button></span
+          >
+        </div>
+        <div class="kpi">
+          <span class="n">50</span><span class="l">provincias</span>
+        </div>
+        <div class="kpi">
+          <span class="n">8.132</span
+          ><span class="l"
+            >municipios (INE, 1/1/2026)
+            <button
+              class="info"
+              data-tip="El INE cuenta 8.130 en las 50 provincias, más uno en Ceuta y otro en Melilla. Es el recuento sobre diccionario26.xlsx a 1/1/2026. Entre 1/1/2025 y 1/1/2026 hubo 4 cambios de denominación, sin altas ni bajas."
+            >
+              i
+            </button></span
+          >
+        </div>
+        <div class="kpi">
+          <span class="n">7 + 4</span
+          ><span class="l"
+            >cabildos canarios y consells baleares
+            <button
+              class="info"
+              data-tip="Cada cabildo o consell gobierna una isla y asume las competencias de diputación (LBRL art. 41.1 y 41.3). La Graciosa no tiene cabildo propio: está agregada a Lanzarote. En Baleares, los consells son además instituciones de la CA (Estatuto art. 61)."
+            >
+              i
+            </button></span
+          >
+        </div>
+        <div class="kpi">
+          <span class="n">3</span
+          ><span class="l"
+            >haciendas forales vascas, más la navarra
+            <button
+              class="info"
+              data-tip="Álava, Bizkaia y Gipuzkoa gestionan sus tributos por el Concierto Económico (Ley 12/2002). Navarra lo hace por el Convenio Económico (Ley 28/1990). Un residente no presenta el IRPF ante la AEAT sino ante su Hacienda Foral, y Euskadi tiene tres normativas fiscales."
+            >
+              i
+            </button></span
+          >
+        </div>
+      </div>
+
+      <div class="grid">
+        <section class="panel w4">
+          <div class="ph">
+            <h2>
+              Niveles de administración
+              <button
+                class="info"
+                data-tip="El Estado se organiza en municipios, provincias y comunidades autónomas, todas con autonomía para gestionar sus intereses (CE art. 137). Un mismo trámite o ayuda puede estar en cuatro ventanillas según la materia: AGE, comunidad, diputación, cabildo o consell, y ayuntamiento. El reparto está en 00b."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="00" data-s="1."></a>
+          </div>
+          <div class="pyr">
+            <div style="width: 40%; --o: 70%">
+              <span>Estado (AGE)</span><b>1</b>
+            </div>
+            <div style="width: 52%; --o: 58%">
+              <span>Comunidades</span><b>17</b>
+            </div>
+            <div style="width: 60%; --o: 50%">
+              <span>Ciudades autónomas</span><b>2</b>
+            </div>
+            <div style="width: 70%; --o: 42%">
+              <span>Provincias</span><b>50</b>
+            </div>
+            <div style="width: 80%; --o: 34%">
+              <span>Islas (cabildos y consells)</span><b>11</b>
+            </div>
+            <div style="width: 100%; --o: 24%">
+              <span>Municipios</span><b>8.132</b>
+            </div>
+          </div>
+          <p class="note">
+            Además: comarcas, áreas metropolitanas, mancomunidades y entidades
+            locales menores, que están en el REL.
+          </p>
+        </section>
+
+        <section class="panel w8">
+          <div class="ph">
+            <h2>
+              Municipios por comunidad
+              <button
+                class="info"
+                data-tip="Cifras del INE a 1/1/2026. La suma por provincias coincide con las 50 filas de la tabla 3.1 y da 8.130; Ceuta y Melilla añaden uno cada una. Murcia, con una sola provincia, tiene 45 municipios; Castilla y León, con nueve provincias, tiene 2.248."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="00" data-s="3."></a>
+          </div>
+          <div class="bars" id="munis"></div>
+          <p class="note">
+            Ceuta y Melilla cuentan como un municipio cada una.
+          </p>
+        </section>
+
+        <section class="panel">
+          <div class="ph">
+            <h2>
+              ¿Quién hace de diputación?
+              <button
+                class="info"
+                data-tip="Las comunidades uniprovinciales y la Foral de Navarra asumen las competencias, medios y recursos de las diputaciones (LBRL art. 40). Baleares es la excepción: allí los ejercen los consells (arts. 40 y 41.3). Canarias tiene dos provincias y lo hace el cabildo de cada isla."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="00" data-s="4.7"></a>
+          </div>
+          <dl class="kv">
+            <dt>Diputación provincial</dt>
+            <dd>Régimen común (p. ej. las 4 catalanas)</dd>
+            <dt>
+              Diputación foral
+              <button
+                class="info"
+                data-tip="Es a la vez gobierno del Territorio Histórico y entidad provincial (LBRL art. 31.3; Estatuto art. 37.3). Cada territorio tiene Juntas Generales como parlamento y regula sus impuestos por Norma Foral, de ahí las tres normativas fiscales."
+              >
+                i
+              </button>
+            </dt>
+            <dd>Álava, Bizkaia y Gipuzkoa</dd>
+            <dt>
+              Gobierno de Navarra
+              <button
+                class="info"
+                data-tip="La LORAFNA (art. 10) llama a sus instituciones «Gobierno de Navarra o Diputación Foral». Asume las funciones de diputación (LBRL art. 40) y además controla la legalidad de municipios y concejos (LORAFNA art. 46.Dos)."
+              >
+                i
+              </button>
+            </dt>
+            <dd>Actúa como «Diputación Foral»</dd>
+            <dt>La propia comunidad</dt>
+            <dd>Asturias, Cantabria, Madrid, Murcia y La Rioja</dd>
+            <dt>
+              Consells insulars
+              <button
+                class="info"
+                data-tip="Son instituciones de la CA y a la vez gobierno de cada isla (Estatuto art. 61). Conceden lo que en otras provincias da la diputación: cooperación local, carreteras insulares, asistencia a pequeños municipios y servicios sociales. Las ayudas de la CA las concede el Govern."
+              >
+                i
+              </button>
+            </dt>
+            <dd>Illes Balears</dd>
+            <dt>Cabildos</dt>
+            <dd>Canarias</dd>
+            <dt>La propia ciudad</dt>
+            <dd>Ceuta y Melilla</dd>
+          </dl>
+          <p class="note">
+            En las uniprovinciales no existe «convocatoria de la Diputación» ni
+            boletín provincial: se busca en la comunidad.
+          </p>
+        </section>
+
+        <section class="panel">
+          <div class="ph">
+            <h2>
+              Islas
+              <button
+                class="info"
+                data-tip="En Canarias no hay diputación: las provincias de Las Palmas y Santa Cruz de Tenerife conservan solo la Mancomunidad Provincial Interinsular como órgano de representación (LBRL art. 41.2). Los consells baleares tienen además competencias propias (Estatuto art. 70)."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="00" data-s="3.2"></a>
+          </div>
+          <h3>7 cabildos canarios · 88 municipios</h3>
+          <div class="chips">
+            <span class="chip c">Tenerife <b>31</b></span
+            ><span class="chip c">Gran Canaria <b>21</b></span
+            ><span class="chip c">La Palma <b>14</b></span
+            ><span class="chip c"
+              >Lanzarote <b>7</b>
+              <button
+                class="info"
+                data-tip="Incluye La Graciosa, agregada administrativamente (Estatuto art. 65.1). Desde el 30/06/2026 su cabildo se llama «Cabildo Insular de Lanzarote y La Graciosa» (Ley 3/2026, disp. adic. 4.ª)."
+              >
+                i
+              </button></span
+            ><span class="chip c">Fuerteventura <b>6</b></span
+            ><span class="chip c">La Gomera <b>6</b></span
+            ><span class="chip c">El Hierro <b>3</b></span>
+          </div>
+          <h3>4 consells de Baleares · 67 municipios</h3>
+          <div class="chips">
+            <span class="chip c">Mallorca <b>53</b></span
+            ><span class="chip c">Menorca <b>8</b></span
+            ><span class="chip c">Ibiza <b>5</b></span
+            ><span class="chip c">Formentera <b>1</b></span>
+          </div>
+        </section>
+
+        <section class="panel w12">
+          <div class="ph">
+            <h2>
+              Regímenes forales y especiales
+              <button
+                class="info"
+                data-tip="Aquí cambia quién recauda y regula los impuestos. Para saber ante quién se tributa, se mira primero la residencia habitual (personas físicas) o el domicilio fiscal y el volumen de operaciones (empresas). Las prestaciones y los trámites sociales siguen el reparto de competencias de 00b."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="00" data-s="4."></a>
+          </div>
+          <p class="sub">
+            Cambia quién recauda. Las prestaciones siguen el reparto
+            competencial de 00b.
+          </p>
+          <div class="cols">
+            <div class="card">
+              <span class="k">4.1</span
+              ><span class="t"
+                >País Vasco
+                <button
+                  class="info"
+                  data-tip="Las Diputaciones Forales regulan su régimen tributario (Concierto art. 1). IRPF: Hacienda Foral si hay residencia habitual vasca (art. 6.Uno). IVA: hasta 12 M€ el año anterior, una sola administración según el domicilio fiscal (art. 27, desde 1/5/2025). Reglas del IS sin resumir (sin verificar)."
+                >
+                  i
+                </button></span
+              ><span
+                >Concierto Económico (Ley 12/2002). Tres haciendas forales. IRPF
+                según residencia; IVA con umbral de 12 M€.</span
+              >
+            </div>
+            <div class="card">
+              <span class="k">4.2</span><span class="t">Navarra</span
+              ><span
+                >Convenio Económico (Ley 28/1990). El Gobierno de Navarra hace
+                de diputación.</span
+              >
+            </div>
+            <div class="card">
+              <span class="k">4.3</span
+              ><span class="t"
+                >Canarias
+                <button
+                  class="info"
+                  data-tip="El REF lo reconoce la CE (disp. adicional 3.ª). El IGIC sustituye al IVA porque Canarias queda fuera del territorio IVA; sus tipos no se han verificado. El AIEM grava importaciones y entregas de mercancías. La RIC reduce hasta el 90 % del beneficio no distribuido (Ley 19/1994 art. 27.2)."
+                >
+                  i
+                </button></span
+              ><span
+                >REF: IGIC en vez de IVA, AIEM, ZEC al 4 % y RIC de hasta el 90
+                %.</span
+              >
+            </div>
+            <div class="card">
+              <span class="k">4.4</span
+              ><span class="t"
+                >Cataluña
+                <button
+                  class="info"
+                  data-tip="Los consejos de veguería sustituirían a las diputaciones (Estatuto art. 91.3), pero la Ley 30/2010 condiciona su constitución a reformas estatales. Las cuatro diputaciones siguen operativas. Que no exista ningún consejo constituido no está probado (sin verificar)."
+                >
+                  i
+                </button></span
+              ><span
+                >ATC, 10 impuestos propios, comarcas, AMB, Arán y 8
+                veguerías.</span
+              >
+            </div>
+            <div class="card">
+              <span class="k">4.5</span><span class="t">Illes Balears</span
+              ><span
+                >Los consells hacen de diputación y tienen competencias propias.
+                ATIB.</span
+              >
+            </div>
+            <div class="card">
+              <span class="k">4.6</span
+              ><span class="t"
+                >Ceuta y Melilla
+                <button
+                  class="info"
+                  data-tip="En lugar del IVA rige el IPSI (Ley 8/1991), que gestionan las propias Ciudades. En IRPF, deducción del 60 % de la cuota por rentas obtenidas allí. En IS, bonificación del 60 %, elevada desde el 50 % por el RDL 22/2026, que se tramita como proyecto de ley y puede cambiar."
+                >
+                  i
+                </button></span
+              ><span
+                >IPSI en vez de IVA. Deducción del 60 % en IRPF. En IS, la
+                bonificación sube del 50 % al 60 % por el RDL 22/2026, aún en
+                tramitación.</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="ph">
+            <h2>
+              ¿Dónde tributa?
+              <button
+                class="info"
+                data-tip="El umbral de 12 M€ consta para el IVA vasco (Concierto art. 27) y para el IS y el IVA navarros (Convenio arts. 19 y 33). Las reglas del IS vasco no se resumen en el documento (sin verificar). En Navarra, quien supera 12 M€ pero opera solo en territorio común tributa al Estado."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="00" data-s="4.2"></a>
+          </div>
+          <ol class="steps">
+            <li>
+              IRPF: la hacienda de la residencia habitual (foral si vive en País
+              Vasco o Navarra).
+            </li>
+            <li>IS e IVA: según domicilio fiscal y volumen de operaciones.</li>
+            <li>
+              Hasta 12 M€ el año anterior: una sola administración, la del
+              domicilio fiscal.
+            </li>
+            <li>
+              Navarra, más de 12 M€: si opera en ambos territorios, tributa a
+              los dos en proporción; si solo en territorio común, al Estado.
+            </li>
+          </ol>
+          <p class="note">
+            En régimen común, la AEAT gestiona IRPF, IVA e IS; las comunidades,
+            Patrimonio, Sucesiones, ITP/AJD y juego por delegación.
+          </p>
+        </section>
+
+        <section class="panel">
+          <div class="ph">
+            <h2>
+              Anatomía de los códigos
+              <button
+                class="info"
+                data-tip="El DIR3 de un ayuntamiento tiene 9 caracteres: L01, el código INE del municipio y el dígito de control (DC) del INE. Madrid es 28079-6 y da L01280796. El DC no forma parte del código INE de 5 dígitos. La regla se comprobó en Teruel, Huesca y Madrid."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="00" data-s="5.2"></a>
+          </div>
+          <h3>DIR3 de un ayuntamiento (Madrid)</h3>
+          <div class="anat">
+            <span class="h" data-l="tipo">L01</span
+            ><span data-l="provincia">28</span
+            ><span data-l="municipio">079</span><span data-l="control">6</span>
+          </div>
+          <h3>INE de municipio</h3>
+          <div class="anat">
+            <span data-l="CPRO">28</span><span data-l="CMUN">079</span>
+          </div>
+          <dl class="kv">
+            <dt>L02</dt>
+            <dd>Diputación</dd>
+            <dt>L05</dt>
+            <dd>Mancomunidad</dd>
+            <dt>A</dt>
+            <dd>Comunidad autónoma</dd>
+            <dt>E · U · I</dt>
+            <dd>AGE · Universidades · Otras instituciones</dd>
+          </dl>
+        </section>
+
+        <section class="panel">
+          <div class="ph">
+            <h2>
+              Qué directorio para qué
+              <button
+                class="info"
+                data-tip="Cada directorio responde a una pregunta distinta. El INE no incluye mancomunidades, comarcas ni EATIM: salen del REL. Las tablas se unen siempre por código y no por nombre, porque el INE escribe «Coruña, A» o «Alicante/Alacant»."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="00" data-s="5."></a>
+          </div>
+          <dl class="kv">
+            <dt>INE</dt>
+            <dd>Municipios y sus códigos</dd>
+            <dt>DIR3</dt>
+            <dd>Órganos, unidades y oficinas</dd>
+            <dt>REL</dt>
+            <dd>Mancomunidades, comarcas, áreas metropolitanas y EATIM</dd>
+            <dt>
+              INVENTE
+              <button
+                class="info"
+                data-tip="Registro público que integra los inventarios del sector público estatal, autonómico y local (Ley 40/2015 art. 82; RD 749/2019). Lo publica la IGAE. No consta API (sin verificar), la descarga se hace mediante la aplicación."
+              >
+                i
+              </button>
+            </dt>
+            <dd>Si es administración, empresa, fundación o consorcio</dd>
+            <dt>
+              NIF
+              <button
+                class="info"
+                data-tip="P es corporación local, Q organismo público y S órgano del Estado o de las CCAA. Pero la Q la llevan también universidades públicas y colegios o cámaras, y hay sociedades públicas con A o B. Un mismo ente puede tener varios NIF. Confírmalo en INVENTE."
+              >
+                i
+              </button>
+            </dt>
+            <dd>P, Q, S para lo público, con cautelas</dd>
+            <dt>datos.gob.es</dt>
+            <dd>Catálogo, API REST y SPARQL</dd>
+          </dl>
+        </section>
+
+        <section class="panel">
+          <div class="ph">
+            <h2>
+              Receta: tabla territorial determinista
+              <button
+                class="info"
+                data-tip="La receta busca que dos personas obtengan siempre la misma tabla. El DIR3 derivado se valida contra el Listado Unidades EELL antes de usarlo, porque fuera de Teruel, Huesca y Madrid la regla no se ha barrido (sin verificar en el documento)."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="00" data-s="5.7"></a>
+          </div>
+          <ol class="steps">
+            <li>
+              Descargar <code>diccionario26.xlsx</code>.
+              <code>municipio_id</code> = CPRO + CMUN como texto de 5 dígitos.
+            </li>
+            <li>Unir con el apartado 2 por CODAUTO y con el 3 por CPRO.</li>
+            <li>
+              Derivar el DIR3 (<code>L01</code> + id + DC) y validarlo contra el
+              listado oficial.
+            </li>
+            <li>Mancomunidades, comarcas y EATIM: desde el REL.</li>
+            <li>
+              Gobierno provincial: columna de 3.1. Regímenes especiales:
+              apartado 4.
+            </li>
+          </ol>
+        </section>
+
+        <section class="panel w12">
+          <h2>Ojo con esto</h2>
+          <ul class="ojo">
+            <li>
+              <span
+                >Ceuta (51) y Melilla (52) tienen código de provincia, pero no
+                son provincias.</span
+              ><a class="sx" data-d="00" data-s="5.1"></a>
+            </li>
+            <li>
+              <span
+                >Los códigos INE llevan ceros a la izquierda: léelos como texto.
+                Une siempre por código, nunca por nombre («Coruña, A»,
+                «Alicante/Alacant»).</span
+              ><a class="sx" data-d="00" data-s="5.1"></a>
+            </li>
+            <li>
+              <span
+                >«Uniprovincial» no implica lo mismo en todas: en Baleares la
+                diputación la ejercen los consells, y Canarias no es
+                uniprovincial pero tampoco tiene diputación.</span
+              ><a class="sx" data-d="00" data-s="4.7"></a>
+            </li>
+            <li>
+              <span
+                >La letra del NIF no delimita el sector público: la Q incluye
+                universidades y colegios, y hay sociedades públicas con A o B.
+                Confírmalo en INVENTE.</span
+              ><a class="sx" data-d="00" data-s="5.5"></a>
+            </li>
+            <li>
+              <span
+                >La regla DIR3 solo está comprobada en Teruel, Huesca y Madrid.
+                Valídala contra el listado oficial.</span
+              ><a class="sx" data-d="00" data-s="5.2"></a>
+            </li>
+            <li>
+              <span
+                >El RDL 22/2026 (Ceuta y Melilla) se tramita como proyecto de
+                ley y su texto puede cambiar.</span
+              ><a class="sx" data-d="00" data-s="4.6"></a>
+            </li>
+            <li>
+              <span
+                >Los nombres de las consejerías cambian con cada gobierno. Usa
+                la denominación de la web oficial enlazada.</span
+              ><a class="sx" data-d="00" data-s=""></a>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <script src="comun.js"></script>
+    <script>
+      const munis = [
+        ["Castilla y León", 2248],
+        ["Cataluña", 947],
+        ["Castilla-La Mancha", 919],
+        ["Andalucía", 785],
+        ["Aragón", 731],
+        ["C. Valenciana", 542],
+        ["Extremadura", 388],
+        ["Galicia", 313],
+        ["Navarra", 272],
+        ["País Vasco", 252],
+        ["Madrid", 179],
+        ["La Rioja", 174],
+        ["Cantabria", 102],
+        ["Canarias", 88],
+        ["Asturias", 78],
+        ["Illes Balears", 67],
+        ["Murcia", 45],
+      ];
+      document.getElementById("munis").innerHTML = munis
+        .map(
+          ([n, v]) =>
+            `<div class="bar"><span class="lb">${n}</span><span class="tr"><span class="fl" style="display:block;width:${((v / 2248) * 100).toFixed(1)}%"></span></span><span class="v">${fmt(v)}</span></div>`,
+        )
+        .join("");
+    </script>
+  </body>
+</html>

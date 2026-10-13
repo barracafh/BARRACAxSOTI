@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>01 · Buscador de ayudas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;700&family=Space+Mono:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500..700&display=swap"
+    />
+    <link rel="stylesheet" href="estilo.css" />
+  </head>
+  <body data-doc="01">
+    <main class="wrap">
+      <section class="hero">
+        <div class="eyebrow"><b>01</b> · Track 1 · <code>derechos</code></div>
+        <h1><span class="code">01</span> Buscador de ayudas</h1>
+        <p class="lede">
+          Quién concede ayudas en cada territorio, dónde se publican (la BDNS) y
+          cómo construir un buscador que atribuya bien quién da cada una.
+        </p>
+        <div class="meta">
+          <a class="btn" data-d="01" data-s=""
+            >Abrir 01-buscador-ayudas.md ↗</a
+          >
+          <span class="pill">310 líneas · 8.042 palabras</span>
+          <span class="pill sv">58 sin verificar</span>
+          <a class="pill" href="#indice">Índice completo ↓</a>
+        </div>
+      </section>
+
+      <div class="kpis">
+        <div class="kpi">
+          <span class="n">657.531</span
+          ><span class="l">convocatorias en la BDNS (12/10/2026)</span>
+        </div>
+        <div class="kpi">
+          <span class="n">3.562</span
+          ><span class="l"
+            >para personas físicas desde el 01/07/2026
+            <button
+              class="info"
+              data-tip="Son las convocatorias con tiposBeneficiario=1: personas físicas que no desarrollan actividad económica, es decir, ciudadanos. Aun así, muchas filas de la BDNS son convenios o subvenciones nominativas, por lo que hay que consultar tipoConvocatoria en la ficha."
+            >
+              i
+            </button></span
+          >
+        </div>
+        <div class="kpi">
+          <span class="n">10.000</span
+          ><span class="l"
+            >tope silencioso de <code>pageSize</code>
+            <button
+              class="info"
+              data-tip="Si se pide pageSize=20000, la API devuelve 10000 filas (unos 4 MB) sin avisar del recorte. Con 5000 devuelve 5000 filas (unos 2 MB). La respuesta es paginada, con los campos content, totalElements y totalPages."
+            >
+              i
+            </button></span
+          >
+        </div>
+        <div class="kpi">
+          <span class="n">21 de 59</span
+          ><span class="l"
+            >fichas con plazo en curso marcaban <code>abierto=false</code>
+            <button
+              class="info"
+              data-tip="Se revisaron 59 fichas recibidas entre el 02/10 y el 12/10/2026, consultadas el 13/10. Las 21 con plazo en curso según sus fechas tenían abierto=false, porque ese campo indica si el plazo es indefinido, no si hoy se puede solicitar. El propio portal advierte que no hay forma directa de saber qué convocatorias siguen abiertas."
+            >
+              i
+            </button></span
+          >
+        </div>
+        <div class="kpi" style="--c: var(--after)">
+          <span class="n">15</span
+          ><span class="l">errores que la herramienta debe evitar</span>
+        </div>
+      </div>
+
+      <div class="grid">
+        <section class="panel w12">
+          <div class="ph">
+            <h2>
+              Correcciones a las premisas del encargo
+              <button
+                class="info"
+                data-tip="El encargo asumía que basta el territorio y que la BDNS lo recoge todo. El documento corrige cinco premisas. La clave: el proveedor depende de la pareja formada por necesidad y territorio, y una ayuda puede financiarla un nivel, convocarla otro y tramitarla un tercero."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="01" data-s="Correcciones"></a>
+          </div>
+          <div class="cols">
+            <div class="card">
+              <span class="k">Premisa</span
+              ><span class="t">«Con el territorio basta»</span
+              ><span
+                >No. Cada nivel convoca sus propias ayudas y no hay ventanilla
+                única jerárquica.</span
+              >
+            </div>
+            <div class="card">
+              <span class="k">Premisa</span
+              ><span class="t"
+                >«Hacienda concede ayudas»
+                <button
+                  class="info"
+                  data-tip="Hacienda gestiona tributos y deducciones: la comunidad regula su tramo del IRPF (Ley 22/2009 art. 46). Convocan las consejerías sectoriales, como vivienda, servicios sociales, educación o empleo. La Intervención General suministra los datos a la BDNS (Ley 38/2003 art. 20.4.b), pero no concede."
+                >
+                  i
+                </button></span
+              ><span
+                >Casi nunca. Convocan las consejerías sectoriales; hacienda
+                gestiona deducciones.</span
+              >
+            </div>
+            <div class="card">
+              <span class="k">Premisa</span
+              ><span class="t"
+                >«La BDNS lo tiene todo»
+                <button
+                  class="info"
+                  data-tip="Las prestaciones de la Seguridad Social no son subvenciones (Ley 38/2003 art. 2.4.a) y la BDNS no las incluye. Los beneficios fiscales solo entran si son ayuda de Estado selectiva sobre umbral (RD 130/2019 art. 2.1.d). El bono social eléctrico tampoco es una convocatoria."
+                >
+                  i
+                </button></span
+              ><span
+                >Faltan prestaciones como IMV, desempleo, nacimiento o PNC, los
+                bonos sociales y las deducciones.</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <section class="panel w8">
+          <div class="ph">
+            <h2>
+              Algoritmo determinista de proveedor
+              <button
+                class="info"
+                data-tip="Determinista significa que el mismo municipio y la misma necesidad dan siempre el mismo orden de consulta. Primero va lo estatal, porque es derecho subjetivo y no depende del territorio. Después lo autonómico, lo provincial o insular y, por último, lo municipal, que es más específico y más cambiante."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="01" data-s="3."></a>
+          </div>
+          <div class="flow">
+            <div>
+              <span class="k">Entrada</span>
+              <div class="t">Municipio INE</div>
+              <div class="d">
+                5 dígitos; los 2 primeros dan la provincia y la comunidad.
+              </div>
+            </div>
+            <div>
+              <span class="k">Clasificar</span>
+              <div class="t">Régimen</div>
+              <div class="d">
+                Foral, insular, uniprovincial, ciudad autónoma o común.
+              </div>
+            </div>
+            <div>
+              <span class="k">Traducir</span>
+              <div class="t">Necesidad</div>
+              <div class="d">
+                A <code>finalidad</code> y <code>tiposBeneficiario</code>.
+              </div>
+            </div>
+            <div>
+              <span class="k">Consultar</span>
+              <div class="t">Por niveles</div>
+              <div class="d">
+                Estado → comunidad → provincia o isla → municipio.
+              </div>
+            </div>
+            <div>
+              <span class="k">Decidir</span>
+              <div class="t">¿Abierta?</div>
+              <div class="d">
+                Por fechas y textos de plazo de la ficha. Sin fechas: «plazo
+                según bases».
+              </div>
+            </div>
+          </div>
+          <h3>Régimen según el código de provincia</h3>
+          <div class="chips">
+            <span class="chip c">Foral <b>01 20 48 31</b></span>
+            <span class="chip c">Insular <b>07 35 38</b></span>
+            <span class="chip c"
+              >Uniprovincial <b>33 39 26 28 30</b>
+              <button
+                class="info"
+                data-tip="Asturias, Cantabria, La Rioja, Madrid y Murcia. La comunidad ejerce de diputación, así que no se busca diputación y la convocante es la comunidad. Los códigos son los habituales del INE, pero el documento los marca como sin verificar y pide contrastarlos con el documento 00, apartado 5."
+              >
+                i
+              </button></span
+            >
+            <span class="chip c">Ciudad autónoma <b>51 52</b></span>
+            <span class="chip">Resto: régimen común con diputación</span>
+          </div>
+        </section>
+
+        <section class="panel w4">
+          <div class="ph">
+            <h2>
+              Reglas de decisión
+              <button
+                class="info"
+                data-tip="Son seis reglas en el apartado 3.3. Las prestaciones estatales se muestran siempre, aunque la BDNS no tenga convocatorias. La más delicada es la sexta: decidir si una ayuda está abierta con las fechas y textos de la ficha, no con el campo abierto."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="01" data-s="3.3"></a>
+          </div>
+          <ul class="list">
+            <li>
+              Las prestaciones estatales (IMV, desempleo, nacimiento, PNC,
+              becas) se muestran siempre.
+            </li>
+            <li>
+              País Vasco y Navarra: IRPF foral y sin Plan Estatal de Vivienda.
+            </li>
+            <li>Uniprovinciales: no se busca diputación.</li>
+            <li>
+              Mancomunidades y comarcas también convocan (en BDNS son
+              <code>LOCAL</code>).
+            </li>
+            <li>
+              <code>abierto=true</code> solo significa plazo indefinido.
+              <button
+                class="info"
+                data-tip="El campo responde a «¿Se puede solicitar indefinidamente?». Con abierto=false hay plazo, que puede estar en curso, por empezar o vencido. En una muestra de 60 fichas de 2026, solo 9 tenían abierto=true y 8 de ellas sin fechas. Con fechas null se muestra «plazo según bases» con enlace, nunca «cerrada»."
+              >
+                i
+              </button>
+            </li>
+          </ul>
+        </section>
+
+        <section class="panel w12">
+          <div class="ph">
+            <h2>
+              Lo financia X, lo convoca Y, lo tramita Z
+              <button
+                class="info"
+                data-tip="El proveedor visible para el ciudadano es el órgano que recibe la solicitud. La financiación se atribuye por la norma de las bases. Dos convocatorias con la misma finalidad son ayudas distintas, salvo que las bases declaren que la segunda reparte fondos recibidos de la primera (RD 130/2019 art. 3.4)."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="01" data-s="3.4"></a>
+          </div>
+          <p class="sub">
+            El proveedor visible es quien recibe la solicitud. En la BDNS,
+            <code>nivel1-3</code> es el convocante, no el financiador.
+          </p>
+          <div class="tw">
+            <table>
+              <thead>
+                <tr>
+                  <th>Ayuda</th>
+                  <th>Financia</th>
+                  <th>Convoca</th>
+                  <th>Tramita o paga</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Plan Estatal de Vivienda</b></td>
+                  <td>Estado</td>
+                  <td>Comunidades, Ceuta y Melilla</td>
+                  <td>Comunidad</td>
+                </tr>
+                <tr>
+                  <td><b>Dependencia</b></td>
+                  <td>Estado (mínimo) y comunidad</td>
+                  <td>Comunidad</td>
+                  <td>Servicios sociales y entidades locales</td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Bono social térmico</b>
+                    <button
+                      class="info"
+                      data-tip="El Estado lo financia con cargo a los Presupuestos, calcula el reparto y transfiere. La comunidad o ciudad autónoma lo gestiona y paga (RDL 15/2018 art. 10). Se da de oficio a quienes eran beneficiarios del bono eléctrico a 31/12 del año anterior. La STC 134/2020 anuló el pago único anual del art. 9.1."
+                    >
+                      i
+                    </button>
+                  </td>
+                  <td>Presupuestos del Estado</td>
+                  <td>Estado calcula y transfiere</td>
+                  <td>Comunidad, de oficio</td>
+                </tr>
+                <tr>
+                  <td><b>Bono social eléctrico</b></td>
+                  <td>Sector eléctrico</td>
+                  <td>Normativa estatal</td>
+                  <td>Comercializadora de referencia</td>
+                </tr>
+                <tr>
+                  <td><b>IMV</b></td>
+                  <td>Estado</td>
+                  <td>INSS</td>
+                  <td>INSS (PV y Navarra, sus instituciones)</td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Fondos MRR</b>
+                    <button
+                      class="info"
+                      data-tip="Son ayudas con fondos de la UE. En la BDNS se marcan con mrr=true y hay 5.594 convocatorias. El reparto concreto por línea no está comprobado (sin verificar en el documento), así que se atribuye a quien figure en cada convocatoria."
+                    >
+                      i
+                    </button>
+                  </td>
+                  <td>UE y Estado</td>
+                  <td>Quien figure</td>
+                  <td>Quien figure</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note">
+            En la ficha: convocante = <code>organo</code>; financiador = bases y
+            <code>fondos</code>; tramitador = <code>sedeElectronica</code>, que
+            a menudo es <code>null</code>.
+          </p>
+        </section>
+
+        <section class="panel">
+          <div class="ph">
+            <h2>
+              API pública de la BDNS
+              <button
+                class="info"
+                data-tip="Es la API del SNPSAP (OpenAPI 3.0, v1.1.0). No pide clave: se probó con curl sin cabeceras ni cookies. La IGAE puede restringir el acceso ante abuso y no se han medido los límites de tasa (sin verificar en el documento). Cada respuesta incluye un campo advertencia sobre la reutilización de los datos."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="01" data-s="2.3"></a>
+          </div>
+          <p class="sub">
+            OpenAPI sin clave, JSON paginado. Base:
+            <code>infosubvenciones.es/bdnstrans/api/</code>
+          </p>
+          <dl class="kv">
+            <dt>convocatorias/busqueda</dt>
+            <dd>
+              Listado filtrable por región, órgano, nivel, finalidad, fecha, MRR
+            </dd>
+            <dt>convocatorias?numConv=</dt>
+            <dd>Ficha: órgano, bases, plazos, regiones, fondos</dd>
+            <dt>concesiones/busqueda</dt>
+            <dd>Concesiones</dd>
+            <dt>
+              organos/codigo
+              <button
+                class="info"
+                data-tip="Resuelve un código DIR3 al id que usa la BDNS. Ejemplos: L01462508 da 2903 (Ayuntamiento de Valencia) y L01280796 da 2993 (Ayuntamiento de Madrid). Un código inexistente responde 204 sin contenido. Así el cruce no depende del nombre del ayuntamiento."
+              >
+                i
+              </button>
+            </dt>
+            <dd>Resuelve un DIR3 a su id BDNS</dd>
+            <dt>catálogos</dt>
+            <dd>organos, regiones, finalidades, beneficiarios</dd>
+          </dl>
+        </section>
+
+        <section class="panel">
+          <div class="ph">
+            <h2>
+              Limitaciones de la API
+              <button
+                class="info"
+                data-tip="Todas se observaron en las pruebas del 12/10/2026. Los parámetros desconocidos se ignoran sin error, así que un filtro mal puesto devuelve datos sin avisar. Conviene comprobar siempre en la respuesta que nivel2 y nivel3 son los esperados."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="01" data-s="2.4"></a>
+          </div>
+          <ul class="list">
+            <li>
+              <code>regiones</code> no es jerárquico; el id 1 (España) mezcla de
+              todo.
+            </li>
+            <li>
+              Los ids de órgano colisionan: el 24 es València y también Utebo.
+              <button
+                class="info"
+                data-tip="En el árbol local, el id 24 es a la vez el nodo de provincia València y la hoja Ayuntamiento de Utebo (Zaragoza). organos=24 devuelve Utebo, con o sin tipoAdministracion=L. Hay que tomar ids de nivel3 y comprobar nivel2 y nivel3 en la respuesta."
+              >
+                i
+              </button>
+            </li>
+            <li>El filtro <code>abierto</code> se ignora en el listado.</li>
+            <li>Fechas en <code>dd/mm/aaaa</code>; CSV en windows-1252.</li>
+            <li>
+              <code>numeroConvocatoria</code> ordena como texto. Para lo
+              reciente, <code>fechaRecepcion</code>.
+            </li>
+            <li>
+              <code>descripcion</code> busca solo en el título. Importes y
+              requisitos, en PDF.
+            </li>
+          </ul>
+        </section>
+
+        <section class="panel w8">
+          <div class="ph">
+            <h2>
+              Ayudas más buscadas y quién las da
+              <button
+                class="info"
+                data-tip="Las cuantías solo se indican cuando están verificadas en el texto del BOE con fecha, y las convocatorias cambian cada año. Las prestaciones de INSS y SEPE y las deducciones de la AEAT no son convocatorias de la BDNS, por eso el buscador debe mostrarlas aparte."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="01" data-s="5."></a>
+          </div>
+          <div class="cols">
+            <div class="card">
+              <span class="k">INSS</span
+              ><span
+                >IMV · CAPI · nacimiento y cuidado de menor (19 semanas por
+                progenitor; 32 en monoparentales)</span
+              >
+            </div>
+            <div class="card">
+              <span class="k">SEPE</span><span>Prestación por desempleo</span>
+            </div>
+            <div class="card">
+              <span class="k">Comunidades</span
+              ><span
+                >Alquiler (hasta 250 €/mes; jóvenes, hasta 300 €) · dependencia
+                · rentas mínimas · bono térmico · PNC</span
+              >
+            </div>
+            <div class="card">
+              <span class="k"
+                >AEAT
+                <button
+                  class="info"
+                  data-tip="La deducción por maternidad llega a 1.200 € al año por hijo menor de 3 años, más hasta 1.000 € por guardería (Ley 35/2006 art. 81). Se puede cobrar por adelantado con el modelo 140. La de familia numerosa o discapacidad usa el modelo 143 (art. 81 bis). Ninguna se aplica en PV ni Navarra."
+                >
+                  i
+                </button></span
+              ><span
+                >Deducción por maternidad (1.200 €/año por hijo menor de 3) ·
+                familia numerosa o discapacidad</span
+              >
+            </div>
+            <div class="card">
+              <span class="k"
+                >Ministerio de Educación
+                <button
+                  class="info"
+                  data-tip="Plazo del curso 2026-27: del 07/04 al 19/05/2026, prorrogado por una incidencia técnica. La próxima convocatoria no está publicada (sin verificar en el documento). Con domicilio familiar en Cataluña a 31/12/2025 convoca la Generalitat, y en el País Vasco la comunidad en dos casos concretos."
+                >
+                  i
+                </button></span
+              ><span
+                >Becas generales. Plazo 2026-27 ya cerrado (07/04 a 19/05)</span
+              >
+            </div>
+            <div class="card">
+              <span class="k">Comercializadora</span
+              ><span>Bono social eléctrico</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel w4">
+          <div class="ph">
+            <h2>
+              Fechas cercanas
+              <button
+                class="info"
+                data-tip="La Ley 2/2026 mantiene el nombre de la renta valenciana y deroga la Ley 19/2017, que se aplica hasta el 19/10. Desde el 23/10 las ayudas de emergencia social municipales dejan de ser subvenciones y pueden salir de la BDNS (sin verificar en el documento)."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="01" data-s="4."></a>
+          </div>
+          <div class="timeline" style="grid-template-columns: 1fr">
+            <div>
+              <span class="d">20/10/2026</span
+              ><span class="t"
+                >Entra en vigor la Renta Valenciana de Inclusión (Ley
+                2/2026)</span
+              >
+            </div>
+            <div>
+              <span class="d">23/10/2026</span
+              ><span class="t"
+                >Las ayudas de emergencia social dejan de ser subvenciones (LGS
+                art. 2.4.j)</span
+              >
+            </div>
+          </div>
+          <p class="note">
+            El apartado 4 trae, para las 17 comunidades más Ceuta y Melilla:
+            portal, diario oficial, entidades provinciales y renta mínima con su
+            nombre propio.
+          </p>
+        </section>
+
+        <section class="panel w12">
+          <div class="ph">
+            <h2>
+              Ojo con esto
+              <button
+                class="info"
+                data-tip="Son cinco de los 15 errores del apartado 7, cada uno con su referencia. Además, la herramienta no debe dar por resuelta la elegibilidad: devuelve «puede corresponderte» con los requisitos y el enlace al trámite oficial. No es asesoramiento jurídico."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="01" data-s="7."></a>
+          </div>
+          <ul class="ojo">
+            <li>
+              <span
+                >La BDNS no es la lista completa de derechos: faltan IMV,
+                desempleo, nacimiento, PNC, bonos y deducciones.</span
+              ><a class="sx" data-d="01" data-s="2.5"></a>
+            </li>
+            <li>
+              <span
+                ><code>abierto=true</code> no es «abierta hoy». Con fechas
+                <code>null</code>, nunca declares «cerrada».</span
+              ><a class="sx" data-d="01" data-s="3.3"></a>
+            </li>
+            <li>
+              <span
+                >No busques diputación en las uniprovinciales ni en Navarra. No
+                apliques IRPF estatal ni Plan de Vivienda en PV y Navarra.</span
+              ><a class="sx" data-d="01" data-s="7."></a>
+            </li>
+            <li>
+              <span
+                >Muchas filas son convenios o subvenciones nominativas: no son
+                ayudas para el ciudadano.</span
+              ><a class="sx" data-d="01" data-s="7."></a>
+            </li>
+            <li>
+              <span
+                >No muestres importes sin fecha ni enlace, no des por resuelta
+                la elegibilidad y no expongas el NIF de beneficiarios.</span
+              ><a class="sx" data-d="01" data-s="7."></a>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <script src="comun.js"></script>
+  </body>
+</html>

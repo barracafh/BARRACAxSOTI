@@ -18,6 +18,7 @@ Este monorepo contiene lo que pone la organización. **Los squads construyen en 
 - Workspace Bun en `apps/*` y `packages/*`, con un único lockfile raíz: `bun install --frozen-lockfile`. `apps/web/` son assets sin paquete propio.
 - `plantilla/` queda **fuera** del workspace y tiene su propio `package.json` y `bun.lock`: instalar y compilar desde esa carpeta. Mantenerla utilizable como repo independiente.
 - Después de editar tracks, `bun run tracks:generar`; no editar a mano `packages/shared/registro-base/tracks.json`. `bun run check` detecta si está desactualizado.
+- Todo cambio en la documentación de `tracks/comun/*.md` debe actualizar en el mismo commit su infografía en `tracks/comun/infografia/`: la página `<fichero>.html` (cifras, esquemas y tooltips) e `index.html` si cambian datos del resumen. Si cambian los encabezados `##` o `###`, actualizar también la constante `TOC` de `comun.js`, de la que salen los enlaces a cada apartado.
 - Antes de cada commit, `bun run check` (tipos, tests y Prettier) debe salir en verde. Cambios del starter requieren además `bun run build` dentro de `plantilla/`; cambios de integración, `test:flujo` y `test:live`.
 - Infra es `--dry-run` por defecto. No ejecutar `--apply` contra servicios reales sin una instrucción expresa; nunca imprimir claves ni versionar `.local-secrets/`.
 - Textos, docs y mensajes al usuario en castellano. Código y commits en inglés.
