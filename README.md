@@ -89,6 +89,8 @@ winget install --id GitHub.cli
 gh auth login
 ```
 
+El instalador deja Bun en `~/.bun/bin` y lo añade al PATH de tu shell: si `bun` no responde, abre una terminal nueva. En macOS también vale `brew install oven-sh/bun/bun`. Más opciones en [bun.sh/docs/installation](https://bun.sh/docs/installation).
+
 Comprueba que todo responde con `git --version`, `bun --version` y `gh auth status`. Trae también tu asistente de código de IA favorito, ya configurado.
 
 ## Prueba el CLI
@@ -158,7 +160,7 @@ El workspace se instala desde la raíz con `bun install --frozen-lockfile`. `pla
 
 ### Trabajar con agentes de código
 
-Empieza por [AGENTS.md](AGENTS.md): recoge los límites del workspace y las comprobaciones según el cambio. Para reproducir CI, usa **Bun 1.3.11 y Node.js 22**, además de Git. **GitHub es necesario para colaborar**: necesitas cuenta, acceso al repo y `gh auth login`; allí gestionamos código, PRs, CI y releases. Los tests locales usan datos ficticios y no necesitan claves de proveedores de IA.
+Empieza por [AGENTS.md](AGENTS.md): recoge los límites del workspace y las comprobaciones según el cambio. Para reproducir CI, usa **Bun 1.3.11 y Node.js 22**, además de Git. Para instalar esa versión exacta de Bun: `curl -fsSL https://bun.sh/install | bash -s "bun-v1.3.11"` (macOS y Linux) o `iex "& {$(irm https://bun.sh/install.ps1)} -Version 1.3.11"` (PowerShell). **GitHub es necesario para colaborar**: necesitas cuenta, acceso al repo y `gh auth login`; allí gestionamos código, PRs, CI y releases. Los tests locales usan datos ficticios y no necesitan claves de proveedores de IA.
 
 **No hace falta ningún MCP.** Un agente con acceso a archivos y terminal puede arrancar el servidor y ejecutar los comandos anteriores. Para cambios de integración, ejecuta también `bun run test:flujo` y `bun run test:live`.
 
