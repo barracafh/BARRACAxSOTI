@@ -94,7 +94,7 @@ Comprueba que todo responde con `git --version`, `bun --version` y `gh auth stat
 ## Prueba el CLI
 
 ```sh
-git clone https://github.com/luisgonzaleznf/BARRACAxSOTI.git
+git clone https://github.com/barracafh/BARRACAxSOTI.git
 cd BARRACAxSOTI
 bun install --frozen-lockfile
 bun run cli --registro "file://$PWD/packages/shared/registro-base" tracks
