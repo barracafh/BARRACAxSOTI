@@ -48,7 +48,7 @@ Una herramienta entra en la plataforma si cumple las seis:
 
 1. **Parte de la plantilla común.** Así trae el diseño y el componente de fuentes.
 2. **Está publicada en una URL pública** antes de las 22:00.
-3. **Tiene ficha:** nombre, una frase, icono, track, equipo, URL y fuentes.
+3. **Tiene ficha:** nombre, una frase, icono, herramienta (el slug de su track), equipo, URL, fuentes y datos (`reales` o `simulados`).
 4. **Cita sus fuentes.** Cada respuesta enlaza a la web oficial o al dato del que sale.
 5. **No usa datos personales reales.** Nada de DNI, expedientes ni contraseñas: se simulan.
 6. **Lleva el botón «¿Algo está mal? Avísanos».**
@@ -124,10 +124,13 @@ La lista completa y la configuración están en [apps/cli/README.md](apps/cli/RE
 | [apps/web/](apps/web/) · [apps/server/](apps/server/) | Web, proyector, administración y backend Bun/SQLite                   |
 | [packages/shared/](packages/shared/)                  | Modelos, paleta, evento y registro base                               |
 | [tracks/](tracks/README.md)                           | Fichas técnicas, catálogo y preparación de datos y guías              |
+| [tracks/comun/](tracks/comun/README.md)               | Marco de conocimiento común; cada track tiene su `contexto.md`        |
+| [tracks/index.html](tracks/index.html)                | Índice visual de las infografías del marco de conocimiento            |
 | [plantilla/](plantilla/README.md)                     | Punto de partida Next.js + Tailwind para el repo de cada squad        |
 | [infra/](infra/README.md)                             | Registro, publicación de plantilla, claves de IA y opciones de deploy |
 | [.github/workflows/](.github/workflows/)              | CI y releases del CLI                                                 |
-| [test/](test/) · [scripts/](scripts/)                 | Pruebas aisladas y generación del catálogo                            |
+| [test/](test/) · [e2e/](e2e/)                         | Pruebas aisladas y regresiones de navegador con Playwright            |
+| [scripts/](scripts/)                                  | Catálogo de tracks, índice de infografías, `test:live` y releases     |
 | [docs/](docs/)                                        | Guías cortas para participantes y comité                              |
 
 El nombre del evento está en un solo sitio: [`packages/shared/registro-base/evento.json`](packages/shared/registro-base/evento.json).
@@ -148,6 +151,7 @@ GitHub Actions comprueba tipos, tests y formato en cada push y pull request, eje
 - **Registro y plantilla remotos:** planes en [infra/](infra/README.md), con `--dry-run` por defecto.
 - **Servidor y administración:** [apps/server/README.md](apps/server/README.md); el proveedor sigue pendiente.
 - **Editar un track:** cambia `tracks/<slug>/track.json` y ejecuta `bun run tracks:generar`.
+- **Editar el marco de conocimiento:** si cambias `tracks/comun/*.md` o un `contexto.md`, actualiza en el mismo commit su infografía (el `.html` con el mismo nombre) y `tracks/index.html` si cambia el resumen; después, `bun run infografia:indice`.
 - **Pendientes del comité:** validar tracks con Pau el 12/10 y asignar leads; preparar accesos y datos para el reparto del 19/10; cerrar revisión de guías antes del 20/10; elegir repos, formulario de avisos, presupuesto de IA y alojamiento. El diseño de Reforma Digital espera el OK de Samu.
 
 El workspace se instala desde la raíz con `bun install --frozen-lockfile`. `plantilla/` es independiente: tiene su propio lockfile y se instala y compila desde su carpeta.
