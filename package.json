@@ -20,6 +20,8 @@
     "test:live": "bun scripts/test-live.ts",
     "tracks:generar": "bun scripts/tracks.ts",
     "tracks:comprobar": "bun scripts/tracks.ts --check",
+    "infografia:indice": "bun scripts/infografia.ts",
+    "infografia:comprobar": "bun scripts/infografia.ts --check",
     "test:browser": "playwright test --config e2e/playwright.config.ts"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
-# 03. Verificador de webs y mensajes
+# Sello · Verificador de webs y mensajes
 
-Este fichero cubre el Track 3 (el sello): verificar si una web, un SMS, un correo o una llamada es de una administración o de un organismo público español, y señalar la web buena. Verificado por el autor y por una revisión independiente en octubre de 2026. Todo lo que no lleva la marca [sin verificar] se ha comprobado en fuente oficial entre el 12 y el 13/10/2026. «Obs. técnica» significa DNS, HTTP o TLS consultados el 12/10/2026; pueden cambiar. Las fuentes con URL están en «Fuentes» al final. Los dominios de fraude que aparecen como ejemplo están escritos con `[.]` para que nadie los abra por error.
+Este fichero cubre el track Sello: verificar si una web, un SMS, un correo o una llamada es de una administración o de un organismo público español, y señalar la web buena. Verificado por el autor y por una revisión independiente en octubre de 2026. Todo lo que no lleva la marca [sin verificar] se ha comprobado en fuente oficial entre el 12 y el 13/10/2026. «Obs. técnica» significa DNS, HTTP o TLS consultados el 12/10/2026; pueden cambiar. Las fuentes con URL están en «Fuentes» al final. Los dominios de fraude que aparecen como ejemplo están escritos con `[.]` para que nadie los abra por error.
 
 Este fichero aporta la capa de verificación. Quedan fuera de él: territorio y dominios por CCAA (ver 00, apartado 2), diputaciones, cabildos y consells (ver 00, apartado 3), identificadores INE, DIR3 e INVENTE (ver 00, apartado 5), administración frente a empresa pública (ver 00b, apartado 3) y plataformas de sede de ayuntamientos (ver 04b).
 

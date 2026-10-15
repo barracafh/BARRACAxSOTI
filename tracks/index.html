@@ -13,14 +13,14 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;700&family=Space+Mono:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500..700&display=swap"
     />
-    <link rel="stylesheet" href="estilo.css" />
+    <link rel="stylesheet" href="comun/infografia/estilo.css" />
   </head>
   <body>
     <main class="wrap">
       <section class="hero">
         <div class="eyebrow">
           <b>BARRACA × SOTI</b> · BUILD NIGHT · 22/10/2026 ·
-          <code>tracks/comun/</code>
+          <code>tracks/</code>
         </div>
         <h1>Marco de conocimiento</h1>
         <p class="lede">
@@ -51,7 +51,7 @@
             >ficheros Markdown, cada uno se entiende por sí solo
             <button
               class="info"
-              data-tip="Cada fichero empieza con su ámbito, su fecha de verificación y sus fuentes principales. Los ficheros 00 y 00b valen para todos los tracks, y el 04b sirve a los tracks 2, 3 y 4."
+              data-tip="Cada fichero empieza con su ámbito, su fecha de verificación y sus fuentes principales. Los ficheros 00 y 00b valen para todos los tracks, y el 04b sirve a los tracks Claridad, Sello y Brújula."
             >
               i
             </button></span
@@ -98,7 +98,7 @@
           ¿Qué leo para mi track?
           <button
             class="info"
-            data-tip="Cada track tiene su fichero. El 04b sirve a los tracks 2, 3 y 4, y los ficheros 00 y 00b son la base de todos. Cada fichero se entiende por sí solo, así que puedes leer solo el tuyo."
+            data-tip="Cada track tiene su fichero. El 04b sirve a los tracks Claridad, Sello y Brújula, y los ficheros 00 y 00b son la base de todos. Cada fichero se entiende por sí solo, así que puedes leer solo el tuyo."
           >
             i
           </button>
@@ -111,12 +111,17 @@
       </p>
       <div class="map" style="margin-top: 16px">
         <div class="track c-01">
-          <span class="k">TRACK 1</span
+          <a
+            class="stretch"
+            href="derechos/contexto.html"
+            aria-label="Ver la infografía de Derechos"
+          ></a>
+          <span class="k">TRACK</span
           ><span class="t"
             >Buscador de ayudas
             <button
               class="info"
-              data-tip="El campo abierto de la BDNS solo vale true cuando el plazo es indefinido. Para saber si una convocatoria está abierta hoy hay que mirar las fechas y los textos de plazo de la ficha. Además, regiones no es jerárquico y los identificadores de órgano se repiten (01, apartados 2 y 3.3)."
+              data-tip="El campo abierto de la BDNS solo vale true cuando el plazo es indefinido. Para saber si una convocatoria está abierta hoy hay que mirar las fechas y los textos de plazo de la ficha. Además, regiones no es jerárquico y los identificadores de órgano se repiten (Derechos, apartados 2 y 3.3)."
             >
               i
             </button></span
@@ -127,12 +132,17 @@
           </p>
         </div>
         <div class="track c-02">
-          <span class="k">TRACK 2</span
+          <a
+            class="stretch"
+            href="claridad/contexto.html"
+            aria-label="Ver la infografía de Claridad"
+          ></a>
+          <span class="k">TRACK</span
           ><span class="t"
             >Traductor de documentos
             <button
               class="info"
-              data-tip="Una notificación electrónica obligatoria que no se abre se da por rechazada a los 10 días naturales, sin prórroga si el décimo día es inhábil (Ley 39/2015 art. 43.2). Para identificar al conductor de una multa son 20 días naturales por ley, aunque la web de la DGT diga 10 (02, apartados 3 y 6)."
+              data-tip="Una notificación electrónica obligatoria que no se abre se da por rechazada a los 10 días naturales, sin prórroga si el décimo día es inhábil (Ley 39/2015 art. 43.2). Para identificar al conductor de una multa son 20 días naturales por ley, aunque la web de la DGT diga 10 (Claridad, apartados 3 y 6)."
             >
               i
             </button></span
@@ -140,12 +150,17 @@
           <p>Cada plazo con su artículo y su tipo de día, hábil o natural.</p>
         </div>
         <div class="track c-03">
-          <span class="k">TRACK 3</span
+          <a
+            class="stretch"
+            href="sello/contexto.html"
+            aria-label="Ver la infografía de Sello"
+          ></a>
+          <span class="k">TRACK</span
           ><span class="t"
             >Verificador de webs
             <button
               class="info"
-              data-tip="Un subdominio de *.sede.gob.es o *.sedelectronica.es siempre resuelve por el DNS comodín, y eso no prueba nada. Organismos muy suplantados usan dominios anteriores a .gob.es, como dgt.es o seg-social.es. No hay censo nacional de sedes municipales y DIR3 no incluye URLs (03, apartados 2, 3 y 6)."
+              data-tip="Un subdominio de *.sede.gob.es o *.sedelectronica.es siempre resuelve por el DNS comodín, y eso no prueba nada. Organismos muy suplantados usan dominios anteriores a .gob.es, como dgt.es o seg-social.es. No hay censo nacional de sedes municipales y DIR3 no incluye URLs (Sello, apartados 2, 3 y 6)."
             >
               i
             </button></span
@@ -155,12 +170,17 @@
           </p>
         </div>
         <div class="track c-04">
-          <span class="k">TRACK 4</span
+          <a
+            class="stretch"
+            href="brujula/contexto.html"
+            aria-label="Ver la infografía de Brújula"
+          ></a>
+          <span class="k">TRACK</span
           ><span class="t"
             >Asistente de trámites
             <button
               class="info"
-              data-tip="La sede electrónica se regula en la Ley 40/2015 art. 38 y en el RD 203/2021; el procedimiento, en la Ley 39/2015. La DEHú prohíbe el acceso automatizado salvo por los servicios web de Gran Destinatario. La AEAD sustituyó a la Secretaría General de Administración Digital (04, apartados 1, 3 y 6)."
+              data-tip="La sede electrónica se regula en la Ley 40/2015 art. 38 y en el RD 203/2021; el procedimiento, en la Ley 39/2015. La DEHú prohíbe el acceso automatizado salvo por los servicios web de Gran Destinatario. La AEAD sustituyó a la Secretaría General de Administración Digital (Brújula, apartados 1, 3 y 6)."
             >
               i
             </button></span
@@ -171,12 +191,17 @@
           </p>
         </div>
         <div class="track c-05">
-          <span class="k">TRACK 5</span
+          <a
+            class="stretch"
+            href="como-voto/contexto.html"
+            aria-label="Ver la infografía de Cómo voto"
+          ></a>
+          <span class="k">TRACK</span
           ><span class="t"
             >Guía electoral
             <button
               class="info"
-              data-tip="Convocatoria por RD 806/2026. Para votar sirven DNI, pasaporte o permiso de conducir con foto, en original. La JEC suspendió miDGT y miDNI como identificación (Acuerdo 94/2026), aunque la FAQ de Interior aún cite miDGT (05, apartados 1 y 2)."
+              data-tip="Convocatoria por RD 806/2026. Para votar sirven DNI, pasaporte o permiso de conducir con foto, en original. La JEC suspendió miDGT y miDNI como identificación (Acuerdo 94/2026), aunque la FAQ de Interior aún cite miDGT (Cómo voto, apartados 1 y 2)."
             >
               i
             </button></span
@@ -184,39 +209,42 @@
           <p>Votación el 29/11. miDGT y miDNI no valen para votar.</p>
         </div>
 
-        <a class="tile c-01" href="01-buscador-ayudas.html"
-          ><span class="code">01</span><span class="t">Buscador de ayudas</span
+        <a class="tile c-01" href="derechos/contexto.html"
+          ><span class="code">Derechos</span
+          ><span class="t">Buscador de ayudas</span
           ><span class="d"
             >Quién concede, BDNS y algoritmo de proveedor</span
           ></a
         >
-        <a class="tile c-02" href="02-traductor-documentos.html"
-          ><span class="code">02</span
+        <a class="tile c-02" href="claridad/contexto.html"
+          ><span class="code">Claridad</span
           ><span class="t">Traductor de documentos</span
           ><span class="d"
             >Emisor, significado, plazo, obligación y respuesta</span
           ></a
         >
-        <a class="tile c-03" href="03-verificador-webs-y-mensajes.html"
-          ><span class="code">03</span
+        <a class="tile c-03" href="sello/contexto.html"
+          ><span class="code">Sello</span
           ><span class="t">Verificador de webs y mensajes</span
           ><span class="d">Dominios oficiales, fraudes y algoritmo</span></a
         >
-        <a class="tile c-04" href="04-asistente-tramites.html"
-          ><span class="code">04</span
+        <a class="tile c-04" href="brujula/contexto.html"
+          ><span class="code">Brújula</span
           ><span class="t">Asistente de trámites</span
           ><span class="d">Leyes 39 y 40, sede, DEHú, identidad, datos</span></a
         >
-        <a class="tile c-05" href="05-guia-elecciones.html"
-          ><span class="code">05</span
+        <a class="tile c-05" href="como-voto/contexto.html"
+          ><span class="code">Cómo voto</span
           ><span class="t">Guía de las elecciones</span
           ><span class="d"
             >Calendario, cómo votar, D'Hondt, fact-checker</span
           ></a
         >
 
-        <span class="map-label">Transversal a los tracks 2, 3 y 4</span>
-        <a class="tile c-04b span3" href="04b-gestores-expedientes.html"
+        <span class="map-label"
+          >Transversal a los tracks Claridad, Sello y Brújula</span
+        >
+        <a class="tile c-04b span3" href="comun/04b-gestores-expedientes.html"
           ><span class="code">04b</span
           ><span class="t">Gestores de expedientes y plataformas de sede</span
           ><span class="d"
@@ -226,7 +254,7 @@
         >
 
         <span class="map-label">Base común de todos los tracks</span>
-        <a class="tile c-00 base-a" href="00-territorio.html"
+        <a class="tile c-00 base-a" href="comun/00-territorio.html"
           ><span class="code">00</span><span class="t">Territorio</span
           ><span class="d"
             >Niveles, 17 CCAA + 2 ciudades, 50 provincias, regímenes forales e
@@ -235,7 +263,7 @@
         >
         <a
           class="tile c-00b base-b"
-          href="00b-competencias-y-sector-publico.html"
+          href="comun/00b-competencias-y-sector-publico.html"
           ><span class="code">00b</span
           ><span class="t">Competencias y sector público</span
           ><span class="d"
@@ -258,7 +286,7 @@
         <span>Tamaño relativo y puntos clave</span>
       </div>
       <div class="docs" style="margin-top: 16px">
-        <a class="doc c-00" href="00-territorio.html">
+        <a class="doc c-00" href="comun/00-territorio.html">
           <div class="hd">
             <span class="code">00</span><span class="t">Territorio</span>
           </div>
@@ -274,7 +302,10 @@
           </div>
           <span class="go">Ver infografía →</span>
         </a>
-        <a class="doc c-00b" href="00b-competencias-y-sector-publico.html">
+        <a
+          class="doc c-00b"
+          href="comun/00b-competencias-y-sector-publico.html"
+        >
           <div class="hd">
             <span class="code">00b</span
             ><span class="t">Competencias y sector público</span>
@@ -291,9 +322,9 @@
           </div>
           <span class="go">Ver infografía →</span>
         </a>
-        <a class="doc c-01" href="01-buscador-ayudas.html">
+        <a class="doc c-01" href="derechos/contexto.html">
           <div class="hd">
-            <span class="code">01</span
+            <span class="code">Derechos</span
             ><span class="t">Buscador de ayudas</span>
           </div>
           <p>
@@ -307,9 +338,9 @@
           </div>
           <span class="go">Ver infografía →</span>
         </a>
-        <a class="doc c-02" href="02-traductor-documentos.html">
+        <a class="doc c-02" href="claridad/contexto.html">
           <div class="hd">
-            <span class="code">02</span
+            <span class="code">Claridad</span
             ><span class="t">Traductor de documentos</span>
           </div>
           <p>
@@ -324,9 +355,9 @@
           </div>
           <span class="go">Ver infografía →</span>
         </a>
-        <a class="doc c-03" href="03-verificador-webs-y-mensajes.html">
+        <a class="doc c-03" href="sello/contexto.html">
           <div class="hd">
-            <span class="code">03</span
+            <span class="code">Sello</span
             ><span class="t">Verificador de webs y mensajes</span>
           </div>
           <p>
@@ -341,9 +372,9 @@
           </div>
           <span class="go">Ver infografía →</span>
         </a>
-        <a class="doc c-04" href="04-asistente-tramites.html">
+        <a class="doc c-04" href="brujula/contexto.html">
           <div class="hd">
-            <span class="code">04</span
+            <span class="code">Brújula</span
             ><span class="t">Asistente de trámites</span>
           </div>
           <p>
@@ -357,7 +388,7 @@
           </div>
           <span class="go">Ver infografía →</span>
         </a>
-        <a class="doc c-04b" href="04b-gestores-expedientes.html">
+        <a class="doc c-04b" href="comun/04b-gestores-expedientes.html">
           <div class="hd">
             <span class="code">04b</span
             ><span class="t">Gestores de expedientes</span>
@@ -373,9 +404,9 @@
           </div>
           <span class="go">Ver infografía →</span>
         </a>
-        <a class="doc c-05" href="05-guia-elecciones.html">
+        <a class="doc c-05" href="como-voto/contexto.html">
           <div class="hd">
-            <span class="code">05</span
+            <span class="code">Cómo voto</span
             ><span class="t">Guía de las elecciones</span>
           </div>
           <p>
@@ -393,7 +424,7 @@
       </div>
       <p class="note" style="margin-top: 8px">
         La barra de cada tarjeta es el número de palabras del fichero respecto
-        al más largo (02, 15.436 palabras).
+        al más largo (Claridad, 15.436 palabras).
       </p>
 
       <div class="grid">
@@ -620,7 +651,7 @@
                 >Agosto
                 <button
                   class="info"
-                  data-tip="En vía administrativa agosto es hábil. En los procesos judiciales es inhábil (LEC art. 130.2; LJCA art. 128.2), y en el social también con excepciones (LRJS art. 43.4). Los plazos judiciales son improrrogables. Cualquier cómputo debe hacerlo un profesional (02, apartados 2.15 y 3)."
+                  data-tip="En vía administrativa agosto es hábil. En los procesos judiciales es inhábil (LEC art. 130.2; LJCA art. 128.2), y en el social también con excepciones (LRJS art. 43.4). Los plazos judiciales son improrrogables. Cualquier cómputo debe hacerlo un profesional (Claridad, apartados 2.15 y 3)."
                 >
                   i
                 </button></span
@@ -635,12 +666,14 @@
 
       <footer class="foot">
         <div>
-          Infografía generada a partir de <code>tracks/comun/</code>. Los
-          enlaces «§» abren el apartado exacto del Markdown; elige arriba si se
-          abren en GitHub o en tu copia local.
+          Infografía generada a partir de <code>tracks/comun/</code> y del
+          <code>contexto.md</code> de cada track. Los enlaces «§» abren el
+          apartado exacto del Markdown; elige arriba si se abren en GitHub o en
+          tu copia local.
         </div>
       </footer>
     </main>
-    <script src="comun.js"></script>
+    <script src="comun/infografia/indice.js"></script>
+    <script src="comun/infografia/infografia.js"></script>
   </body>
 </html>

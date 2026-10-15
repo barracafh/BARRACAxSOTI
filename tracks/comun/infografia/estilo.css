@@ -1297,3 +1297,45 @@ details.toc[open] summary::after {
 .tip b {
   font-weight: 700;
 }
+.docnav a {
+  white-space: nowrap;
+}
+.doc .code,
+.tile .code {
+  white-space: nowrap;
+}
+
+/* Tarjetas de track del mapa: toda la tarjeta enlaza a su infografía; el (i) queda por encima. */
+.track {
+  position: relative;
+}
+.track .stretch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+}
+.track .stretch:focus-visible {
+  outline: none;
+}
+.track:has(.stretch:focus-visible) {
+  outline: 2px solid var(--c);
+  outline-offset: 2px;
+}
+.track .info {
+  position: relative;
+  z-index: 1;
+}
+.track:hover,
+.tile:hover,
+.doc:hover {
+  border-color: var(--c);
+}
+.track,
+.tile,
+.doc {
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+}
