@@ -7,6 +7,9 @@ Aquí edita cada track lead el material de su herramienta. Los squads construyen
 - `<slug>/datos/`: formatos y fuentes de los paquetes por preparar.
 - `<slug>/guias/`: guías que redacta la IA y revisa una persona antes del 20/10.
 - [fuera/](fuera/README.md): descartados y motivos; se conservan para `hacknight tracks --todos`.
+- `<slug>/contexto.md`: marco de conocimiento verificado del track, con su infografía `contexto.html` al lado.
+- [comun/](comun/README.md): la parte del marco común a todos los tracks (territorio, competencias y plataformas de sede), con el índice y las convenciones de todo el marco. No es un track: no lleva `track.json` y el generador lo ignora.
+- [index.html](index.html): índice visual del marco, que enlaza la infografía de cada fichero.
 
 ## Editar un track
 

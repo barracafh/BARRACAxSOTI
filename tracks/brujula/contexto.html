@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Brújula · Asistente de trámites</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;700&family=Space+Mono:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500..700&display=swap"
+    />
+    <link rel="stylesheet" href="../comun/infografia/estilo.css" />
+  </head>
+  <body data-doc="04" data-root="../">
+    <main class="wrap">
+      <section class="hero">
+        <div class="eyebrow">
+          <b>Brújula</b> · Contexto del track · <code>brujula/contexto.md</code>
+        </div>
+        <h1><span class="code">Brújula</span> Asistente de trámites</h1>
+        <p class="lede">
+          Del problema de una persona al trámite, sus pasos y el enlace a la
+          sede: marco legal, sede electrónica, DEHú, identificación, datos
+          personales y los límites de una herramienta de terceros.
+        </p>
+        <div class="meta">
+          <a class="btn" data-d="04" data-s="">Abrir brujula/contexto.md ↗</a>
+          <span class="pill">548 líneas · 13.316 palabras</span>
+          <span class="pill sv">52 sin verificar</span>
+          <a class="pill" href="#indice">Índice completo ↓</a>
+        </div>
+      </section>
+
+      <section class="panel w12">
+        <div class="ph">
+          <h2>
+            Tres normas, tres papeles
+            <button
+              class="info"
+              data-tip="La Ley 39 regula lo que haces tú ante la Administración: identificarte, registrar, plazos, notificaciones y recursos. La Ley 40 define cómo se organiza el sector público y su funcionamiento electrónico. El RD 203/2021 desarrolla ambas con detalle técnico, por ejemplo la sede (arts. 9 a 12) y la DEHú."
+            >
+              i
+            </button>
+          </h2>
+          <a class="sx" data-d="04" data-s="1.1"></a>
+        </div>
+        <div class="cols">
+          <div class="card">
+            <span class="k">Ley 39/2015 · LPAC</span
+            ><span class="t">Ciudadano ↔ Administración</span
+            ><span
+              >El procedimiento: derechos, representación, firma, registros,
+              plazos, notificaciones, silencio y recursos.</span
+            >
+            <dl class="kv">
+              <dt>art. 9-11</dt>
+              <dd>Identificación y firma</dd>
+              <dt>art. 14</dt>
+              <dd>Quién debe ir por vía electrónica</dd>
+              <dt>art. 28</dt>
+              <dd>Derecho a no aportar documentos</dd>
+              <dt>art. 30</dt>
+              <dd>Plazos</dd>
+              <dt>
+                art. 43.2
+                <button
+                  class="info"
+                  data-tip="La notificación electrónica se practica cuando accedes a ella. Si es obligatoria o la elegiste y pasan 10 días naturales desde la puesta a disposición sin abrirla, se da por rechazada y el procedimiento sigue. Contar desde el día siguiente es una inferencia del documento, sin verificar: conviene comprobarlo en el acuse."
+                >
+                  i
+                </button>
+              </dt>
+              <dd>Rechazo a los 10 días naturales</dd>
+            </dl>
+          </div>
+          <div class="card">
+            <span class="k">Ley 40/2015 · LRJSP</span
+            ><span class="t">Cómo se organiza el sector público</span
+            ><span
+              >Funcionamiento electrónico y relaciones entre
+              administraciones.</span
+            >
+            <dl class="kv">
+              <dt>art. 38</dt>
+              <dd>Sede electrónica</dd>
+              <dt>art. 39</dt>
+              <dd>Portal de internet</dd>
+              <dt>art. 40</dt>
+              <dd>Sello electrónico</dd>
+              <dt>
+                art. 46 bis
+                <button
+                  class="info"
+                  data-tip="Obliga a ubicar en la UE los sistemas y tratamientos del censo electoral, los padrones y otros registros de población, los datos fiscales de tributos propios o cedidos y los datos de usuarios del Sistema Nacional de Salud. No pueden transferirse a terceros países, salvo decisión de adecuación u obligación internacional de España."
+                >
+                  i
+                </button>
+              </dt>
+              <dd>Datos sensibles en la UE</dd>
+              <dt>art. 156</dt>
+              <dd>ENI y ENS</dd>
+            </dl>
+          </div>
+          <div class="card">
+            <span class="k">RD 203/2021</span
+            ><span class="t">El reglamento que lo desarrolla</span
+            ><span
+              >Punto de Acceso General, Carpeta Ciudadana, sedes, representación
+              y DEHú.</span
+            >
+            <dl class="kv">
+              <dt>art. 7-8</dt>
+              <dd>PAG y Carpeta</dd>
+              <dt>art. 9-12</dt>
+              <dd>Sede</dd>
+              <dt>art. 32-36</dt>
+              <dd>Representación</dd>
+              <dt>art. 42.5</dt>
+              <dd>Emisores estatales en la DEHú</dd>
+            </dl>
+          </div>
+        </div>
+        <p class="note">
+          ¿La sede está en la 39 o en la 40? Qué es y qué debe tener: Ley 40
+          art. 38 y RD 203. Qué efectos tiene lo que haces en ella: Ley 39.
+        </p>
+      </section>
+
+      <div class="grid">
+        <section class="panel w8">
+          <div class="ph">
+            <h2>
+              DEHú: el buzón único de notificaciones
+              <button
+                class="info"
+                data-tip="La DEHú es una pasarela: pone a disposición las notificaciones, pero no las genera ni las contesta. Los emisores estatales están obligados a usarla (RD 203 art. 42.5). Cada acceso o rechazo genera un acuse con fecha y hora. Si el organismo notifica también en su sede, vale la primera fecha de acceso o rechazo."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="04" data-s="3."></a>
+          </div>
+          <div
+            class="cols"
+            style="grid-template-columns: auto 1fr; align-items: center"
+          >
+            <div>
+              <div class="big">10</div>
+              <div class="mono" style="color: var(--c)">días naturales</div>
+            </div>
+            <p style="margin: 0">
+              Si la notificación electrónica es obligatoria o la elegiste y no
+              la abres en 10 días naturales desde la puesta a disposición, se
+              entiende rechazada y el procedimiento sigue.
+            </p>
+          </div>
+          <dl class="kv">
+            <dt>Qué es</dt>
+            <dd>
+              Una pasarela, no un trámite. <code>dehu.redsara.es</code>,
+              gestionada por la AEAD.
+            </dd>
+            <dt>
+              Qué aparece
+              <button
+                class="info"
+                data-tip="Los emisores estatales aparecen siempre, por obligación reglamentaria. Los autonómicos, locales y universitarios, solo si están adheridos. No hay lista oficial descargable (sin verificar), así que no afirmes que un organismo está o no: usa el buscador de la DEHú. Se ven las pendientes y las de los últimos 30 días."
+              >
+                i
+              </button>
+            </dt>
+            <dd>
+              Todo lo estatal. CCAA y entidades locales, solo si están
+              adheridas.
+            </dd>
+            <dt>
+              Obligados
+              <button
+                class="info"
+                data-tip="Por ley (art. 14.2 Ley 39): personas jurídicas, entidades sin personalidad, colegiación obligatoria (incluye notarios y registradores), representantes de obligados y empleados públicos. Un reglamento puede ampliarlo a otros colectivos, como quien opta a procesos selectivos de la AGE. Las obligaciones sectoriales (tributarias, Seguridad Social, tráfico) no se verificaron en el documento."
+              >
+                i
+              </button>
+            </dt>
+            <dd>
+              Personas jurídicas, colegiados, empleados públicos y sus
+              representantes.
+            </dd>
+            <dt>
+              Avisos
+              <button
+                class="info"
+                data-tip="El aviso al correo o al móvil es solo informativo: si no lo recibes, la notificación sigue siendo válida (Ley 39 art. 41.6). Tú respondes de que el medio comunicado funcione y debes avisar si deja de hacerlo. El canal SMS concreto lo decide cada emisor (sin verificar en el documento)."
+              >
+                i
+              </button>
+            </dt>
+            <dd>Por correo o SMS, solo informativos. Hasta 5 correos.</dd>
+            <dt>Acceso</dt>
+            <dd>
+              Con Cl@ve, certificado o DNIe. Persona real desde navegador o app.
+            </dd>
+          </dl>
+        </section>
+
+        <section class="panel w4" style="--c: var(--magenta)">
+          <div class="ph">
+            <h2>
+              La DEHú no se automatiza
+              <button
+                class="info"
+                data-tip="Las condiciones de uso permiten el acceso de una persona real desde navegador o móvil. Las actuaciones robotizadas solo caben por los servicios web de Gran Destinatario, con alta específica. Prohíben crear navegadores o programas sobre sus páginas, lo que excluye encapsularla. El acceso ordinario tiene un máximo diario de operaciones."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="04" data-s="3.7"></a>
+          </div>
+          <p style="margin: 0">
+            Las condiciones de uso prohíben robots, navegadores propios y
+            cualquier «envoltorio» sobre sus páginas. Solo se permite el acceso
+            automático por los servicios web de <b>Gran Destinatario</b>, con
+            alta específica.
+          </p>
+          <p class="note">También hay un máximo diario de operaciones.</p>
+        </section>
+
+        <section class="panel">
+          <div class="ph">
+            <h2>
+              Identificación y firma
+              <button
+                class="info"
+                data-tip="Para casi todo basta identificarse. La firma solo se exige para solicitar, presentar declaración responsable o comunicación, recurrir, desistir y renunciar a derechos (Ley 39 art. 11). Debes velar por el uso de tus medios de identificación: la Administración no responde si los usa un tercero."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="04" data-s="4.1"></a>
+          </div>
+          <dl class="kv">
+            <dt>
+              Certificado
+              <button
+                class="info"
+                data-tip="Fichero que identifica con la mayor garantía. Solo valen certificados de prestadores de la lista de confianza de la UE, como la FNMT, el DNIe u otros cualificados. La Administración debe garantizar que esta vía sirve para cualquier procedimiento (Ley 39 art. 9.2)."
+              >
+                i
+              </button>
+            </dt>
+            <dd>Máxima garantía (FNMT, otros prestadores de la UE).</dd>
+            <dt>DNIe</dt>
+            <dd>Certificado en el chip.</dd>
+            <dt>Cl@ve PIN</dt>
+            <dd>Código temporal, para uso esporádico.</dd>
+            <dt>Cl@ve Permanente</dt>
+            <dd>Usuario y contraseña, uso habitual.</dd>
+            <dt>Cl@ve Móvil</dt>
+            <dd>Confirmación en la app o con QR.</dd>
+            <dt>Cl@ve Firma</dt>
+            <dd>Certificado en la nube.</dd>
+          </dl>
+          <p class="note">
+            Casi todo se resuelve solo con identificarse. La firma hace falta
+            para solicitar, recurrir, desistir o renunciar.
+          </p>
+        </section>
+
+        <section class="panel">
+          <div class="ph">
+            <h2>
+              Representación
+              <button
+                class="info"
+                data-tip="Se puede actuar por representante y se acredita por cualquier medio válido en Derecho que deje constancia fidedigna (Ley 39 art. 5). Un defecto de representación se subsana en 10 días. La Administración puede habilitar a terceros para transacciones concretas, y esos trámites se publican en la sede."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="04" data-s="4.2"></a>
+          </div>
+          <div class="chips">
+            <span class="chip c">Apud acta</span
+            ><span class="chip c"
+              >REA (hasta 5 años)
+              <button
+                class="info"
+                data-tip="Registro Electrónico de Apoderamientos de la AGE. Admite poderes generales, por Administración u organismo y por trámites. Valen 5 años como máximo y se pueden prorrogar o revocar. No es público: solo ven el poderdante y el apoderado (Ley 39 art. 6; RD 203 art. 33)."
+              >
+                i
+              </button></span
+            ><span class="chip c">Certificado de representante</span
+            ><span class="chip c">Documento notarial</span
+            ><span class="chip c">Habilitación a terceros</span
+            ><span class="chip c">Representa</span>
+          </div>
+          <h3>
+            Funcionario habilitado (art. 12)
+            <button
+              class="info"
+              data-tip="Un funcionario con habilitación identifica o firma por quien carece de medios, con su consentimiento expreso, y le entrega copia de ese consentimiento y de la documentación del trámite. Solo vale para personas no obligadas y para los trámites que fije cada organismo. En la AGE existe el Registro de Funcionarios Habilitados (RFH)."
+            >
+              i
+            </button>
+          </h3>
+          <p style="margin: 0; font-size: 14.5px">
+            Identifica o firma por quien no tiene medios, con su consentimiento
+            expreso. Solo para personas no obligadas.
+          </p>
+          <h3>
+            Derecho a no aportar documentos (art. 28)
+            <button
+              class="info"
+              data-tip="La Administración consulta lo que ya tiene o lo que elaboró otra, salvo que te opongas. No cabe oposición en potestad sancionadora ni en inspección. Si ya lo presentaste antes, indica cuándo y ante qué órgano. Si no puede obtenerlo, puede volver a pedírtelo. Cada consulta queda registrada."
+            >
+              i
+            </button>
+          </h3>
+          <p style="margin: 0; font-size: 14.5px">
+            No se pide lo que la Administración puede consultar, salvo en
+            sanciones o inspección.
+          </p>
+        </section>
+
+        <section class="panel w12">
+          <div class="ph">
+            <h2>
+              Situaciones vitales: del problema al trámite
+              <button
+                class="info"
+                data-tip="El documento mapea 33 situaciones con trámite, nivel competente y enlace. Si el trámite es estatal da enlace oficial; si es autonómico o local, solo un patrón de búsqueda. Los plazos son los de la norma y siempre se confirman en la sede. Excepción: en el Régimen Especial del Mar, el ISM gestiona lo que la tabla atribuye al INSS o al SEPE."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="04" data-s="6.5"></a>
+          </div>
+          <p class="sub">El documento mapea 33. Aquí, 12 de ejemplo.</p>
+          <div
+            class="cols"
+            id="vitales"
+            style="grid-template-columns: repeat(auto-fill, minmax(250px, 1fr))"
+          ></div>
+        </section>
+
+        <section class="panel">
+          <div class="ph">
+            <h2>
+              Catálogos de trámites
+              <button
+                class="info"
+                data-tip="Un trámite se identifica por tres ejes: materia, administración competente y canal (sede, oficina de asistencia en materia de registros o 060). Del SIA y de los catálogos autonómicos no se encontró formato abierto ni API (sin verificar en el documento)."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="04" data-s="6."></a>
+          </div>
+          <dl class="kv">
+            <dt>
+              SIA
+              <button
+                class="info"
+                data-tip="Catálogo oficial de procedimientos y servicios; responde a la obligación de publicarlos (Ley 39 art. 21.4). Se consulta en el buscador de trámites del PAG, con filtros por materia, ámbito, comunidad, ministerio y código SIA. Sin dataset ni API pública hallados (sin verificar): sirve para comprobar a mano que un procedimiento existe."
+              >
+                i
+              </button>
+            </dt>
+            <dd>
+              Catálogo oficial. Sin API pública: úsalo para verificar a mano.
+            </dd>
+            <dt>PAG</dt>
+            <dd>Buscador, «hechos vitales» y servicios frecuentes.</dd>
+            <dt>Autonómicos</dt>
+            <dd>Cada comunidad el suyo, volcado al SIA.</dd>
+            <dt>Your Europe</dt>
+            <dd>Pasarela Digital Única de la UE.</dd>
+          </dl>
+        </section>
+
+        <section class="panel">
+          <div class="ph">
+            <h2>
+              Datos personales e IA
+              <button
+                class="info"
+                data-tip="Si ofreces la herramienta por cuenta propia, decides fines y medios y eres responsable. Si la prestas por encargo de una Administración, eres su encargado (RGPD arts. 4.7, 4.8 y 28). El proveedor del LLM es encargado o subencargado: exige contrato escrito y que no use los datos para entrenar."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="04" data-s="7.5"></a>
+          </div>
+          <ul class="list">
+            <li>
+              Un tercero que ofrece la herramienta por su cuenta es responsable
+              del tratamiento; si la presta por encargo de una Administración,
+              es encargado. Base: art. 6.1.b o consentimiento.
+            </li>
+            <li>
+              Con un LLM: contrato de encargado, sin entrenar con los datos,
+              minimizar y no guardar logs.
+            </li>
+            <li>
+              Mejor proveedor en el EEE. Datos de padrón, fiscales o sanitarios:
+              en la UE.
+            </li>
+            <li>
+              Brecha: notificar en 72 h, salvo que sea improbable que suponga un
+              riesgo.
+            </li>
+          </ul>
+          <div class="timeline" style="grid-template-columns: 1fr 1fr">
+            <div>
+              <span class="d">02/08/2026</span
+              ><span class="t"
+                >Un chatbot debe decir que es una IA
+                <button
+                  class="info"
+                  data-tip="Art. 50.1 del Reglamento (UE) 2024/1689: un sistema de IA que interactúa con personas debe informar de que es una IA, salvo que sea evidente. Un chatbot de trámites entra aquí. Se aplica desde el 02/08/2026 y el Omnibus de IA no lo aplazó."
+                >
+                  i
+                </button></span
+              >
+            </div>
+            <div style="--c: var(--after)">
+              <span class="d">02/12/2027</span
+              ><span class="t"
+                >Alto riesgo si decide elegibilidad para una Administración
+                <button
+                  class="info"
+                  data-tip="Anexo III, punto 5.a: sistemas de autoridades públicas que evalúan si alguien puede recibir prestaciones esenciales de asistencia pública. Quien solo informa no entra; quien decide o puntúa elegibilidad, sí. El Omnibus de IA movió la fecha al 02/12/2027; el texto oficial no se abrió (sin verificar)."
+                >
+                  i
+                </button></span
+              >
+            </div>
+          </div>
+        </section>
+
+        <section class="panel w12">
+          <div class="ph">
+            <h2>
+              Qué puede y qué no puede hacer una herramienta de terceros
+              <button
+                class="info"
+                data-tip="Informar, orientar y acompañar no requiere ninguna habilitación. Actuar por el ciudadano exige representación acreditada, y manejar sus credenciales queda fuera: la Administración no responde de su uso por terceros (RD 203 art. 15.4). Abrir o rechazar una notificación hace correr plazos (Ley 39 art. 43.2)."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="04" data-s="9."></a>
+          </div>
+          <div class="cols">
+            <div class="card" style="--c: var(--acid)">
+              <span class="k">Puede</span>
+              <ul class="list">
+                <li>
+                  Explicar el trámite en lenguaje llano, con pasos y enlace
+                  oficial.
+                </li>
+                <li>Orientar sobre quién es competente y por qué canal.</li>
+                <li>
+                  Preparar documentos, plazos y alertas, con aviso de verificar.
+                </li>
+                <li>
+                  Explicar qué es una notificación y qué pasa si no se abre.
+                </li>
+                <li>
+                  Guiar para que la persona se identifique y presente ella.
+                </li>
+                <li>Actuar con representación acreditada o habilitación.</li>
+              </ul>
+            </div>
+            <div class="card" style="--c: var(--magenta)">
+              <span class="k">No puede o no debe</span>
+              <ul class="list">
+                <li>Presentar, firmar o desistir sin representación.</li>
+                <li>
+                  Entrar en la DEHú o la Carpeta con las credenciales del
+                  ciudadano.
+                </li>
+                <li>Abrir, aceptar o rechazar notificaciones por él.</li>
+                <li>
+                  Pedir o guardar claves, PIN, certificados o códigos SMS.
+                </li>
+                <li>Parecer una sede oficial.</li>
+                <li>Decidir elegibilidad como si fuera vinculante.</li>
+                <li>Saltarse CAPTCHA, WAF o límites de uso.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="ph">
+            <h2>
+              ENS, ENI y accesibilidad
+              <button
+                class="info"
+                data-tip="El ENS (RD 311/2022) aplica a todo el sector público y a quien le presta servicios. La categoría la fija la dimensión de impacto más alta. En BÁSICA basta autoevaluación y declaración de conformidad; en MEDIA y ALTA, auditoría y certificación. Para adoptarla, una administración exigiría ENS, RGPD y accesibilidad."
+              >
+                i
+              </button>
+            </h2>
+            <a class="sx" data-d="04" data-s="8."></a>
+          </div>
+          <div class="stack">
+            <div style="width: 33.3%; background: var(--acid)">BÁSICA</div>
+            <div style="width: 33.3%; background: var(--after)">MEDIA</div>
+            <div style="width: 33.4%; background: var(--magenta)">ALTA</div>
+          </div>
+          <p class="note">
+            ENS (RD 311/2022): en BÁSICA basta autoevaluación; en MEDIA y ALTA,
+            auditoría y certificación. Accesibilidad: EN 301 549. En el
+            hackathon no se exigen; el RGPD sí si hay datos reales.
+          </p>
+        </section>
+
+        <section class="panel">
+          <h2>Ojo con esto</h2>
+          <ul class="ojo">
+            <li>
+              <span
+                >Los 10 días son naturales, no hábiles, y solo hay rechazo si la
+                vía electrónica es obligatoria o elegida.</span
+              ><a class="sx" data-d="04" data-s="3.5"></a>
+            </li>
+            <li>
+              <span
+                >No afirmes que un organismo está o no en la DEHú sin consultar
+                su buscador.</span
+              ><a class="sx" data-d="04" data-s="3.2"></a>
+            </li>
+            <li>
+              <span
+                >No recibir el aviso por SMS o correo no invalida la
+                notificación.</span
+              ><a class="sx" data-d="04" data-s="3.4"></a>
+            </li>
+            <li>
+              <span
+                >Muchas situaciones vitales cambian por comunidad y municipio.
+                No des tasas o plazos sin verificar.</span
+              ><a class="sx" data-d="04" data-s="6.5"></a>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <script src="../comun/infografia/indice.js"></script>
+    <script src="../comun/infografia/infografia.js"></script>
+    <script>
+      const V = [
+        [
+          "Me han despedido",
+          "Conciliación o demanda (20 días hábiles), paro (15 días hábiles), FOGASA",
+          "Autonómico, judicial, SEPE",
+          "La papeleta de conciliación o la demanda caducan a los 20 días hábiles (ET art. 59.3). El paro se pide en 15 días hábiles (LGSS art. 268.1, que no los califica; son hábiles por Ley 39 art. 30.2) y, si pides tarde, pierdes días de prestación. El FOGASA entra si hay insolvencia.",
+        ],
+        ["Me empadrono", "Alta en el padrón", "Ayuntamiento"],
+        [
+          "He tenido un hijo",
+          "Inscripción, prestación, padrón, tarjeta sanitaria",
+          "Registro Civil, INSS, ayuntamiento, comunidad",
+        ],
+        [
+          "Me caso",
+          "Expediente previo y celebración",
+          "Justicia, notariado, ayuntamiento",
+        ],
+        [
+          "Me cambio de casa",
+          "Padrón y domicilio fiscal (modelo 030)",
+          "Ayuntamiento, AEAT",
+        ],
+        [
+          "Quiero renovar el DNI",
+          "Cita previa y comparecencia",
+          "Policía Nacional",
+        ],
+        ["Me quiero jubilar", "Pensión de jubilación", "INSS"],
+        [
+          "Necesito el IMV",
+          "Solicitud del Ingreso Mínimo Vital",
+          "INSS (matices en PV, Navarra y Cataluña)",
+        ],
+        [
+          "Mi madre necesita ayuda en casa",
+          "Reconocimiento de dependencia",
+          "Comunidad de residencia",
+        ],
+        [
+          "Tengo que hacer la renta",
+          "Declaración del IRPF",
+          "AEAT o hacienda foral",
+        ],
+        [
+          "Me ha llegado una multa",
+          "Pagar con descuento, alegar, identificar conductor",
+          "DGT, alcalde o tráfico autonómico",
+        ],
+        [
+          "Ha fallecido un familiar",
+          "Inscripción y certificado de defunción",
+          "Registro Civil",
+        ],
+      ];
+      document.getElementById("vitales").innerHTML = V.map(
+        ([s, t, o, i]) =>
+          `<div class="card"><span class="t">«${s}»${i ? ` <button class="info" data-tip="${i}">i</button>` : ""}</span><span>${t}</span><span class="k" style="letter-spacing:.02em;text-transform:none">→ ${o}</span></div>`,
+      ).join("");
+    </script>
+  </body>
+</html>
