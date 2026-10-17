@@ -1,13 +1,5 @@
-import {
-  lstat,
-  mkdtemp,
-  mkdir,
-  readdir,
-  rm,
-  writeFile,
-} from "node:fs/promises";
-import { tmpdir } from "node:os";
-import { dirname, join, relative } from "node:path";
+import { lstat, readdir } from "node:fs/promises";
+import { join, relative } from "node:path";
 import {
   equipoSchema,
   trackSchema,
@@ -16,14 +8,19 @@ import {
 } from "@hacknight/shared/modelo";
 import { paleta } from "@hacknight/shared/paleta";
 import {
+  ejecutar,
+  existe,
   initialCommit,
   options,
+  org,
+  pasosDespliegue,
   root,
-  shellQuote,
+  salida,
+  vercel,
+  type Archivos,
   type Command,
 } from "../common";
 
-const org = "barracafh"; // GitHub organization and Vercel team
 const dominio = "build.barraca.house";
 const hubProject = "build-hub";
 // The CLI's registry: every participant needs Write there to register and ask for help.
@@ -36,8 +33,6 @@ const clavesTrack: Record<string, string[]> = {
   sello: ["SAFE_BROWSING_API_KEY"],
   "como-voto": ["FACTCHECK_API_KEY"],
 };
-
-type Archivos = Record<string, string | Uint8Array>;
 
 // Luma exports handles as profile URLs; accept those, @handle or the bare name.
 export function usuarioGitHub(valor: string) {
@@ -95,12 +90,12 @@ async function versionados(carpeta: string) {
     stdout: "pipe",
     stderr: "ignore",
   });
-  const [salida, code] = await Promise.all([
+  const [lista, code] = await Promise.all([
     new Response(child.stdout).text(),
     child.exited,
   ]);
   if (code !== 0) throw new Error(`No se pudo listar ${carpeta}.`);
-  return salida.split("\0").filter(Boolean);
+  return lista.split("\0").filter(Boolean);
 }
 
 async function recorrer(dir: string): Promise<string[]> {
@@ -175,29 +170,6 @@ export async function archivosEquipo(
       files[relative(carpeta, path)] = await Bun.file(path).bytes();
   return files;
 }
-
-const vercel = (path: string, method = "GET", body?: unknown): Command => ({
-  args: [
-    "vercel",
-    "api",
-    `${path}${path.includes("?") ? "&" : "?"}slug=${org}`,
-    "-X",
-    method,
-    "--raw",
-    ...(body === undefined ? [] : ["--input", "-"]),
-  ],
-  input: body === undefined ? undefined : JSON.stringify(body),
-});
-
-async function salida(args: string[]) {
-  const child = Bun.spawn(args, { stdout: "pipe", stderr: "ignore" });
-  const [texto, code] = await Promise.all([
-    new Response(child.stdout).text(),
-    child.exited,
-  ]);
-  return code === 0 ? texto : undefined;
-}
-const existe = async (args: string[]) => (await salida(args)) !== undefined;
 
 // Secrets are read from the shell only when applying, so a dry run never prints them.
 function variables(track: string, apply: boolean) {
@@ -405,76 +377,6 @@ async function dominioDe(name: string) {
   return nombre;
 }
 
-export async function pasosHub(apply: boolean): Promise<Command[]> {
-  const commands: Command[] = [];
-  if (!apply || !(await existe(vercel(`/v9/projects/${hubProject}`).args)))
-    commands.push(vercel("/v11/projects", "POST", { name: hubProject }));
-  commands.push(
-    {
-      args: ["vercel", "link", "--yes", "--project", hubProject, "--team", org],
-    },
-    { args: ["vercel", "deploy", "--prod", "--yes", "--scope", org] },
-  );
-  if (
-    !apply ||
-    !(await existe(
-      vercel(`/v9/projects/${hubProject}/domains/${dominio}`).args,
-    ))
-  )
-    commands.push(
-      vercel(`/v10/projects/${hubProject}/domains`, "POST", { name: dominio }),
-    );
-  return commands;
-}
-
-// Like runCommand, but a failure shows the tool's own error, so the next run
-// can be planned from what actually happened.
-async function correr({ args, input }: Command, cwd: string) {
-  const child = Bun.spawn(args, {
-    cwd,
-    stdin: input === undefined ? "ignore" : new Blob([input]),
-    stdout: "ignore",
-    stderr: "pipe",
-  });
-  const [error, code] = await Promise.all([
-    new Response(child.stderr).text(),
-    child.exited,
-  ]);
-  if (code !== 0)
-    throw new Error(
-      `Falló ${args.slice(0, 3).join(" ")} (salida ${code}):\n${error.trim().slice(-800)}`,
-    );
-}
-
-async function ejecutar(
-  titulo: string,
-  files: Archivos,
-  commands: Command[],
-  apply: boolean,
-  log: (line: string) => void,
-) {
-  log(`\n## ${titulo}`);
-  if (!apply) {
-    for (const path of Object.keys(files).sort()) log(`# Archivo ${path}`);
-    for (const c of commands) {
-      log(c.args.map(shellQuote).join(" "));
-      if (c.input !== undefined) log(`# JSON por stdin: ${c.input}`);
-    }
-    return;
-  }
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-equipo-"));
-  try {
-    for (const [path, content] of Object.entries(files)) {
-      await mkdir(dirname(join(dir, path)), { recursive: true });
-      await writeFile(join(dir, path), content);
-    }
-    for (const c of commands) await correr(c, dir);
-    log("Hecho.");
-  } finally {
-    await rm(dir, { recursive: true, force: true });
-  }
-}
-
 // ponytail: never removes a collaborator who leaves a team; do that by hand
 // with `gh api -X DELETE repos/<repo>/collaborators/<handle>`.
 export async function preparar(config: {
@@ -522,7 +424,7 @@ export async function preparar(config: {
   await ejecutar(
     `hub · https://${dominio}`,
     archivosHub(equipos, tracks, dominios),
-    await pasosHub(apply),
+    await pasosDespliegue(hubProject, dominio, apply),
     apply,
     log,
   );
