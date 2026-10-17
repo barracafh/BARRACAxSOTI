@@ -67,7 +67,6 @@ for (const args of [
   [],
   ["expediente"],
   ["tracks"],
-  ["tracks", "--todos"],
   ["tracks", "derechos"],
   ["status"],
   ["vuelva-usted-mañana"],

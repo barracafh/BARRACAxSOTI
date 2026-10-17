@@ -15,7 +15,7 @@ test("rechaza rutas inconsistentes y ventanillas duplicadas", async () => {
     await mkdir(join(dir, "derechos"));
     await Bun.write(
       join(dir, "derechos/track.json"),
-      JSON.stringify({ ...sample, estado: "fuera" }),
+      JSON.stringify({ ...sample, slug: "otra-ruta" }),
     );
     await expect(generateTracks(dir)).rejects.toThrow("Ruta incorrecta");
     await Bun.write(join(dir, "derechos/track.json"), JSON.stringify(sample));

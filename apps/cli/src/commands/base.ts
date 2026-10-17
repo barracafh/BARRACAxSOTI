@@ -7,18 +7,18 @@ import { banner } from "../lib/banner";
 import { cuentaAtras } from "../lib/tiempo";
 import { revisar } from "../lib/revision";
 import { cola } from "@hacknight/shared/cola";
-export async function tracks(ctx: Contexto, slug?: string, todos = false) {
+export async function tracks(ctx: Contexto, slug?: string) {
   const ts = await tramitando("Consultando el registro…", ctx.opts.json, () =>
     ctx.registro.tracks(),
   );
   const chosen = slug
     ? ts.filter((t) => t.slug === slug)
-    : ts.filter((t) => todos || t.estado !== "fuera");
+    : ts.filter((t) => t.estado !== "fuera");
   if (!chosen.length)
     throw new CliError(
       "NOT_FOUND",
       "No existe ese negociado.",
-      "Usa hacknight tracks --todos.",
+      "Usa hacknight tracks para ver la lista.",
       4,
     );
   const teams = await ctx.registro.equipos();

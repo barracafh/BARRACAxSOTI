@@ -53,8 +53,7 @@ program
   .command("tracks [slug]")
   .alias("negociados")
   .description("Negociados y piezas")
-  .option("--todos", "Incluye los descartados")
-  .action(async (slug, opts) => run((ctx) => tracks(ctx, slug, opts.todos))());
+  .action(async (slug) => run((ctx) => tracks(ctx, slug))());
 program
   .command("expediente")
   .description("Su expediente; sin menú")
