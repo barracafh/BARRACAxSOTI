@@ -19,7 +19,12 @@ export type Options = {
   confirmar?: boolean;
   plain?: boolean;
 };
-export async function config(opts: Options) {
+// releases stays optional in the type: without it, actualizar is disabled.
+export async function config(opts: Options): Promise<{
+  registro: string;
+  plantilla?: string;
+  releases?: string;
+}> {
   let file: z.infer<typeof schema> = {};
   const path =
     process.env.HACKNIGHT_CONFIG ??
@@ -47,6 +52,10 @@ export async function config(opts: Options) {
       "barracafh/build-registro",
     plantilla:
       opts.plantilla ?? process.env.HACKNIGHT_PLANTILLA ?? file.plantilla,
-    releases: opts.releases ?? process.env.HACKNIGHT_RELEASES ?? file.releases,
+    releases:
+      opts.releases ??
+      process.env.HACKNIGHT_RELEASES ??
+      file.releases ??
+      "barracafh/build-registro",
   };
 }
