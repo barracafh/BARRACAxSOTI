@@ -8,6 +8,8 @@ import type {
   Issue,
 } from "./modelo";
 import { cola, type Cita } from "./cola";
+import { paleta } from "./paleta";
+import type { Gestion } from "./registro/gestion";
 export interface EstadoEvento {
   evento: Evento;
   tracks: Track[];
@@ -132,5 +134,27 @@ export async function snapshot(
       tracks,
       equipos,
     ),
+  };
+}
+
+// What the event web may show: a view switched off sends no data, and teams
+// never list their members.
+export function estadoPublico<Consumo>(
+  estado: EstadoEvento,
+  vistas: Gestion["vistas"],
+  consumo: Consumo,
+) {
+  return {
+    evento: estado.evento,
+    vistas,
+    paleta,
+    tracks: vistas.negociados ? estado.tracks : [],
+    equipos: vistas.negociados
+      ? estado.equipos.map(({ miembros, ...equipo }) => equipo)
+      : [],
+    registros: vistas.tablon ? estado.registros : [],
+    cola: vistas.ventanilla ? estado.cola : [],
+    entradas: vistas.tablon ? estado.entradas : [],
+    consumo,
   };
 }

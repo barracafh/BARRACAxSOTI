@@ -1,6 +1,6 @@
 import { mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
-import { snapshot } from "@hacknight/shared/actividad";
+import { estadoPublico, snapshot } from "@hacknight/shared/actividad";
 import { paleta } from "@hacknight/shared/paleta";
 import { AlmacenUso } from "./almacen";
 import { loteSchema } from "@hacknight/shared/contrato-uso";
@@ -77,19 +77,7 @@ export function crearHandler(
           ? almacen.clasificacion(estado.evento, estado.equipos, estado.tracks)
           : null;
         if (consumo && !vistas.personas) consumo.personas = [];
-        return json({
-          evento: estado.evento,
-          vistas,
-          paleta,
-          tracks: vistas.negociados ? estado.tracks : [],
-          equipos: vistas.negociados
-            ? estado.equipos.map(({ miembros, ...equipo }) => equipo)
-            : [],
-          registros: vistas.tablon ? estado.registros : [],
-          cola: vistas.ventanilla ? estado.cola : [],
-          entradas: vistas.tablon ? estado.entradas : [],
-          consumo,
-        });
+        return json(estadoPublico(estado, vistas, consumo));
       }
       if (req.method === "POST" && url.pathname === "/api/uso") {
         const raw = await cuerpoJson(req);
