@@ -118,20 +118,20 @@ La lista completa y la configuración están en [apps/cli/README.md](apps/cli/RE
 
 ## Qué hay aquí
 
-| Carpeta                                               | Contenido                                                          |
-| ----------------------------------------------------- | ------------------------------------------------------------------ |
-| [apps/cli/](apps/cli/)                                | `hacknight`, el CLI de participantes                               |
-| [apps/web/](apps/web/) · [apps/server/](apps/server/) | Web, proyector, administración y backend Bun/SQLite                |
-| [packages/shared/](packages/shared/)                  | Modelos, paleta, evento y registro base                            |
-| [tracks/](tracks/README.md)                           | Fichas técnicas, catálogo y preparación de datos y guías           |
-| [tracks/comun/](tracks/comun/README.md)               | Marco de conocimiento común; cada track tiene su `contexto.md`     |
-| [tracks/index.html](tracks/index.html)                | Índice visual de las infografías del marco de conocimiento         |
-| [plantilla/](plantilla/README.md)                     | Punto de partida Next.js + Tailwind para el repo de cada squad     |
-| [infra/](infra/README.md)                             | Registro, repos de equipo y hub, claves de IA y opciones de deploy |
-| [.github/workflows/](.github/workflows/)              | CI y releases del CLI                                              |
-| [test/](test/) · [e2e/](e2e/)                         | Pruebas aisladas y regresiones de navegador con Playwright         |
-| [scripts/](scripts/)                                  | Catálogo de tracks, índice de infografías, `test:live` y releases  |
-| [docs/](docs/)                                        | Guías cortas para participantes y comité                           |
+| Carpeta                                               | Contenido                                                         |
+| ----------------------------------------------------- | ----------------------------------------------------------------- |
+| [apps/cli/](apps/cli/)                                | `hacknight`, el CLI de participantes                              |
+| [apps/web/](apps/web/) · [apps/server/](apps/server/) | Web, proyector, administración y backend Bun/SQLite               |
+| [packages/shared/](packages/shared/)                  | Modelos, paleta, evento y registro base                           |
+| [tracks/](tracks/README.md)                           | Fichas técnicas, catálogo y preparación de datos y guías          |
+| [tracks/comun/](tracks/comun/README.md)               | Marco de conocimiento común; cada track tiene su `contexto.md`    |
+| [tracks/index.html](tracks/index.html)                | Índice visual de las infografías del marco de conocimiento        |
+| [plantilla/](plantilla/README.md)                     | Punto de partida Next.js + Tailwind para el repo de cada squad    |
+| [infra/](infra/README.md)                             | Registro, repos de equipo, hub y web del evento en Vercel         |
+| [.github/workflows/](.github/workflows/)              | CI y releases del CLI                                             |
+| [test/](test/) · [e2e/](e2e/)                         | Pruebas aisladas y regresiones de navegador con Playwright        |
+| [scripts/](scripts/)                                  | Catálogo de tracks, índice de infografías, `test:live` y releases |
+| [docs/](docs/)                                        | Guías cortas para participantes y comité                          |
 
 El nombre del evento está en un solo sitio: [`packages/shared/registro-base/evento.json`](packages/shared/registro-base/evento.json).
 
@@ -149,10 +149,10 @@ Para ejecutar las pruebas de navegador, instala Chromium una vez con `bunx playw
 GitHub Actions comprueba tipos, tests y formato en cada push y pull request, ejecuta los circuitos `test:flujo` y `test:live`, las regresiones de navegador y los flujos con los binarios compilados, y compila la plantilla.
 
 - **Registro y plantilla remotos:** planes en [infra/](infra/README.md), con `--dry-run` por defecto.
-- **Servidor y administración:** [apps/server/README.md](apps/server/README.md); el proveedor sigue pendiente.
+- **Servidor y administración:** [apps/server/README.md](apps/server/README.md) en local; en el evento, la web se publica en Vercel con [infra/sala/](infra/sala/README.md).
 - **Editar un track:** cambia `tracks/<slug>/track.json` y ejecuta `bun run tracks:generar`.
 - **Editar el marco de conocimiento:** si cambias `tracks/comun/*.md` o un `contexto.md`, actualiza en el mismo commit su infografía (el `.html` con el mismo nombre) y `tracks/index.html` si cambia el resumen; después, `bun run infografia:indice`.
-- **Pendientes del comité:** validar tracks con Pau el 12/10 y asignar leads; preparar accesos y datos para el reparto del 19/10; cerrar revisión de guías antes del 20/10; elegir repos, formulario de avisos, presupuesto de IA y alojamiento. El diseño de Reforma Digital espera el OK de Samu.
+- **Pendientes del comité:** asignar leads; cerrar el reparto del 19/10 y lanzar `infra/equipos`; revisar las guías antes del 20/10. El diseño de Reforma Digital espera el OK de Samu.
 
 El workspace se instala desde la raíz con `bun install --frozen-lockfile`. `plantilla/` es independiente: tiene su propio lockfile y se instala y compila desde su carpeta.
 

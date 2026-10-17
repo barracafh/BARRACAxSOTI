@@ -12,7 +12,7 @@ Este monorepo contiene lo que pone la organización. **Los squads construyen en 
 | `tracks/<slug>/`                              | Ficha técnica, datos y guías que completa el track lead                                                                      |
 | `tracks/<slug>/contexto.md` · `tracks/comun/` | Marco de conocimiento verificado (del track y común) con su infografía `.html` al lado; índice visual en `tracks/index.html` |
 | `plantilla/`                                  | Starter independiente de los squads; copia los tokens de paleta, no importa el workspace                                     |
-| `infra/` · `.github/workflows/`               | Scripts de preparación, opciones de deploy, CI y releases                                                                    |
+| `infra/` · `.github/workflows/`               | Scripts de preparación (registro, repos de equipo, hub y sala), CI y releases                                                |
 | `docs/`                                       | Guías cortas; calendario de equipos en `docs/equipos.md` y README raíz                                                       |
 | `test/` · `apps/cli/test/`                    | Pruebas y fixtures ficticios; el stub con fallos vive en `apps/cli/test/fixtures/`                                           |
 

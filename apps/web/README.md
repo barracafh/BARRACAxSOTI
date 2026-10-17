@@ -18,7 +18,7 @@ El referente funcional es la web del evento y la sección Insights del dashboard
 
 ## TODO antes de alojarlo
 
-Luis ha confirmado que puede usarse infraestructura propia. Elegir el proveedor y provisionarlo queda pendiente; [infra/deploy/](../../infra/deploy/README.md) compara las opciones. El backend actual es para pruebas en una máquina y escucha solo en loopback.
+Para el evento, [infra/sala/](../../infra/sala/README.md) publica esta web en Vercel: archivos estáticos y `/api/estado` leyendo el registro de GitHub, sin administración ni ranking de tokens. Esta lista sigue pendiente para el backend completo, que escucha solo en loopback.
 
 1. Autenticación real y asociación de usuario/squad validada por servidor; reemplazar la identidad local declarada y la clave compartida del comité.
 2. Base de datos del servicio, migraciones, copias y retención; acordar si el ranking público incluye personas o solo squads.
