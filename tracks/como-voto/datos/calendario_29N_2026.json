@@ -1,0 +1,120 @@
+{
+  "eleccion": "Elecciones Generales (Congreso y Senado) 29 de noviembre de 2026",
+  "norma": "Real Decreto 806/2026, de 5 de octubre, de disolución del Congreso de los Diputados y del Senado y de convocatoria de elecciones (BOE-A-2026-20742)",
+  "nota": "Fechas comprobadas el 2026-10-17 en las páginas indicadas en 'fuente' (prensa y web consular del MAEC; el BOE no era accesible desde el entorno). Para uso oficial, contrastar con el BOE y la Junta Electoral Central.",
+  "fechas": [
+    {
+      "id": "convocatoria_boe",
+      "fecha": "2026-10-06",
+      "evento": "Publicación en el BOE del Real Decreto 806/2026 de disolución y convocatoria; arranca el proceso electoral y se abre el plazo de solicitud del voto por correo",
+      "fuente": "https://www.exteriores.gob.es/Consulados/stuttgart/es/Comunicacion/Noticias/Paginas/Articulos/Real-Decreto-8062026,-de-5-de-octubre,-de-disoluci%C3%B3n-del-Congreso-de-los-Diputados-y-del-Senado-y-de-convocatoria-de-elecci.aspx",
+      "fuentes_adicionales": [
+        "https://www.articulo14.es/politica/el-boe-lo-hace-oficial-asi-es-el-decreto-que-convoca-las-elecciones-generales-del-29n-20261006.html"
+      ]
+    },
+    {
+      "id": "coaliciones",
+      "fecha": "2026-10-16",
+      "evento": "Fin del plazo para comunicar coaliciones electorales a la Junta Electoral (10 días tras la convocatoria)",
+      "fuente": "https://rtvc.es/calendario-elecciones-generales-2026-fechas-clave-hasta-29-de-noviembre/",
+      "fuentes_adicionales": [
+        "https://www.diariodeleon.es/nacional/261005/2099343/29n-partidos-16-octubre-formar-coaliciones-deberan-presentar-listas-dia-26.html"
+      ]
+    },
+    {
+      "id": "presentacion_candidaturas",
+      "fecha_inicio": "2026-10-21",
+      "fecha_fin": "2026-10-26",
+      "evento": "Presentación de candidaturas ante las Juntas Electorales Provinciales (días 15 a 20 tras la convocatoria)",
+      "fuente": "https://es.euronews.com/2026/10/06/calendario-elecciones-generales-29n-fechas-clave-voto-correo-campana",
+      "fuentes_adicionales": [
+        "https://www.diariodeleon.es/nacional/261005/2099343/29n-partidos-16-octubre-formar-coaliciones-deberan-presentar-listas-dia-26.html"
+      ]
+    },
+    {
+      "id": "publicacion_candidaturas",
+      "fecha": "2026-10-28",
+      "evento": "Publicación en el BOE de las candidaturas presentadas (provisionales; se abre plazo de subsanación y reclamaciones)",
+      "fuente": "https://www.diariodeleon.es/nacional/261005/2099343/29n-partidos-16-octubre-formar-coaliciones-deberan-presentar-listas-dia-26.html"
+    },
+    {
+      "id": "proclamacion_candidaturas",
+      "fecha": "2026-11-03",
+      "evento": "Publicación en el BOE de las candidaturas proclamadas",
+      "fuente": "https://www.diariodeleon.es/nacional/261005/2099343/29n-partidos-16-octubre-formar-coaliciones-deberan-presentar-listas-dia-26.html"
+    },
+    {
+      "id": "campana",
+      "fecha_inicio": "2026-11-13",
+      "fecha_fin": "2026-11-27",
+      "evento": "Campaña electoral: desde las 00:00 del viernes 13 hasta las 24:00 del viernes 27 de noviembre",
+      "fuente": "https://www.articulo14.es/politica/el-boe-lo-hace-oficial-asi-es-el-decreto-que-convoca-las-elecciones-generales-del-29n-20261006.html",
+      "fuentes_adicionales": [
+        "https://es.euronews.com/2026/10/06/calendario-elecciones-generales-29n-fechas-clave-voto-correo-campana"
+      ]
+    },
+    {
+      "id": "voto_correo_solicitud",
+      "fecha_inicio": "2026-10-06",
+      "fecha_fin": "2026-11-19",
+      "evento": "Plazo para solicitar el voto por correo (electores residentes en España)",
+      "fuente": "https://es.euronews.com/2026/10/06/voto-por-correo-elecciones-29n-2026-como-solicitar-plazos-fechas",
+      "fuentes_adicionales": [
+        "https://www.esdiario.com/chismografo/tendencias/261008/199662/correos-avisa-fecha-clave-solicitar-voto-correo.html"
+      ]
+    },
+    {
+      "id": "voto_correo_envio_documentacion",
+      "fecha_inicio": "2026-11-08",
+      "fecha_fin": "2026-11-23",
+      "evento": "Envío previsto de la documentación electoral a quienes han solicitado el voto por correo",
+      "fuente": "https://es.euronews.com/2026/10/06/voto-por-correo-elecciones-29n-2026-como-solicitar-plazos-fechas"
+    },
+    {
+      "id": "voto_correo_deposito",
+      "fecha": "2026-11-25",
+      "fecha_alternativa": "2026-11-26",
+      "evento": "Último día para depositar el voto por correo en una oficina de Correos (desde España)",
+      "discrepancia": "Las fuentes no coinciden. Correos (según esdiario), RTVC y Diario de Avisos dan el 25 de noviembre; Euronews da el jueves 26 de noviembre. La LOREG (art. 73.3) fija como límite el tercer día antes de la votación (= 26-11), pero Correos suele anunciar un día antes. Recomendación para la guía: comunicar el 25-11 como fecha segura.",
+      "fuente": "https://www.esdiario.com/chismografo/tendencias/261008/199662/correos-avisa-fecha-clave-solicitar-voto-correo.html",
+      "fuentes_adicionales": [
+        "https://rtvc.es/calendario-elecciones-generales-2026-fechas-clave-hasta-29-de-noviembre/",
+        "https://diariodeavisos.elespanol.com/2026/10/elecciones-voto-por-correo/",
+        "https://es.euronews.com/2026/10/06/voto-por-correo-elecciones-29n-2026-como-solicitar-plazos-fechas"
+      ]
+    },
+    {
+      "id": "ultimo_dia_encuestas",
+      "fecha": "2026-11-23",
+      "evento": "Último día en que pueden publicarse encuestas electorales (prohibición durante los 5 días anteriores a la votación)",
+      "fuente": "https://es.euronews.com/2026/10/06/calendario-elecciones-generales-29n-fechas-clave-voto-correo-campana"
+    },
+    {
+      "id": "jornada_reflexion",
+      "fecha": "2026-11-28",
+      "evento": "Jornada de reflexión: no se permiten actos de campaña",
+      "fuente": "https://www.articulo14.es/politica/el-boe-lo-hace-oficial-asi-es-el-decreto-que-convoca-las-elecciones-generales-del-29n-20261006.html"
+    },
+    {
+      "id": "votacion",
+      "fecha": "2026-11-29",
+      "evento": "Jornada electoral (colegios abiertos de 9:00 a 20:00)",
+      "fuente": "https://es.euronews.com/2026/10/06/calendario-elecciones-generales-29n-fechas-clave-voto-correo-campana"
+    },
+    {
+      "id": "escrutinio_general",
+      "fecha": "2026-12-03",
+      "evento": "Inicio del escrutinio general en las Juntas Electorales Provinciales",
+      "fuente": "https://www.diariodeleon.es/nacional/261005/2099343/29n-partidos-16-octubre-formar-coaliciones-deberan-presentar-listas-dia-26.html"
+    },
+    {
+      "id": "constitucion_cortes",
+      "fecha": "2026-12-23",
+      "evento": "Sesión constitutiva del Congreso y del Senado (10:00)",
+      "fuente": "https://www.articulo14.es/politica/el-boe-lo-hace-oficial-asi-es-el-decreto-que-convoca-las-elecciones-generales-del-29n-20261006.html",
+      "fuentes_adicionales": [
+        "https://es.euronews.com/2026/10/06/calendario-elecciones-generales-29n-fechas-clave-voto-correo-campana"
+      ]
+    }
+  ]
+}
