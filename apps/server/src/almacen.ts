@@ -1,11 +1,12 @@
 import { Database } from "bun:sqlite";
 import type { Equipo, Evento, Track } from "@hacknight/shared/modelo";
 import {
-  totalUso,
+  validarLote,
   ventanaId,
   type Lote,
   type EventoUso,
 } from "@hacknight/shared/contrato-uso";
+import { clasificar, tramo } from "@hacknight/shared/clasificacion";
 
 type Fila = EventoUso & { usuario: string };
 export class AlmacenUso {
@@ -25,26 +26,7 @@ export class AlmacenUso {
     this.db.close();
   }
   recibir(lote: Lote, evento: Evento, equipos: Equipo[], now = Date.now()) {
-    if (lote.ventana !== ventanaId(evento))
-      throw new Error(
-        "La ventana del watcher no coincide con el evento del servidor.",
-      );
-    const usuario = lote.usuario.toLowerCase();
-    if (
-      !equipos.some((e) => e.miembros.some((m) => m.toLowerCase() === usuario))
-    )
-      throw new Error("El usuario no está asignado a un squad del registro.");
-    const inicio = Date.parse(evento.inicio),
-      fin = Date.parse(evento.fin);
-    if (
-      lote.eventos.some(
-        (e) =>
-          Date.parse(e.fecha) < inicio ||
-          Date.parse(e.fecha) >= fin ||
-          Date.parse(e.fecha) > now + 5000,
-      )
-    )
-      throw new Error("Hay contadores fuera de la ventana del build.");
+    const usuario = validarLote(lote, evento, equipos, now);
     const upsert = this.db.query(`INSERT INTO usos VALUES (?,?,?,?,?,?,?,?,?)
       ON CONFLICT(ventana,usuario,id) DO UPDATE SET
         input=excluded.input, output=excluded.output, cacheRead=excluded.cacheRead, cacheWrite=excluded.cacheWrite
@@ -85,105 +67,16 @@ export class AlmacenUso {
         [string]
       >("SELECT usuario, MAX(ultima) AS ultima FROM watchers WHERE ventana=? GROUP BY usuario")
       .all(ventana);
-    const ultimaPorUsuario = new Map(
-      watchers.map((w) => [w.usuario, w.ultima]),
-    );
-    const personas = equipos.flatMap((e) =>
-      e.miembros.map((usuario) => ({
-        usuario,
-        equipo: e.id,
-        track: e.herramienta,
-        total: 0,
-        input: 0,
-        output: 0,
-        cacheRead: 0,
-        cacheWrite: 0,
-        peticiones: 0,
-        ultima: ultimaPorUsuario.get(usuario.toLowerCase()) ?? null,
-      })),
-    );
-    const herramientas = ["claude-code", "codex"].map((id) => ({
-      id,
-      total: 0,
-      peticiones: 0,
-    }));
-    const personaPorUsuario = new Map(
-      personas.map((p) => [p.usuario.toLowerCase(), p]),
-    );
-    const herramientaPorId = new Map(herramientas.map((h) => [h.id, h]));
-    const inicio = Date.parse(evento.inicio),
-      fin = Date.parse(evento.fin);
-    const evolucion = Array.from({ length: 24 }, (_, i) => ({
-      inicio: new Date(inicio + ((fin - inicio) * i) / 24).toISOString(),
-      total: 0,
-    }));
     const usos = this.db
       .query<Fila, [string]>("SELECT * FROM usos WHERE ventana=?")
       .all(ventana);
-    for (const u of usos) {
-      const p = personaPorUsuario.get(u.usuario);
-      if (!p) continue;
-      const total = totalUso(u);
-      for (const key of ["input", "output", "cacheRead", "cacheWrite"] as const)
-        p[key] += u[key];
-      p.total += total;
-      p.peticiones++;
-      const h = herramientaPorId.get(u.herramienta)!;
-      h.total += total;
-      h.peticiones++;
-      const i = Math.min(
-        23,
-        Math.max(
-          0,
-          Math.floor(((Date.parse(u.fecha) - inicio) / (fin - inicio)) * 24),
-        ),
-      );
-      evolucion[i]!.total += total;
-    }
-    const ordenar = <T extends { total: number }>(rows: T[]) =>
-      rows.sort((a, b) => b.total - a.total);
-    const squads = ordenar(
-      equipos.map((e) => {
-        const miembros = personas.filter((p) => p.equipo === e.id);
-        return {
-          id: e.id,
-          nombre: e.nombre,
-          track: e.herramienta,
-          pieza: e.pieza,
-          mesa: e.mesa,
-          total: miembros.reduce((s, p) => s + p.total, 0),
-          peticiones: miembros.reduce((s, p) => s + p.peticiones, 0),
-          activos: miembros.filter((p) => p.ultima && now - p.ultima < 90000)
-            .length,
-        };
-      }),
+    return clasificar(
+      usos.map((u) => ({ ...u, tramo: tramo(u.fecha, evento), peticiones: 1 })),
+      new Map(watchers.map((w) => [w.usuario, w.ultima])),
+      evento,
+      equipos,
+      tracks,
+      now,
     );
-    return {
-      ventana,
-      generado: now,
-      total: personas.reduce((s, p) => s + p.total, 0),
-      input: personas.reduce((s, p) => s + p.input, 0),
-      output: personas.reduce((s, p) => s + p.output, 0),
-      cacheRead: personas.reduce((s, p) => s + p.cacheRead, 0),
-      cacheWrite: personas.reduce((s, p) => s + p.cacheWrite, 0),
-      peticiones: personas.reduce((s, p) => s + p.peticiones, 0),
-      activos: personas.filter((p) => p.ultima && now - p.ultima < 90000)
-        .length,
-      squads,
-      personas: ordenar(personas),
-      herramientas: ordenar(herramientas),
-      evolucion,
-      tracks: ordenar(
-        tracks
-          .filter((t) => t.estado !== "fuera")
-          .map((t) => ({
-            slug: t.slug,
-            nombre: t.nombre,
-            total: squads
-              .filter((s) => s.track === t.slug)
-              .reduce((s, e) => s + e.total, 0),
-          })),
-      ),
-    };
   }
 }
