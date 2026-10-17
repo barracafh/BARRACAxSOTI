@@ -4,7 +4,7 @@ import { z } from "zod";
 const token = z.number().int().nonnegative().catch(0).default(0);
 export interface Uso {
   id: string;
-  herramienta: "claude-code" | "codex";
+  herramienta: "claude-code" | "codex" | "pi";
   fecha: number;
   cwd?: string;
   input: number;
@@ -136,5 +136,53 @@ export function normalizarCodex(value: unknown, s: EstadoCodex): Uso | null {
     output: u.output_tokens,
     cacheRead: u.cached_input_tokens,
     cacheWrite: u.cache_write_input_tokens,
+  };
+}
+
+// Pi (pi.dev) writes one JSONL per session: a header with the cwd, then
+// entries whose assistant messages carry usage with cache already split out.
+const piUsage = z.object({
+  input: token,
+  output: token,
+  cacheRead: token,
+  cacheWrite: token,
+});
+const piEntrada = z.union([
+  z.object({ type: z.literal("session"), id: z.string(), cwd: z.string() }),
+  z.object({
+    type: z.literal("message"),
+    timestamp: z.string(),
+    message: z.object({
+      role: z.literal("assistant"),
+      model: z.string(),
+      responseId: z.string().optional(),
+      timestamp: z.number().optional(),
+      usage: piUsage,
+    }),
+  }),
+]);
+export function normalizarPi(value: unknown, s: { cwd?: string }): Uso | null {
+  const p = piEntrada.safeParse(value);
+  if (!p.success) return null;
+  if (p.data.type === "session") {
+    s.cwd = p.data.cwd;
+    return null;
+  }
+  const m = p.data.message,
+    u = m.usage,
+    fecha = m.timestamp ?? Date.parse(p.data.timestamp);
+  if (
+    !Number.isFinite(fecha) ||
+    u.input + u.output + u.cacheRead + u.cacheWrite === 0
+  )
+    return null;
+  // A forked session copies its messages into a new file; keying on the
+  // response, not the file, counts each request once.
+  return {
+    id: `pi:${m.responseId ?? `${m.model}:${fecha}`}`,
+    herramienta: "pi",
+    fecha,
+    cwd: s.cwd,
+    ...u,
   };
 }

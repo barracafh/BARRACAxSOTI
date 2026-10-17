@@ -56,7 +56,7 @@ export async function observar(
       ...(ultimo?.avisos ?? []),
       error ||
         (servidor ? `Sincronizado · ${servidor}` : "Solo local · sin envío"),
-      "Claude Code y Codex · logs de este proyecto durante el build",
+      "Claude Code, Codex y Pi · logs de este proyecto durante el build",
       `${pausa ? "PAUSA" : "EN DIRECTO"} · ciclo ${ciclos} · cada ${segundos} s`,
       "p pausa · q salir · Ctrl+C salir",
     ]).split("\n"),

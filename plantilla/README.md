@@ -34,7 +34,7 @@ hacknight cita --motivo "Nos falla el despliegue"
 hacknight observar                 # déjalo abierto: suma vuestros tokens al ranking
 ```
 
-`observar` cuenta los tokens de Claude Code y Codex en este proyecto durante el build. La primera vez te pide confirmar tu cuenta en GitHub; no da acceso a nada.
+`observar` cuenta los tokens de Claude Code, Codex y Pi en este proyecto durante el build. La primera vez te pide confirmar tu cuenta en GitHub; no da acceso a nada.
 
 En Windows, descarga `hacknight-windows-x64.exe` de la [última release](https://github.com/barracafh/build-registro/releases/latest).
 

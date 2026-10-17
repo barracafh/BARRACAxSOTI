@@ -141,6 +141,7 @@ test("ranking: el watcher se identifica una vez y luego solo envía lo nuevo", a
     config: process.env.HACKNIGHT_CONFIG,
     claude: process.env.HACKNIGHT_CLAUDE_DIR,
     codex: process.env.HACKNIGHT_CODEX_DIR,
+    pi: process.env.HACKNIGHT_PI_DIR,
   };
   try {
     process.env.HACKNIGHT_CONFIG = join(dir, "config", "config.json");
@@ -192,6 +193,7 @@ test("ranking: el watcher se identifica una vez y luego solo envía lo nuevo", a
     );
     process.env.HACKNIGHT_CLAUDE_DIR = logs;
     process.env.HACKNIGHT_CODEX_DIR = join(dir, "vacio");
+    process.env.HACKNIGHT_PI_DIR = join(dir, "vacio");
     const recibidos: { auth: string | null; eventos: number }[] = [];
     const servidor = Bun.serve({
       hostname: "127.0.0.1",
@@ -247,6 +249,7 @@ test("ranking: el watcher se identifica una vez y luego solo envía lo nuevo", a
       HACKNIGHT_CONFIG: previas.config,
       HACKNIGHT_CLAUDE_DIR: previas.claude,
       HACKNIGHT_CODEX_DIR: previas.codex,
+      HACKNIGHT_PI_DIR: previas.pi,
     }))
       if (v === undefined) delete process.env[k];
       else process.env[k] = v;

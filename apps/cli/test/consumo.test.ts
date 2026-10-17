@@ -6,6 +6,7 @@ import { pathToFileURL } from "node:url";
 import {
   normalizarClaude,
   normalizarCodex,
+  normalizarPi,
   type EstadoCodex,
 } from "../src/consumo/colectores";
 import { consumoLocal } from "../src/consumo/local";
@@ -76,6 +77,50 @@ test("Codex deduplica contadores acumulados y resta la caché del input", () => 
     normalizarCodex(count("2026-10-22T19:01:00Z", 150, 25, 40), s),
   ).toMatchObject({ input: 40, output: 5, cacheRead: 10 });
 });
+test("Pi toma el cwd de la cabecera, cuenta una vez las sesiones bifurcadas y descarta mensajes sin uso", () => {
+  const s: { cwd?: string } = {};
+  expect(
+    normalizarPi({ type: "session", id: "s", cwd: "/proyecto" }, s),
+  ).toBeNull();
+  const mensaje = (usage: Record<string, number>) => ({
+    type: "message",
+    timestamp: "2026-10-22T17:00:00.000Z",
+    message: {
+      role: "assistant",
+      model: "modelo",
+      responseId: "resp-1",
+      timestamp: Date.parse("2026-10-22T17:00:00Z"),
+      content: [{ type: "text", text: "NO ENVIAR" }],
+      usage: { input: 10, output: 5, cacheRead: 100, cacheWrite: 2, ...usage },
+    },
+  });
+  const uso = normalizarPi(mensaje({}), s);
+  expect(uso).toEqual({
+    id: "pi:resp-1",
+    herramienta: "pi",
+    fecha: Date.parse("2026-10-22T17:00:00Z"),
+    cwd: "/proyecto",
+    input: 10,
+    output: 5,
+    cacheRead: 100,
+    cacheWrite: 2,
+  });
+  // The same message copied into a fork keeps its key.
+  expect(normalizarPi(mensaje({}), { cwd: "/proyecto" })?.id).toBe(uso!.id);
+  expect(
+    normalizarPi(
+      mensaje({ input: 0, output: 0, cacheRead: 0, cacheWrite: 0 }),
+      s,
+    ),
+  ).toBeNull();
+  expect(
+    normalizarPi(
+      { type: "message", timestamp: "x", message: { role: "user" } },
+      s,
+    ),
+  ).toBeNull();
+});
+
 test("consumo filtra ventana y proyecto, deduplica bloques y nunca devuelve prompts", async () => {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-consumo-"));
   tempDirs.push(dir);
@@ -157,6 +202,7 @@ test("consumo --json y tasa en justificante con historiales sintéticos", async 
           HACKNIGHT_USUARIO: "demo-alba",
           HACKNIGHT_CLAUDE_DIR: logs,
           HACKNIGHT_CODEX_DIR: empty,
+          HACKNIGHT_PI_DIR: empty,
         },
         stdout: "pipe",
         stderr: "pipe",

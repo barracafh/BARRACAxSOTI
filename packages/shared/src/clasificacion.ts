@@ -48,7 +48,7 @@ export function clasificar(
       ultima: ultimas.get(usuario.toLowerCase()) ?? null,
     })),
   );
-  const herramientas = ["claude-code", "codex"].map((id) => ({
+  const herramientas = ["claude-code", "codex", "pi"].map((id) => ({
     id,
     total: 0,
     peticiones: 0,

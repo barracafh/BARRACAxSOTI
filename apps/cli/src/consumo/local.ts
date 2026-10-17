@@ -6,6 +6,7 @@ import { homedir } from "node:os";
 import {
   normalizarClaude,
   normalizarCodex,
+  normalizarPi,
   type EstadoCodex,
   type Uso,
 } from "./colectores";
@@ -25,6 +26,7 @@ export interface Consumo {
 export interface RutasConsumo {
   claude: string;
   codex: string;
+  pi?: string;
 }
 async function archivos(
   root: string,
@@ -61,6 +63,12 @@ export async function leerConsumo(
     codex:
       process.env.HACKNIGHT_CODEX_DIR ??
       join(process.env.CODEX_HOME ?? join(homedir(), ".codex"), "sessions"),
+    pi:
+      process.env.HACKNIGHT_PI_DIR ??
+      join(
+        process.env.PI_CODING_AGENT_DIR ?? join(homedir(), ".pi", "agent"),
+        "sessions",
+      ),
   },
   now = Date.now(),
 ): Promise<{ resumen: Consumo; usos: Uso[] }> {
@@ -101,7 +109,9 @@ export async function leerConsumo(
             const e =
               kind === "claude"
                 ? normalizarClaude(raw)
-                : normalizarCodex(raw, state);
+                : kind === "pi"
+                  ? normalizarPi(raw, state)
+                  : normalizarCodex(raw, state);
             if (
               !e ||
               !e.cwd ||

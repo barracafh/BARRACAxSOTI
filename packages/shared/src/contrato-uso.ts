@@ -13,7 +13,7 @@ export const ventanaId = (evento: Evento) =>
 const contador = z.number().int().min(0).max(1_000_000_000);
 export const usoSchema = z.strictObject({
   id: z.string().regex(/^[a-f0-9]{64}$/),
-  herramienta: z.enum(["claude-code", "codex"]),
+  herramienta: z.enum(["claude-code", "codex", "pi"]),
   fecha: z.iso.datetime({ offset: true }),
   input: contador,
   output: contador,
