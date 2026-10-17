@@ -44,7 +44,7 @@ export async function config(opts: Options) {
       opts.registro ??
       process.env.HACKNIGHT_REGISTRO ??
       file.registro ??
-      "hacknight/registro",
+      "barracafh/build-registro",
     plantilla:
       opts.plantilla ?? process.env.HACKNIGHT_PLANTILLA ?? file.plantilla,
     releases: opts.releases ?? process.env.HACKNIGHT_RELEASES ?? file.releases,
