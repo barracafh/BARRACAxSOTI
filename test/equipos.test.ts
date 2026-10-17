@@ -120,7 +120,7 @@ test("equipos: el hub reenvía cada ruta a su proyecto y escapa los nombres", as
     [{ ...seis[0]!, nombre: "<script>alert(1)</script>" }],
     tracks,
   );
-  const files = archivosHub(equipos, tracks, {
+  const files = await archivosHub(equipos, tracks, {
     "derechos-a": "build-derechos-a-x.vercel.app",
   });
   expect(JSON.parse(files["vercel.json"] as string).rewrites).toEqual([
@@ -139,7 +139,8 @@ test("equipos: el hub reenvía cada ruta a su proyecto y escapa los nombres", as
 
 test("equipos: sin reparto, el hub se publica vacío", async () => {
   const tracks = await leerTracks();
-  const files = archivosHub(validarEquipos([], tracks), tracks, {});
+  const files = await archivosHub(validarEquipos([], tracks), tracks, {});
+  expect(files["instalar.sh"]).toContain("barracafh/build-registro");
   expect(JSON.parse(files["vercel.json"] as string).rewrites).toEqual([]);
   expect(files["index.html"]).toContain("cuando cada equipo publica la suya");
 });

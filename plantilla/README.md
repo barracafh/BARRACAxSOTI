@@ -23,6 +23,18 @@ Abre `http://localhost:3000/<equipo>`, con el `equipo` de `ficha.json`. Cambia e
 
 Cada push a `main` se publica solo en `https://build.barraca.house/<equipo>`. No hace falta entrar en Vercel: las claves ya están puestas en el proyecto. Si `bun run build` falla en local, tampoco se publicará.
 
+## CLI del evento
+
+`hacknight` revisa las seis reglas, entrega la ficha, pide turno de ayuda a la organización y enseña el tablón. Necesita `gh auth login`. En macOS o Linux:
+
+```sh
+curl -fsSL https://build.barraca.house/instalar.sh | sh
+hacknight                          # vuestro expediente: equipo, track y cuenta atrás
+hacknight cita --motivo "Nos falla el despliegue"
+```
+
+En Windows, descarga `hacknight-windows-x64.exe` de la [última release](https://github.com/barracafh/build-registro/releases/latest).
+
 ## Ficha y entrega
 
 `ficha.json` describe la herramienta: nombre, frase, icono, track (`herramienta`), equipo, URL pública y fuentes. `datos` indica `simulados` o datos públicos `reales`, nunca personales. No cambiéis `equipo`: de él sale la ruta.

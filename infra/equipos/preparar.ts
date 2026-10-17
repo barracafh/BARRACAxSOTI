@@ -277,11 +277,11 @@ const escapar = (texto: string) =>
       ]!,
   );
 
-export function archivosHub(
+export async function archivosHub(
   equipos: Equipo[],
   tracks: Track[],
   dominios: Record<string, string>,
-): Archivos {
+): Promise<Archivos> {
   const rewrites = equipos.flatMap((e) => [
     { source: `/${e.id}`, destination: `https://${dominios[e.id]}/${e.id}` },
     {
@@ -340,6 +340,9 @@ li{display:flex;flex-wrap:wrap;gap:.25rem 1rem;align-items:baseline;padding:.5re
 a{color:var(--acid);font-weight:700;text-underline-offset:4px}
 a.codigo{color:var(--muted);font-weight:400;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase}
 a:focus-visible{outline:2px solid var(--cian);outline-offset:3px}
+.cli{margin-top:3rem}
+pre{margin:1rem 0;overflow-x:auto;padding:1rem;border:1px dashed color-mix(in srgb,var(--paper) 25%,transparent)}
+code{font-family:inherit;color:var(--acid)}
 </style>
 </head>
 <body>
@@ -353,12 +356,19 @@ ${
     ? `<div class="tracks">\n${secciones}\n</div>`
     : `<p class="pronto">Las herramientas aparecen aquí cuando cada equipo publica la suya.</p>`
 }
+<section class="cli">
+<h2>El CLI del evento</h2>
+<p>Vuestra ficha, la revisión de las seis reglas, los turnos de ayuda y el tablón. Con <code>gh auth login</code> hecho, en macOS o Linux:</p>
+<pre><code>curl -fsSL https://${dominio}/instalar.sh | sh</code></pre>
+<p>En Windows, descarga <code>hacknight-windows-x64.exe</code> de la <a href="https://github.com/${registro}/releases/latest">última release</a>.</p>
+</section>
 </main>
 </body>
 </html>
 `;
   return {
     "index.html": html,
+    "instalar.sh": await Bun.file(join(root, "apps/cli/install.sh")).text(),
     "vercel.json": JSON.stringify({ rewrites }, null, 2) + "\n",
   };
 }
@@ -423,7 +433,7 @@ export async function preparar(config: {
       : `${proyecto(e.id)}.vercel.app`;
   await ejecutar(
     `hub · https://${dominio}`,
-    archivosHub(equipos, tracks, dominios),
+    await archivosHub(equipos, tracks, dominios),
     await pasosDespliegue(hubProject, dominio, apply),
     apply,
     log,
