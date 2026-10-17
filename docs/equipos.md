@@ -39,4 +39,4 @@ Plan de Íñigo del 11/10. **Los equipos se forman antes de la noche**: cada uno
   - un squad que se quede con menos de 3 personas se fusiona con el otro squad de su track.
 - **En el CLI:** las asignaciones van en `equipos.json` del registro. Así `hacknight` enseña a cada persona su squad, su pieza y su mesa. El formato está en [el README del CLI](../apps/cli/README.md#montar-el-registro-guía-del-comité).
 
-Cada squad construye su herramienta en su propio repo desde la plantilla con `hacknight tramitar`; el monorepo guarda el material de la organización.
+Cada squad construye su herramienta en su propio repo, que la organización crea desde la plantilla; el monorepo guarda el material de la organización.

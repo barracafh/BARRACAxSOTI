@@ -1,8 +1,8 @@
 # hacknight
 
-La ventanilla de **BARRACA x SOTI · BUILD NIGHT**, 22 de octubre de 2026, MAISA (València). Bun + TypeScript, con GitHub como registro mediante `gh` o un directorio local. Trámites, expedientes y turnos para coordinar el hack. No guarda tokens de GitHub ni modifica herramientas de IA.
+La ventanilla de **BARRACA x SOTI · BUILD NIGHT**, 22 de octubre de 2026, Flywire (València). Bun + TypeScript, con GitHub como registro mediante `gh` o un directorio local. Trámites, expedientes y turnos para coordinar el hack. No guarda tokens de GitHub ni modifica herramientas de IA.
 
-El build del evento va de **18:30 a 22:00 Europe/Madrid**. Los nueve tracks son los negociados; cada squad tiene una pieza y una mesa. Los cuatro descartados aparecen en `tracks --todos` con su motivo. El comité asigna squads, piezas y el cupo único del track libre en `equipos.json`.
+El build del evento va de **18:30 a 22:00 Europe/Madrid**. Los seis tracks son los negociados; cada squad tiene una pieza y una mesa. El comité asigna squads, piezas y el cupo único del track libre en `equipos.json`.
 
 ## Instalar y desarrollar
 
@@ -106,13 +106,13 @@ Precedencia: flag → variable de entorno → `~/.config/hacknight/config.json` 
 
 ```json
 {
-  "registro": "hacknight/registro",
+  "registro": "barracafh/build-registro",
   "plantilla": "organizacion/plantilla",
   "releases": "organizacion/releases"
 }
 ```
 
-El registro por defecto es un **placeholder**. Variables equivalentes: `HACKNIGHT_REGISTRO`, `HACKNIGHT_PLANTILLA`, `HACKNIGHT_RELEASES`. En local, `plantilla` puede ser un directorio o `file:///ruta`; si falta se copian los bytes de `test/fixtures/plantilla-stub`, incluidos dentro del binario. La [plantilla real](../../plantilla/README.md) lleva `.hacknight/plantilla.json` y una ficha de ejemplo. `tramitar` solo sustituye una ficha con equipo `squad-ejemplo`, URL `https://example.invalid/pendiente` y marcador `exampleFicha: true`; después consume ese permiso. Las fichas de equipos existentes se rechazan. En copias locales se excluyen dependencias, builds y archivos `.env`. Para probarla, indica `--plantilla /ruta/al/monorepo/plantilla`.
+El registro por defecto es `barracafh/build-registro`. Variables equivalentes: `HACKNIGHT_REGISTRO`, `HACKNIGHT_PLANTILLA`, `HACKNIGHT_RELEASES`. En local, `plantilla` puede ser un directorio o `file:///ruta`; si falta se copian los bytes de `test/fixtures/plantilla-stub`, incluidos dentro del binario. La [plantilla real](../../plantilla/README.md) lleva `.hacknight/plantilla.json` y una ficha de ejemplo. `tramitar` solo sustituye una ficha con equipo `squad-ejemplo`, URL `https://example.invalid/pendiente` y marcador `exampleFicha: true`; después consume ese permiso. Las fichas de equipos existentes se rechazan. En copias locales se excluyen dependencias, builds y archivos `.env`. Para probarla, indica `--plantilla /ruta/al/monorepo/plantilla`.
 
 ## Montar el registro: guía del comité
 
@@ -140,7 +140,7 @@ Ejemplo de evento (las fechas llevan el offset de Madrid del día del hack):
 }
 ```
 
-Cada track contiene `slug`, `nombre`, `frase`, `ciudadano`, `ventanilla` (número), `color` (token de la paleta), `glifo`, `prefijo` de turno, `estado`, `lead`, `piezas` (2–3 textos), `paquetes`, `fuentes`, `dificultad` y `guias`. `cupo` y `motivo` son opcionales; el track libre tiene cupo 1 y los descartados explican su motivo. Estados: `nucleo`, `si-hay-gente`, `condicional`, `libre` y `fuera`. Los leads siguen «por asignar»; Jesús, Iban, Pau y Alex todavía no tienen reparto. El catálogo se edita en [tracks/](../../tracks/README.md); el [JSON generado](../../packages/shared/registro-base/tracks.json) se incluye en el registro base.
+Cada track contiene `slug`, `nombre`, `frase`, `ciudadano`, `ventanilla` (número), `color` (token de la paleta), `glifo`, `prefijo` de turno, `estado`, `lead`, `piezas` (2–3 textos), `paquetes`, `fuentes`, `dificultad` y `guias`. `cupo` es opcional; el track libre tiene cupo 1. Estados: `nucleo` y `libre`. Los leads siguen «por asignar»; Jesús, Iban, Pau y Alex todavía no tienen reparto. El catálogo se edita en [tracks/](../../tracks/README.md); el [JSON generado](../../packages/shared/registro-base/tracks.json) se incluye en el registro base.
 
 Un paquete es `{"id":"derechos-base","nombre":"BDNS","url":"https://…/datos.zip","sha256":"64 caracteres hexadecimales","pendiente":false}`. Mientras no se prepare, `pendiente:true`, URL `example.invalid` y SHA `PENDIENTE`. `tramitar` deja esos paquetes pendientes visibles; `datos <id>` los rechaza. En pruebas locales se aceptan URLs `file:`; en GitHub solo HTTPS. Se guardan como archivos, **sin extraer ZIPs ni ejecutar contenido**.
 
@@ -216,7 +216,7 @@ El script aplana el PNG sobre blanco e incrusta una tarjeta para Kitty/Ghostty/W
 - Publicar el registro, decidir organización y permisos, y proteger ramas; configurar el destino de releases (el workflow publica en este monorepo).
 - Publicar la [plantilla real](../../plantilla/README.md) como repo GitHub y configurar su formulario; la stub de fixtures es únicamente de ensayo.
 - Introducir equipos y participantes reales, sus repos y enlaces. La instancia arranca vacía.
-- Asignar track leads, activar o descartar Siguiente y adjudicar el cupo libre.
+- Asignar track leads y adjudicar el cupo libre.
 - Preparar los packs oficiales, sus hashes y contenido editorial; verificar los plazos de ¿Cómo voto? con sus fuentes.
 - Recibir el PNG final y validar la marca con Rubén y Marcos.
 - Ensayar en la terminal y proyector del venue; no se ha publicado ni probado contra un registro GitHub real.
