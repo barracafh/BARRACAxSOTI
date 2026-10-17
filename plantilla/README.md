@@ -31,7 +31,10 @@ Cada push a `main` se publica solo en `https://build.barraca.house/<equipo>`. No
 curl -fsSL https://build.barraca.house/instalar.sh | sh
 hacknight                          # vuestro expediente: equipo, track y cuenta atrás
 hacknight cita --motivo "Nos falla el despliegue"
+hacknight observar                 # déjalo abierto: suma vuestros tokens al ranking
 ```
+
+`observar` cuenta los tokens de Claude Code y Codex en este proyecto durante el build. La primera vez te pide confirmar tu cuenta en GitHub; no da acceso a nada.
 
 En Windows, descarga `hacknight-windows-x64.exe` de la [última release](https://github.com/barracafh/build-registro/releases/latest).
 

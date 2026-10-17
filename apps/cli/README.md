@@ -180,13 +180,15 @@ Usa la URL `file://` del registro que imprime el servidor. Si aún no instalaste
 
 La web muestra clasificación por squads, personas (si se habilita) y tracks, desglose de entrada/salida/caché, herramientas y evolución. La ventanilla y el tablón consultan el mismo registro que el CLI; `/pantalla` es el proyector. Sin logs del proyecto en la ventana configurada, el contador permanece en cero. El watcher cuenta actividad existente dentro de esa ventana, además de la que se produzca a partir de su arranque.
 
-`p` pausa el watcher y `q` o `Ctrl+C` lo cierra. El watcher y el servidor son procesos independientes: cerrar uno no cierra el otro. No se instalan servicios de fondo. Infraestructura compartida entre máquinas queda pendiente.
+`p` pausa el watcher y `q` o `Ctrl+C` lo cierra. El watcher y el servidor son procesos independientes: cerrar uno no cierra el otro. No se instalan servicios de fondo.
+
+En el evento, con el registro de GitHub, `hacknight observar` envía por defecto a la sala (`enlaces.sala` de `evento.json`, [infra/sala](../../infra/sala/README.md)). La primera vez pide confirmar tu cuenta en `github.com/login/device`: el token no tiene permisos, solo prueba quién eres, y se guarda con permisos `0600` junto a la configuración. Después solo envía lo que ha cambiado, una vez por minuto.
 
 ### Consulta puntual
 
 `hacknight consumo` lee contadores existentes de Claude Code y Codex, los filtra por directorio del proyecto (incluidos subdirectorios) y por la ventana de build, y muestra la contribución local al squad. No es el total de otras máquinas del equipo. No lee prompts para mostrarlos, no persiste historiales y no envía métricas; solo salen contadores agregados. El justificante añade «Tasa abonada: N tokens» cuando hay consumo atribuible.
 
-Es una consulta puntual. Para lectura continua usa `observar` (alias oculto `watch`): sin `--servidor` mantiene todo local; con un servidor HTTP en loopback comparte los contadores de este proyecto durante el build. `--once` hace un único ciclo; `--intervalo 5` fija la cadencia; `p` pausa y `q` sale en TTY. También admite `--plain` y `--json` (un documento al terminar; progreso en stderr).
+Es una consulta puntual. Para lectura continua usa `observar` (alias oculto `watch`): con el registro de GitHub envía a la sala; `--servidor` acepta otra URL HTTPS o un servidor HTTP en loopback, y con un registro local sin `--servidor` todo queda en local. `--once` hace un único ciclo; `--intervalo 60` (por defecto) fija la cadencia; `p` pausa y `q` sale en TTY. También admite `--plain` y `--json` (un documento al terminar; progreso en stderr).
 
 El backend guarda y deduplica contadores por ventana, usuario e ID. Solo se envían campos del [contrato compartido](../../packages/shared/src/contrato-uso.ts), sin conversaciones ni rutas. Los detalles de persistencia y los requisitos de producción están en [apps/server/README.md](../server/README.md#contadores-y-persistencia).
 
