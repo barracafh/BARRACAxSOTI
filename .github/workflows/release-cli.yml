@@ -1,4 +1,6 @@
 name: Release del CLI
+# Comprueba y compila un tag cli-v*. La publicación va al registro público con
+# infra/cli/publicar.ts: las releases de este repo privado no se pueden descargar.
 on:
   push:
     tags:
@@ -46,22 +48,3 @@ jobs:
           name: ${{ matrix.target }}
           path: apps/cli/dist/hacknight-*
           if-no-files-found: error
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          path: dist
-          merge-multiple: true
-      - name: Generar hashes y publicar
-        working-directory: dist
-        env:
-          GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
-          RELEASE_TAG: ${{ github.ref_name }}
-        run: |
-          sha256sum hacknight-* > SHA256SUMS
-          gh release create "$RELEASE_TAG" hacknight-* SHA256SUMS --verify-tag --title "$RELEASE_TAG" --notes "Binarios de hacknight con sumas SHA256."

@@ -41,7 +41,12 @@ async function cli(reg: string, cwd: string, args: string[]) {
     {
       stdout: "pipe",
       stderr: "pipe",
-      env: { ...process.env, HACKNIGHT_USUARIO: "demo-alba" },
+      env: {
+        ...process.env,
+        HACKNIGHT_USUARIO: "demo-alba",
+        // Empty switches the update off, so no test reaches GitHub releases.
+        HACKNIGHT_RELEASES: "",
+      },
     },
   );
   const data = JSON.parse(await new Response(p.stdout).text());

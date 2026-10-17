@@ -119,7 +119,7 @@ test("el arranque es vacío, idempotente y no inventa una identidad local", asyn
     });
     expect(s.cola).toEqual([]);
     expect(s.entradas).toEqual([]);
-    expect(s.tracks).toHaveLength(13);
+    expect(s.tracks).toHaveLength(6);
     expect(
       (await f.request("/api/demo", "POST", { accion: "impulso" })).status,
     ).toBe(404);
@@ -275,7 +275,6 @@ test("asignaciones inválidas se rechazan sin cambios parciales", async () => {
     ],
     ["id duplicado", (g) => g.equipos.push({ ...equipo, miembros: [] })],
     ["track inexistente", (g) => (g.equipos[0]!.herramienta = "inventado")],
-    ["track fuera", (g) => (g.equipos[0]!.herramienta = "turno")],
     [
       "cupo libre",
       (g) =>

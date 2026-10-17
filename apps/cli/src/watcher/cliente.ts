@@ -2,6 +2,7 @@ import type { Uso } from "../consumo/colectores";
 import {
   usoSchema,
   hash,
+  totalUso,
   ventanaId,
   type EventoUso,
   type Lote,
@@ -11,11 +12,18 @@ import { resolve } from "node:path";
 import { leerConsumo } from "../consumo/local";
 import type { Evento } from "@hacknight/shared/modelo";
 
+// The room's server answered 401: the GitHub session is gone or revoked.
+export class SesionCaducada extends Error {}
+
 export async function escanear(options: {
   cwd: string;
   usuario: string;
   evento: Evento;
   servidor?: string;
+  token?: string;
+  // Totals already confirmed by the server: a long-running watcher sends only
+  // what changed, so each cycle costs one request instead of the whole history.
+  enviados?: Map<string, number>;
 }) {
   const { resumen, usos } = await leerConsumo(
     options.cwd,
@@ -24,8 +32,10 @@ export async function escanear(options: {
   );
   let cambios = 0;
   if (options.servidor) {
-    const base = servidorLocal(options.servidor);
-    const eventos = usos.map(publicarUso);
+    const base = servidorDestino(options.servidor);
+    const eventos = usos
+      .map(publicarUso)
+      .filter((e) => totalUso(e) > (options.enviados?.get(e.id) ?? -1));
     const ventana = ventanaId(options.evento);
     const cliente = hash(`${hostname()}|${resolve(options.cwd)}`);
     // Reenviar es seguro: el backend deduplica por ventana, persona e ID.
@@ -41,10 +51,19 @@ export async function escanear(options: {
       const res = await fetch(new URL("/api/uso", base), {
         method: "POST",
         redirect: "error",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(options.token
+            ? { Authorization: `Bearer ${options.token}` }
+            : {}),
+        },
         body: JSON.stringify(lote),
         signal: AbortSignal.timeout(5000),
       });
+      if (res.status === 401)
+        throw new SesionCaducada(
+          "La sala no reconoce tu sesión de GitHub. Vuelve a lanzar observar para confirmarla.",
+        );
       if (!res.ok)
         throw new Error(
           `El servidor rechazó el lote (HTTP ${res.status}). Revisa usuario, registro y ventana del build.`,
@@ -63,6 +82,7 @@ export async function escanear(options: {
           "El servidor no confirmó los contadores. Se reintentará sin duplicarlos.",
         );
       cambios += receipt.cambios!;
+      for (const e of lote.eventos) options.enviados?.set(e.id, totalUso(e));
     }
   }
   return { ...resumen, sincronizado: Boolean(options.servidor), cambios };
@@ -78,6 +98,22 @@ export function publicarUso(e: Uso): EventoUso {
     cacheRead: e.cacheRead,
     cacheWrite: e.cacheWrite,
   });
+}
+// The room's HTTPS server, or a local one for development.
+export function servidorDestino(value: string): URL {
+  const url = new URL(value);
+  if (url.protocol !== "https:") return servidorLocal(value);
+  if (
+    url.username ||
+    url.password ||
+    url.pathname !== "/" ||
+    url.search ||
+    url.hash
+  )
+    throw new Error(
+      "El servidor debe ser una URL HTTPS sin ruta ni credenciales.",
+    );
+  return url;
 }
 export function servidorLocal(value: string): URL {
   const url = new URL(value);

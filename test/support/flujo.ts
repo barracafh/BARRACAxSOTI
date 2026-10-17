@@ -45,6 +45,7 @@ async function run(
         NO_COLOR: "1",
         HACKNIGHT_CLAUDE_DIR: join(dir, "sin-historiales"),
         HACKNIGHT_CODEX_DIR: join(dir, "sin-historiales"),
+        HACKNIGHT_PI_DIR: join(dir, "sin-historiales"),
       },
       stdout: "pipe",
       stderr: "pipe",

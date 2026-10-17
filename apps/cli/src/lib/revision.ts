@@ -187,7 +187,16 @@ export async function revisar(
         "No hay archivos versionados. Añade el proyecto con git add.";
     }
     if (ficha && !files.includes("ficha.json")) files.push("ficha.json");
-    for (const archivo of files) {
+    // The committee's verified material in every team repo is full of official
+    // phone lines and mailboxes, which the heuristic reads as personal data.
+    const material = files.filter((f) =>
+      /^(?:datos\/|contexto\.md$|SETUP\.md$)/.test(f),
+    );
+    if (material.length)
+      avisos.push(
+        "datos/, contexto.md y SETUP.md son material de la organización y no se analizan; vuestros datos, en otra carpeta.",
+      );
+    for (const archivo of files.filter((f) => !material.includes(f))) {
       const path = join(ctx.cwd, archivo);
       try {
         const stat = await lstat(path);

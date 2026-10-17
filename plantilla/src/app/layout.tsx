@@ -19,7 +19,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es" className={`${syne.variable} ${spaceMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <p
+          role="note"
+          className="border-b border-paper/15 px-6 py-2 text-center text-[0.7rem] tracking-[0.16em] text-muted uppercase"
+        >
+          Herramienta experimental. No es un servicio oficial.
+        </p>
+        {children}
+      </body>
     </html>
   );
 }

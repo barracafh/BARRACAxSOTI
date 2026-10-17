@@ -197,7 +197,7 @@ function render() {
   $("herramientas").innerHTML = c.herramientas
     .map(
       (h) =>
-        `<div class="tool"><div><span>${h.id === "codex" ? "⬡ Codex" : "✻ Claude Code"}</span><span>${esc(compact(h.total))}</span></div><progress max="${c.total || 1}" value="${h.total}" aria-label="Tokens de ${esc(h.id)}"></progress></div>`,
+        `<div class="tool"><div><span>${{ codex: "⬡ Codex", pi: "π Pi" }[h.id] ?? "✻ Claude Code"}</span><span>${esc(compact(h.total))}</span></div><progress max="${c.total || 1}" value="${h.total}" aria-label="Tokens de ${esc(h.id)}"></progress></div>`,
     )
     .join("");
   const peak = Math.max(1, ...c.evolucion.map((b) => b.total));

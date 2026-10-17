@@ -209,6 +209,7 @@ export async function arrancarPruebaLive(puerto = 0) {
     ...process.env,
     HACKNIGHT_CLAUDE_DIR: f.participants[i]!.claude,
     HACKNIGHT_CODEX_DIR: f.participants[i]!.codex,
+    HACKNIGHT_PI_DIR: f.participants[i]!.codex,
   });
   function spawnWatcher(i: number) {
     const p = Bun.spawn([...command(i), "--json"], {

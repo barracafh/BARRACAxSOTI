@@ -53,8 +53,7 @@ program
   .command("tracks [slug]")
   .alias("negociados")
   .description("Negociados y piezas")
-  .option("--todos", "Incluye los descartados")
-  .action(async (slug, opts) => run((ctx) => tracks(ctx, slug, opts.todos))());
+  .action(async (slug) => run((ctx) => tracks(ctx, slug))());
 program
   .command("expediente")
   .description("Su expediente; sin menú")
@@ -137,9 +136,12 @@ program
 for (const name of ["observar", "watch"]) {
   program
     .command(name, { hidden: name === "watch" })
-    .description("Watcher de tokens; envío opcional al servidor local")
-    .option("--servidor <url>", "Servidor local de la clasificación")
-    .option("--intervalo <segundos>", "Segundos entre lecturas", "5")
+    .description("Watcher de tokens; los envía a la sala del evento")
+    .option(
+      "--servidor <url>",
+      "Servidor de la clasificación; por defecto, la sala",
+    )
+    .option("--intervalo <segundos>", "Segundos entre lecturas", "60")
     .option("--once", "Una lectura y salir")
     .action(async (o) => run((ctx) => observar(ctx, o))());
 }

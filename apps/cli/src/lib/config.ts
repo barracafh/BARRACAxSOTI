@@ -19,15 +19,21 @@ export type Options = {
   confirmar?: boolean;
   plain?: boolean;
 };
-export async function config(opts: Options) {
+export const rutaConfig = () =>
+  process.env.HACKNIGHT_CONFIG ??
+  join(
+    process.env.XDG_CONFIG_HOME ?? join(homedir(), ".config"),
+    "hacknight",
+    "config.json",
+  );
+// releases stays optional in the type: without it, actualizar is disabled.
+export async function config(opts: Options): Promise<{
+  registro: string;
+  plantilla?: string;
+  releases?: string;
+}> {
   let file: z.infer<typeof schema> = {};
-  const path =
-    process.env.HACKNIGHT_CONFIG ??
-    join(
-      process.env.XDG_CONFIG_HOME ?? join(homedir(), ".config"),
-      "hacknight",
-      "config.json",
-    );
+  const path = rutaConfig();
   try {
     file = schema.parse(JSON.parse(await readFile(path, "utf8")));
   } catch (e) {
@@ -44,9 +50,13 @@ export async function config(opts: Options) {
       opts.registro ??
       process.env.HACKNIGHT_REGISTRO ??
       file.registro ??
-      "hacknight/registro",
+      "barracafh/build-registro",
     plantilla:
       opts.plantilla ?? process.env.HACKNIGHT_PLANTILLA ?? file.plantilla,
-    releases: opts.releases ?? process.env.HACKNIGHT_RELEASES ?? file.releases,
+    releases:
+      opts.releases ??
+      process.env.HACKNIGHT_RELEASES ??
+      file.releases ??
+      "barracafh/build-registro",
   };
 }

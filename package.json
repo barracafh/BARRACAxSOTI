@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@hacknight/shared": "workspace:*",
+    "@neondatabase/serverless": "^1.0.2",
     "@playwright/test": "1.64.0",
     "@types/bun": "^1.3.0",
     "prettier": "3.6.2",

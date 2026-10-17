@@ -17,7 +17,7 @@ export async function generateTracks(directory = join(root, "tracks")) {
     const track = trackSchema
       .strict()
       .parse(await Bun.file(join(directory, path)).json());
-    const expected = `${track.estado === "fuera" ? "fuera/" : ""}${track.slug}/track.json`;
+    const expected = `${track.slug}/track.json`;
     if (path !== expected)
       throw new Error(`Ruta incorrecta: ${path}; debe ser ${expected}.`);
     if (
@@ -26,8 +26,6 @@ export async function generateTracks(directory = join(root, "tracks")) {
       prefixes.has(track.prefijo)
     )
       throw new Error(`Slug, ventanilla o prefijo duplicado: ${path}.`);
-    if (track.estado === "fuera" && !track.motivo?.trim())
-      throw new Error(`Falta el motivo de descarte: ${path}.`);
     slugs.add(track.slug);
     windows.add(track.ventanilla);
     prefixes.add(track.prefijo);

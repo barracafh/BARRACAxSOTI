@@ -1,8 +1,8 @@
 # hacknight
 
-La ventanilla de **BARRACA x SOTI · BUILD NIGHT**, 22 de octubre de 2026, MAISA (València). Bun + TypeScript, con GitHub como registro mediante `gh` o un directorio local. Trámites, expedientes y turnos para coordinar el hack. No guarda tokens de GitHub ni modifica herramientas de IA.
+La ventanilla de **BARRACA x SOTI · BUILD NIGHT**, 22 de octubre de 2026, Flywire (València). Bun + TypeScript, con GitHub como registro mediante `gh` o un directorio local. Trámites, expedientes y turnos para coordinar el hack. No guarda tokens de GitHub ni modifica herramientas de IA.
 
-El build del evento va de **18:30 a 22:00 Europe/Madrid**. Los nueve tracks son los negociados; cada squad tiene una pieza y una mesa. Los cuatro descartados aparecen en `tracks --todos` con su motivo. El comité asigna squads, piezas y el cupo único del track libre en `equipos.json`.
+El build del evento va de **18:30 a 22:00 Europe/Madrid**. Los seis tracks son los negociados; cada squad tiene una pieza y una mesa. El comité asigna squads, piezas y el cupo único del track libre en `equipos.json`.
 
 ## Instalar y desarrollar
 
@@ -17,10 +17,10 @@ bun run --cwd apps/cli build:bin:host
 
 El binario es autónomo. Cópialo a un directorio de tu `PATH` si quieres invocarlo como `hacknight`. Git es necesario para tramitar/revisar; para el backend GitHub también hace falta `gh` instalado y `gh auth login`. Se usa su sesión existente, sin guardar credenciales propias.
 
-`install.sh` y `actualizar` están **desactivados sin repo de releases**. Cuando el comité configure el destino de las releases, el instalador descargará el asset de la plataforma y comprobará `SHA256SUMS`:
+Las releases se publican en el registro público, `barracafh/build-registro`, con `bun infra/cli/publicar.ts`. El instalador descarga el asset de la plataforma y comprueba `SHA256SUMS`; `HACKNIGHT_RELEASES` cambia el repo:
 
 ```sh
-HACKNIGHT_RELEASES=organizacion/releases sh apps/cli/install.sh
+curl -fsSL https://build.barraca.house/instalar.sh | sh
 hacknight actualizar --check
 hacknight actualizar
 ```
@@ -106,13 +106,13 @@ Precedencia: flag → variable de entorno → `~/.config/hacknight/config.json` 
 
 ```json
 {
-  "registro": "hacknight/registro",
+  "registro": "barracafh/build-registro",
   "plantilla": "organizacion/plantilla",
-  "releases": "organizacion/releases"
+  "releases": "barracafh/build-registro"
 }
 ```
 
-El registro por defecto es un **placeholder**. Variables equivalentes: `HACKNIGHT_REGISTRO`, `HACKNIGHT_PLANTILLA`, `HACKNIGHT_RELEASES`. En local, `plantilla` puede ser un directorio o `file:///ruta`; si falta se copian los bytes de `test/fixtures/plantilla-stub`, incluidos dentro del binario. La [plantilla real](../../plantilla/README.md) lleva `.hacknight/plantilla.json` y una ficha de ejemplo. `tramitar` solo sustituye una ficha con equipo `squad-ejemplo`, URL `https://example.invalid/pendiente` y marcador `exampleFicha: true`; después consume ese permiso. Las fichas de equipos existentes se rechazan. En copias locales se excluyen dependencias, builds y archivos `.env`. Para probarla, indica `--plantilla /ruta/al/monorepo/plantilla`.
+El registro por defecto es `barracafh/build-registro`. Variables equivalentes: `HACKNIGHT_REGISTRO`, `HACKNIGHT_PLANTILLA`, `HACKNIGHT_RELEASES`. En local, `plantilla` puede ser un directorio o `file:///ruta`; si falta se copian los bytes de `test/fixtures/plantilla-stub`, incluidos dentro del binario. La [plantilla real](../../plantilla/README.md) lleva `.hacknight/plantilla.json` y una ficha de ejemplo. `tramitar` solo sustituye una ficha con equipo `squad-ejemplo`, URL `https://example.invalid/pendiente` y marcador `exampleFicha: true`; después consume ese permiso. Las fichas de equipos existentes se rechazan. En copias locales se excluyen dependencias, builds y archivos `.env`. Para probarla, indica `--plantilla /ruta/al/monorepo/plantilla`.
 
 ## Montar el registro: guía del comité
 
@@ -140,7 +140,7 @@ Ejemplo de evento (las fechas llevan el offset de Madrid del día del hack):
 }
 ```
 
-Cada track contiene `slug`, `nombre`, `frase`, `ciudadano`, `ventanilla` (número), `color` (token de la paleta), `glifo`, `prefijo` de turno, `estado`, `lead`, `piezas` (2–3 textos), `paquetes`, `fuentes`, `dificultad` y `guias`. `cupo` y `motivo` son opcionales; el track libre tiene cupo 1 y los descartados explican su motivo. Estados: `nucleo`, `si-hay-gente`, `condicional`, `libre` y `fuera`. Los leads siguen «por asignar»; Jesús, Iban, Pau y Alex todavía no tienen reparto. El catálogo se edita en [tracks/](../../tracks/README.md); el [JSON generado](../../packages/shared/registro-base/tracks.json) se incluye en el registro base.
+Cada track contiene `slug`, `nombre`, `frase`, `ciudadano`, `ventanilla` (número), `color` (token de la paleta), `glifo`, `prefijo` de turno, `estado`, `lead`, `piezas` (2–3 textos), `paquetes`, `fuentes`, `dificultad` y `guias`. `cupo` es opcional; el track libre tiene cupo 1. Estados: `nucleo` y `libre`. Los leads siguen «por asignar»; Jesús, Iban, Pau y Alex todavía no tienen reparto. El catálogo se edita en [tracks/](../../tracks/README.md); el [JSON generado](../../packages/shared/registro-base/tracks.json) se incluye en el registro base.
 
 Un paquete es `{"id":"derechos-base","nombre":"BDNS","url":"https://…/datos.zip","sha256":"64 caracteres hexadecimales","pendiente":false}`. Mientras no se prepare, `pendiente:true`, URL `example.invalid` y SHA `PENDIENTE`. `tramitar` deja esos paquetes pendientes visibles; `datos <id>` los rechaza. En pruebas locales se aceptan URLs `file:`; en GitHub solo HTTPS. Se guardan como archivos, **sin extraer ZIPs ni ejecutar contenido**.
 
@@ -180,17 +180,19 @@ Usa la URL `file://` del registro que imprime el servidor. Si aún no instalaste
 
 La web muestra clasificación por squads, personas (si se habilita) y tracks, desglose de entrada/salida/caché, herramientas y evolución. La ventanilla y el tablón consultan el mismo registro que el CLI; `/pantalla` es el proyector. Sin logs del proyecto en la ventana configurada, el contador permanece en cero. El watcher cuenta actividad existente dentro de esa ventana, además de la que se produzca a partir de su arranque.
 
-`p` pausa el watcher y `q` o `Ctrl+C` lo cierra. El watcher y el servidor son procesos independientes: cerrar uno no cierra el otro. No se instalan servicios de fondo. Infraestructura compartida entre máquinas queda pendiente.
+`p` pausa el watcher y `q` o `Ctrl+C` lo cierra. El watcher y el servidor son procesos independientes: cerrar uno no cierra el otro. No se instalan servicios de fondo.
+
+En el evento, con el registro de GitHub, `hacknight observar` envía por defecto a la sala (`enlaces.sala` de `evento.json`, [infra/sala](../../infra/sala/README.md)). La primera vez pide confirmar tu cuenta en `github.com/login/device`: el token no tiene permisos, solo prueba quién eres, y se guarda con permisos `0600` junto a la configuración. Después solo envía lo que ha cambiado, una vez por minuto.
 
 ### Consulta puntual
 
-`hacknight consumo` lee contadores existentes de Claude Code y Codex, los filtra por directorio del proyecto (incluidos subdirectorios) y por la ventana de build, y muestra la contribución local al squad. No es el total de otras máquinas del equipo. No lee prompts para mostrarlos, no persiste historiales y no envía métricas; solo salen contadores agregados. El justificante añade «Tasa abonada: N tokens» cuando hay consumo atribuible.
+`hacknight consumo` lee contadores existentes de Claude Code, Codex y Pi, los filtra por directorio del proyecto (incluidos subdirectorios) y por la ventana de build, y muestra la contribución local al squad. No es el total de otras máquinas del equipo. No lee prompts para mostrarlos, no persiste historiales y no envía métricas; solo salen contadores agregados. El justificante añade «Tasa abonada: N tokens» cuando hay consumo atribuible.
 
-Es una consulta puntual. Para lectura continua usa `observar` (alias oculto `watch`): sin `--servidor` mantiene todo local; con un servidor HTTP en loopback comparte los contadores de este proyecto durante el build. `--once` hace un único ciclo; `--intervalo 5` fija la cadencia; `p` pausa y `q` sale en TTY. También admite `--plain` y `--json` (un documento al terminar; progreso en stderr).
+Es una consulta puntual. Para lectura continua usa `observar` (alias oculto `watch`): con el registro de GitHub envía a la sala; `--servidor` acepta otra URL HTTPS o un servidor HTTP en loopback, y con un registro local sin `--servidor` todo queda en local. `--once` hace un único ciclo; `--intervalo 60` (por defecto) fija la cadencia; `p` pausa y `q` sale en TTY. También admite `--plain` y `--json` (un documento al terminar; progreso en stderr).
 
 El backend guarda y deduplica contadores por ventana, usuario e ID. Solo se envían campos del [contrato compartido](../../packages/shared/src/contrato-uso.ts), sin conversaciones ni rutas. Los detalles de persistencia y los requisitos de producción están en [apps/server/README.md](../server/README.md#contadores-y-persistencia).
 
-Rutas de lectura: `~/.claude/projects` (respeta `CLAUDE_CONFIG_DIR`) y `~/.codex/sessions` (respeta `CODEX_HOME`). Para un directorio de pruebas o una copia local usa `HACKNIGHT_CLAUDE_DIR` y `HACKNIGHT_CODEX_DIR`; esas variables no cambian ninguna configuración de los asistentes. Las líneas malformadas se ignoran; errores de lectura producen avisos de total parcial. Bloques repetidos de Claude y contadores acumulativos de Codex se deduplican; el razonamiento ya incluido en salida no se suma dos veces.
+Rutas de lectura: `~/.claude/projects` (respeta `CLAUDE_CONFIG_DIR`), `~/.codex/sessions` (respeta `CODEX_HOME`) y `~/.pi/agent/sessions` (respeta `PI_CODING_AGENT_DIR`). Para un directorio de pruebas o una copia local usa `HACKNIGHT_CLAUDE_DIR`, `HACKNIGHT_CODEX_DIR` y `HACKNIGHT_PI_DIR`; esas variables no cambian ninguna configuración de los asistentes. Las líneas malformadas se ignoran; errores de lectura producen avisos de total parcial. Bloques repetidos de Claude, contadores acumulativos de Codex y mensajes copiados en sesiones bifurcadas de Pi se deduplican; el razonamiento ya incluido en salida no se suma dos veces.
 
 Cursor queda sin recolector: el origen necesitaba instalar hooks para obtener contadores. Se respeta la prohibición de modificar configuraciones del usuario. Tampoco se incorporan OTel ni otros proveedores. La compatibilidad se valida con fixtures de los formatos del commit fijado; formatos futuros pueden requerir adaptación.
 
@@ -209,14 +211,13 @@ bun run build:bin:host
 
 El script aplana el PNG sobre blanco e incrusta una tarjeta para Kitty/Ghostty/WezTerm/iTerm2/VS Code. La prueba usa un PNG generado en un directorio temporal y no lo sube. Sin logo se muestra el wordmark (77 columnas); en terminal estrecho, `☾ build night`. Dentro de cajas se usa `☾` para mantener la alineación. El proyector usa el fondo `nit` de la paleta común; `--plain` produce una captura de texto y `NO_COLOR` desactiva el color.
 
-`scripts/build-all.sh` compila macOS/Linux x64/arm64 y Windows x64; produce `dist/SHA256SUMS`. `--host` solo compila esta máquina y `--target bun-<os>-<arch>` compila una plataforma de la matriz. El script no publica; [release-cli.yml](../../.github/workflows/release-cli.yml) publica al subir un tag válido, después de comprobar la versión y compilar los cinco targets. Las releases deben usar tags `cli-vX.Y.Z`, assets `hacknight-<os>-<arch>[.exe]` y `SHA256SUMS`. Ajusta `package.json` y `src/version.ts` juntos antes de versionar.
+`scripts/build-all.sh` compila macOS/Linux x64/arm64 y Windows x64; produce `dist/SHA256SUMS`. `--host` solo compila esta máquina y `--target bun-<os>-<arch>` compila una plataforma de la matriz. El script no publica; [release-cli.yml](../../.github/workflows/release-cli.yml) comprueba la versión y compila los cinco targets al subir un tag, y `infra/cli/publicar.ts` publica la release en el registro. Las releases deben usar tags `cli-vX.Y.Z`, assets `hacknight-<os>-<arch>[.exe]` y `SHA256SUMS`. Ajusta `package.json` y `src/version.ts` juntos antes de versionar.
 
 ## Pendiente para el evento
 
-- Publicar el registro, decidir organización y permisos, y proteger ramas; configurar el destino de releases (el workflow publica en este monorepo).
 - Publicar la [plantilla real](../../plantilla/README.md) como repo GitHub y configurar su formulario; la stub de fixtures es únicamente de ensayo.
 - Introducir equipos y participantes reales, sus repos y enlaces. La instancia arranca vacía.
-- Asignar track leads, activar o descartar Siguiente y adjudicar el cupo libre.
+- Asignar track leads y adjudicar el cupo libre.
 - Preparar los packs oficiales, sus hashes y contenido editorial; verificar los plazos de ¿Cómo voto? con sus fuentes.
 - Recibir el PNG final y validar la marca con Rubén y Marcos.
 - Ensayar en la terminal y proyector del venue; no se ha publicado ni probado contra un registro GitHub real.
