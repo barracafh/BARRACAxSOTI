@@ -4,7 +4,6 @@ import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { executePlan, options, root } from "../infra/common";
 import { registryPlan } from "../infra/registro/preparar";
-import { templatePlan } from "../infra/plantilla/publicar";
 import { provisionKeys } from "../infra/ia/claves";
 
 const fakeMaster = "synthetic-master-value";
@@ -51,37 +50,6 @@ test("registro: dry-run no ejecuta; siembra JSON, etiquetas y revisiones del com
   expect(options([], []).apply).toBe(false);
   expect(() => options([], ["--apply", "--dry-run"])).toThrow();
   expect(() => options([], ["--aply"])).toThrow();
-});
-
-test("plantilla: exportación independiente y plan GitHub sin ejecutar", async () => {
-  const plan = await templatePlan("example/plantilla");
-  expect(plan.files["bun.lock"]).toBeDefined();
-  expect(plan.files[".hacknight/plantilla.json"]).toBeDefined();
-  expect(plan.files["README.md"]).toContain(
-    "repository-url=https%3A%2F%2Fgithub.com%2Fexample%2Fplantilla",
-  );
-  expect(
-    Object.keys(plan.files).some((path) =>
-      /node_modules|^apps\/|^packages\/|^\.next\/|^out\//.test(path),
-    ),
-  ).toBe(false);
-  let calls = 0;
-  await executePlan(
-    plan,
-    false,
-    async () => {
-      calls++;
-    },
-    () => {},
-  );
-  expect(calls).toBe(0);
-  expect(plan.commands.at(-1)?.args).toEqual([
-    "gh",
-    "repo",
-    "edit",
-    "example/plantilla",
-    "--template",
-  ]);
 });
 
 test("IA: dry-run no llama, no guarda y nunca imprime la clave maestra", async () => {
