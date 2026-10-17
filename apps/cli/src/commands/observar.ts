@@ -3,24 +3,34 @@ import { miEquipo } from "../lib/contexto";
 import { CliError } from "@hacknight/shared/errors";
 import { salida } from "../lib/output";
 import { panel, trackLabel, fit, terminalText } from "../lib/estilo";
-import { escanear } from "../watcher/cliente";
-import { servidorLocal } from "../watcher/cliente";
+import { escanear, servidorDestino, SesionCaducada } from "../watcher/cliente";
+import { olvidarSesion, sesion } from "../watcher/sesion";
 
 export async function observar(
   ctx: Contexto,
   opts: { servidor?: string; intervalo?: string; once?: boolean },
 ) {
-  const segundos = Number(opts.intervalo ?? 5);
+  const segundos = Number(opts.intervalo ?? 60);
   if (!Number.isFinite(segundos) || segundos < 1 || segundos > 300)
     throw new CliError(
       "USAGE",
       "El intervalo debe estar entre 1 y 300 segundos.",
-      "Usa --intervalo 5.",
+      "Usa --intervalo 60.",
       2,
     );
-  if (opts.servidor) servidorLocal(opts.servidor);
   const { usuario, equipo, track } = await miEquipo(ctx);
   let evento = await ctx.registro.evento();
+  // With the event's GitHub registry, counters go to its room by default.
+  const servidor =
+    opts.servidor ??
+    (ctx.registro.tipo === "github" ? evento.enlaces.sala : undefined);
+  if (servidor) servidorDestino(servidor);
+  // Asked before the screen takes over the terminal, so the code stays visible.
+  let token =
+    servidor && servidorDestino(servidor).protocol === "https:"
+      ? await sesion((texto) => process.stderr.write(`${texto}\n`))
+      : undefined;
+  const enviados = new Map<string, number>();
   let ultimo: Awaited<ReturnType<typeof escanear>> | undefined;
   let error = "",
     cerrado = false,
@@ -45,9 +55,7 @@ export async function observar(
       ),
       ...(ultimo?.avisos ?? []),
       error ||
-        (opts.servidor
-          ? `Sincronizado · ${opts.servidor}`
-          : "Solo local · sin envío"),
+        (servidor ? `Sincronizado · ${servidor}` : "Solo local · sin envío"),
       "Claude Code y Codex · logs de este proyecto durante el build",
       `${pausa ? "PAUSA" : "EN DIRECTO"} · ciclo ${ciclos} · cada ${segundos} s`,
       "p pausa · q salir · Ctrl+C salir",
@@ -76,11 +84,17 @@ export async function observar(
         cwd: ctx.cwd,
         usuario,
         evento,
-        servidor: opts.servidor,
+        servidor,
+        token,
+        enviados,
       });
       error = "";
       ciclos++;
     } catch (e) {
+      if (e instanceof SesionCaducada) {
+        await olvidarSesion();
+        token = undefined;
+      }
       error =
         e instanceof Error ? e.message : "No se pudo leer o enviar el consumo.";
     }
@@ -92,7 +106,7 @@ export async function observar(
       throw new CliError(
         "SYNC_PENDING",
         error,
-        "Arranca el backend con bun run start desde la raíz del repo y vuelve a ejecutar observar.",
+        "Comprueba la conexión con el servidor y vuelve a ejecutar observar.",
         5,
       );
     salida(

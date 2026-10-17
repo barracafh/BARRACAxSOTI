@@ -19,6 +19,13 @@ export type Options = {
   confirmar?: boolean;
   plain?: boolean;
 };
+export const rutaConfig = () =>
+  process.env.HACKNIGHT_CONFIG ??
+  join(
+    process.env.XDG_CONFIG_HOME ?? join(homedir(), ".config"),
+    "hacknight",
+    "config.json",
+  );
 // releases stays optional in the type: without it, actualizar is disabled.
 export async function config(opts: Options): Promise<{
   registro: string;
@@ -26,13 +33,7 @@ export async function config(opts: Options): Promise<{
   releases?: string;
 }> {
   let file: z.infer<typeof schema> = {};
-  const path =
-    process.env.HACKNIGHT_CONFIG ??
-    join(
-      process.env.XDG_CONFIG_HOME ?? join(homedir(), ".config"),
-      "hacknight",
-      "config.json",
-    );
+  const path = rutaConfig();
   try {
     file = schema.parse(JSON.parse(await readFile(path, "utf8")));
   } catch (e) {

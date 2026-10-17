@@ -6,7 +6,8 @@
   "fin": "2026-10-22T22:00:00+02:00",
   "enlaces": {
     "centro": "https://build.barraca.house",
-    "guia": "https://barraca.house/es/sessions/003-build-night"
+    "guia": "https://barraca.house/es/sessions/003-build-night",
+    "sala": "https://sala.build.barraca.house"
   },
   "registroFueraDePlazo": false
 }

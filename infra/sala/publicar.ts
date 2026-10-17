@@ -1,5 +1,5 @@
 import { readdir } from "node:fs/promises";
-import { join } from "node:path";
+import { basename, join } from "node:path";
 import { eventoSchema } from "@hacknight/shared/modelo";
 import { paleta } from "@hacknight/shared/paleta";
 import { paginaEvento } from "../../apps/server/src/marca";
@@ -27,12 +27,16 @@ export async function archivosSala(): Promise<Archivos> {
     ).json(),
   );
   const build = await Bun.build({
-    entrypoints: [join(import.meta.dir, "estado.ts")],
+    entrypoints: ["estado.ts", "uso.ts"].map((f) => join(import.meta.dir, f)),
     target: "node",
     format: "esm",
+    naming: "[name].js",
   });
   if (!build.success)
-    throw new AggregateError(build.logs, "No se pudo compilar la función.");
+    throw new AggregateError(
+      build.logs,
+      "No se pudieron compilar las funciones.",
+    );
   const files: Archivos = {
     "index.html": paginaEvento(
       await Bun.file(join(web, "index.html")).text(),
@@ -41,11 +45,12 @@ export async function archivosSala(): Promise<Archivos> {
     "paleta.css": `:root{${Object.entries(paleta)
       .map(([k, v]) => `--${k}:${v}`)
       .join(";")}}`,
-    "api/estado.js": await build.outputs[0]!.text(),
     "package.json": '{ "type": "module" }\n',
     "vercel.json":
       JSON.stringify(
         {
+          // Next to the Neon database, and to the room.
+          regions: ["fra1"],
           rewrites: [{ source: "/pantalla", destination: "/" }],
           redirects: [
             {
@@ -68,6 +73,8 @@ export async function archivosSala(): Promise<Archivos> {
         2,
       ) + "\n",
   };
+  for (const out of build.outputs)
+    files[`api/${basename(out.path)}`] = await out.text();
   for (const name of ["app.js", "style.css", "marca.js"])
     files[name] = await Bun.file(join(web, name)).text();
   for (const name of await readdir(join(web, "fonts")))
