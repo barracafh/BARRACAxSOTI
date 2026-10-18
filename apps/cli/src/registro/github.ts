@@ -138,12 +138,20 @@ export class RegistroGitHub implements Registro {
         html_url: z.string(),
         state: z.string(),
         merged_at: z.string().nullable(),
-        head: z.object({ ref: z.string(), sha: z.string() }),
+        head: z.object({
+          ref: z.string(),
+          sha: z.string(),
+          // null once the fork behind a PR is deleted.
+          repo: z.object({ full_name: z.string() }).nullable(),
+        }),
       }),
     );
     const result: RegistroFicha[] = [];
+    // The registry is public: only branches pushed to it (Write access) count,
+    // never a PR from a stranger's fork.
     for (const p of prs.filter(
       (p) =>
+        p.head.repo?.full_name === this.nombre &&
         p.head.ref.startsWith("hacknight/ficha-") &&
         (p.state === "open" || p.merged_at),
     )) {
@@ -163,7 +171,12 @@ export class RegistroGitHub implements Registro {
           ficha,
         });
       } catch (e) {
-        if (e instanceof CliError && e.code === "NOT_FOUND") continue;
+        // One broken ficha must not blank the tablón for everyone else.
+        if (
+          e instanceof CliError &&
+          (e.code === "NOT_FOUND" || e.code === "CONFIG")
+        )
+          continue;
         throw e;
       }
     }
