@@ -6,22 +6,12 @@
   "ventanilla": 1,
   "color": "cian",
   "glifo": ">",
-  "prefijo": "B",
   "estado": "nucleo",
   "lead": "por asignar",
   "piezas": [
     "Qué trámite necesito",
     "¿Y si no hay cita?",
     "Oficinas y canales oficiales"
-  ],
-  "paquetes": [
-    {
-      "id": "brujula-base",
-      "nombre": "Pack Brújula (GVA y València)",
-      "url": "https://example.invalid/pendiente/brujula.zip",
-      "sha256": "PENDIENTE",
-      "pendiente": true
-    }
   ],
   "fuentes": [
     {

@@ -7,22 +7,12 @@
     "ventanilla": 1,
     "color": "cian",
     "glifo": ">",
-    "prefijo": "B",
     "estado": "nucleo",
     "lead": "por asignar",
     "piezas": [
       "Qué trámite necesito",
       "¿Y si no hay cita?",
       "Oficinas y canales oficiales"
-    ],
-    "paquetes": [
-      {
-        "id": "brujula-base",
-        "nombre": "Pack Brújula (GVA y València)",
-        "url": "https://example.invalid/pendiente/brujula.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
     ],
     "fuentes": [
       { "nombre": "www.gva.es", "url": "https://www.gva.es/" },
@@ -45,22 +35,12 @@
     "ventanilla": 2,
     "color": "acid",
     "glifo": "+",
-    "prefijo": "D",
     "estado": "nucleo",
     "lead": "por asignar",
     "piezas": [
       "Ayudas para ti",
       "Compatibilidades y requisitos",
       "Calendario de convocatorias"
-    ],
-    "paquetes": [
-      {
-        "id": "derechos-base",
-        "nombre": "Pack Derechos",
-        "url": "https://example.invalid/pendiente/derechos.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
     ],
     "fuentes": [
       {
@@ -82,22 +62,12 @@
     "ventanilla": 3,
     "color": "after",
     "glifo": "=",
-    "prefijo": "C",
     "estado": "nucleo",
     "lead": "por asignar",
     "piezas": [
       "PDF a checklist",
       "¿Qué me piden y qué no pueden pedirme?",
       "Dónde descargar cada documento"
-    ],
-    "paquetes": [
-      {
-        "id": "claridad-base",
-        "nombre": "Pack Claridad",
-        "url": "https://example.invalid/pendiente/claridad.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
     ],
     "fuentes": [
       { "nombre": "www.boe.es", "url": "https://www.boe.es/" },
@@ -120,22 +90,12 @@
     "ventanilla": 9,
     "color": "magenta",
     "glifo": "#",
-    "prefijo": "S",
     "estado": "nucleo",
     "lead": "por asignar",
     "piezas": [
       "¿Esta web es oficial?",
       "Las citas son gratis",
       "¿Este aviso es oficial?"
-    ],
-    "paquetes": [
-      {
-        "id": "sello-base",
-        "nombre": "Pack Sello + estafas",
-        "url": "https://example.invalid/pendiente/sello.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
     ],
     "fuentes": [
       { "nombre": "datos.gob.es", "url": "https://datos.gob.es/" },
@@ -159,22 +119,12 @@
     "ventanilla": 11,
     "color": "muted",
     "glifo": "*",
-    "prefijo": "V",
     "estado": "nucleo",
     "lead": "por asignar",
     "piezas": [
       "Voto por correo",
       "Dónde votar y censo",
       "Calendario con fuentes"
-    ],
-    "paquetes": [
-      {
-        "id": "como-voto-base",
-        "nombre": "Pack ¿Cómo voto? (29N)",
-        "url": "https://example.invalid/pendiente/como-voto.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
     ],
     "fuentes": [
       {
@@ -199,19 +149,9 @@
     "ventanilla": 12,
     "color": "paper",
     "glifo": "?",
-    "prefijo": "L",
     "estado": "libre",
     "lead": "por asignar",
     "piezas": ["Propuesta de utilidad ciudadana", "Integración en el centro"],
-    "paquetes": [
-      {
-        "id": "libre-base",
-        "nombre": "Pack Track libre",
-        "url": "https://example.invalid/pendiente/libre.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
-    ],
     "fuentes": [{ "nombre": "datos.gob.es", "url": "https://datos.gob.es/" }],
     "dificultad": "Por acotar",
     "guias": [

@@ -34,4 +34,4 @@ Hasta el 29/11: cita previa y extranjería tienen lectura política. Atribuir do
 
 ## Qué falta antes del 20/10
 
-Asignar track lead y revisión humana. Acotar trámites, redactar y revisar las ocho fichas propuestas, limpiar oficinas y decidir si se puede reutilizar el buscador de Reforma Digital con Samu. Publicar el pack con procedencia, fecha y SHA256; actualizar `track.json` y regenerar el catálogo.
+Asignar track lead y revisión humana. Acotar trámites, redactar y revisar las ocho fichas propuestas, limpiar oficinas y decidir si se puede reutilizar el buscador de Reforma Digital con Samu. Dejar los datos en `datos/` con su procedencia y fecha de consulta.

@@ -117,7 +117,6 @@ test("el arranque es vacío, idempotente y no inventa una identidad local", asyn
       squads: [],
       personas: [],
     });
-    expect(s.cola).toEqual([]);
     expect(s.entradas).toEqual([]);
     expect(s.tracks).toHaveLength(6);
     expect(
@@ -340,21 +339,13 @@ test("deshabilitar vistas retira sus datos de la API y no interrumpe la recolecc
   const f = await fixture();
   try {
     const cookie = await f.login();
-    await f.request("/api/admin", "PUT", f.config, cookie);
-    await f.reg.crearIssue("Prueba", "Texto del tablón", ["tablon"]);
-    await f.reg.crearIssue(
-      "Ayuda",
-      JSON.stringify({
-        tipo: "cita",
-        squad: equipo.id,
-        herramienta: equipo.herramienta,
-        mesa: "1",
-        motivo: "Ayuda",
-        estado: "espera",
-      }),
-      ["ventanilla"],
+    await f.request(
+      "/api/admin",
+      "PUT",
+      { ...f.config, comite: ["test-builder"] },
+      cookie,
     );
-    expect((await f.publico()).cola).toHaveLength(1);
+    await f.reg.crearIssue("Prueba", "Aviso del comité", ["aviso"]);
     expect((await f.publico()).entradas).toHaveLength(1);
     let g = await administracion(f.reg);
     for (const k of Object.keys(g.vistas) as (keyof Gestion["vistas"])[])
@@ -365,7 +356,6 @@ test("deshabilitar vistas retira sus datos de la API y no interrumpe la recolecc
       consumo: null,
       tracks: [],
       equipos: [],
-      cola: [],
       entradas: [],
       registros: [],
     });

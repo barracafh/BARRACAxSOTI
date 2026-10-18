@@ -1,11 +1,10 @@
 import { afterEach, test, expect } from "bun:test";
-import { mkdtemp, cp, writeFile, access, rm } from "node:fs/promises";
+import { mkdtemp, cp, writeFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { pathToFileURL } from "node:url";
-import { RegistroLocal } from "@hacknight/shared/registro/local";
-import { descargar, sha256 } from "../src/lib/datos";
 import {
+  sha256,
   assetName,
   verificar,
   isNewer,
@@ -52,63 +51,9 @@ async function cli(reg: string, cwd: string, args: string[]) {
   const data = JSON.parse(await new Response(p.stdout).text());
   return { ...data, status: await p.exited };
 }
-test("tramitar dry-run no escribe y arranque copia stub y asignación", async () => {
+test("actualizar está desactivado sin releases", async () => {
   const { dir, reg } = await setup();
-  const dry = await cli(reg, dir, ["tramitar", "--dry-run"]);
-  expect(dry.ok).toBe(true);
-  await expect(access(join(dir, "squad-taronja"))).rejects.toThrow();
-  const start = await cli(reg, dir, ["tramitar"]);
-  expect(start.ok).toBe(true);
-  const ficha = await Bun.file(join(dir, "squad-taronja/ficha.json")).json();
-  expect(ficha.herramienta).toBe("derechos");
-  expect(
-    await Bun.file(join(dir, "squad-taronja/index.html")).text(),
-  ).toContain("12345678Z");
-  expect((await cli(reg, dir, ["tramitar"])).ok).toBe(false);
-  expect(
-    (await cli(reg, dir, ["init", "--dry-run", "--destino", "otro"])).ok,
-  ).toBe(true);
-});
-test("datos lista pendientes y actualizar está desactivado", async () => {
-  const { dir, reg } = await setup();
-  const list = await cli(reg, dir, ["datos"]);
-  expect(list.data).toHaveLength(9);
-  expect((await cli(reg, dir, ["datos", "derechos-base"])).code).toBe(
-    "NOT_CONFIGURED",
-  );
   expect((await cli(reg, dir, ["actualizar"])).data.habilitada).toBe(false);
-});
-test("paquete local verifica checksum antes de instalar y funciona por CLI", async () => {
-  const { dir, reg } = await setup();
-  const file = join(dir, "pack.csv");
-  await writeFile(file, "municipio,ayuda\nDemo,Ayuda");
-  const pack = {
-    id: "demo-pack",
-    nombre: "Prueba",
-    url: pathToFileURL(file).href,
-    sha256: sha256(await Bun.file(file).bytes()),
-    pendiente: false,
-  };
-  const ctx = {
-    opts: {},
-    registro: new RegistroLocal(reg),
-    cwd: dir,
-    config: {
-      registro: pathToFileURL(reg).href,
-      plantilla: undefined,
-      releases: undefined,
-    },
-  };
-  await expect(
-    descargar(ctx, { ...pack, sha256: "0".repeat(64) }),
-  ).rejects.toMatchObject({ code: "CHECKSUM" });
-  await expect(access(join(dir, "datos/demo-pack.csv"))).rejects.toThrow();
-  const result = await descargar(ctx, pack);
-  expect(await Bun.file(result.archivo).text()).toContain("municipio");
-  const ts = await ctx.registro.tracks();
-  ts[0]!.paquetes = [pack];
-  await writeFile(join(reg, "tracks.json"), JSON.stringify(ts));
-  expect((await cli(reg, dir, ["datos", "demo-pack"])).ok).toBe(true);
 });
 test("assets, semver y SHA256 de actualización", () => {
   expect(assetName("darwin", "arm64")).toBe("hacknight-darwin-arm64");

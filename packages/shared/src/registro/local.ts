@@ -110,22 +110,6 @@ export class RegistroLocal implements Registro {
       s.issues.push(issue);
       return issue;
     });
-  editarIssue = (
-    numero: number,
-    cambios: { estado?: "open" | "closed"; cuerpo?: string; titulo?: string },
-  ) =>
-    this.mutate((s) => {
-      const i = s.issues.find((i) => i.numero === numero);
-      if (!i)
-        throw new CliError(
-          "NOT_FOUND",
-          "Turno no encontrado.",
-          "Consulta cita estado.",
-          4,
-        );
-      Object.assign(i, cambios);
-      return i;
-    });
   fichas = async (): Promise<RegistroFicha[]> => (await this.state()).registros;
   registrar = (ficha: Ficha, fecha: string) =>
     this.mutate(async (s) => {

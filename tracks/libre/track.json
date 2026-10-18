@@ -6,19 +6,9 @@
   "ventanilla": 12,
   "color": "paper",
   "glifo": "?",
-  "prefijo": "L",
   "estado": "libre",
   "lead": "por asignar",
   "piezas": ["Propuesta de utilidad ciudadana", "Integración en el centro"],
-  "paquetes": [
-    {
-      "id": "libre-base",
-      "nombre": "Pack Track libre",
-      "url": "https://example.invalid/pendiente/libre.zip",
-      "sha256": "PENDIENTE",
-      "pendiente": true
-    }
-  ],
   "fuentes": [
     {
       "nombre": "datos.gob.es",

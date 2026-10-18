@@ -33,4 +33,4 @@ Riesgo electoral alto hasta el 29/11: solo proceso, sin candidatos, encuestas ni
 
 ## Qué falta antes del 20/10
 
-Asignar track lead y revisión humana. Verificar convocatoria y calendario completo, revisar excepciones, asignar responsable editorial y fechar todas las guías. Publicar el pack con procedencia, fecha y SHA256; actualizar `track.json` y regenerar el catálogo.
+Asignar track lead y revisión humana. Verificar convocatoria y calendario completo, revisar excepciones, asignar responsable editorial y fechar todas las guías. Dejar los datos en `datos/` con su procedencia y fecha de consulta.

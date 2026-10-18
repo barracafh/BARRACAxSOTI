@@ -188,7 +188,7 @@ test("revisión falla por DNI y botón, y se subsana", async () => {
     opts: {},
     registro: r,
     cwd: dir,
-    config: { registro: "local", plantilla: undefined, releases: undefined },
+    config: { registro: "local", releases: undefined },
   };
   const f = (async () => new Response("ok")) as unknown as typeof fetch;
   const before = await revisar(ctx, f);
@@ -259,7 +259,7 @@ test("la ficha que se publicará se escanea aunque todavía no esté versionada"
     opts: {},
     registro: r,
     cwd: dir,
-    config: { registro: "local", plantilla: undefined, releases: undefined },
+    config: { registro: "local", releases: undefined },
   };
   const f = (async () => new Response("ok")) as unknown as typeof fetch;
   const result = await revisar(ctx, f);
@@ -307,7 +307,7 @@ test("la revisión detecta datos decodificados de la ficha y oculta sus valores"
       opts: {},
       registro,
       cwd: dir,
-      config: { registro: "local", plantilla: undefined, releases: undefined },
+      config: { registro: "local", releases: undefined },
     },
     (async () => new Response("ok")) as unknown as typeof fetch,
   );

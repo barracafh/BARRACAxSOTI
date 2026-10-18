@@ -153,11 +153,7 @@ export async function archivosEquipo(
       2,
     ) + "\n";
   files[".hacknight/plantilla.json"] =
-    JSON.stringify(
-      { plantilla: "hacknight", version: "0", exampleFicha: false },
-      null,
-      2,
-    ) + "\n";
+    JSON.stringify({ plantilla: "hacknight", version: "0" }, null, 2) + "\n";
   const carpeta = join(root, "tracks", track.slug);
   if (!(await Bun.file(join(carpeta, "SETUP.md")).exists()))
     throw new Error(`tracks/${track.slug} no tiene SETUP.md.`);
@@ -358,7 +354,7 @@ ${
 }
 <section class="cli">
 <h2>El CLI del evento</h2>
-<p>Vuestra ficha, la revisión de las seis reglas, los turnos de ayuda y el tablón. Con <code>gh auth login</code> hecho, en macOS o Linux:</p>
+<p>Vuestra ficha, la revisión de las seis reglas y el tablón. Con <code>gh auth login</code> hecho, en macOS o Linux:</p>
 <pre><code>curl -fsSL https://${dominio}/instalar.sh | sh</code></pre>
 <p>En Windows, descarga <code>hacknight-windows-x64.exe</code> de la <a href="https://github.com/${registro}/releases/latest">última release</a>.</p>
 </section>

@@ -138,18 +138,6 @@ export class RegistroGitHub implements Registro {
       }),
     );
   }
-  async editarIssue(
-    numero: number,
-    c: { estado?: "open" | "closed"; cuerpo?: string; titulo?: string },
-  ) {
-    return issue(
-      await this.api(`issues/${numero}`, ghIssue, "PATCH", {
-        state: c.estado,
-        body: c.cuerpo,
-        title: c.titulo,
-      }),
-    );
-  }
   async fichas(): Promise<RegistroFicha[]> {
     const prs = await this.paginas(
       "pulls?state=all",
@@ -289,7 +277,7 @@ export class RegistroGitHub implements Registro {
           `repos/${team.repo}/events?per_page=30`,
         ]);
       } catch (e) {
-        // El squad puede estar configurado antes de crear su repositorio con tramitar.
+        // El squad puede estar configurado antes de que infra/equipos cree su repositorio.
         if (e instanceof CliError && e.code === "NOT_FOUND") continue;
         throw e;
       }

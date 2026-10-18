@@ -14,7 +14,6 @@ export const initialConfig = {
     clasificacion: true,
     personas: false,
     negociados: true,
-    ventanilla: true,
     tablon: true,
     pantalla: true,
   },

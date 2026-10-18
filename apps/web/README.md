@@ -4,8 +4,8 @@ Web del evento y dashboard local, servidos por [apps/server/](../server) (`bun r
 
 Los títulos, metadatos y cabeceras se renderizan con el evento del registro; `marca.js` los actualiza tras las consultas o al guardar desde el admin. No hay un nombre de evento duplicado en el HTML.
 
-- `/`: evento, negociados, clasificación, evolución, ventanilla y tablón.
-- `/pantalla`: vista del proyector con cuenta atrás, ranking y turnos.
+- `/`: evento, negociados, clasificación, evolución y tablón.
+- `/pantalla`: vista del proyector con cuenta atrás, ranking y tablón.
 - `GET /api/estado`: registro y clasificación, consultados cada 2 s.
 - `POST /api/uso`: contrato v1 del watcher. Deduplicación y persistencia en SQLite.
 - `/admin`: acceso local, evento, equipos, participantes y visibilidad de vistas.

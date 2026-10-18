@@ -6,22 +6,12 @@
   "ventanilla": 2,
   "color": "acid",
   "glifo": "+",
-  "prefijo": "D",
   "estado": "nucleo",
   "lead": "por asignar",
   "piezas": [
     "Ayudas para ti",
     "Compatibilidades y requisitos",
     "Calendario de convocatorias"
-  ],
-  "paquetes": [
-    {
-      "id": "derechos-base",
-      "nombre": "Pack Derechos",
-      "url": "https://example.invalid/pendiente/derechos.zip",
-      "sha256": "PENDIENTE",
-      "pendiente": true
-    }
   ],
   "fuentes": [
     {

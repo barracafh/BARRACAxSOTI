@@ -12,7 +12,6 @@ export async function generateTracks(directory = join(root, "tracks")) {
   const tracks: Track[] = [];
   const slugs = new Set<string>();
   const windows = new Set<number>();
-  const prefixes = new Set<string>();
   for await (const path of new Bun.Glob("**/track.json").scan(directory)) {
     const track = trackSchema
       .strict()
@@ -20,15 +19,10 @@ export async function generateTracks(directory = join(root, "tracks")) {
     const expected = `${track.slug}/track.json`;
     if (path !== expected)
       throw new Error(`Ruta incorrecta: ${path}; debe ser ${expected}.`);
-    if (
-      slugs.has(track.slug) ||
-      windows.has(track.ventanilla) ||
-      prefixes.has(track.prefijo)
-    )
-      throw new Error(`Slug, ventanilla o prefijo duplicado: ${path}.`);
+    if (slugs.has(track.slug) || windows.has(track.ventanilla))
+      throw new Error(`Slug o ventanilla duplicado: ${path}.`);
     slugs.add(track.slug);
     windows.add(track.ventanilla);
-    prefixes.add(track.prefijo);
     tracks.push(track);
   }
   if (!tracks.length) throw new Error("No se han encontrado tracks.");

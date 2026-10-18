@@ -6,17 +6,14 @@ import { esAusente } from "@hacknight/shared/io";
 import { CliError } from "@hacknight/shared/errors";
 const schema = z.object({
   registro: z.string().optional(),
-  plantilla: z.string().optional(),
   releases: z.string().optional(),
 });
 export type Options = {
   json?: boolean;
   registro?: string;
-  plantilla?: string;
   releases?: string;
   cwd?: string;
   usuario?: string;
-  confirmar?: boolean;
   plain?: boolean;
 };
 export const rutaConfig = () =>
@@ -29,7 +26,6 @@ export const rutaConfig = () =>
 // releases stays optional in the type: without it, actualizar is disabled.
 export async function config(opts: Options): Promise<{
   registro: string;
-  plantilla?: string;
   releases?: string;
 }> {
   let file: z.infer<typeof schema> = {};
@@ -51,8 +47,6 @@ export async function config(opts: Options): Promise<{
       process.env.HACKNIGHT_REGISTRO ??
       file.registro ??
       "barracafh/build-registro",
-    plantilla:
-      opts.plantilla ?? process.env.HACKNIGHT_PLANTILLA ?? file.plantilla,
     releases:
       opts.releases ??
       process.env.HACKNIGHT_RELEASES ??

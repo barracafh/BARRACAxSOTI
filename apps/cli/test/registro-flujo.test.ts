@@ -3,6 +3,7 @@ import { mkdtemp, cp, writeFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
+import { proyectoDePrueba } from "./proyecto";
 const tempDirs: string[] = [];
 afterEach(async () => {
   for (const dir of tempDirs.splice(0))
@@ -43,8 +44,7 @@ test("registro JSON: revisar, registrar, actualizar y plazo; sin red real", asyn
   const ev = await Bun.file(join(reg, "evento.json")).json();
   ev.registroFueraDePlazo = true;
   await writeFile(join(reg, "evento.json"), JSON.stringify(ev));
-  expect((await cli(["tramitar"])).ok).toBe(true);
-  const project = join(dir, "squad-taronja");
+  const project = await proyectoDePrueba(dir);
   const ficha = await Bun.file(join(project, "ficha.json")).json();
   ficha.url = "http://127.0.0.1:1234";
   await writeFile(join(project, "ficha.json"), JSON.stringify(ficha));

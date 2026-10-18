@@ -98,12 +98,14 @@ try {
   console.log(
     "PASS: nuevos logs → watcher → clasificación, sin contenido ni rutas.",
   );
-  const issue = (await demo.ctx.registro.issues()).find((i) =>
-    i.etiquetas.includes("ventanilla"),
-  )!;
-  await demo.ctx.registro.editarIssue(issue.numero, { estado: "closed" });
-  assert.equal((await estado()).cola.length, 1);
-  console.log("PASS: cambios de ventanilla del registro llegan a la web.");
+  const antes = (await estado()).entradas.length;
+  await new RegistroLocal(demo.reg, "demo-mentor-ona").crearIssue(
+    "Prueba",
+    "Aviso del comité",
+    ["aviso"],
+  );
+  assert.equal((await estado()).entradas.length, antes + 1);
+  console.log("PASS: cambios del tablón del registro llegan a la web.");
   for (const path of [
     "/",
     "/pantalla",

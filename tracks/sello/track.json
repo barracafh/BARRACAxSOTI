@@ -6,22 +6,12 @@
   "ventanilla": 9,
   "color": "magenta",
   "glifo": "#",
-  "prefijo": "S",
   "estado": "nucleo",
   "lead": "por asignar",
   "piezas": [
     "¿Esta web es oficial?",
     "Las citas son gratis",
     "¿Este aviso es oficial?"
-  ],
-  "paquetes": [
-    {
-      "id": "sello-base",
-      "nombre": "Pack Sello + estafas",
-      "url": "https://example.invalid/pendiente/sello.zip",
-      "sha256": "PENDIENTE",
-      "pendiente": true
-    }
   ],
   "fuentes": [
     {

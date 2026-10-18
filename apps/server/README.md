@@ -11,7 +11,7 @@ bun install --frozen-lockfile
 bun run start
 ```
 
-Web: **http://127.0.0.1:4310/**. Administración: **http://127.0.0.1:4310/admin**. El primer arranque crea `.hacknight-live/registro/` con los tracks reales, el horario del evento y **cero equipos, participantes, publicaciones o consumo**. Reiniciar conserva los datos. No arranca watchers ni genera tokens.
+Web: **http://127.0.0.1:4310/**. Administración: **http://127.0.0.1:4310/admin**. El primer arranque crea `.hacknight-live/registro/` con los tracks reales, el horario del evento y **cero equipos, participantes, avisos o consumo**. Reiniciar conserva los datos. No arranca watchers ni genera tokens.
 
 La terminal indica dónde está `.admin-key`; introduce el contenido de ese archivo en el formulario de administración. Es una clave local, creada con permisos `0600`; no se imprime, no se sube a GitHub y no se guarda en el navegador. La sesión usa una cookie HttpOnly/SameSite y caduca en ocho horas o al reiniciar el servidor. `Cerrar sesión` la revoca.
 
@@ -30,7 +30,7 @@ En `/admin` el comité puede:
 
 - Editar nombre oficial, nombre corto, organizadores, inicio y fin del build, entregas tardías y handles del comité. Los campos de fecha muestran la zona horaria del navegador; la web pública siempre presenta la hora de València.
 - Crear, editar y quitar equipos; asignarles un negociado, pieza, mesa, repo y hasta cinco handles de GitHub. Se admiten equipos vacíos durante la preparación. Se rechazan participantes repetidos, tracks fuera del hack y cupos excedidos.
-- Habilitar tokenmaxxing, ranking individual, catálogo de negociados, ventanilla, tablón y proyector. El ranking individual empieza deshabilitado. Las vistas apagadas tampoco entregan sus datos desde la API. Los avisos y publicaciones pueden identificar a sus autores aunque el ranking individual esté oculto.
+- Habilitar tokenmaxxing, ranking individual, catálogo de negociados, tablón y proyector. El ranking individual empieza deshabilitado. Las vistas apagadas tampoco entregan sus datos desde la API. Los avisos identifican a sus autores aunque el ranking individual esté oculto.
 
 Los equipos se editan en un borrador. **Guardar configuración** aplica el conjunto de cambios, con control de revisión para impedir que dos pestañas se sobreescriban. La web los recoge en su siguiente consulta, cada dos segundos. Los permisos de vistas son globales para esta web; no sustituyen los permisos de GitHub ni deshabilitan los comandos del CLI.
 

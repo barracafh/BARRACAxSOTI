@@ -78,10 +78,10 @@ test("GitHub pagina las issues sin mezclar PRs", async () => {
   let count = 0;
   const item = {
     number: 1,
-    title: "Cita",
+    title: "Hola",
     body: "{}",
     user: { login: "demo" },
-    labels: [{ name: "ventanilla" }],
+    labels: [{ name: "aviso" }],
     state: "open",
     created_at: "2026-10-22T19:00:00Z",
     html_url: "https://example.org",

@@ -14,7 +14,6 @@ const labels = {
   clasificacion: "Tokenmaxxing · squads y tracks",
   personas: "Ranking individual de participantes",
   negociados: "Catálogo de negociados y equipos",
-  ventanilla: "Turnos de ventanilla",
   tablon: "Tablón y entregas",
   pantalla: "Modo proyector",
 };
