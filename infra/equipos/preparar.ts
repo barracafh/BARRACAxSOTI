@@ -8,6 +8,7 @@ import {
 } from "@hacknight/shared/modelo";
 import { paleta } from "@hacknight/shared/paleta";
 import {
+  commit,
   ejecutar,
   existe,
   initialCommit,
@@ -226,24 +227,9 @@ export async function pasosEquipo(
     commands.push(vercel(`/v10/projects/${name}/env?upsert=true`, "POST", env));
   // Linking a repo deploys nothing; a push after the link deploys with its keys.
   if (nuevo)
-    commands.push(
-      {
-        args: [
-          "git",
-          "-c",
-          "user.name=Hacknight",
-          "-c",
-          "user.email=organizacion@example.invalid",
-          "-c",
-          "commit.gpgsign=false",
-          "commit",
-          "--allow-empty",
-          "-m",
-          "Deploy on Vercel",
-        ],
-      },
-      { args: ["git", "push", "origin", "main"] },
-    );
+    commands.push(commit("--allow-empty", "-m", "Deploy on Vercel"), {
+      args: ["git", "push", "origin", "main"],
+    });
   for (const m of equipo.miembros)
     for (const repo of [equipo.repo, registro])
       commands.push({
