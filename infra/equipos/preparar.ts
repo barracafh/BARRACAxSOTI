@@ -153,11 +153,7 @@ export async function archivosEquipo(
       2,
     ) + "\n";
   files[".hacknight/plantilla.json"] =
-    JSON.stringify(
-      { plantilla: "hacknight", version: "0", exampleFicha: false },
-      null,
-      2,
-    ) + "\n";
+    JSON.stringify({ plantilla: "hacknight", version: "0" }, null, 2) + "\n";
   const carpeta = join(root, "tracks", track.slug);
   if (!(await Bun.file(join(carpeta, "SETUP.md")).exists()))
     throw new Error(`tracks/${track.slug} no tiene SETUP.md.`);

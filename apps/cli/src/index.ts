@@ -7,9 +7,7 @@ import { fallo, salida } from "./lib/output";
 import { CliError } from "@hacknight/shared/errors";
 import { tracks, expediente } from "./commands/base";
 import { ficha, revision, registrar } from "./commands/entrega";
-import { tablon, publicar } from "./commands/social";
-import { pantalla } from "./commands/pantalla";
-import { tramitar, datos } from "./commands/arranque";
+import { tablon } from "./commands/social";
 import { actualizar } from "./commands/actualizar";
 import { consumo } from "./commands/consumo";
 import { observar } from "./commands/observar";
@@ -24,9 +22,7 @@ const program = new Command()
   .option("--registro <repo|file-url>", "Registro central")
   .option("--cwd <directorio>", "Directorio del proyecto")
   .option("--usuario <handle>", "Handle de participante (solo local)")
-  .option("--plantilla <repo|directorio>", "Plantilla del squad")
   .option("--releases <repo>", "Repositorio de releases")
-  .option("--confirmar", "Confirmación explícita de una acción pública")
   .option("--plain", "Texto plano");
 const json = process.argv.includes("--json");
 const ayudaES = (s: string) =>
@@ -75,47 +71,18 @@ program.command("check", { hidden: true }).action(run(revision));
 program.command("submit", { hidden: true }).action(run(registrar));
 program
   .command("tablon")
-  .description("Publicaciones, avisos, registros y pushes")
+  .description("Avisos, registros y pushes")
   .option("-n <cantidad>", "Número de entradas", "20")
   .action(async (o) => run((ctx) => tablon(ctx, Number(o.n)))());
-program
-  .command("publicar <texto>")
-  .description("Publicación pública, hasta 500 caracteres")
-  .action(async (texto) => run((ctx) => publicar(ctx, texto))());
-program
-  .command("pantalla")
-  .description("Proyector del local")
-  .option("--once", "Una captura y salir")
-  .action(async (o) => run((ctx) => pantalla(ctx, o.once))());
 program
   .command("feed", { hidden: true })
   .option("-n <cantidad>", "Entradas", "20")
   .action(async (o) => run((ctx) => tablon(ctx, Number(o.n)))());
 program
-  .command("tv", { hidden: true })
-  .option("--once")
-  .action(async (o) => run((ctx) => pantalla(ctx, o.once))());
-program
-  .command("tramitar")
-  .description("Crear el proyecto desde la plantilla")
-  .option("--dry-run", "Mostrar el plan sin cambios")
-  .option("--destino <directorio>", "Directorio nuevo")
-  .action(async (o) => run((ctx) => tramitar(ctx, o))());
-program
-  .command("datos [paquete]")
-  .description("Listar o descargar datos verificados")
-  .option("--track <slug>", "Filtrar por negociado")
-  .action(async (p, o) => run((ctx) => datos(ctx, p, o.track))());
-program
   .command("actualizar")
   .description("Actualizar desde releases, si se habilitan")
   .option("--check", "Solo consultar")
   .action(async (o) => run((ctx) => actualizar(ctx, o.check))());
-program
-  .command("init", { hidden: true })
-  .option("--dry-run")
-  .option("--destino <directorio>")
-  .action(async (o) => run((ctx) => tramitar(ctx, o))());
 program
   .command("consumo")
   .description("Tokens locales del proyecto durante el build")
@@ -154,10 +121,6 @@ program.action(
     > = {
       tracks: { label: "Negociados · tracks", run: () => tracks(ctx) },
       expediente: { label: "Su expediente", run: () => expediente(ctx) },
-      tramitar: {
-        label: "Abrir proyecto · tramitar",
-        run: () => tramitar(ctx, {}),
-      },
       ficha: { label: "Editar ficha", run: () => ficha(ctx) },
       revisar: {
         label: "Requerimiento de subsanación",
@@ -165,8 +128,6 @@ program.action(
       },
       registrar: { label: "Registrar ficha", run: () => registrar(ctx) },
       tablon: { label: "Leer el tablón", run: () => tablon(ctx) },
-      datos: { label: "Paquetes de datos", run: () => datos(ctx) },
-      pantalla: { label: "Pantalla del local", run: () => pantalla(ctx) },
     };
     for (;;) {
       const choice = await select({

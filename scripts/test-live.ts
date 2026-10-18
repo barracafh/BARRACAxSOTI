@@ -99,7 +99,11 @@ try {
     "PASS: nuevos logs → watcher → clasificación, sin contenido ni rutas.",
   );
   const antes = (await estado()).entradas.length;
-  await demo.ctx.registro.crearIssue("Prueba", "Texto del tablón", ["tablon"]);
+  await new RegistroLocal(demo.reg, "demo-mentor-ona").crearIssue(
+    "Prueba",
+    "Aviso del comité",
+    ["aviso"],
+  );
   assert.equal((await estado()).entradas.length, antes + 1);
   console.log("PASS: cambios del tablón del registro llegan a la web.");
   for (const path of [

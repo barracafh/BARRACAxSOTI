@@ -5,8 +5,9 @@ import type { Contexto } from "../lib/contexto";
 import { repo } from "@hacknight/shared/modelo";
 import { CliError } from "@hacknight/shared/errors";
 import { salida } from "../lib/output";
-import { sha256 } from "../lib/datos";
 import { VERSION, COMPILED } from "../version";
+export const sha256 = (bytes: Uint8Array) =>
+  new Bun.CryptoHasher("sha256").update(bytes).digest("hex");
 // Adaptación del flujo update.ts MIT: assets por plataforma, SHA256 y rename.
 export function assetName(platform = process.platform, arch = process.arch) {
   const os = platform === "win32" ? "windows" : platform;

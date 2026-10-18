@@ -35,4 +35,4 @@ Hasta el 29/11: lenguaje neutral y atribuido. Sin notificaciones personales, moc
 
 ## Qué falta antes del 20/10
 
-Asignar track lead y revisión humana. Seleccionar PDFs, descargar y revisar catálogo PID, preparar respuestas esperadas y verificar enlaces de las tres carpetas. Publicar el pack con procedencia, fecha y SHA256; actualizar `track.json` y regenerar el catálogo.
+Asignar track lead y revisión humana. Seleccionar PDFs, descargar y revisar catálogo PID, preparar respuestas esperadas y verificar enlaces de las tres carpetas. Dejar los datos en `datos/` con su procedencia y fecha de consulta.

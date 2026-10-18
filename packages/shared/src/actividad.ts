@@ -1,4 +1,3 @@
-import { z } from "zod";
 import type {
   Registro,
   Evento,
@@ -34,7 +33,7 @@ export async function entradas(registro: Registro): Promise<Entrada[]> {
     registro.equipos(),
   ]);
   const pushes = await registro.pushes(teams);
-  return componerEntradas(issues, comite, registros, pushes, tracks, teams);
+  return componerEntradas(issues, comite, registros, pushes, tracks);
 }
 function componerEntradas(
   issues: Issue[],
@@ -42,35 +41,23 @@ function componerEntradas(
   registros: RegistroFicha[],
   pushes: Awaited<ReturnType<Registro["pushes"]>>,
   tracks: Track[],
-  teams: Equipo[],
 ): Entrada[] {
   const out: Entrada[] = [];
   const glifo = (slug: string | null) =>
     tracks.find((t) => t.slug === slug)?.glifo ?? "·";
   for (const i of issues) {
-    const aviso =
-      i.etiquetas.includes("aviso") &&
-      comite.some((c) => c.toLowerCase() === i.autor.toLowerCase());
-    if (i.etiquetas.includes("aviso") && !aviso) continue;
-    if (!aviso && !i.etiquetas.includes("tablon")) continue;
-    const track =
-      teams.find((t) =>
-        t.miembros.some((m) => m.toLowerCase() === i.autor.toLowerCase()),
-      )?.herramienta ?? null;
-    let texto = i.cuerpo || i.titulo;
-    try {
-      const parsed = z
-        .object({ texto: z.string() })
-        .safeParse(JSON.parse(i.cuerpo));
-      if (parsed.success) texto = parsed.data.texto;
-    } catch {}
+    if (
+      !i.etiquetas.includes("aviso") ||
+      !comite.some((c) => c.toLowerCase() === i.autor.toLowerCase())
+    )
+      continue;
     out.push({
       id: `issue-${i.numero}`,
-      tipo: aviso ? "aviso" : "publicacion",
+      tipo: "aviso",
       fecha: i.fecha,
-      herramienta: track,
-      glifo: glifo(track),
-      texto: `@${i.autor}: ${texto}`,
+      herramienta: null,
+      glifo: glifo(null),
+      texto: `@${i.autor}: ${i.cuerpo || i.titulo}`,
       url: i.url,
     });
   }
@@ -115,14 +102,7 @@ export async function snapshot(
     tracks,
     equipos,
     registros: [...registros].sort((a, b) => b.fecha.localeCompare(a.fecha)),
-    entradas: componerEntradas(
-      issues,
-      comite,
-      registros,
-      pushes,
-      tracks,
-      equipos,
-    ),
+    entradas: componerEntradas(issues, comite, registros, pushes, tracks),
   };
 }
 

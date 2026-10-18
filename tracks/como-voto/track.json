@@ -13,15 +13,6 @@
     "Dónde votar y censo",
     "Calendario con fuentes"
   ],
-  "paquetes": [
-    {
-      "id": "como-voto-base",
-      "nombre": "Pack ¿Cómo voto? (29N)",
-      "url": "https://example.invalid/pendiente/como-voto.zip",
-      "sha256": "PENDIENTE",
-      "pendiente": true
-    }
-  ],
   "fuentes": [
     {
       "nombre": "www.juntaelectoralcentral.es",

@@ -123,11 +123,6 @@ export async function prepararPruebaLive() {
     "Bona vesprada. Las ventanillas están abiertas: construimos una plataforma entre todos.",
     ["aviso"],
   );
-  await new RegistroLocal(reg, "demo-gala").crearIssue(
-    "Avance de Segell",
-    "Ya tenemos la lista de dominios oficiales. Siguiente paso: comprobar los avisos sospechosos.",
-    ["tablon"],
-  );
   return { dir, reg, ctx, equipos, participants, generar };
 }
 

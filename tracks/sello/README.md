@@ -33,4 +33,4 @@ Hasta el 29/11: no emitir veredictos políticos ni atribuir campañas. Una lista
 
 ## Qué falta antes del 20/10
 
-Asignar track lead y revisión humana. Curar dominios y canales, documentar las reglas de coincidencia y revisar ejemplos y mensajes de incertidumbre. Publicar el pack con procedencia, fecha y SHA256; actualizar `track.json` y regenerar el catálogo.
+Asignar track lead y revisión humana. Curar dominios y canales, documentar las reglas de coincidencia y revisar ejemplos y mensajes de incertidumbre. Dejar los datos en `datos/` con su procedencia y fecha de consulta.

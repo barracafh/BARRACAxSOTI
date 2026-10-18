@@ -10,6 +10,7 @@ import {
   type EstadoCodex,
 } from "../src/consumo/colectores";
 import { consumoLocal } from "../src/consumo/local";
+import { proyectoDePrueba } from "./proyecto";
 const tempDirs: string[] = [];
 afterEach(async () => {
   for (const dir of tempDirs.splice(0))
@@ -212,8 +213,7 @@ test("consumo --json y tasa en justificante con historiales sintéticos", async 
     expect(await p.exited).toBe(0);
     return data;
   }
-  await cli(["tramitar"]);
-  const project = join(dir, "squad-taronja");
+  const project = await proyectoDePrueba(dir);
   await writeFile(
     join(logs, "session.jsonl"),
     JSON.stringify(claude(project, new Date().toISOString())) + "\n",

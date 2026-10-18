@@ -17,13 +17,6 @@ export function paint(color: Color, text: string) {
   const rgb = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
   return `\x1b[38;2;${rgb.join(";")}m${text}\x1b[39m`;
 }
-// Fondo del proyector; sin color, conserva el texto plano y el fondo del usuario.
-export function fondo(color?: Color) {
-  if (!enabled) return "";
-  if (!color) return "\x1b[49m";
-  const rgb = [1, 3, 5].map((i) => parseInt(paleta[color].slice(i, i + 2), 16));
-  return `\x1b[48;2;${rgb.join(";")}m`;
-}
 // Badge: las tintas de BARRACA son claras y llevan texto nit; la noche, paper.
 export function badge(color: Color, text: string) {
   if (!enabled) return text;

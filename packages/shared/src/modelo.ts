@@ -17,14 +17,6 @@ export const fichaSchema = z.strictObject({
   datos: z.enum(["reales", "simulados"]),
 });
 export type Ficha = z.infer<typeof fichaSchema>;
-export const paqueteSchema = z.object({
-  id: slug,
-  nombre: text,
-  url: z.string(),
-  sha256: z.string(),
-  pendiente: z.boolean().default(false),
-});
-export type Paquete = z.infer<typeof paqueteSchema>;
 export const trackSchema = z.object({
   slug,
   nombre: text,
@@ -36,7 +28,6 @@ export const trackSchema = z.object({
   estado: z.enum(["nucleo", "si-hay-gente", "condicional", "libre", "fuera"]),
   lead: text,
   piezas: z.array(text).min(2).max(3),
-  paquetes: z.array(paqueteSchema),
   fuentes: z.array(fuenteSchema),
   dificultad: text,
   guias: z.array(text),

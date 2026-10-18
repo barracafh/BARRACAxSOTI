@@ -14,15 +14,6 @@
       "Compatibilidades y requisitos",
       "Calendario de convocatorias"
     ],
-    "paquetes": [
-      {
-        "id": "derechos-base",
-        "nombre": "Pack Derechos",
-        "url": "https://example.invalid/pendiente/derechos.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
-    ],
     "fuentes": [
       {
         "nombre": "www.infosubvenciones.es",
@@ -52,15 +43,6 @@
       "PDF a checklist",
       "¿Qué me piden y qué no pueden pedirme?",
       "Dónde descargar cada documento"
-    ],
-    "paquetes": [
-      {
-        "id": "claridad-base",
-        "nombre": "Pack Claridad",
-        "url": "https://example.invalid/pendiente/claridad.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
     ],
     "fuentes": [
       {
@@ -92,15 +74,6 @@
       "¿Esta web es oficial?",
       "Las citas son gratis",
       "¿Este aviso es oficial?"
-    ],
-    "paquetes": [
-      {
-        "id": "sello-base",
-        "nombre": "Pack Sello + estafas",
-        "url": "https://example.invalid/pendiente/sello.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
     ],
     "fuentes": [
       {
@@ -137,15 +110,6 @@
       "¿Y si no hay cita?",
       "Oficinas y canales oficiales"
     ],
-    "paquetes": [
-      {
-        "id": "brujula-base",
-        "nombre": "Pack Brújula (GVA y València)",
-        "url": "https://example.invalid/pendiente/brujula.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
-    ],
     "fuentes": [
       {
         "nombre": "www.gva.es",
@@ -179,15 +143,6 @@
       "Voto por correo",
       "Dónde votar y censo",
       "Calendario con fuentes"
-    ],
-    "paquetes": [
-      {
-        "id": "como-voto-base",
-        "nombre": "Pack ¿Cómo voto? (29N)",
-        "url": "https://example.invalid/pendiente/como-voto.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
     ],
     "fuentes": [
       {
@@ -228,15 +183,6 @@
       "Calendario descargable",
       "Alertas sin datos personales"
     ],
-    "paquetes": [
-      {
-        "id": "radar-base",
-        "nombre": "Pack Radar",
-        "url": "https://example.invalid/pendiente/radar.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
-    ],
     "fuentes": [
       {
         "nombre": "www.infosubvenciones.es",
@@ -262,15 +208,6 @@
       "Contratos en claro",
       "Presupuestos consultables",
       "Dato oficial"
-    ],
-    "paquetes": [
-      {
-        "id": "abierto-base",
-        "nombre": "Pack Abierto",
-        "url": "https://example.invalid/pendiente/abierto.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
     ],
     "fuentes": [
       {
@@ -302,15 +239,6 @@
     "estado": "condicional",
     "lead": "por asignar",
     "piezas": ["En qué paso estoy", "Qué viene después"],
-    "paquetes": [
-      {
-        "id": "siguiente-base",
-        "nombre": "Pack Siguiente",
-        "url": "https://example.invalid/pendiente/siguiente.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
-    ],
     "fuentes": [
       {
         "nombre": "sede.gva.es",
@@ -338,15 +266,6 @@
     "estado": "libre",
     "lead": "por asignar",
     "piezas": ["Propuesta de utilidad ciudadana", "Integración en el centro"],
-    "paquetes": [
-      {
-        "id": "libre-base",
-        "nombre": "Pack Track libre",
-        "url": "https://example.invalid/pendiente/libre.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
-    ],
     "fuentes": [
       {
         "nombre": "datos.gob.es",
@@ -370,7 +289,6 @@
     "estado": "fuera",
     "lead": "por asignar",
     "piezas": ["¿Y si no hay cita? → Brújula", "Las citas son gratis → Sello"],
-    "paquetes": [],
     "fuentes": [
       {
         "nombre": "datos.gob.es",
@@ -397,7 +315,6 @@
       "¿Este aviso es oficial? → Sello",
       "Ayudas públicas → Derechos, solo si se cura el contenido"
     ],
-    "paquetes": [],
     "fuentes": [
       {
         "nombre": "www.proteccioncivil.es",
@@ -424,7 +341,6 @@
       "¿Qué me piden? → Claridad",
       "Dónde descargar documentos → Claridad"
     ],
-    "paquetes": [],
     "fuentes": [
       {
         "nombre": "carpetaciudadana.gob.es",
@@ -451,7 +367,6 @@
       "Dato oficial → Abierto",
       "Definiciones de indicadores → Abierto"
     ],
-    "paquetes": [],
     "fuentes": [
       {
         "nombre": "www.ine.es",

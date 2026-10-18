@@ -37,10 +37,6 @@ export async function tracks(ctx: Contexto, slug?: string) {
                 t.ciudadano,
                 `Lead: ${t.lead} · Dificultad: ${t.dificultad}`,
                 ...t.piezas.map((p) => `Pieza: ${p}`),
-                ...t.paquetes.map(
-                  (p) =>
-                    `Datos: ${p.id} · ${p.pendiente ? "PENDIENTE" : p.url}`,
-                ),
                 ...t.fuentes.map((f) => `Fuente: ${f.nombre} · ${f.url}`),
                 ...t.guias,
                 ...t.squads.map(

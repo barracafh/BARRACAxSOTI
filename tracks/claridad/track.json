@@ -13,15 +13,6 @@
     "¿Qué me piden y qué no pueden pedirme?",
     "Dónde descargar cada documento"
   ],
-  "paquetes": [
-    {
-      "id": "claridad-base",
-      "nombre": "Pack Claridad",
-      "url": "https://example.invalid/pendiente/claridad.zip",
-      "sha256": "PENDIENTE",
-      "pendiente": true
-    }
-  ],
   "fuentes": [
     {
       "nombre": "www.boe.es",

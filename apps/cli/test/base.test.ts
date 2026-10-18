@@ -28,7 +28,7 @@ test("registro local persiste issues", async () => {
     recursive: true,
   });
   const r = new RegistroLocal(p, "demo-alba");
-  const i = await r.crearIssue("Hola", "Texto", ["tablon"]);
+  const i = await r.crearIssue("Hola", "Texto", ["aviso"]);
   expect(i.numero).toBe(1);
   expect((await new RegistroLocal(p).issues())[0]?.titulo).toBe("Hola");
 });
@@ -51,7 +51,7 @@ test("marca y azulejos caben en 80 columnas y marca pequeña en 30", () => {
   expect(wordmarkRows()).toHaveLength(6);
   expect(new Set(wordmarkRows().map((s) => Bun.stringWidth(s))).size).toBe(1);
   expect(banner(30, null)).toContain("☾ build night");
-  expect(banner(80, null)).toContain("BARRACA x SOTI · 22/10/2026 · MAISA");
+  expect(banner(80, null)).toContain("BARRACA x SOTI · 22/10/2026 · Flywire");
   for (const columns of [30, 72, 73, 80])
     for (const line of banner(columns, null).split("\n"))
       expect(Bun.stringWidth(line)).toBeLessThanOrEqual(columns);

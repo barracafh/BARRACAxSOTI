@@ -32,4 +32,4 @@ Hasta el 29/11: explicar condiciones, sin valorar gobiernos ni prometer prestaci
 
 ## Qué falta antes del 20/10
 
-Asignar track lead y revisión humana. Elegir las ayudas, revisar requisitos y cambio de RVI, coordinar el pack con Radar y publicar el ZIP con SHA256. Publicar el pack con procedencia, fecha y SHA256; actualizar `track.json` y regenerar el catálogo.
+Asignar track lead y revisión humana. Elegir las ayudas, revisar requisitos y cambio de RVI y coordinar el pack con Radar. Dejar los datos en `datos/` con su procedencia y fecha de consulta.

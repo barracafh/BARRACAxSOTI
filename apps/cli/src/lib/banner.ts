@@ -90,7 +90,7 @@ export function banner(
           ))) +
     "\n" +
     wrap(
-      `${terminalText(evento.organizan)} · ${new Date(evento.inicio).toLocaleDateString("es-ES", { timeZone: "Europe/Madrid" })} · MAISA`,
+      `${terminalText(evento.organizan)} · ${new Date(evento.inicio).toLocaleDateString("es-ES", { timeZone: "Europe/Madrid" })} · Flywire`,
       Math.max(10, columns),
     ).join("\n")
   );
