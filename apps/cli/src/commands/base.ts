@@ -72,11 +72,7 @@ export async function expediente(ctx: Contexto) {
   };
   salida(
     data,
-    banner(
-      undefined,
-      ctx.opts.plain || ctx.opts.json ? null : undefined,
-      evento,
-    ) +
+    banner(undefined, evento) +
       "\n" +
       (track ? trackLabel(track) + "\n" : "") +
       panel("Su expediente", [

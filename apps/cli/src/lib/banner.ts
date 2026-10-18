@@ -1,9 +1,3 @@
-import { logoPng } from "../assets/logo";
-import {
-  detectImageProtocol,
-  renderImage,
-  type ImageProtocol,
-} from "./term-images";
 import { paint, wrap, terminalText, width, fit } from "./estilo";
 import { eventoBase } from "@hacknight/shared/evento";
 import type { Evento } from "@hacknight/shared/modelo";
@@ -62,32 +56,16 @@ export function wordmarkRows(nombre = eventoBase.nombre_corto) {
 }
 export function banner(
   columns = process.stdout.columns ?? 80,
-  protocol: ImageProtocol | null = detectImageProtocol(
-    process.env,
-    Boolean(process.stdout.isTTY),
-  ),
   evento: Evento = eventoBase,
 ) {
-  const png = logoPng();
-  const mark =
-    png && protocol && process.env.NO_COLOR === undefined
-      ? renderImage(protocol, png, {
-          maxColumns: Math.max(1, columns - 2),
-          maxRows: 6,
-        })
-      : null;
   const rows = wordmarkRows(evento.nombre_corto);
   return (
-    (mark ??
-      (columns >= Math.max(...rows.map((row) => width(row)))
-        ? rows.map((s) => paint("magenta", s)).join("\n")
-        : paint(
-            "magenta",
-            fit(
-              `☾ ${terminalText(evento.nombre_corto).toLowerCase()}`,
-              columns,
-            ),
-          ))) +
+    (columns >= Math.max(...rows.map((row) => width(row)))
+      ? rows.map((s) => paint("magenta", s)).join("\n")
+      : paint(
+          "magenta",
+          fit(`☾ ${terminalText(evento.nombre_corto).toLowerCase()}`, columns),
+        )) +
     "\n" +
     wrap(
       `${terminalText(evento.organizan)} · ${new Date(evento.inicio).toLocaleDateString("es-ES", { timeZone: "Europe/Madrid" })} · Flywire`,
