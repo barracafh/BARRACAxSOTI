@@ -2,13 +2,13 @@
 
 Una noche para construir entre todos **una plataforma de atención ciudadana**: un centro único («¿qué necesitas?») y las herramientas que lo llenan, una por squad. El reto es la fricción del día a día con la administración: trámites opacos, ayudas que nadie encuentra, PDFs ilegibles y citas imposibles.
 
-|               |                                                                                                    |
-| ------------- | -------------------------------------------------------------------------------------------------- |
-| **Cuándo**    | Jueves 22 de octubre de 2026, de 17:00 a 23:00                                                     |
-| **Dónde**     | Flywire, València                                                                                  |
-| **Quién**     | Unos 50 builders en squads de 3 a 5 personas                                                       |
-| **Organizan** | BARRACA x SOTI                                                                                     |
-| **Formato**   | No hay premios: se gana si la plataforma funciona. Cada squad publica su pieza antes de las 22:00. |
+|               |                                                                                                          |
+| ------------- | -------------------------------------------------------------------------------------------------------- |
+| **Cuándo**    | Jueves 22 de octubre de 2026, de 17:00 a 23:00                                                           |
+| **Dónde**     | Flywire, València                                                                                        |
+| **Quién**     | Unos 50 builders en squads de 3 a 5 personas                                                             |
+| **Organizan** | BARRACA x SOTI                                                                                           |
+| **Formato**   | No hay premios: se gana si la plataforma funciona. Cada squad publica su herramienta antes de las 22:00. |
 
 Este es el monorepo de la organización: CLI, web, tracks, plantilla e infra. **Cada squad construye en su propio repo**, que la organización crea desde la [plantilla común](plantilla/README.md) con [infra/equipos](infra/equipos/README.md).
 

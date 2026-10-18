@@ -21,7 +21,6 @@ const equipo = (id: string, herramienta: string, miembros: string[]) => ({
   id,
   nombre: `Squad ${id}`,
   herramienta,
-  pieza: "Pieza de prueba",
   mesa: "1",
   miembros,
   repo: "",

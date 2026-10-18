@@ -28,7 +28,6 @@ const equipo = {
   id: "test-equipo",
   nombre: "Equipo de prueba",
   herramienta: "derechos",
-  pieza: "Una pieza",
   mesa: "1",
   miembros: ["test-builder"],
   repo: "",
