@@ -4,7 +4,7 @@
 
 Le cuentas tu problema con tus palabras y te dice qué trámite es, los pasos y el enlace directo a la sede. La necesidad es humana («me han echado», «me empadrono») y la sede habla en organigramas.
 
-Puede haber varios squads en este track, todos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden que prefiera.
+Puede haber varios squads en este track, todos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden de abajo.
 
 ## Qué se espera en la demo
 
@@ -12,7 +12,7 @@ A partir de una frase como «me han echado del trabajo», la herramienta identif
 
 ## Piezas
 
-El reto se puede abordar por partes. Elegid las que os dé tiempo y en el orden que queráis:
+El reto se puede abordar por partes. Haced las que os dé tiempo. Empezad por «Qué trámite necesito»: las otras dos completan el trámite que identifica.
 
 - **Qué trámite necesito.** Consultas resueltas sobre el catálogo: trámite, organismo, pasos y sede. Fuera del catálogo, reconoce que no lo sabe.
 - **¿Y si no hay cita?.** Para los trámites que piden cita, las alternativas revisadas cuando no la hay: registro, atención e identificación por otras vías, con la fuente de cada afirmación. No automatiza citas ni afirma un derecho general a ser atendido sin cita.

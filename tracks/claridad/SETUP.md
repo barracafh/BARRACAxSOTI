@@ -4,7 +4,7 @@
 
 Le pasas el PDF o la notificación de turno y te lo traduce a lenguaje humano, con un checklist de qué tienes que hacer y para cuándo. **Sin guardar nada.**
 
-Puede haber varios squads en este track, todos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden que prefiera.
+Puede haber varios squads en este track, todos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden de abajo.
 
 ## Qué se espera en la demo
 
@@ -12,7 +12,7 @@ Subir uno de los documentos de prueba y obtener: qué dice (en pocas frases y si
 
 ## Piezas
 
-El reto se puede abordar por partes. Elegid las que os dé tiempo y en el orden que queráis:
+El reto se puede abordar por partes. Haced las que os dé tiempo. Empezad por «PDF a checklist»: las otras dos trabajan sobre los documentos que saca de cada notificación.
 
 - **PDF a checklist.** De un documento de prueba, los pasos y las fechas en una checklist. Cada punto remite al fragmento del que sale; lo ambiguo se marca como pendiente.
 - **¿Qué me piden y qué no pueden pedirme?.** De los documentos que pide una notificación, cuáles puede consultar la propia administración (no hay que aportarlos), cuáles no y cuáles son privados, con su fuente y sus excepciones. Sin inventar derechos.
