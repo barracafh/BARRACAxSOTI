@@ -53,3 +53,6 @@ packages/shared/registro-base/.lock/
 
 # Claves de infraestructura, nunca versionadas
 .local-secrets/
+
+# Reparto de equipos: datos de invitados de Luma
+.reparto/

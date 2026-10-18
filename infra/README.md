@@ -3,6 +3,7 @@
 Todo parte de **`--dry-run`**: no hace peticiones ni cambios remotos. `--apply` ejecuta el plan y es una operación explícita del comité, una vez revisados los destinos y permisos.
 
 - [registro/](registro/README.md): repo de asignaciones, etiquetas, protección y CODEOWNERS.
+- [reparto/](reparto/README.md): página local para formar los equipos desde el CSV de Luma y exportar `equipos.json`.
 - [equipos/](equipos/README.md): un repo público y un proyecto de Vercel por equipo, y el hub de `build.barraca.house`.
 - `cli/publicar.ts`: compila el CLI y publica la release en el registro público (`--apply`).
 - [sala/](sala/README.md): la web del evento y el proyector en `sala.build.barraca.house`, leyendo el registro.
