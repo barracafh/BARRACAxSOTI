@@ -52,24 +52,26 @@ export function repository(value?: string) {
 export const shellQuote = (value: string) =>
   "'" + value.replaceAll("'", "'\\''") + "'";
 
+// Commits as the event, whatever the operator's own git config says.
+export const commit = (...args: string[]): Command => ({
+  args: [
+    "git",
+    "-c",
+    "user.name=Hacknight",
+    "-c",
+    "user.email=organizacion@example.invalid",
+    "-c",
+    "commit.gpgsign=false",
+    "commit",
+    ...args,
+  ],
+});
+
 export function initialCommit(message: string): Command[] {
   return [
     { args: ["git", "init", "--initial-branch=main"] },
     { args: ["git", "add", "."] },
-    {
-      args: [
-        "git",
-        "-c",
-        "user.name=Hacknight",
-        "-c",
-        "user.email=organizacion@example.invalid",
-        "-c",
-        "commit.gpgsign=false",
-        "commit",
-        "-m",
-        message,
-      ],
-    },
+    commit("-m", message),
   ];
 }
 
