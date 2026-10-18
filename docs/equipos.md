@@ -1,6 +1,6 @@
 # Cómo se forman los equipos
 
-Plan de Íñigo del 11/10. **Los equipos se forman antes de la noche**: cada uno comparte el formulario con sus amigos y los equipos se organizan solos; el comité completa los que falten. En la sala solo se tapan huecos. Con unas 3,5 horas de build, no hay tiempo para buscar equipo.
+**Los equipos se forman antes de la noche**: cada uno comparte el formulario con sus amigos y los equipos se organizan solos; el comité completa los que falten. En la sala solo se tapan huecos. Con unas 3,5 horas de build, no hay tiempo para buscar equipo.
 
 ## Calendario
 
