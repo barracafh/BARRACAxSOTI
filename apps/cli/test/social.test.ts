@@ -26,6 +26,7 @@ async function fixture() {
       cwd: dir,
       config: {
         registro: pathToFileURL(dir).href,
+        avisos: "owner/avisos",
         releases: undefined,
       },
     },
