@@ -18,14 +18,13 @@ El repo es público para que puedas revisar el CLI antes de instalarlo: qué lee
 
 Horario provisional:
 
-| Hora        | Qué                                                                              |
-| ----------- | -------------------------------------------------------------------------------- |
-| 17:00–17:30 | Check-in: acreditación, wifi y tu portátil listo (ver abajo)                     |
-| 17:30–18:15 | Bienvenida, reglas y presentación de los tracks                                  |
-| 18:15–18:30 | Fichajes: solo para cubrir los huecos de quien no ha venido                      |
-| 18:30–22:00 | **Build.** Hay un check a mitad, sobre las 20:15, y algo de cena hacia las 20:30 |
-| 22:00–22:40 | Integración en el centro y demos de 2–3 minutos por squad                        |
-| 22:40–23:00 | Cierre                                                                           |
+| Hora        | Qué                                                                                                      |
+| ----------- | -------------------------------------------------------------------------------------------------------- |
+| 17:00–17:30 | Check-in: acreditación, wifi y tu portátil listo (ver abajo). Se cubren los huecos de quien no ha venido |
+| 17:30–17:40 | Bienvenida                                                                                               |
+| 17:40–22:00 | **Build.** Hay un repaso a mitad, sobre las 20:00, y algo de cena hacia las 20:30                        |
+| 22:00–22:40 | Integración en el centro y demos de 2–3 minutos por squad                                                |
+| 22:40–23:00 | Cierre                                                                                                   |
 
 ## Los tracks
 

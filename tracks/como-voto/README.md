@@ -8,9 +8,9 @@ Guía de voto por correo, consulta del censo y plazos con fuentes electorales. P
 
 ## Piezas y criterio de hecho
 
-Una pieza por squad, con 3,5 h de build y el pack preparado. Alcances propuestos para que los cierre el track lead.
+Una pieza por squad, con unas 4 h de build y el pack preparado. Alcances propuestos para que los cierre el track lead.
 
-| Pieza                  | Alcance en 3,5 h                                                                                     | Hecho cuando…                                                                                   |
+| Pieza                  | Alcance en 4 h                                                                                       | Hecho cuando…                                                                                   |
 | ---------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
 | Voto por correo        | Convertir una guía oficial revisada de voto por correo en pasos, desde España y desde el extranjero. | Cada paso enlaza a Correos/JEC; fechas y excepciones llevan fuente y fecha de revisión.         |
 | Dónde votar y censo    | Guiar a la consulta oficial de censo y local electoral.                                              | Enlaza al servicio oficial sin pedir DNI, dirección ni datos del censo en nuestra página.       |

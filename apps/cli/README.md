@@ -2,7 +2,7 @@
 
 La ventanilla de **BARRACA x SOTI · BUILD NIGHT**, 22 de octubre de 2026, Flywire (València). Bun + TypeScript, con GitHub como registro mediante `gh` o un directorio local. Trámites y expedientes para coordinar el hack. Usa tu sesión de `gh` sin guardar su token y no modifica herramientas de IA; qué lee y qué envía está en [Seguridad y privacidad](../../README.md#seguridad-y-privacidad).
 
-El build del evento va de **18:30 a 22:00 Europe/Madrid**. Los seis tracks son los negociados; cada squad tiene una pieza y una mesa. El comité asigna squads, piezas y el cupo único del track libre en `equipos.json`.
+El build del evento va de **17:40 a 22:00 Europe/Madrid**. Los seis tracks son los negociados; cada squad tiene una pieza y una mesa. El comité asigna squads, piezas y el cupo único del track libre en `equipos.json`.
 
 ## Instalar y desarrollar
 
@@ -121,7 +121,7 @@ Ejemplo de evento (las fechas llevan el offset de Madrid del día del hack):
   "nombre": "BARRACA x SOTI · BUILD NIGHT",
   "nombre_corto": "Build night",
   "organizan": "BARRACA x SOTI",
-  "inicio": "2026-10-22T18:30:00+02:00",
+  "inicio": "2026-10-22T17:40:00+02:00",
   "fin": "2026-10-22T22:00:00+02:00",
   "enlaces": { "centro": "https://example.invalid/pendiente" },
   "registroFueraDePlazo": false
@@ -188,14 +188,7 @@ La marca por defecto se define en [packages/shared/registro-base/evento.json](..
 
 La paleta común está en [packages/shared/src/paleta.ts](../../packages/shared/src/paleta.ts); [src/lib/estilo.ts](src/lib/estilo.ts) la aplica al terminal. Los badges de track usan fondo propio y tinta clara/oscura de la misma paleta: el significado también lleva glifo, nombre y ventanilla. No hay banderas, escudos ni logos de terceros.
 
-El único slot de logo es `assets/logo.png`, todavía ausente. Cuando llegue, desde `apps/cli/`:
-
-```sh
-bun run embed-logo
-bun run build:bin:host
-```
-
-El script aplana el PNG sobre blanco e incrusta una tarjeta para Kitty/Ghostty/WezTerm/iTerm2/VS Code. La prueba usa un PNG generado en un directorio temporal y no lo sube. Sin logo se muestra el wordmark (77 columnas); en terminal estrecho, `☾ build night`. Dentro de cajas se usa `☾` para mantener la alineación. `NO_COLOR` desactiva el color.
+El CLI no lleva logo: muestra el wordmark (77 columnas) y, en terminal estrecho, `☾ build night`. Dentro de cajas se usa `☾` para mantener la alineación. `NO_COLOR` desactiva el color.
 
 `scripts/build-all.sh` compila macOS/Linux x64/arm64 y Windows x64; produce `dist/SHA256SUMS`. `--host` solo compila esta máquina y `--target bun-<os>-<arch>` compila una plataforma de la matriz. El script no publica; [release-cli.yml](../../.github/workflows/release-cli.yml) comprueba la versión y compila los cinco targets al subir un tag, y `infra/cli/publicar.ts` publica la release en el registro. Las releases deben usar tags `cli-vX.Y.Z`, assets `hacknight-<os>-<arch>[.exe]` y `SHA256SUMS`. Ajusta `package.json` y `src/version.ts` juntos antes de versionar.
 

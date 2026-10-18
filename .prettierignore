@@ -1,7 +1,6 @@
 node_modules/
 **/dist/
 apps/cli/src/assets/plantilla.ts
-apps/cli/src/assets/logo.ts
 apps/cli/esquemas/ficha.schema.json
 **/.next/
 **/out/

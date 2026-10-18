@@ -8,9 +8,9 @@ Orienta en trámites de GVA y València con pasos y enlaces a sedes oficiales. P
 
 ## Piezas y criterio de hecho
 
-Una pieza por squad, con 3,5 h de build y el pack preparado. Alcances propuestos para que los cierre el track lead.
+Una pieza por squad, con unas 4 h de build y el pack preparado. Alcances propuestos para que los cierre el track lead.
 
-| Pieza                        | Alcance en 3,5 h                                                                      | Hecho cuando…                                                                                                                           |
+| Pieza                        | Alcance en 4 h                                                                        | Hecho cuando…                                                                                                                           |
 | ---------------------------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | Qué trámite necesito         | Resolver consultas sobre un catálogo pequeño y preparado de trámites de GVA/València. | Devuelve trámite, organismo, pasos y sede; fuera del catálogo reconoce que no sabe.                                                     |
 | ¿Y si no hay cita?           | Añadir alternativas revisadas cuando no hay cita, sin automatizarla.                  | Cada ficha distingue registro, atención e identificación y atribuye sus afirmaciones; no afirma un derecho general a atención sin cita. |

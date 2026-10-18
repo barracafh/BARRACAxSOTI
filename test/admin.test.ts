@@ -162,8 +162,8 @@ test("la marca del registro llega a web, admin y CLI, con HTML escapado", async 
     }
     const evento = await f.ctx.registro.evento();
     expect((await f.publico()).evento).toEqual(evento);
-    expect(banner(80, null, evento)).toContain("OTRA NOCHE");
-    expect(banner(80, null, evento)).toContain("Comité & builders");
+    expect(banner(80, evento)).toContain("OTRA NOCHE");
+    expect(banner(80, evento)).toContain("Comité & builders");
     expect(sello(evento)).toContain("OTRA NOCHE");
   } finally {
     f.almacen.close();
