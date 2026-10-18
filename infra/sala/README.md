@@ -13,7 +13,7 @@ Son archivos estáticos y dos funciones en Frankfurt (`fra1`):
 
 Variables del proyecto:
 
-- `GITHUB_TOKEN` (en el shell al aplicar): token de grano fino con acceso de solo lectura a repositorios públicos. Sin él, GitHub limita a 60 consultas por hora.
+- `GITHUB_TOKEN` (en el shell al aplicar): token de grano fino con acceso de solo lectura a repositorios públicos. Es obligatorio: sin él GitHub limita a 60 consultas por hora, que una sola recarga del estado ya agota, y `--apply` se niega a publicar.
 - `DATABASE_URL`: la pone la integración de Neon (plan gratuito, `fra1`). Sin ella, la web funciona y el ranking se queda apagado.
 
 El ranking muestra squads, tracks, herramientas y evolución, sin personas (`vistas` en `estado.ts`). Cuenta Claude Code, Codex y Pi, que son los asistentes cuyos logs locales sabe leer el CLI; Cursor, Copilot u OpenCode no suman. No hay administración: `/admin` lleva al repo del registro, donde los cambios entran por PR.
