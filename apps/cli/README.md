@@ -2,7 +2,7 @@
 
 La ventanilla de **BARRACA x SOTI · BUILD NIGHT**, 22 de octubre de 2026, Flywire (València). Bun + TypeScript, con GitHub como registro mediante `gh` o un directorio local. Trámites y expedientes para coordinar el hack. Usa tu sesión de `gh` sin guardar su token y no modifica herramientas de IA; qué lee y qué envía está en [Seguridad y privacidad](../../README.md#seguridad-y-privacidad).
 
-El build del evento va de **18:30 a 22:00 Europe/Madrid**. Los seis tracks son los negociados; cada squad tiene una pieza y una mesa. El comité asigna squads, piezas y el cupo único del track libre en `equipos.json`.
+El build del evento va de **17:40 a 22:00 Europe/Madrid**. Los seis tracks son los negociados; cada squad tiene una pieza y una mesa. El comité asigna squads, piezas y el cupo único del track libre en `equipos.json`.
 
 ## Instalar y desarrollar
 
@@ -121,7 +121,7 @@ Ejemplo de evento (las fechas llevan el offset de Madrid del día del hack):
   "nombre": "BARRACA x SOTI · BUILD NIGHT",
   "nombre_corto": "Build night",
   "organizan": "BARRACA x SOTI",
-  "inicio": "2026-10-22T18:30:00+02:00",
+  "inicio": "2026-10-22T17:40:00+02:00",
   "fin": "2026-10-22T22:00:00+02:00",
   "enlaces": { "centro": "https://example.invalid/pendiente" },
   "registroFueraDePlazo": false
