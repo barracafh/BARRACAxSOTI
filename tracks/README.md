@@ -20,4 +20,4 @@ El generador ordena por ventanilla y valida rutas, esquema y unicidad de slug y 
 
 ## Material de partida
 
-Las fichas resumen la propuesta técnica, las piezas rescatadas, la investigación de dolores/datos y el brief del comité del 07/10/2026, conservados en su repo privado de contexto. Los enlaces públicos están en cada ficha. No son guías legales terminadas: datasets, fechas, trámites concretos y revisión editorial siguen pendientes. Hasta el 29/11, especial cuidado con contenido electoral, extranjería y DANA.
+Las fichas resumen la propuesta técnica, las piezas rescatadas, la investigación de dolores/datos y el brief del comité del 07/10/2026. Los enlaces públicos están en cada ficha. No son guías legales terminadas: datasets, fechas, trámites concretos y revisión editorial siguen pendientes. Hasta el 29/11, especial cuidado con contenido electoral, extranjería y DANA.

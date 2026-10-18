@@ -9,4 +9,4 @@ Todo parte de **`--dry-run`**: no hace peticiones ni cambios remotos. `--apply` 
 
 Las claves (HelmCode, Google, el token de lectura de la sala) viven en `.local-secrets/build-night.env`, fuera de Git; carga ese archivo en el shell antes de un `--apply`.
 
-Los workflows de `.github/` comprueban el monorepo y preparan releases del CLI al subir tags `cli-v*`. El destino de releases que usa el CLI se configura por separado; todavía no se ha publicado ninguna.
+Los workflows de `.github/` comprueban el monorepo y compilan el CLI al subir tags `cli-v*`. Las releases que instalan los participantes las publica `cli/publicar.ts` en `barracafh/build-registro`.

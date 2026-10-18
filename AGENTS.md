@@ -1,6 +1,6 @@
 # BARRACA x SOTI · BUILD NIGHT
 
-Este monorepo contiene lo que pone la organización. **Los squads construyen en sus propios repos**, que crea `infra/equipos/` desde `plantilla/`; no añadas sus herramientas al workspace. Las decisiones y el contexto del comité viven en el repo privado `luisgonzaleznf/barrahack`, de solo lectura en esta tarea.
+Este monorepo contiene lo que pone la organización. **Los squads construyen en sus propios repos**, que crea `infra/equipos/` desde `plantilla/`; no añadas sus herramientas al workspace.
 
 | Dónde                                         | Qué se cambia                                                                                                                |
 | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
@@ -24,4 +24,4 @@ Este monorepo contiene lo que pone la organización. **Los squads construyen en 
 - Infra es `--dry-run` por defecto. No ejecutar `--apply` contra servicios reales sin una instrucción expresa; nunca imprimir claves ni versionar `.local-secrets/`.
 - Textos, docs y mensajes al usuario en castellano. Código y commits en inglés.
 - Nada de datos personales reales: pruebas con fixtures ficticios. Mantener breves las guías; no crear páginas en `docs/` sin necesidad.
-- Los tracks son los seis publicados; un track descartado se borra, no se archiva. El calendario de equipos vigente es el de Íñigo del 11/10; no recuperar el reparto antiguo del 20/10.
+- Los tracks son los seis publicados; un track descartado se borra, no se archiva. El calendario de equipos vigente es el de `docs/equipos.md`; no recuperar el reparto antiguo del 20/10.

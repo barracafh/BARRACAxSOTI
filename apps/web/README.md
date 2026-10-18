@@ -14,16 +14,10 @@ Los títulos, metadatos y cabeceras se renderizan con el evento del registro; `m
 
 La instancia empieza vacía y nunca arranca watchers. Los fixtures y logs sintéticos viven en `../../test/`; no hay generador ni endpoint de simulación en la aplicación. Las vistas deshabilitadas se filtran en la API, y el proyector apagado devuelve 403. Las asignaciones y ajustes persisten en `.gestion.json`, compartido por web y CLI. La clave `.admin-key` se guarda con permisos 0600; las sesiones caducan al reiniciar.
 
-El referente funcional es la web del evento y la sección Insights del dashboard de HackSpain `2865d19`. Esta interfaz está adaptada desde cero a la marca de BARRACA; no copia sus assets, signup, cuentas ni backend. MIT y atribución: [LICENSE](../cli/LICENSE) y [AVISO.md](../cli/AVISO.md).
+El referente funcional es la web del evento y la sección Insights del dashboard de HackSpain `2865d19`. Esta interfaz está adaptada desde cero a la marca de BARRACA; no copia sus assets, signup, cuentas ni backend. MIT y atribución: [LICENSE](../../LICENSE) y [AVISO.md](../cli/AVISO.md).
 
-## TODO antes de alojarlo
+## En el evento
 
-Para el evento, [infra/sala/](../../infra/sala/README.md) publica esta web en Vercel: archivos estáticos y `/api/estado` leyendo el registro de GitHub, sin administración ni ranking de tokens. Esta lista sigue pendiente para el backend completo, que escucha solo en loopback.
+[infra/sala/](../../infra/sala/README.md) publica esta web en Vercel: archivos estáticos, `/api/estado`, que lee el registro de GitHub, y `/api/uso`, que recibe los contadores de `hacknight observar` autenticados con GitHub y los guarda en Postgres. No tiene administración: el comité trabaja en el registro.
 
-1. Autenticación real y asociación de usuario/squad validada por servidor; reemplazar la identidad local declarada y la clave compartida del comité.
-2. Base de datos del servicio, migraciones, copias y retención; acordar si el ranking público incluye personas o solo squads.
-3. Transporte HTTPS, acceso de varias máquinas, límites por usuario y observabilidad.
-4. Recolección incremental y cola duradera de envíos para historiales grandes; ahora se releen los logs retenidos y se reintentan sin duplicar.
-5. Conectar registro, plantilla, releases y marca definitiva. Formulario de inscripción, si el comité lo necesita.
-
-No hay despliegue, infraestructura provisionada ni envío de consumo mediante GitHub. El contrato mantiene separadas las métricas del contenido: no acepta prompts, respuestas, rutas o metadatos arbitrarios.
+El backend local de [apps/server/](../server) es para desarrollo y ensayo: escucha solo en `127.0.0.1`, con identidad declarada por el cliente y una clave local del comité. El contrato mantiene separadas las métricas del contenido: no acepta prompts, respuestas, rutas ni metadatos arbitrarios.

@@ -1,6 +1,6 @@
 name: Release del CLI
 # Comprueba y compila un tag cli-v*. La publicación va al registro público con
-# infra/cli/publicar.ts: las releases de este repo privado no se pueden descargar.
+# infra/cli/publicar.ts, porque el CLI y el instalador descargan de allí.
 on:
   push:
     tags:
