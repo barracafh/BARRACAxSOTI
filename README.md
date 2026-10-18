@@ -12,6 +12,8 @@ Una noche para construir entre todos **una plataforma de atención ciudadana**: 
 
 Este es el monorepo de la organización: CLI, web, tracks, plantilla e infra. **Cada squad construye en su propio repo**, que la organización crea desde la [plantilla común](plantilla/README.md) con [infra/equipos](infra/equipos/README.md).
 
+El repo es público para que puedas revisar el CLI antes de instalarlo: qué lee, qué envía y a dónde. Lo resume [Seguridad y privacidad](#seguridad-y-privacidad).
+
 ## La noche
 
 Horario provisional:
@@ -38,7 +40,7 @@ Cada track es una herramienta de la plataforma. Son los seis publicados: hasta d
 | ¿Cómo voto?     | Voto por correo, dónde votar y plazos de las generales del 29/11.                  |
 | Track libre     | Una pieza nueva para el centro. Un solo squad, por orden de llegada.               |
 
-Las [fichas técnicas y los paquetes por preparar](tracks/README.md) viven en `tracks/`. El detalle también está en el CLI: `hacknight tracks <track>`.
+Las [fichas técnicas](tracks/README.md) y el material de cada track viven en `tracks/`. El detalle también está en el CLI: `hacknight tracks <track>`.
 
 ## Las reglas
 
@@ -55,7 +57,7 @@ Una herramienta entra en la plataforma si cumple las seis:
 
 ## Cómo se forman los equipos
 
-Los equipos se forman **antes** de la noche. En la sala solo se tapan huecos. Plan de Íñigo del 11/10:
+Los equipos se forman **antes** de la noche. En la sala solo se tapan huecos. El calendario:
 
 - **Mar 13/10:** se abre Luma con un formulario abierto; pásaselo a tus amigos y formad equipo.
 - **Vie 16/10:** el comité forma los equipos que falten y manda el contexto largo de los tracks.
@@ -91,16 +93,24 @@ El instalador deja Bun en `~/.bun/bin` y lo añade al PATH de tu shell: si `bun`
 
 Comprueba que todo responde con `git --version`, `bun --version` y `gh auth status`. Trae también tu asistente de código de IA favorito, ya configurado.
 
-## Prueba el CLI
+## Instala el CLI
+
+`hacknight` es el CLI del evento: tu expediente, la revisión de las reglas, la entrega de la ficha y el contador de tokens. En macOS y Linux:
 
 ```sh
-git clone https://github.com/barracafh/BARRACAxSOTI.git
-cd BARRACAxSOTI
-bun install --frozen-lockfile
-bun run cli --registro "file://$PWD/packages/shared/registro-base" tracks
+curl -fsSL https://build.barraca.house/instalar.sh | sh
 ```
 
-Ese registro local trae los tracks reales, sin equipos todavía. Para ver el recorrido completo de un squad con datos de prueba (ficha, revisión y registro), ejecuta `bun run test:flujo`.
+El instalador es [`apps/cli/install.sh`](apps/cli/install.sh): descarga de la [última release](https://github.com/barracafh/build-registro/releases/latest) el binario de tu plataforma, comprueba su SHA256 con `SHA256SUMS` y lo deja en `~/.local/bin` (`HACKNIGHT_INSTALL_DIR` cambia el destino). En Windows, descarga `hacknight-windows-x64.exe` de esa misma release.
+
+Para comprobar un binario a mano:
+
+```sh
+gh release download -R barracafh/build-registro -p 'hacknight-darwin-arm64' -p SHA256SUMS
+shasum -a 256 -c --ignore-missing SHA256SUMS
+```
+
+Si prefieres no fiarte del binario, compílalo desde este código: `bun install --frozen-lockfile` y `bun run --cwd apps/cli build:bin:host` dejan el tuyo en `apps/cli/dist/hacknight`. Cada versión publicada corresponde al commit «Release the CLI X.Y.Z» de este repo; la compila el comité con [`infra/cli/publicar.ts`](infra/cli/publicar.ts).
 
 Los trámites principales:
 
@@ -113,6 +123,31 @@ Los trámites principales:
 | `hacknight tablon`    | Lo que está pasando en la sala                                   |
 
 La lista completa y la configuración están en [apps/cli/README.md](apps/cli/README.md).
+
+## Seguridad y privacidad
+
+Qué hace `hacknight` en tu máquina, según el código:
+
+- **GitHub:** usa tu sesión de `gh`; no guarda su token. Lee el registro del evento, [barracafh/build-registro](https://github.com/barracafh/build-registro), y para el tablón los eventos públicos de los repos de squad. Solo escribe ahí con `registrar`: una rama `hacknight/ficha-<squad>`, el archivo `fichas/<squad>.json` y una PR que revisa el comité ([`registro/github.ts`](apps/cli/src/registro/github.ts)).
+- **`revisar`:** lee los archivos que Git tiene versionados en tu proyecto y pide una vez la URL pública de tu ficha. Busca indicios de datos personales y claves, y nunca imprime lo que encuentra ([`lib/revision.ts`](apps/cli/src/lib/revision.ts)).
+- **`observar` y `consumo`:** leen los registros locales de Claude Code (`~/.claude/projects`), Codex (`~/.codex/sessions`) y Pi (`~/.pi/agent/sessions`), solo de tu proyecto y dentro del horario del build, y se quedan con los contadores de tokens ([`consumo/`](apps/cli/src/consumo/)). `consumo` no envía nada.
+- **Qué envía `observar` a la sala:** tu usuario de GitHub y, por cada mensaje, un hash de su ID, la herramienta, la fecha y los cuatro contadores (entrada, salida y caché). Ni prompts, ni respuestas, ni rutas, ni nombres de proyecto: el [contrato](packages/shared/src/contrato-uso.ts) rechaza cualquier otro campo. Va a `https://sala.build.barraca.house/api/uso`, una vez por minuto por defecto y solo con lo que ha cambiado ([`watcher/cliente.ts`](apps/cli/src/watcher/cliente.ts)).
+- **Tu cuenta en la sala:** la primera vez, `observar` te pide confirmar tu cuenta en `github.com/login/device` con la OAuth App «Build night», sin permisos: el token solo demuestra quién eres. Se guarda en `~/.config/hacknight/sesion.json` con permisos `0600` ([`watcher/sesion.ts`](apps/cli/src/watcher/sesion.ts)). Puedes revocarlo en [github.com/settings/applications](https://github.com/settings/applications).
+- **La sala** guarda esos contadores por usuario y muestra solo squads, tracks y herramientas, nunca personas ([`infra/sala/`](infra/sala/README.md)).
+- **`actualizar`:** solo cuando lo ejecutas; descarga la release y comprueba su SHA256 antes de sustituir el binario.
+
+No instala servicios ni hooks, no cambia la configuración de tus asistentes y, aparte de esos contadores, no envía telemetría. Para avisar de un fallo de seguridad, lee [SECURITY.md](SECURITY.md).
+
+## Prueba el CLI desde el código
+
+```sh
+git clone https://github.com/barracafh/BARRACAxSOTI.git
+cd BARRACAxSOTI
+bun install --frozen-lockfile
+bun run cli --registro "file://$PWD/packages/shared/registro-base" tracks
+```
+
+Ese registro local trae los tracks reales, sin equipos todavía. Para ver el recorrido completo de un squad con datos de prueba (ficha, revisión y registro), ejecuta `bun run test:flujo`.
 
 ## Qué hay aquí
 
@@ -133,7 +168,7 @@ La lista completa y la configuración están en [apps/cli/README.md](apps/cli/RE
 
 El nombre del evento está en un solo sitio: [`packages/shared/registro-base/evento.json`](packages/shared/registro-base/evento.json).
 
-## Para el comité y quien desarrolle
+## Desarrollo
 
 ```sh
 bun run start           # web y administración en http://127.0.0.1:4310
@@ -150,13 +185,12 @@ GitHub Actions comprueba tipos, tests y formato en cada push y pull request, eje
 - **Servidor y administración:** [apps/server/README.md](apps/server/README.md) en local; en el evento, la web se publica en Vercel con [infra/sala/](infra/sala/README.md).
 - **Editar un track:** cambia `tracks/<slug>/track.json` y ejecuta `bun run tracks:generar`.
 - **Editar el marco de conocimiento:** si cambias `tracks/comun/*.md` o un `contexto.md`, actualiza en el mismo commit su infografía (el `.html` con el mismo nombre) y `tracks/index.html` si cambia el resumen; después, `bun run infografia:indice`.
-- **Pendientes del comité:** asignar leads; cerrar el reparto del 19/10 y lanzar `infra/equipos`; revisar las guías antes del 20/10. El diseño de Reforma Digital espera el OK de Samu.
 
 El workspace se instala desde la raíz con `bun install --frozen-lockfile`. `plantilla/` es independiente: tiene su propio lockfile y se instala y compila desde su carpeta.
 
 ### Trabajar con agentes de código
 
-Empieza por [AGENTS.md](AGENTS.md): recoge los límites del workspace y las comprobaciones según el cambio. Para reproducir CI, usa **Bun 1.3.11 y Node.js 22**, además de Git. Para instalar esa versión exacta de Bun: `curl -fsSL https://bun.sh/install | bash -s "bun-v1.3.11"` (macOS y Linux) o `iex "& {$(irm https://bun.sh/install.ps1)} -Version 1.3.11"` (PowerShell). **GitHub es necesario para colaborar**: necesitas cuenta, acceso al repo y `gh auth login`; allí gestionamos código, PRs, CI y releases. Los tests locales usan datos ficticios y no necesitan claves de proveedores de IA.
+Empieza por [AGENTS.md](AGENTS.md): recoge los límites del workspace y las comprobaciones según el cambio. Para reproducir CI, usa **Bun 1.3.11 y Node.js 22**, además de Git. Para instalar esa versión exacta de Bun: `curl -fsSL https://bun.sh/install | bash -s "bun-v1.3.11"` (macOS y Linux) o `iex "& {$(irm https://bun.sh/install.ps1)} -Version 1.3.11"` (PowerShell). **GitHub es necesario para colaborar**: allí gestionamos código, PRs, CI y releases, así que necesitas cuenta y `gh auth login`. Los tests locales usan datos ficticios y no necesitan claves de proveedores de IA.
 
 **No hace falta ningún MCP.** Un agente con acceso a archivos y terminal puede arrancar el servidor y ejecutar los comandos anteriores. Para cambios de integración, ejecuta también `bun run test:flujo` y `bun run test:live`.
 
@@ -165,6 +199,6 @@ Integraciones opcionales, configuradas en el agente:
 - **Navegador:** usa el navegador integrado de tu agente o [Playwright MCP](https://github.com/microsoft/playwright-mcp) para explorar la web y depurar interacciones. `bun run test:browser` ejecuta las regresiones sin MCP.
 - **GitHub:** [GitHub MCP](https://github.com/github/github-mcp-server) permite gestionar issues y PRs si prefieres esa integración; `gh` ya cubre el flujo de este repo.
 
-## Créditos
+## Licencia y créditos
 
-El CLI parte del [CLI de HackSpain](https://github.com/HackSpain/hackspain26) (MIT, © Asociación Exponential Fellowship), sin su marca. Los detalles están en [apps/cli/AVISO.md](apps/cli/AVISO.md).
+El código es [MIT](LICENSE). El CLI parte del [CLI de HackSpain](https://github.com/HackSpain/hackspain26) (MIT, © Asociación Exponential Fellowship), sin su marca; los detalles están en [apps/cli/AVISO.md](apps/cli/AVISO.md). Los datos y textos de fuentes oficiales que recoge `tracks/` conservan la licencia de su origen.

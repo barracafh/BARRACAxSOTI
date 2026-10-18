@@ -1,6 +1,6 @@
 # hacknight
 
-La ventanilla de **BARRACA x SOTI · BUILD NIGHT**, 22 de octubre de 2026, Flywire (València). Bun + TypeScript, con GitHub como registro mediante `gh` o un directorio local. Trámites y expedientes para coordinar el hack. No guarda tokens de GitHub ni modifica herramientas de IA.
+La ventanilla de **BARRACA x SOTI · BUILD NIGHT**, 22 de octubre de 2026, Flywire (València). Bun + TypeScript, con GitHub como registro mediante `gh` o un directorio local. Trámites y expedientes para coordinar el hack. Usa tu sesión de `gh` sin guardar su token y no modifica herramientas de IA; qué lee y qué envía está en [Seguridad y privacidad](../../README.md#seguridad-y-privacidad).
 
 El build del evento va de **18:30 a 22:00 Europe/Madrid**. Los seis tracks son los negociados; cada squad tiene una pieza y una mesa. El comité asigna squads, piezas y el cupo único del track libre en `equipos.json`.
 
@@ -104,7 +104,7 @@ El registro por defecto es `barracafh/build-registro`. Variables equivalentes: `
 
 ## Montar el registro: guía del comité
 
-Luis y el comité deben crear y configurar el repo central; el [script de infra](../../infra/registro/README.md) muestra el plan con `--dry-run`. El CLI de participantes no provisiona esos repos ni sus releases. Copia los JSON de `packages/shared/registro-base`, añade los equipos y handles del comité, sustituye los placeholders, y revisa los tracks antes de abrir el evento.
+El comité crea y configura el repo central; el [script de infra](../../infra/registro/README.md) muestra el plan con `--dry-run`. El CLI de participantes no provisiona esos repos ni sus releases. Copia los JSON de `packages/shared/registro-base`, añade los equipos y handles del comité, sustituye los placeholders, y revisa los tracks antes de abrir el evento.
 
 | Ruta                  | Formato                                                                                                                                                                                                                                       |
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -128,7 +128,7 @@ Ejemplo de evento (las fechas llevan el offset de Madrid del día del hack):
 }
 ```
 
-Cada track contiene `slug`, `nombre`, `frase`, `ciudadano`, `ventanilla` (número), `color` (token de la paleta), `glifo`, `estado`, `lead`, `piezas` (2–3 textos), `fuentes`, `dificultad` y `guias`. `cupo` es opcional; el track libre tiene cupo 1. Estados: `nucleo` y `libre`. Los leads siguen «por asignar»; Jesús, Iban, Pau y Alex todavía no tienen reparto. El catálogo se edita en [tracks/](../../tracks/README.md); el [JSON generado](../../packages/shared/registro-base/tracks.json) se incluye en el registro base.
+Cada track contiene `slug`, `nombre`, `frase`, `ciudadano`, `ventanilla` (número), `color` (token de la paleta), `glifo`, `estado`, `lead`, `piezas` (2–3 textos), `fuentes`, `dificultad` y `guias`. `cupo` es opcional; el track libre tiene cupo 1. Estados: `nucleo` y `libre`. El catálogo se edita en [tracks/](../../tracks/README.md); el [JSON generado](../../packages/shared/registro-base/tracks.json) se incluye en el registro base.
 
 La ficha tiene `nombre`, `frase`, `icono`, `herramienta`, `equipo`, `url`, `fuentes:[{nombre,url}]` y `datos:"reales"|"simulados"`. «Reales» significa datos públicos, nunca personales. El centro puede usar [esquemas/ficha.schema.json](esquemas/ficha.schema.json). El esquema se genera desde `fichaSchema` con `bun run --cwd apps/cli schema`; una prueba evita que diverjan. La existencia del slug se valida adicionalmente contra `tracks.json`.
 
@@ -136,11 +136,11 @@ La ficha tiene `nombre`, `frase`, `icono`, `herramienta`, `equipo`, `url`, `fuen
 
 Prepara la etiqueta **`aviso`** con el script de infra antes del evento. Los avisos son issues de texto normal con esa etiqueta, escritos por un handle de `comite.json`; los de otros autores se ignoran.
 
-Esta primera implementación usa **ramas en el registro central**, `hacknight/ficha-<squad>`, y Contents/PR API de GitHub. Los participantes necesitan permiso **Write** en ese repo para crear la rama y actualizar su ficha. No se crean forks automáticamente. Protege la rama principal: sin pushes directos, con revisión del comité; protege también los JSON de asignación y permisos mediante CODEOWNERS/revisión. El CLI valida identidad y asignación, pero **no sustituye los controles de GitHub** frente a alguien que escriba directamente con la API. Si el comité no quiere dar Write a squads, deberá decidir un flujo por forks o un bot antes del uso real.
+El CLI usa **ramas en el registro central**, `hacknight/ficha-<squad>`, y Contents/PR API de GitHub. Los participantes necesitan permiso **Write** en ese repo para crear la rama y actualizar su ficha. No se crean forks automáticamente. Protege la rama principal: sin pushes directos, con revisión del comité; protege también los JSON de asignación y permisos mediante CODEOWNERS/revisión. El CLI valida identidad y asignación, pero **no sustituye los controles de GitHub** frente a alguien que escriba directamente con la API.
 
 Las operaciones locales se guardan bajo lock de directorio y escritura atómica. `.estado.json` conserva numeración/recibos locales; no se sube a GitHub. Un lock huérfano exige comprobar que no queda otro proceso antes de retirarlo.
 
-El número `RE-2026-22O-0042` usa el número de PR (GitHub) o el contador local compartido con issues. Actualizar un PR abierto conserva número. Un PR nuevo tras cerrar/integrar puede recibir otro. El hash corto permite detectar cambios en ficha/fecha/número; **no es una firma criptográfica ni un CSV oficial**. El justificante distingue `pendiente` (PR) de `integrado` (merge o escritura local). El tablón consulta los eventos públicos de cada repo de squad (caché de tres minutos mientras corre pantalla); GitHub puede retrasarlos.
+El número `RE-2026-22O-0042` usa el número de PR (GitHub) o el contador local compartido con issues. Actualizar un PR abierto conserva número. Un PR nuevo tras cerrar/integrar puede recibir otro. El hash corto permite detectar cambios en ficha/fecha/número; **no es una firma criptográfica ni un CSV oficial**. El justificante distingue `pendiente` (PR) de `integrado` (merge o escritura local). El tablón consulta los eventos públicos de cada repo de squad, con una caché de tres minutos; GitHub puede retrasarlos.
 
 ### Qué revisa y qué no puede acreditar
 
@@ -199,14 +199,6 @@ El script aplana el PNG sobre blanco e incrusta una tarjeta para Kitty/Ghostty/W
 
 `scripts/build-all.sh` compila macOS/Linux x64/arm64 y Windows x64; produce `dist/SHA256SUMS`. `--host` solo compila esta máquina y `--target bun-<os>-<arch>` compila una plataforma de la matriz. El script no publica; [release-cli.yml](../../.github/workflows/release-cli.yml) comprueba la versión y compila los cinco targets al subir un tag, y `infra/cli/publicar.ts` publica la release en el registro. Las releases deben usar tags `cli-vX.Y.Z`, assets `hacknight-<os>-<arch>[.exe]` y `SHA256SUMS`. Ajusta `package.json` y `src/version.ts` juntos antes de versionar.
 
-## Pendiente para el evento
-
-- Introducir equipos y participantes reales, sus repos y enlaces. La instancia arranca vacía.
-- Asignar track leads y adjudicar el cupo libre.
-- Preparar los datos y el contenido editorial de cada track; verificar los plazos de ¿Cómo voto? con sus fuentes.
-- Recibir el PNG final y validar la marca con Rubén y Marcos.
-- Ensayar en la terminal y proyector del venue; no se ha publicado ni probado contra un registro GitHub real.
-
 ## Créditos
 
-Fork de la infraestructura de terminal de `apps/cli` de HackSpain/hackspain26, commit `2865d19`, MIT, © Asociación Exponential Fellowship; autor principal Samu (`samuelcorsan`). Adaptación para Build night por Luis González y colaboradores. Véanse [AVISO.md](AVISO.md) y [LICENSE](LICENSE). No se reutilizan marcas ni ilustraciones del origen.
+Fork de la infraestructura de terminal de `apps/cli` de HackSpain/hackspain26, commit `2865d19`, MIT, © Asociación Exponential Fellowship; autor principal Samu (`samuelcorsan`). Adaptación para Build night por Luis González y colaboradores. Véanse [AVISO.md](AVISO.md) y [LICENSE](../../LICENSE). No se reutilizan marcas ni ilustraciones del origen.

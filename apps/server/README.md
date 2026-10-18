@@ -53,7 +53,7 @@ bun run cli --registro file:///ruta/registro --cwd /ruta/proyecto --usuario TU_H
 
 El backend local persiste en SQLite y deduplica cada evento por ventana, persona e ID: se puede reintentar o reiniciar sin sumar dos veces. El total incluye entrada, salida y caché, con desglose separado. Solo acepta miembros del registro, y el periodo es `[inicio, fin)`. Los IDs de eventos salen como hashes; no se envían conversaciones, rutas ni nombres de proyectos. El watcher vuelve a leer el historial retenido en cada ciclo y recupera envíos fallidos mientras esos archivos existan.
 
-La identidad local `--usuario` es declarada por el cliente: no equivale a autenticar a una persona. El servidor escucha exclusivamente en `127.0.0.1` y el watcher solo admite destinos locales. **TODO producción:** elegir y provisionar infraestructura propia, autenticar usuarios, autorizar el squad en el servidor, acordar visibilidad/retención de métricas, HTTPS, límites y copias de seguridad. No se transporta consumo mediante GitHub ni se ha desplegado ningún servicio.
+La identidad local `--usuario` es declarada por el cliente: no equivale a autenticar a una persona. El servidor escucha exclusivamente en `127.0.0.1` y el watcher solo admite destinos locales. Es un servidor de desarrollo y ensayo. En el evento, la web y el ranking los sirve la [sala en Vercel](../../infra/sala/README.md), que comprueba con GitHub quién envía cada lote.
 
 ## Desarrollo y pruebas
 
@@ -68,6 +68,6 @@ bun run build:bin:host
 HACKNIGHT_BIN="$PWD/apps/cli/dist/hacknight" HACKNIGHT_SERVER_BIN="$PWD/apps/server/dist/hacknight-server" bun run test:live
 ```
 
-`test:live` prueba administración, watcher, clasificación, privacidad del payload, controles de vistas, reintentos y reinicio con persistencia; cierra todos sus procesos. Los participantes ficticios solo existen en los fixtures de `test/`. Producción queda pendiente: [TODO de infraestructura](../web/README.md#todo-antes-de-alojarlo).
+`test:live` prueba administración, watcher, clasificación, privacidad del payload, controles de vistas, reintentos y reinicio con persistencia; cierra todos sus procesos. Los participantes ficticios solo existen en los fixtures de `test/`.
 
-Licencia MIT y créditos: [LICENSE](../cli/LICENSE) y [AVISO.md](../cli/AVISO.md).
+Licencia MIT y créditos: [LICENSE](../../LICENSE) y [AVISO.md](../cli/AVISO.md).
