@@ -65,7 +65,7 @@ Los equipos se forman **antes** de la noche. En la sala solo se tapan huecos. El
 - **Lun 19/10:** cierre de equipos y reparto por track; cada equipo recibe su paquete de accesos y los datos de su track.
 - **Jue 22/10:** Build night.
 
-¿Vienes solo? Entras en un squad, o eliges una tarea del tablón de piezas sueltas. Los perfiles no técnicos también tienen trabajo: fuentes, contenido, diseño y pruebas.
+¿Vienes solo? Entras en un squad al que le falte gente. Los perfiles no técnicos también tienen trabajo: fuentes, contenido, diseño y pruebas.
 
 Más detalle en [docs/equipos.md](docs/equipos.md).
 
