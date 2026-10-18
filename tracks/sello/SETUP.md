@@ -14,9 +14,9 @@ Pegar un mensaje o una URL y obtener un veredicto (oficial, sospechoso o fraude)
 
 El reto se puede abordar por partes. Elegid las que os dé tiempo y en el orden que queráis:
 
-- **¿Esta web es oficial?.** El dominio se compara con la lista oficial sin visitar la URL: distingue coincidencia exacta, subdominio válido y desconocido, y lo desconocido no se da por fraude.
+- **¿Esta web es oficial?** El dominio se compara con la lista oficial sin visitar la URL: distingue coincidencia exacta, subdominio válido y desconocido, y lo desconocido no se da por fraude.
 - **Las citas son gratis.** Ante un caso sintético de reventa de citas, las señales que la delatan y la ruta oficial y gratuita para pedir la cita, con enlace a Interior. No consulta ni reserva citas.
-- **¿Este aviso es oficial?.** Avisos sintéticos contrastados con los canales de Protección Civil, GVA 112 y AEMET: qué se pudo comprobar y qué no, con su fuente. No sustituye a las alertas de emergencia.
+- **¿Este aviso es oficial?** Avisos sintéticos contrastados con los canales de Protección Civil, GVA 112 y AEMET: qué se pudo comprobar y qué no, con su fuente. No sustituye a las alertas de emergencia.
 
 ## Materiales en esta carpeta
 
