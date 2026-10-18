@@ -17,7 +17,7 @@ Excepción de cupo: estas dos piezas son entregas sucesivas del **mismo squad** 
 
 ## Datos disponibles y estado
 
-Las fuentes están identificadas en el contexto del comité del 07/10; **los paquetes siguen pendientes**. [Formatos, origen y preparación](datos/README.md). [Guías por preparar](guias/README.md).
+El pack de datos está en `datos/` y lo describe [SETUP.md](SETUP.md); [qué está listo y qué falta](datos/README.md). [Guías por preparar](guias/README.md).
 
 ## Fuentes oficiales
 

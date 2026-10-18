@@ -18,7 +18,7 @@ Una pieza por squad, con 3,5 h de build y el pack preparado. Alcances propuestos
 
 ## Datos disponibles y estado
 
-Las fuentes están identificadas en el contexto del comité del 07/10; **los paquetes siguen pendientes**. [Formatos, origen y preparación](datos/README.md). [Guías por preparar](guias/README.md). [Contexto verificado](contexto.md) e [infografía](contexto.html).
+El pack de datos está en `datos/` y lo describe [SETUP.md](SETUP.md); [qué está listo y qué falta](datos/README.md). [Guías por preparar](guias/README.md). [Contexto verificado](contexto.md) e [infografía](contexto.html).
 
 ## Fuentes oficiales
 
