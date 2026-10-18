@@ -8,9 +8,9 @@ Comprueba webs y mensajes con fuentes oficiales y señales de fraude. Personas q
 
 ## Piezas y criterio de hecho
 
-Una pieza por squad, con 3,5 h de build y el pack preparado. Alcances propuestos para que los cierre el track lead.
+Una pieza por squad, con unas 4 h de build y el pack preparado. Alcances propuestos para que los cierre el track lead.
 
-| Pieza                   | Alcance en 3,5 h                                                                      | Hecho cuando…                                                                                       |
+| Pieza                   | Alcance en 4 h                                                                        | Hecho cuando…                                                                                       |
 | ----------------------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
 | ¿Esta web es oficial?   | Comprobar el dominio contra una lista oficial curada, sin visitar la URL introducida. | Distingue coincidencia exacta, subdominio válido y desconocido; no equipara desconocido con fraude. |
 | Las citas son gratis    | Mostrar señales de reventa de citas y la ruta oficial para pedirlas.                  | Casos sintéticos explican las señales y enlazan a Interior; no consulta ni reserva citas.           |

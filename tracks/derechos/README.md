@@ -8,9 +8,9 @@ Ayudas del Estado, GVA y ayuntamiento con requisitos y enlace de solicitud. Pers
 
 ## Piezas y criterio de hecho
 
-Una pieza por squad, con 3,5 h de build y el pack preparado. Alcances propuestos para que los cierre el track lead.
+Una pieza por squad, con unas 4 h de build y el pack preparado. Alcances propuestos para que los cierre el track lead.
 
-| Pieza                         | Alcance en 3,5 h                                                                                  | Hecho cuando…                                                                                              |
+| Pieza                         | Alcance en 4 h                                                                                    | Hecho cuando…                                                                                              |
 | ----------------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | Ayudas para ti                | Filtrar un extracto pequeño de convocatorias por situación ficticia y territorio.                 | Devuelve ayudas con requisitos, fecha del dato y enlace de solicitud; explica cuando no hay coincidencias. |
 | Compatibilidades y requisitos | Mostrar una tabla revisada de requisitos y compatibilidades para las ayudas elegidas.             | Cada requisito tiene fuente; los casos no cubiertos salen como pendientes, sin prometer elegibilidad.      |

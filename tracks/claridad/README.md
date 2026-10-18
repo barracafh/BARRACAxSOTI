@@ -8,9 +8,9 @@ Convierte convocatorias en listas de qué hacer y para cuándo. Personas que rec
 
 ## Piezas y criterio de hecho
 
-Una pieza por squad, con 3,5 h de build y el pack preparado. Alcances propuestos para que los cierre el track lead.
+Una pieza por squad, con unas 4 h de build y el pack preparado. Alcances propuestos para que los cierre el track lead.
 
-| Pieza                                  | Alcance en 3,5 h                                                                      | Hecho cuando…                                                                                         |
+| Pieza                                  | Alcance en 4 h                                                                        | Hecho cuando…                                                                                         |
 | -------------------------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | PDF a checklist                        | Extraer pasos y fechas de un conjunto pequeño de PDFs públicos.                       | Una checklist permite volver a la página o fragmento de origen; lo ambiguo se marca pendiente.        |
 | ¿Qué me piden y qué no pueden pedirme? | Anotar documentos de la checklist usando un catálogo revisado, sin inventar derechos. | Distingue documento administrativo consultable, no interoperable y privado, con fuente y excepciones. |

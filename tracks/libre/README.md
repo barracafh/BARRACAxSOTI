@@ -10,7 +10,7 @@ Cupo de un squad por orden de llegada, asignado por el comité. Una necesidad ci
 
 Excepción de cupo: estas dos piezas son entregas sucesivas del **mismo squad** (cupo 1), no dos squads.
 
-| Pieza                           | Alcance en 3,5 h                                                                  | Hecho cuando…                                                                           |
+| Pieza                           | Alcance en 4 h                                                                    | Hecho cuando…                                                                           |
 | ------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | Propuesta de utilidad ciudadana | Acotar un problema y construir un único recorrido con datos públicos o simulados. | El comité valida alcance y fuentes; una persona puede completar la tarea de ejemplo.    |
 | Integración en el centro        | Publicar e integrar la misma herramienta con ficha, fuentes y botón de aviso.     | URL pública y hacknight revisar sin bloqueos; README explica qué falta para producción. |
