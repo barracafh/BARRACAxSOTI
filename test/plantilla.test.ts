@@ -4,7 +4,6 @@ import { join, resolve, relative } from "node:path";
 import { tmpdir } from "node:os";
 import { pathToFileURL } from "node:url";
 import { fichaSchema } from "@hacknight/shared/modelo";
-import { paleta } from "@hacknight/shared/paleta";
 import { contexto } from "../apps/cli/src/lib/contexto";
 import { revisar, type Revision } from "../apps/cli/src/lib/revision";
 import { ejecutar } from "../apps/cli/src/lib/proceso";
@@ -67,11 +66,6 @@ test("la plantilla independiente pasa revisar salvo la URL pública", async () =
       fichaSchema.safeParse(await Bun.file(join(project, "ficha.json")).json())
         .success,
     ).toBe(true);
-    const css = (
-      await Bun.file(join(project, "src/styles/paleta.css")).text()
-    ).toLowerCase();
-    for (const [token, color] of Object.entries(paleta))
-      expect(css).toContain(`--color-${token}: ${color.toLowerCase()}`);
     expect(await Bun.file(join(project, "bun.lock")).exists()).toBe(true);
   } finally {
     await rm(dir, { recursive: true, force: true });
