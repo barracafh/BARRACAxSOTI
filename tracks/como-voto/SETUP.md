@@ -4,7 +4,7 @@
 
 Todo lo que necesitas para votar el 29 de noviembre, con fuentes oficiales y también si vives en el extranjero: el voto por correo, los plazos, los programas oficiales y qué es la ley D'Hondt o qué significan el voto nulo y la abstención. Y un verificador que contrasta los bulos sobre cómo se vota con la fuente oficial, sin juicios sobre partidos ni candidatos.
 
-Puede haber varios squads en este track, todos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden que prefiera.
+Puede haber hasta dos squads en este track, los dos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden que prefiera.
 
 ## Qué se espera en la demo
 

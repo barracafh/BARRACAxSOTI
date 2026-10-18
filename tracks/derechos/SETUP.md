@@ -4,7 +4,7 @@
 
 El ciudadano cuenta su situación con sus palabras y la herramienta le dice a qué ayudas públicas (estatales, autonómicas y municipales) **podría optar** y dónde pedirlas. Hoy están repartidas entre administraciones y nadie te dice a cuáles puedes optar.
 
-Puede haber varios squads en este track, todos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden que prefiera.
+Puede haber hasta dos squads en este track, los dos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden que prefiera.
 
 ## Qué se espera en la demo
 

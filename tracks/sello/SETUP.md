@@ -4,7 +4,7 @@
 
 Comprueba si una web, un SMS o un aviso es oficial de verdad y, si no lo es, te dice cuál es la buena. Antiphishing contra las estafas que suplantan a la DGT, a Hacienda y a otros organismos.
 
-Puede haber varios squads en este track, todos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden que prefiera.
+Puede haber hasta dos squads en este track, los dos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden que prefiera.
 
 ## Qué se espera en la demo
 

@@ -8,7 +8,7 @@ Orienta en trámites de GVA y València con pasos y enlaces a sedes oficiales. P
 
 ## Piezas y criterio de hecho
 
-Puede haber varios squads en el track, todos con el mismo reto: cada uno construye las piezas que le dé tiempo, empezando por «Qué trámite necesito», porque las otras dos completan el trámite que identifica. Unas 4 h de build con el pack preparado. Alcances propuestos para que los cierre el comité.
+Puede haber hasta dos squads en el track, los dos con el mismo reto: cada uno construye las piezas que le dé tiempo, empezando por «Qué trámite necesito», porque las otras dos completan el trámite que identifica. Unas 4 h de build con el pack preparado. Alcances propuestos para que los cierre el comité.
 
 | Pieza                        | Alcance en 4 h                                                                        | Hecho cuando…                                                                                                                           |
 | ---------------------------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |

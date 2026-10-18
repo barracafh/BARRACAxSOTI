@@ -28,7 +28,7 @@ Horario provisional:
 
 ## Los tracks
 
-Cada track es una herramienta de la plataforma. Son los seis publicados: puede haber varios squads por track, todos con el mismo reto, y uno solo en el track libre.
+Cada track es una herramienta de la plataforma. Son los seis publicados: puede haber hasta dos squads por track, los dos con el mismo reto, y uno solo en el track libre.
 
 | Track           | Qué hace por ti                                                                    |
 | --------------- | ---------------------------------------------------------------------------------- |

@@ -4,7 +4,7 @@
 
 Le pasas el PDF o la notificación de turno y te lo traduce a lenguaje humano, con un checklist de qué tienes que hacer y para cuándo. **Sin guardar nada.**
 
-Puede haber varios squads en este track, todos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden de abajo.
+Puede haber hasta dos squads en este track, los dos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden de abajo.
 
 ## Qué se espera en la demo
 
