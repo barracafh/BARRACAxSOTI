@@ -30,7 +30,7 @@
   - se mezclan niveles;
   - cada squad tiene un capitán, que no tiene por qué ser el más técnico.
 - **El lunes 19/10 se cierran los equipos y se reparten los tracks**, junto con el paquete de accesos y datos de cada equipo. La fecha límite para formar equipo es el domingo 18/10.
-- **Una herramienta, varias piezas.** Con 50 personas salen 10–12 squads para 5 herramientas, y hasta dos en la misma. Cada herramienta trae 2–3 piezas: cada squad construye las que le dé tiempo, en el orden que indique el track si alguna necesita a otra o, si no, en el que prefiera. El track libre conserva su cupo de un squad.
+- **Una herramienta, varias piezas.** Con 50 personas salen 10–11 squads: hasta dos por cada una de las 5 herramientas y uno en el track libre. Cada herramienta trae 2–3 piezas: cada squad construye las que le dé tiempo, en el orden que indique el track si alguna necesita a otra o, si no, en el que prefiera. El track libre conserva su cupo de un squad.
 - **Si nadie elige un track,** esa es la respuesta: el track se cae.
 - **En la sala:**
   - el check-in va de 17:00 a 17:30;
