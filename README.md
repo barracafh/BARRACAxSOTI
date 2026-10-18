@@ -100,12 +100,12 @@ Comprueba que todo responde con `git --version`, `bun --version` y `gh auth stat
 curl -fsSL https://build.barraca.house/instalar.sh | sh
 ```
 
-El instalador es [`apps/cli/install.sh`](apps/cli/install.sh): descarga de la [última release](https://github.com/barracafh/build-registro/releases/latest) el binario de tu plataforma, comprueba su SHA256 con `SHA256SUMS` y lo deja en `~/.local/bin` (`HACKNIGHT_INSTALL_DIR` cambia el destino). En Windows, descarga `hacknight-windows-x64.exe` de esa misma release.
+El instalador es [`apps/cli/install.sh`](apps/cli/install.sh): descarga de la [última release](https://github.com/barracafh/build-comite/releases/latest) el binario de tu plataforma, comprueba su SHA256 con `SHA256SUMS` y lo deja en `~/.local/bin` (`HACKNIGHT_INSTALL_DIR` cambia el destino). En Windows, descarga `hacknight-windows-x64.exe` de esa misma release.
 
 Para comprobar un binario a mano:
 
 ```sh
-gh release download -R barracafh/build-registro -p 'hacknight-darwin-arm64' -p SHA256SUMS
+gh release download -R barracafh/build-comite -p 'hacknight-darwin-arm64' -p SHA256SUMS
 shasum -a 256 -c --ignore-missing SHA256SUMS
 ```
 

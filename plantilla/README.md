@@ -35,7 +35,7 @@ hacknight observar                 # déjalo abierto: suma vuestros tokens al ra
 
 `observar` cuenta los tokens de Claude Code, Codex y Pi en este proyecto durante el build. La primera vez te pide confirmar tu cuenta en GitHub; no da acceso a nada.
 
-En Windows, descarga `hacknight-windows-x64.exe` de la [última release](https://github.com/barracafh/build-registro/releases/latest).
+En Windows, descarga `hacknight-windows-x64.exe` de la [última release](https://github.com/barracafh/build-comite/releases/latest).
 
 ## Ficha y entrega
 
