@@ -37,6 +37,8 @@ export async function registryPlan(
       "/equipos.json",
       "/comite.json",
       "/tracks.json",
+      // Squads have Write: without this, a teammate could integrate their ficha.
+      "/fichas/",
       "/.github/CODEOWNERS",
     ]
       .map((path) => `${path} ${reviewers.join(" ")}`)

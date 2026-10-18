@@ -6,7 +6,7 @@ Desde la raíz, revisa el plan (no necesita sesión ni hace llamadas a GitHub):
 bun infra/registro/preparar.ts --repo organizacion/registro --owners '@organizacion/comite' --dry-run
 ```
 
-Copia `evento.json`, `equipos.json`, `tracks.json` y `comite.json` desde `packages/shared/registro-base/`, sin inventar equipos. Prepara un repo **nuevo y público**, rama `main`, y muestra los comandos `gh` que crearían la etiqueta `aviso` (los avisos del comité en el tablón) y la protección de rama. CODEOWNERS cubre los cuatro JSON y su propio archivo. Requiere una revisión y la del code owner en esos archivos; descarta aprobaciones antiguas, impide force-push/borrado y aplica a administradores.
+Copia `evento.json`, `equipos.json`, `tracks.json` y `comite.json` desde `packages/shared/registro-base/`, sin inventar equipos. Prepara un repo **nuevo y público**, rama `main`, y muestra los comandos `gh` que crearían la etiqueta `aviso` (los avisos del comité en el tablón) y la protección de rama. CODEOWNERS cubre los cuatro JSON, `fichas/` (solo el comité integra una ficha) y su propio archivo. Requiere una revisión y la del code owner en esos archivos; descarta aprobaciones antiguas, impide force-push/borrado y aplica a administradores.
 
 ## Aplicación por el comité
 

@@ -27,6 +27,9 @@ test("registro: dry-run no ejecuta; siembra JSON, etiquetas y revisiones del com
     "/equipos.json @example/comite",
   );
   expect(plan.files[".github/CODEOWNERS"]).toContain(
+    "/fichas/ @example/comite",
+  );
+  expect(plan.files[".github/CODEOWNERS"]).toContain(
     "/.github/CODEOWNERS @example/comite",
   );
   expect(
