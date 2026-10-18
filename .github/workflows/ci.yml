@@ -1,8 +1,12 @@
 name: Comprobaciones
 
+# Cada commit de una PR corre una vez, como pull_request; una rama sin PR se
+# puede comprobar a mano desde Actions.
 on:
   push:
+    branches: [main]
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
