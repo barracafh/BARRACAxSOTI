@@ -129,15 +129,6 @@ export class RegistroGitHub implements Registro {
       .filter((i) => !i.pull_request)
       .map(issue);
   }
-  async crearIssue(titulo: string, cuerpo: string, etiquetas: string[]) {
-    return issue(
-      await this.api("issues", ghIssue, "POST", {
-        title: titulo,
-        body: cuerpo,
-        labels: etiquetas,
-      }),
-    );
-  }
   async fichas(): Promise<RegistroFicha[]> {
     const prs = await this.paginas(
       "pulls?state=all",

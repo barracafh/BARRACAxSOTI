@@ -10,6 +10,7 @@ asset="hacknight-$os-$cpu"
 install_dir=${HACKNIGHT_INSTALL_DIR:-"$HOME/.local/bin"}
 mkdir -p "$install_dir"
 stage=$(mktemp -d "$install_dir/.hacknight-install.XXXXXX")
+trap 'rm -rf "$stage"' EXIT
 base="https://github.com/$release_repo/releases/latest/download"
 curl --fail --silent --show-error --location --proto '=https' --max-time 120 "$base/$asset" -o "$stage/$asset"
 curl --fail --silent --show-error --location --proto '=https' --max-time 30 "$base/SHA256SUMS" -o "$stage/SHA256SUMS"

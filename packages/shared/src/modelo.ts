@@ -87,11 +87,6 @@ export interface Registro {
   tracks(): Promise<Track[]>;
   comite(): Promise<string[]>;
   issues(): Promise<Issue[]>;
-  crearIssue(
-    titulo: string,
-    cuerpo: string,
-    etiquetas: string[],
-  ): Promise<Issue>;
   fichas(): Promise<RegistroFicha[]>;
   registrar(ficha: Ficha, fecha: string): Promise<RegistroFicha>;
   pushes(equipos?: Equipo[]): Promise<
