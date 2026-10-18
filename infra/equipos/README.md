@@ -6,7 +6,7 @@ Un repo público por equipo en `barracafh`, conectado a su proyecto de Vercel, y
 bun infra/equipos/preparar.ts --equipos /ruta/equipos.json --dry-run
 ```
 
-`equipos.json` usa el formato del registro del CLI: `id`, `nombre`, `herramienta`, `pieza`, `mesa`, `miembros` y `repo`. El `id` es la ruta (`derechos-a`, `derechos-b`… y `libre`) y `pieza`, el nombre inicial de la herramienta. `miembros` acepta los usuarios de GitHub tal como los exporta Luma (`https://github.com/usuario/`). Con `repo` vacío se usa `barracafh/build-<id>`. El archivo sale del reparto y no se sube a ningún repo.
+`equipos.json` usa el formato del registro del CLI: `id`, `nombre`, `herramienta`, `pieza`, `mesa`, `miembros` y `repo`. El `id` es la ruta (`derechos-a`, `derechos-b`… y `libre`) y `pieza`, el nombre inicial de la herramienta: el del reto del track (por ejemplo, «Buscador de ayudas»), que cada squad cambia en su ficha. `miembros` acepta los usuarios de GitHub tal como los exporta Luma (`https://github.com/usuario/`). Con `repo` vacío se usa `barracafh/build-<id>`. El archivo sale del reparto y no se sube a ningún repo.
 
 Para cada equipo, el script:
 

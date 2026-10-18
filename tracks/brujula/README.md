@@ -8,7 +8,7 @@ Orienta en trámites de GVA y València con pasos y enlaces a sedes oficiales. P
 
 ## Piezas y criterio de hecho
 
-Una pieza por squad, con unas 4 h de build y el pack preparado. Alcances propuestos para que los cierre el track lead.
+Puede haber varios squads en el track, todos con el mismo reto: cada uno construye las piezas que le dé tiempo, en el orden que prefiera. Unas 4 h de build con el pack preparado. Alcances propuestos para que los cierre el track lead.
 
 | Pieza                        | Alcance en 4 h                                                                        | Hecho cuando…                                                                                                                           |
 | ---------------------------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |

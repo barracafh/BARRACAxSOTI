@@ -8,7 +8,7 @@ Ayudas del Estado, GVA y ayuntamiento con requisitos y enlace de solicitud. Pers
 
 ## Piezas y criterio de hecho
 
-Una pieza por squad, con unas 4 h de build y el pack preparado. Alcances propuestos para que los cierre el track lead.
+Puede haber varios squads en el track, todos con el mismo reto: cada uno construye las piezas que le dé tiempo, en el orden que prefiera. Unas 4 h de build con el pack preparado. Alcances propuestos para que los cierre el track lead.
 
 | Pieza                         | Alcance en 4 h                                                                                    | Hecho cuando…                                                                                              |
 | ----------------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |

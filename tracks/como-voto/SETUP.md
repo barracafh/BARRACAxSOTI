@@ -4,7 +4,7 @@
 
 Todo lo que necesitas para votar el 29 de noviembre, con fuentes oficiales y también si vives en el extranjero: el voto por correo, los plazos, los programas oficiales y qué es la ley D'Hondt o qué significan el voto nulo y la abstención. Y un verificador que contrasta los bulos sobre cómo se vota con la fuente oficial, sin juicios sobre partidos ni candidatos.
 
-Equipos: `como-voto-a` y `como-voto-b`, con el mismo reto.
+Puede haber varios squads en este track, todos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden que prefiera.
 
 ## Qué se espera en la demo
 
@@ -14,6 +14,14 @@ Por ejemplo, alguna de estas tres cosas:
 - Responder «vivo en Berlín, ¿cómo voto?» con las dos opciones del voto desde el extranjero (en el consulado o por correo) y sus fechas.
 - Contrastar un bulo sobre cómo se vota con la fuente oficial que lo confirma o lo desmiente.
 - Mostrar cómo se reparten los escaños de una provincia con los datos reales de 2023.
+
+## Piezas
+
+El reto se puede abordar por partes. Elegid las que os dé tiempo y en el orden que queráis:
+
+- **Voto por correo.** Los pasos del voto por correo, desde España y desde el extranjero. Cada paso enlaza a Correos o a la Junta Electoral, y las fechas salen de `calendario_29N_2026.json`.
+- **Dónde votar y censo.** Guía hasta la consulta oficial del censo y del local electoral, sin pedir DNI, dirección ni datos del censo en vuestra página.
+- **Calendario con fuentes.** Los hitos de `calendario_29N_2026.json`, cada uno con su fuente del BOE o la Junta Electoral. Nada pendiente se publica como confirmado.
 
 ## Materiales en esta carpeta
 
