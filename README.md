@@ -100,7 +100,7 @@ bun install --frozen-lockfile
 bun run cli --registro "file://$PWD/packages/shared/registro-base" tracks
 ```
 
-Ese registro local trae los tracks reales, sin equipos todavía. Para ver el recorrido completo de un squad con datos de prueba (ficha, revisión, registro, cita y pantalla), ejecuta `bun run test:flujo`.
+Ese registro local trae los tracks reales, sin equipos todavía. Para ver el recorrido completo de un squad con datos de prueba (ficha, revisión, registro y pantalla), ejecuta `bun run test:flujo`.
 
 Los trámites principales:
 
@@ -111,7 +111,6 @@ Los trámites principales:
 | `hacknight tramitar`  | Arranca tu proyecto desde la plantilla, con la ficha y los datos de tu track |
 | `hacknight revisar`   | Comprueba las seis reglas                                                    |
 | `hacknight registrar` | Entrega tu ficha y te da el justificante de registro                         |
-| `hacknight cita`      | Pide ayuda: te da un turno y el comité te llama a tu mesa                    |
 | `hacknight tablon`    | Lo que está pasando en la sala                                               |
 
 La lista completa y la configuración están en [apps/cli/README.md](apps/cli/README.md).

@@ -55,7 +55,7 @@
       <nav aria-label="Principal">
         <a data-vista="clasificacion" href="/#clasificacion">Tokenmaxxing</a
         ><a data-vista="negociados" href="/#negociados">Negociados</a
-        ><a data-vista="ventanilla" href="/#ventanilla">Ventanilla</a
+        ><a data-vista="tablon" href="/#el-tablon">Tablón</a
         ><a class="outline" href="/pantalla" data-vista="pantalla" id="tv-link"
           >Pantalla ↗</a
         >
@@ -226,29 +226,18 @@
         <div id="tracks" class="tracks"></div>
       </section>
       <section
-        id="ventanilla"
+        id="el-tablon"
         class="operations"
-        aria-label="Ventanilla y tablón"
+        data-vista="tablon"
+        aria-labelledby="tablon-titulo"
       >
-        <div data-vista="ventanilla">
-          <div class="section-head">
-            <div>
-              <p class="eyebrow">03 / LE TOCA</p>
-              <h2>Ventanilla<span class="dot">.</span></h2>
-            </div>
-            <span class="tag">AYUDA AL SQUAD</span>
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">03 / PARA QUE CONSTE</p>
+            <h2 id="tablon-titulo">El tablón<span class="dot">.</span></h2>
           </div>
-          <div id="turnos" class="turnos"></div>
         </div>
-        <div data-vista="tablon">
-          <div class="section-head">
-            <div>
-              <p class="eyebrow">04 / PARA QUE CONSTE</p>
-              <h2>El tablón<span class="dot">.</span></h2>
-            </div>
-          </div>
-          <div id="tablon" class="feed"></div>
-        </div>
+        <div id="tablon" class="feed"></div>
       </section>
       <section class="join">
         <div>

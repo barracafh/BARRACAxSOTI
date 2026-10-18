@@ -21,17 +21,16 @@ test("el fixture de pruebas tiene todos los negociados y cuatro squads", async (
   expect(await r.comite()).toHaveLength(2);
   expect((await r.evento()).fin).toBe("2026-10-22T22:00:00+02:00");
 });
-test("registro local persiste y cierra issues", async () => {
+test("registro local persiste issues", async () => {
   const p = await mkdtemp(join(tmpdir(), "hacknight-test-"));
   tempDirs.push(p);
   await cp(join(import.meta.dir, "../../../test/fixtures/registro"), p, {
     recursive: true,
   });
   const r = new RegistroLocal(p, "demo-alba");
-  const i = await r.crearIssue("Ayuda", "Texto", ["ventanilla"]);
+  const i = await r.crearIssue("Hola", "Texto", ["tablon"]);
   expect(i.numero).toBe(1);
-  await r.editarIssue(i.numero, { estado: "closed" });
-  expect((await new RegistroLocal(p).issues())[0]?.estado).toBe("closed");
+  expect((await new RegistroLocal(p).issues())[0]?.titulo).toBe("Hola");
 });
 test("cuenta atrás no depende de la zona de la máquina", () => {
   expect(

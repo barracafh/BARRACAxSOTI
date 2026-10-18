@@ -7,7 +7,6 @@
     "ventanilla": 2,
     "color": "acid",
     "glifo": "+",
-    "prefijo": "D",
     "estado": "nucleo",
     "lead": "por asignar",
     "piezas": [
@@ -47,7 +46,6 @@
     "ventanilla": 3,
     "color": "after",
     "glifo": "=",
-    "prefijo": "C",
     "estado": "nucleo",
     "lead": "por asignar",
     "piezas": [
@@ -88,7 +86,6 @@
     "ventanilla": 9,
     "color": "magenta",
     "glifo": "#",
-    "prefijo": "S",
     "estado": "nucleo",
     "lead": "por asignar",
     "piezas": [
@@ -133,7 +130,6 @@
     "ventanilla": 1,
     "color": "cian",
     "glifo": ">",
-    "prefijo": "B",
     "estado": "nucleo",
     "lead": "por asignar",
     "piezas": [
@@ -177,7 +173,6 @@
     "ventanilla": 11,
     "color": "muted",
     "glifo": "*",
-    "prefijo": "V",
     "estado": "nucleo",
     "lead": "por asignar",
     "piezas": [
@@ -226,7 +221,6 @@
     "ventanilla": 5,
     "color": "after",
     "glifo": "~",
-    "prefijo": "R",
     "estado": "si-hay-gente",
     "lead": "por asignar",
     "piezas": [
@@ -262,7 +256,6 @@
     "ventanilla": 8,
     "color": "acid",
     "glifo": "%",
-    "prefijo": "A",
     "estado": "si-hay-gente",
     "lead": "por asignar",
     "piezas": [
@@ -306,7 +299,6 @@
     "ventanilla": 4,
     "color": "cian",
     "glifo": ":",
-    "prefijo": "SG",
     "estado": "condicional",
     "lead": "por asignar",
     "piezas": ["En qué paso estoy", "Qué viene después"],
@@ -343,7 +335,6 @@
     "ventanilla": 12,
     "color": "paper",
     "glifo": "?",
-    "prefijo": "L",
     "estado": "libre",
     "lead": "por asignar",
     "piezas": ["Propuesta de utilidad ciudadana", "Integración en el centro"],
@@ -376,7 +367,6 @@
     "ventanilla": 6,
     "color": "muted",
     "glifo": "-",
-    "prefijo": "T",
     "estado": "fuera",
     "lead": "por asignar",
     "piezas": ["¿Y si no hay cita? → Brújula", "Las citas son gratis → Sello"],
@@ -401,7 +391,6 @@
     "ventanilla": 7,
     "color": "muted",
     "glifo": "-",
-    "prefijo": "RS",
     "estado": "fuera",
     "lead": "por asignar",
     "piezas": [
@@ -429,7 +418,6 @@
     "ventanilla": 10,
     "color": "muted",
     "glifo": "-",
-    "prefijo": "CP",
     "estado": "fuera",
     "lead": "por asignar",
     "piezas": [
@@ -457,7 +445,6 @@
     "ventanilla": 13,
     "color": "muted",
     "glifo": "-",
-    "prefijo": "F",
     "estado": "fuera",
     "lead": "por asignar",
     "piezas": [

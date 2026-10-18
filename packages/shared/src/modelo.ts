@@ -33,7 +33,6 @@ export const trackSchema = z.object({
   ventanilla: z.number().int().positive(),
   color: z.enum(["magenta", "cian", "acid", "after", "paper", "muted"]),
   glifo: text,
-  prefijo: z.string().regex(/^[A-Z]{1,2}$/),
   estado: z.enum(["nucleo", "si-hay-gente", "condicional", "libre", "fuera"]),
   lead: text,
   piezas: z.array(text).min(2).max(3),
@@ -101,10 +100,6 @@ export interface Registro {
     titulo: string,
     cuerpo: string,
     etiquetas: string[],
-  ): Promise<Issue>;
-  editarIssue(
-    numero: number,
-    cambios: { estado?: "open" | "closed"; cuerpo?: string; titulo?: string },
   ): Promise<Issue>;
   fichas(): Promise<RegistroFicha[]>;
   registrar(ficha: Ficha, fecha: string): Promise<RegistroFicha>;

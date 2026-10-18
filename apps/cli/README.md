@@ -1,6 +1,6 @@
 # hacknight
 
-La ventanilla de **BARRACA x SOTI · BUILD NIGHT**, 22 de octubre de 2026, Flywire (València). Bun + TypeScript, con GitHub como registro mediante `gh` o un directorio local. Trámites, expedientes y turnos para coordinar el hack. No guarda tokens de GitHub ni modifica herramientas de IA.
+La ventanilla de **BARRACA x SOTI · BUILD NIGHT**, 22 de octubre de 2026, Flywire (València). Bun + TypeScript, con GitHub como registro mediante `gh` o un directorio local. Trámites y expedientes para coordinar el hack. No guarda tokens de GitHub ni modifica herramientas de IA.
 
 El build del evento va de **18:30 a 22:00 Europe/Madrid**. Los seis tracks son los negociados; cada squad tiene una pieza y una mesa. El comité asigna squads, piezas y el cupo único del track libre en `equipos.json`.
 
@@ -43,7 +43,7 @@ bun run test:live
 bun run test:flujo
 ```
 
-Los participantes ficticios y los generadores de logs están **solo en `test/fixtures` y `test/support`**. `test:live` levanta sockets locales y procesos watcher con historiales sintéticos, comprueba sus totales y cierra todos sus procesos. No consulta tus historiales de IA ni llama a proveedores. `test:flujo` recorre expediente → tramitar → ficha → revisión fallida → corrección → registro → cita → llamada → pantalla, con el DNI sintético deliberado del stub. `apps/cli/scripts/demo.sh` se conserva como alias de ese test de flujo.
+Los participantes ficticios y los generadores de logs están **solo en `test/fixtures` y `test/support`**. `test:live` levanta sockets locales y procesos watcher con historiales sintéticos, comprueba sus totales y cierra todos sus procesos. No consulta tus historiales de IA ni llama a proveedores. `test:flujo` recorre expediente → tramitar → ficha → revisión fallida → corrección → registro → pantalla, con el DNI sintético deliberado del stub. `apps/cli/scripts/demo.sh` se conserva como alias de ese test de flujo.
 
 Para comprobar el ejecutable autónomo:
 
@@ -60,25 +60,20 @@ No hay identidad local predeterminada. Indica `--usuario <tu-handle>` o `HACKNIG
 | Comando                                 | Trámite                                                                                        |
 | --------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | `hacknight`                             | Su expediente y, solo con TTY, menú navegable.                                                 |
-| `expediente`                            | Identidad, squad, mesa, track, pieza, cuenta atrás, seis reglas y turno; nunca abre menú.      |
+| `expediente`                            | Identidad, squad, mesa, track, pieza, cuenta atrás y seis reglas; nunca abre menú.             |
 | `tracks [slug]` / `negociados`          | Tarjetas o detalle: piezas, datos, fuentes, guías y squads. `--todos` incluye los descartados. |
 | `tramitar [--destino ruta] [--dry-run]` | Crea desde plantilla, clona, rellena ficha y descarga los datos preparados del track.          |
 | `ficha`                                 | Editor interactivo. Sin TTY: `ficha --desde archivo.json`.                                     |
 | `ficha validar`                         | Valida `ficha.json` y el slug contra los tracks activos.                                       |
 | `revisar`                               | Las seis reglas y avisos propios del negociado. Código 2 si falta algo.                        |
 | `registrar`                             | Repite revisar, comprueba asignación y plazo, escribe ficha local o abre/actualiza PR.         |
-| `cita --motivo "texto"`                 | Pide un turno por squad, con prefijo del negociado y posición en su cola.                      |
-| `cita estado` / `cita anular`           | Consulta o cancela el turno del squad.                                                         |
-| `ventanilla [--track slug]`             | Cola del comité.                                                                               |
-| `ventanilla llamar [--track slug]`      | Llama al siguiente en espera.                                                                  |
-| `ventanilla atendido [numero]`          | Cierra un turno llamado; número de issue, sin prefijo.                                         |
 | `tablon [-n 20]`                        | Publicaciones, avisos del comité, registros y pushes de squads.                                |
 | `publicar "texto"`                      | Hasta 500 caracteres, con confirmación pública.                                                |
 | `datos [paquete] [--track slug]`        | Lista o descarga a `./datos/`, verificando SHA256 antes de escribir.                           |
-| `pantalla [--once] [--plain]`           | Proyector: cuenta atrás, turnos, negociados, registros, avisos y ticker. `p` pausa, `q` sale.  |
+| `pantalla [--once] [--plain]`           | Proyector: cuenta atrás, negociados, registros, avisos y ticker. `p` pausa, `q` sale.          |
 | `actualizar [--check]`                  | Releases configurables, con SHA256. Desactivado por defecto.                                   |
 
-Alias en inglés ocultos: `status`, `init`, `check`, `submit`, `help-me`, `feed`, `tv`. Todos los comandos aceptan `--json`, `--registro`, `--cwd` y `--plain`. Sin TTY no hay prompts ni bucles de pantalla; se emite una captura. En TTY pequeño, pantalla rota paneles cada ocho segundos; `--once --plain` los imprime completos.
+Alias en inglés ocultos: `status`, `init`, `check`, `submit`, `feed`, `tv`. Todos los comandos aceptan `--json`, `--registro`, `--cwd` y `--plain`. Sin TTY no hay prompts ni bucles de pantalla; se emite una captura. En TTY pequeño, pantalla rota paneles cada ocho segundos; `--once --plain` los imprime completos.
 
 Crear el repo de squad y publicar texto requieren confirmación explícita. Sin TTY o con JSON, añade `--confirmar`; sin esa opción se rechazan antes de escribir. `tramitar --dry-run` muestra repo, destino y paquetes sin crear nada. No sobrescribe un directorio existente. En GitHub crea un repo **público**, siempre desde la plantilla configurada.
 
@@ -123,7 +118,7 @@ Luis y el comité deben crear y configurar el repo central; el [script de infra]
 | `evento.json`         | Objeto: `nombre`, `nombre_corto`, `organizan`, `inicio`, `fin` ISO con offset, `enlaces` (mapa nombre→URL) y `registroFueraDePlazo` booleano.                                                                                                 |
 | `equipos.json`        | Array de `{id,nombre,herramienta,pieza,mesa,miembros,repo}`. `id` y `herramienta` son slugs; `mesa` es texto; `miembros` son handles sin `@`; `repo` es `owner/repo` (puede estar vacío mientras se prepara el equipo). Un usuario, un squad. |
 | `tracks.json`         | Array descrito abajo; es la autoridad de los slugs válidos.                                                                                                                                                                                   |
-| `comite.json`         | Array de handles con permiso de ventanilla y autoría de avisos.                                                                                                                                                                               |
+| `comite.json`         | Array de handles con autoría de avisos.                                                                                                                                                                                                       |
 | `fichas/<squad>.json` | Ficha validada; llega por PR, el comité la revisa e integra.                                                                                                                                                                                  |
 
 Ejemplo de evento (las fechas llevan el offset de Madrid del día del hack):
@@ -140,7 +135,7 @@ Ejemplo de evento (las fechas llevan el offset de Madrid del día del hack):
 }
 ```
 
-Cada track contiene `slug`, `nombre`, `frase`, `ciudadano`, `ventanilla` (número), `color` (token de la paleta), `glifo`, `prefijo` de turno, `estado`, `lead`, `piezas` (2–3 textos), `paquetes`, `fuentes`, `dificultad` y `guias`. `cupo` es opcional; el track libre tiene cupo 1. Estados: `nucleo` y `libre`. Los leads siguen «por asignar»; Jesús, Iban, Pau y Alex todavía no tienen reparto. El catálogo se edita en [tracks/](../../tracks/README.md); el [JSON generado](../../packages/shared/registro-base/tracks.json) se incluye en el registro base.
+Cada track contiene `slug`, `nombre`, `frase`, `ciudadano`, `ventanilla` (número), `color` (token de la paleta), `glifo`, `estado`, `lead`, `piezas` (2–3 textos), `paquetes`, `fuentes`, `dificultad` y `guias`. `cupo` es opcional; el track libre tiene cupo 1. Estados: `nucleo` y `libre`. Los leads siguen «por asignar»; Jesús, Iban, Pau y Alex todavía no tienen reparto. El catálogo se edita en [tracks/](../../tracks/README.md); el [JSON generado](../../packages/shared/registro-base/tracks.json) se incluye en el registro base.
 
 Un paquete es `{"id":"derechos-base","nombre":"BDNS","url":"https://…/datos.zip","sha256":"64 caracteres hexadecimales","pendiente":false}`. Mientras no se prepare, `pendiente:true`, URL `example.invalid` y SHA `PENDIENTE`. `tramitar` deja esos paquetes pendientes visibles; `datos <id>` los rechaza. En pruebas locales se aceptan URLs `file:`; en GitHub solo HTTPS. Se guardan como archivos, **sin extraer ZIPs ni ejecutar contenido**.
 
@@ -148,11 +143,11 @@ La ficha tiene `nombre`, `frase`, `icono`, `herramienta`, `equipo`, `url`, `fuen
 
 ### Etiquetas y permisos en GitHub
 
-Prepara las etiquetas **`ventanilla`**, **`aviso`**, **`tablon`** con el script de infra antes del evento; el CLI no las crea al usarlas. Los turnos son issues con un cuerpo JSON `{tipo:"cita",squad,herramienta,mesa,motivo,estado}`. El CLI ignora turnos con autor ajeno al squad y toma la mesa del registro. Estados: `espera`, `llamado`, `atendido`, `anulado`; los dos últimos cierran el issue. Las publicaciones tienen `{texto,herramienta}`; los avisos pueden escribirse como texto normal por un handle de `comite.json`. Avisos de otros autores se ignoran.
+Prepara las etiquetas **`aviso`** y **`tablon`** con el script de infra antes del evento; el CLI no las crea al usarlas. Las publicaciones tienen `{texto,herramienta}`; los avisos pueden escribirse como texto normal por un handle de `comite.json`. Avisos de otros autores se ignoran.
 
 Esta primera implementación usa **ramas en el registro central**, `hacknight/ficha-<squad>`, y Contents/PR API de GitHub. Los participantes necesitan permiso **Write** en ese repo para crear la rama, actualizar su ficha y etiquetar issues. No se crean forks automáticamente. Protege la rama principal: sin pushes directos, con revisión del comité; protege también los JSON de asignación y permisos mediante CODEOWNERS/revisión. El CLI valida identidad y asignación, pero **no sustituye los controles de GitHub** frente a alguien que escriba directamente con la API. Si el comité no quiere dar Write a squads, deberá decidir un flujo por forks o un bot antes del uso real.
 
-El comité necesita Write para llamar/cerrar turnos de otros. Recomendación operativa: un despachador por negociado para no llamar simultáneamente al mismo issue; GitHub Issues no ofrece una transacción de cola entre dos terminales. Las operaciones locales se guardan bajo lock de directorio y escritura atómica. `.estado.json` conserva numeración/cola/recibos locales; no se sube a GitHub. Un lock huérfano exige comprobar que no queda otro proceso antes de retirarlo.
+Las operaciones locales se guardan bajo lock de directorio y escritura atómica. `.estado.json` conserva numeración/recibos locales; no se sube a GitHub. Un lock huérfano exige comprobar que no queda otro proceso antes de retirarlo.
 
 El número `RE-2026-22O-0042` usa el número de PR (GitHub) o el contador local compartido con issues. Actualizar un PR abierto conserva número. Un PR nuevo tras cerrar/integrar puede recibir otro. El hash corto permite detectar cambios en ficha/fecha/número; **no es una firma criptográfica ni un CSV oficial**. El justificante distingue `pendiente` (PR) de `integrado` (merge o escritura local). El tablón consulta los eventos públicos de cada repo de squad (caché de tres minutos mientras corre pantalla); GitHub puede retrasarlos.
 
@@ -178,7 +173,7 @@ hacknight --registro file:///ruta/instancia --usuario TU_HANDLE --cwd /ruta/proy
 
 Usa la URL `file://` del registro que imprime el servidor. Si aún no instalaste el binario, sustituye `hacknight` por `bun /ruta/a/apps/cli/src/index.ts`.
 
-La web muestra clasificación por squads, personas (si se habilita) y tracks, desglose de entrada/salida/caché, herramientas y evolución. La ventanilla y el tablón consultan el mismo registro que el CLI; `/pantalla` es el proyector. Sin logs del proyecto en la ventana configurada, el contador permanece en cero. El watcher cuenta actividad existente dentro de esa ventana, además de la que se produzca a partir de su arranque.
+La web muestra clasificación por squads, personas (si se habilita) y tracks, desglose de entrada/salida/caché, herramientas y evolución. El tablón consulta el mismo registro que el CLI; `/pantalla` es el proyector. Sin logs del proyecto en la ventana configurada, el contador permanece en cero. El watcher cuenta actividad existente dentro de esa ventana, además de la que se produzca a partir de su arranque.
 
 `p` pausa el watcher y `q` o `Ctrl+C` lo cierra. El watcher y el servidor son procesos independientes: cerrar uno no cierra el otro. No se instalan servicios de fondo.
 

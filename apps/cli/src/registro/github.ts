@@ -138,18 +138,6 @@ export class RegistroGitHub implements Registro {
       }),
     );
   }
-  async editarIssue(
-    numero: number,
-    c: { estado?: "open" | "closed"; cuerpo?: string; titulo?: string },
-  ) {
-    return issue(
-      await this.api(`issues/${numero}`, ghIssue, "PATCH", {
-        state: c.estado,
-        body: c.cuerpo,
-        title: c.titulo,
-      }),
-    );
-  }
   async fichas(): Promise<RegistroFicha[]> {
     const prs = await this.paginas(
       "pulls?state=all",

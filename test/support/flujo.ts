@@ -21,20 +21,14 @@ const server = Bun.serve({
 const cmd = process.env.HACKNIGHT_BIN
   ? [resolve(process.env.HACKNIGHT_BIN)]
   : [process.execPath, join(root, "apps/cli/src/index.ts")];
-async function run(
-  name: string,
-  args: string[],
-  cwd = dir,
-  expect = 0,
-  user = "demo-alba",
-) {
+async function run(name: string, args: string[], cwd = dir, expect = 0) {
   const p = Bun.spawn(
     [
       ...cmd,
       "--registro",
       pathToFileURL(registro).href,
       "--usuario",
-      user,
+      "demo-alba",
       "--cwd",
       cwd,
       ...args,
@@ -89,18 +83,6 @@ try {
   await run("revisar", ["revisar"], project);
   await run("registrar", ["registrar"], project);
   await run("expediente-final", ["expediente"], project);
-  await run(
-    "cita",
-    ["cita", "--motivo", "Conectar la pieza al centro"],
-    project,
-  );
-  await run(
-    "ventanilla-llamar",
-    ["ventanilla", "llamar"],
-    project,
-    0,
-    "demo-mentor-ona",
-  );
   await run("pantalla", ["pantalla", "--once", "--plain"], project);
   console.log(`\nDemo completa. Registro, proyecto y capturas: ${dir}`);
 } finally {

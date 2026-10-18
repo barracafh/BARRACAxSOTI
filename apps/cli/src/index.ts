@@ -7,7 +7,7 @@ import { fallo, salida } from "./lib/output";
 import { CliError } from "@hacknight/shared/errors";
 import { tracks, expediente } from "./commands/base";
 import { ficha, revision, registrar } from "./commands/entrega";
-import { cita, ventanilla, tablon, publicar } from "./commands/social";
+import { tablon, publicar } from "./commands/social";
 import { pantalla } from "./commands/pantalla";
 import { tramitar, datos } from "./commands/arranque";
 import { actualizar } from "./commands/actualizar";
@@ -74,16 +74,6 @@ program
 program.command("check", { hidden: true }).action(run(revision));
 program.command("submit", { hidden: true }).action(run(registrar));
 program
-  .command("cita [accion]")
-  .description("Pedir ayuda, estado o anular")
-  .option("--motivo <texto>", "Motivo corto")
-  .action(async (a, o) => run((ctx) => cita(ctx, a, o.motivo))());
-program
-  .command("ventanilla [accion] [numero]")
-  .description("Cola del comité; llamar y atendido")
-  .option("--track <slug>", "Filtra por negociado")
-  .action(async (a, n, o) => run((ctx) => ventanilla(ctx, a, n, o.track))());
-program
   .command("tablon")
   .description("Publicaciones, avisos, registros y pushes")
   .option("-n <cantidad>", "Número de entradas", "20")
@@ -97,9 +87,6 @@ program
   .description("Proyector del local")
   .option("--once", "Una captura y salir")
   .action(async (o) => run((ctx) => pantalla(ctx, o.once))());
-program
-  .command("help-me [motivo]", { hidden: true })
-  .action(async (m) => run((ctx) => cita(ctx, undefined, m))());
 program
   .command("feed", { hidden: true })
   .option("-n <cantidad>", "Entradas", "20")
@@ -177,14 +164,9 @@ program.action(
         run: () => revision(ctx),
       },
       registrar: { label: "Registrar ficha", run: () => registrar(ctx) },
-      cita: { label: "Pedir ayuda · cita", run: () => cita(ctx) },
       tablon: { label: "Leer el tablón", run: () => tablon(ctx) },
       datos: { label: "Paquetes de datos", run: () => datos(ctx) },
       pantalla: { label: "Pantalla del local", run: () => pantalla(ctx) },
-      ventanilla: {
-        label: "Ventanilla del comité",
-        run: () => ventanilla(ctx),
-      },
     };
     for (;;) {
       const choice = await select({

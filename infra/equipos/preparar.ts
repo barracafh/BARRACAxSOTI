@@ -358,7 +358,7 @@ ${
 }
 <section class="cli">
 <h2>El CLI del evento</h2>
-<p>Vuestra ficha, la revisión de las seis reglas, los turnos de ayuda y el tablón. Con <code>gh auth login</code> hecho, en macOS o Linux:</p>
+<p>Vuestra ficha, la revisión de las seis reglas y el tablón. Con <code>gh auth login</code> hecho, en macOS o Linux:</p>
 <pre><code>curl -fsSL https://${dominio}/instalar.sh | sh</code></pre>
 <p>En Windows, descarga <code>hacknight-windows-x64.exe</code> de la <a href="https://github.com/${registro}/releases/latest">última release</a>.</p>
 </section>

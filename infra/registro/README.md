@@ -16,6 +16,6 @@ Copia `evento.json`, `equipos.json`, `tracks.json` y `comite.json` desde `packag
 4. Solo tras revisar el plan, sustituye `--dry-run` por `--apply`. El script usa un directorio temporal nuevo; no modifica tu checkout. Es de arranque, **no de actualización**: si el repo ya existe, falla. Si falla después de crearlo, inspecciona lo aplicado y completa manualmente los comandos pendientes; no borres el repo para repetir.
 5. Comprueba etiquetas, rama y protección en GitHub. Configura `HACKNIGHT_REGISTRO=organizacion/registro` para el CLI.
 
-El CLI actual necesita Write para que los squads envíen fichas por ramas/PR y etiqueten issues. Decidir ese permiso o cambiar a forks/bot sigue pendiente. El comité también necesita Write para gestionar turnos. CODEOWNERS no concede permisos y una heurística del CLI no sustituye las revisiones.
+El CLI actual necesita Write para que los squads envíen fichas por ramas/PR y etiqueten issues. Decidir ese permiso o cambiar a forks/bot sigue pendiente. CODEOWNERS no concede permisos y una heurística del CLI no sustituye las revisiones.
 
 Referencia: [protección de ramas de GitHub](https://docs.github.com/en/rest/branches/branch-protection). Más contexto en [el README del CLI](../../apps/cli/README.md#etiquetas-y-permisos-en-github).

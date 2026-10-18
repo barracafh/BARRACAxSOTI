@@ -725,50 +725,12 @@ progress::-moz-progress-bar {
   color: var(--acid);
 }
 
-/* Ventanilla y tablón */
+/* Tablón */
 .operations {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 40px;
   margin-bottom: 72px;
 }
 .operations h2 {
   font-size: clamp(1.25rem, 3vw, 2.25rem);
-}
-.tag {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  padding: 7px 8px;
-  border: 1px solid var(--line-strong);
-  color: var(--muted);
-  white-space: nowrap;
-}
-.turno {
-  background: var(--nit-2);
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 20px 22px;
-  border: 1px solid var(--line);
-  margin-bottom: 10px;
-}
-.turno strong {
-  font: 700 29px var(--mono);
-  color: var(--acid);
-}
-.turno small {
-  display: block;
-  font-size: 12px;
-  color: var(--muted);
-  margin-top: 8px;
-  line-height: 1.5;
-}
-.turno > div:last-child {
-  text-align: right;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
 }
 .feed article {
   border-top: 1px solid var(--line);
@@ -981,12 +943,6 @@ dialog a {
   .metrics strong {
     font-size: 34px;
   }
-  .operations {
-    gap: 25px;
-  }
-  .tag {
-    display: none;
-  }
 }
 @media (max-width: 700px) {
   .masthead {
@@ -1146,8 +1102,6 @@ dialog a {
     display: none;
   }
   .operations {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 32px;
     margin-bottom: 44px;
   }
   .join {
@@ -1188,7 +1142,7 @@ dialog a {
   }
 }
 
-/* Pantalla del local: clasificación y turnos en paralelo. */
+/* Pantalla del local: clasificación y tablón en paralelo. */
 .tv-clock {
   font: 700 30px var(--mono);
   color: var(--acid);
@@ -1227,20 +1181,10 @@ dialog a {
     padding: 12px;
   }
   .proyector .operations {
-    display: block;
     margin: 0;
-  }
-  .proyector .operations > div {
-    margin-bottom: 20px;
   }
   .proyector .operations h2 {
     font-size: 26px;
-  }
-  .proyector .turno {
-    padding: 14px;
-  }
-  .proyector .turno strong {
-    font-size: 24px;
   }
   .proyector .feed article {
     padding: 10px 0;

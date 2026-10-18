@@ -7,7 +7,6 @@ import type {
   RegistroFicha,
   Issue,
 } from "./modelo";
-import { cola, type Cita } from "./cola";
 import { paleta } from "./paleta";
 import type { Gestion } from "./registro/gestion";
 export interface EstadoEvento {
@@ -15,16 +14,7 @@ export interface EstadoEvento {
   tracks: Track[];
   equipos: Equipo[];
   registros: RegistroFicha[];
-  cola: Cita[];
   entradas: Entrada[];
-}
-export async function obtenerCola(registro: Registro) {
-  const [issues, teams, tracks] = await Promise.all([
-    registro.issues(),
-    registro.equipos(),
-    registro.tracks(),
-  ]);
-  return cola(issues, teams, tracks);
 }
 export interface Entrada {
   id: string;
@@ -125,7 +115,6 @@ export async function snapshot(
     tracks,
     equipos,
     registros: [...registros].sort((a, b) => b.fecha.localeCompare(a.fecha)),
-    cola: cola(issues, equipos, tracks),
     entradas: componerEntradas(
       issues,
       comite,
@@ -153,7 +142,6 @@ export function estadoPublico<Consumo>(
       ? estado.equipos.map(({ miembros, ...equipo }) => equipo)
       : [],
     registros: vistas.tablon ? estado.registros : [],
-    cola: vistas.ventanilla ? estado.cola : [],
     entradas: vistas.tablon ? estado.entradas : [],
     consumo,
   };

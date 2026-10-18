@@ -118,23 +118,6 @@ export async function prepararPruebaLive() {
         i + 1,
         new Date(Date.now() - (25 - j * 4) * 60000).toISOString(),
       );
-  for (const [i, e] of equipos.entries()) {
-    if (i > 1) break;
-    await new RegistroLocal(reg, e.miembros[0]).crearIssue(
-      "Ayuda de demo",
-      JSON.stringify({
-        tipo: "cita",
-        squad: e.id,
-        herramienta: e.herramienta,
-        mesa: e.mesa,
-        motivo: i
-          ? "Revisar las fuentes del PDF"
-          : "Conectar la pieza al centro",
-        estado: i ? "espera" : "llamado",
-      }),
-      ["ventanilla"],
-    );
-  }
   await new RegistroLocal(reg, "demo-mentor-ona").crearIssue(
     "Ensayo general",
     "Bona vesprada. Las ventanillas están abiertas: construimos una plataforma entre todos.",

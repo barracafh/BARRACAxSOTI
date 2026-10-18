@@ -25,12 +25,11 @@ Cada push a `main` se publica solo en `https://build.barraca.house/<equipo>`. No
 
 ## CLI del evento
 
-`hacknight` revisa las seis reglas, entrega la ficha, pide turno de ayuda a la organización y enseña el tablón. Necesita `gh auth login`. En macOS o Linux:
+`hacknight` revisa las seis reglas, entrega la ficha y enseña el tablón. Necesita `gh auth login`. En macOS o Linux:
 
 ```sh
 curl -fsSL https://build.barraca.house/instalar.sh | sh
 hacknight                          # vuestro expediente: equipo, track y cuenta atrás
-hacknight cita --motivo "Nos falla el despliegue"
 hacknight observar                 # déjalo abierto: suma vuestros tokens al ranking
 ```
 

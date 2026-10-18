@@ -34,27 +34,6 @@ export function renderPantalla(
     `Fin del build · Europe/Madrid · ${reloj.cerrado ? "PLAZO CERRADO" : reloj.texto}`,
     ...(columns >= 40 ? digitos(reloj.texto) : []),
   ];
-  const queue = s.tracks
-    .filter((t) => t.estado !== "fuera")
-    .flatMap((t) => {
-      const q = s.cola.filter((c) => c.herramienta === t.slug);
-      return q.length
-        ? [
-            `${t.glifo} ${t.nombre} · V${t.ventanilla}`,
-            ...q.map(
-              (c) =>
-                `  ${c.turno} → Mesa ${c.mesa} · ${c.estado} · ${c.motivo}`,
-            ),
-          ]
-        : [];
-    });
-  lines.push(
-    ...panel(
-      "Turnos por negociado",
-      queue.length ? queue : ["Sin turnos pendientes."],
-      columns,
-    ).split("\n"),
-  );
   const rows = s.tracks
     .filter((t) => t.estado !== "fuera")
     .flatMap((t) => {
