@@ -42,19 +42,6 @@ export function repository(value?: string) {
 
 export const shellQuote = (value: string) =>
   "'" + value.replaceAll("'", "'\\''") + "'";
-export const runCommand: Runner = async ({ args, input }, cwd) => {
-  const child = Bun.spawn(args, {
-    cwd,
-    stdin: input === undefined ? "ignore" : new Blob([input]),
-    stdout: "ignore",
-    stderr: "ignore",
-  });
-  const code = await child.exited;
-  if (code !== 0)
-    throw new Error(
-      `Falló ${args[0]} ${args[1]} (salida ${code}). Revisa permisos y estado remoto antes de repetir.`,
-    );
-};
 
 export function initialCommit(message: string): Command[] {
   return [
@@ -80,7 +67,7 @@ export function initialCommit(message: string): Command[] {
 export async function executePlan(
   plan: Plan,
   apply = false,
-  runner: Runner = runCommand,
+  runner: Runner = correr,
   log = console.log,
 ) {
   if (!apply) {
@@ -143,8 +130,8 @@ export async function salida(args: string[]) {
 export const existe = async (args: string[]) =>
   (await salida(args)) !== undefined;
 
-// Like runCommand, but a failure shows the tool's own error, so the next run
-// can be planned from what actually happened.
+// A failure shows the tool's own error, so the next run can be planned from
+// what actually happened.
 async function correr({ args, input }: Command, cwd: string) {
   const child = Bun.spawn(args, {
     cwd,
