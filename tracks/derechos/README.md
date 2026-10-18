@@ -32,4 +32,4 @@ Hasta el 29/11: explicar condiciones, sin valorar gobiernos ni prometer prestaci
 
 ## Qué falta antes del 20/10
 
-Asignar track lead y revisión humana. Elegir las ayudas, y revisar sus requisitos y el cambio de la RVI. Dejar los datos en `datos/` con su procedencia y fecha de consulta.
+Asignar track lead y revisión humana. Elegir las ayudas y revisar sus requisitos y el cambio de la RVI. Dejar los datos en `datos/` con su procedencia y fecha de consulta.

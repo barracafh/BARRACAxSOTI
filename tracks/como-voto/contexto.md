@@ -327,7 +327,7 @@ Implicaciones para el hack (22/10, durante el periodo electoral):
 
 ## 6. Fact-checker: propuesta de alcance
 
-El encargo plantea que establecer la veracidad de una afirmación es complicado. La propuesta es no emitir veredictos de veracidad, sino una comparación entre la afirmación y una fuente oficial citada, y solo cuando exista. Este apartado es una propuesta técnica para decidir con la organización. En la build night es una de las piezas que puede abordar un squad del track, con este alcance.
+El encargo plantea que establecer la veracidad de una afirmación es complicado. La propuesta es no emitir veredictos de veracidad, sino una comparación entre la afirmación y una fuente oficial citada, y solo cuando exista. Este apartado es la propuesta técnica para la parte de la demo que contrasta un bulo sobre cómo se vota con la fuente oficial.
 
 ### 6.1 Tipos de afirmación
 
