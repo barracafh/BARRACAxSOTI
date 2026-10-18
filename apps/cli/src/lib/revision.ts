@@ -190,11 +190,11 @@ export async function revisar(
     // The committee's verified material in every team repo is full of official
     // phone lines and mailboxes, which the heuristic reads as personal data.
     const material = files.filter((f) =>
-      /^(?:datos\/|contexto\.md$|SETUP\.md$)/.test(f),
+      /^(?:datos\/|comun\/|contexto\.md$|SETUP\.md$)/.test(f),
     );
     if (material.length)
       avisos.push(
-        "datos/, contexto.md y SETUP.md son material de la organización y no se analizan; vuestros datos, en otra carpeta.",
+        "datos/, comun/, contexto.md y SETUP.md son material de la organización y no se analizan; vuestros datos, en otra carpeta.",
       );
     for (const archivo of files.filter((f) => !material.includes(f))) {
       const path = join(ctx.cwd, archivo);
