@@ -1,6 +1,6 @@
 # Guías · ¿Cómo voto? (29N)
 
-**Estado: pendiente.** Voto por correo; consulta de censo y local; calendario y excepciones. Alcance para residentes en el extranjero: pendiente de decidir y revisar.
+**Estado: pendiente.** Voto por correo; consulta de censo y local; calendario y excepciones. Incluyen el voto de quienes viven en el extranjero (CERA) y de quienes estarán fuera el 29/11 (ERTA).
 
 La IA prepara las guías **antes del 20/10**; cada afirmación enlaza a su fuente oficial concreta. Una persona revisa contenido, vigencia y excepciones antes de publicarlas. Track lead y persona revisora: por asignar.
 

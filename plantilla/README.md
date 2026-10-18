@@ -51,8 +51,10 @@ Hasta que la herramienta esté publicada, la regla de URL pública fallará; las
 
 El contrato es `apps/cli/esquemas/ficha.schema.json` en el monorepo del evento. Conservad `.hacknight/plantilla.json`.
 
-## Diseño pendiente
+## Diseño
 
-La plantilla lleva la marca de BARRACA: `src/styles/paleta.css` copia los tokens comunes del evento (no los importa) y `next/font` sirve Syne y Space Mono desde el propio sitio. Ese archivo y `src/components/` son el punto de sustitución del diseño de Reforma Digital, **pendiente del OK de Samu**. Todavía no se ha importado ningún componente ni asset de ese repo.
+Todas las herramientas usan Sol, el sistema visual de [Reforma Digital](https://reforma-digital.es), con el OK de Samu: los tokens de `src/styles/tema.css`, Geist y Geist Mono servidas por `next/font` desde el propio sitio, Georgia en los titulares y las primitivas de shadcn/ui con Base UI de `src/components/ui/`. `src/app/page.tsx` enseña cómo se compone una respuesta. Las reglas están en [AGENTS.md](AGENTS.md#diseño); el origen y la licencia, en [AVISO.md](AVISO.md).
 
-Referencias: [basePath de Next.js](https://nextjs.org/docs/app/api-reference/config/next-config-js/basePath) y [Tailwind con Next.js](https://tailwindcss.com/docs/installation/framework-guides/nextjs).
+Para añadir componentes: `bunx shadcn@latest add <componente>`. No ejecutéis `shadcn init`, que sobrescribe el tema.
+
+Referencias: [basePath de Next.js](https://nextjs.org/docs/app/api-reference/config/next-config-js/basePath), [Tailwind con Next.js](https://tailwindcss.com/docs/installation/framework-guides/nextjs) y [shadcn/ui con Base UI](https://ui.shadcn.com/docs).

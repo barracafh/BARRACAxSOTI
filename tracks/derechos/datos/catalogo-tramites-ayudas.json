@@ -468,7 +468,7 @@
       "pasos": [
         "Solicitarlo online en Correos con DNIe o certificado digital ('SOLICITAR VOTO'), o en cualquier oficina de Correos con documento de identidad",
         "Recibir la documentación electoral en el domicilio indicado (del 9 al 22 de noviembre)",
-        "Entregar el voto en una oficina de Correos, como certificado (sin coste), del 9 al 25 de noviembre"
+        "Entregar el voto en una oficina de Correos, como certificado (sin coste), desde que se recibe la documentación hasta el 25 de noviembre"
       ],
       "documentacion": [
         "DNI, pasaporte o permiso de conducir en vigor",
@@ -478,9 +478,9 @@
       "plazo": "Solicitud del 6 de octubre al 19 de noviembre de 2026; entrega del voto hasta el 25 de noviembre de 2026",
       "enlace_info": "https://www.ine.es/dyngs/CEL/index.htm?cid=1702",
       "enlace_tramite": "https://www.correos.es/es/es/particulares/para-el-ciudadano/voto-por-correo",
-      "fuente": "https://www.correos.es/es/es/particulares/para-el-ciudadano/voto-por-correo ; https://www.ine.es/dyngs/CEL/index.htm?cid=1702",
+      "fuente": "https://www.correos.es/es/es/particulares/para-el-ciudadano/voto-por-correo ; https://www.ine.es/dyngs/CEL/index.htm?cid=1702 ; https://www.juntaelectoralcentral.es/cs/jec/documentos/eg2026_calendario.pdf",
       "verificado": true,
-      "nota": "Son elecciones a Cortes Generales (Congreso y Senado), no autonómicas. Los residentes temporalmente en el extranjero tienen plazo de solicitud del 6 al 31 de octubre.",
+      "nota": "Son elecciones a Cortes Generales (Congreso y Senado), no autonómicas. Los residentes temporalmente en el extranjero tienen plazo de solicitud del 6 al 31 de octubre. Quien vive en el extranjero (CERA) no lo solicita: recibe la documentación de oficio y vota en su consulado del 21 al 26 de noviembre o envía el voto por correo al consulado hasta el 24 de noviembre.",
       "relacionados": ["identificacion-digital"]
     },
     {
