@@ -1,6 +1,6 @@
 # Infra del evento
 
-Todo parte de **`--dry-run`**: no hace peticiones ni cambios remotos. `--apply` ejecuta el plan y es una operación explícita del comité, una vez revisados los destinos y permisos.
+Todo parte de **`--dry-run`**: no hace peticiones ni cambios remotos. `--apply` ejecuta el plan y es una operación explícita del comité, una vez revisados los destinos y permisos. Solo arranca con el árbol de trabajo limpio: lo que se publica (plantilla, tracks, web, binarios) se lee del disco y debe coincidir con un commit.
 
 - [registro/](registro/README.md): repo de asignaciones, etiquetas, protección y CODEOWNERS.
 - [equipos/](equipos/README.md): un repo público y un proyecto de Vercel por equipo, y el hub de `build.barraca.house`.
