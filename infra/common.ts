@@ -23,6 +23,15 @@ export function options(names: string[], args = process.argv.slice(2)) {
   });
   if (values.apply && values["dry-run"])
     throw new Error("Elige --dry-run o --apply, no ambos.");
+  // Every script publishes files read from disk, so they must match a commit.
+  if (values.apply) {
+    const git = Bun.spawnSync(["git", "status", "--porcelain"], { cwd: root });
+    const cambios = git.stdout.toString().trim();
+    if (!git.success || cambios)
+      throw new Error(
+        `--apply publica lo que hay en disco: haz commit o stash antes.\n${cambios}`,
+      );
+  }
   const parsed: Record<string, string | boolean | undefined> = values;
   return {
     apply: values.apply === true,
