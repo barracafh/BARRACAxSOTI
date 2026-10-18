@@ -9,7 +9,7 @@ Este monorepo contiene lo que pone la organización. **Los squads construyen en 
 | `packages/shared/`                            | Contratos, modelos, persistencia compartida y paleta                                                                         |
 | `packages/shared/registro-base/evento.json`   | Único lugar para cambiar el nombre del evento                                                                                |
 | `tracks/<slug>/track.json`                    | Fuente de verdad del catálogo: los seis tracks publicados                                                                    |
-| `tracks/<slug>/`                              | Ficha técnica, datos y guías que completa el track lead                                                                      |
+| `tracks/<slug>/`                              | Ficha técnica, datos y guías del track                                                                                       |
 | `tracks/<slug>/contexto.md` · `tracks/comun/` | Marco de conocimiento verificado (del track y común) con su infografía `.html` al lado; índice visual en `tracks/index.html` |
 | `plantilla/`                                  | Starter independiente de los squads, con el diseño Sol de Reforma Digital; no importa el workspace                           |
 | `infra/` · `.github/workflows/`               | Scripts de preparación (registro, repos de equipo, hub y sala), CI y releases                                                |

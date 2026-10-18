@@ -1,6 +1,6 @@
 # Sello + estafas
 
-**Estado:** nucleo · **Track lead:** por asignar.
+**Estado:** nucleo.
 
 ## Qué resuelve y para quién
 
@@ -8,7 +8,7 @@ Comprueba webs y mensajes con fuentes oficiales y señales de fraude. Personas q
 
 ## Piezas y criterio de hecho
 
-Puede haber varios squads en el track, todos con el mismo reto: cada uno construye las piezas que le dé tiempo, en el orden que prefiera. Unas 4 h de build con el pack preparado. Alcances propuestos para que los cierre el track lead.
+Puede haber varios squads en el track, todos con el mismo reto: cada uno construye las piezas que le dé tiempo, en el orden que prefiera. Unas 4 h de build con el pack preparado. Alcances propuestos para que los cierre el comité.
 
 | Pieza                   | Alcance en 4 h                                                                        | Hecho cuando…                                                                                       |
 | ----------------------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
@@ -33,4 +33,4 @@ Hasta el 29/11: no emitir veredictos políticos ni atribuir campañas. Una lista
 
 ## Qué falta antes del 20/10
 
-Asignar track lead y revisión humana. Curar dominios y canales, documentar las reglas de coincidencia y revisar ejemplos y mensajes de incertidumbre. Dejar los datos en `datos/` con su procedencia y fecha de consulta.
+Asignar revisión humana. Curar dominios y canales, documentar las reglas de coincidencia y revisar ejemplos y mensajes de incertidumbre. Dejar los datos en `datos/` con su procedencia y fecha de consulta.

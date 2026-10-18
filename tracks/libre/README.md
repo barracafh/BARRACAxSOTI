@@ -1,6 +1,6 @@
 # Track libre
 
-**Estado:** libre · **Track lead:** por asignar.
+**Estado:** libre.
 
 ## Qué resuelve y para quién
 
@@ -29,4 +29,4 @@ Hasta el 29/11 se aplican los mismos límites: sin veredictos políticos, crisis
 
 ## Qué falta antes del 20/10
 
-Asignar track lead y revisión humana. Adjudicar cupo, aprobar propuesta y fuente, acotar un recorrido y nombrar una persona que revise el contenido. Dejar los datos en `datos/` con su procedencia y fecha de consulta.
+Asignar revisión humana. Adjudicar cupo, aprobar propuesta y fuente, acotar un recorrido y nombrar una persona que revise el contenido. Dejar los datos en `datos/` con su procedencia y fecha de consulta.

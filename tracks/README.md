@@ -1,6 +1,6 @@
 # Tracks
 
-Aquí edita cada track lead el material de su herramienta. Los squads construyen en sus propios repos, que la organización crea desde `plantilla/` con `infra/equipos/`.
+Aquí edita el comité el material de cada herramienta. Los squads construyen en sus propios repos, que la organización crea desde `plantilla/` con `infra/equipos/`.
 
 - `<slug>/track.json`: fuente de verdad del catálogo del CLI y el servidor.
 - `<slug>/README.md`: ficha técnica breve, piezas propuestas y pendientes.
