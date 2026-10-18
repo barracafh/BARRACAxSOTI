@@ -155,7 +155,7 @@
     "fuentes": [{ "nombre": "datos.gob.es", "url": "https://datos.gob.es/" }],
     "dificultad": "Por acotar",
     "guias": [
-      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+      "Un solo squad completa las dos piezas. Cita la fuente oficial y no uses datos personales reales."
     ],
     "cupo": 1
   }
