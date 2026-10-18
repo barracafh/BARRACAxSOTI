@@ -4,16 +4,24 @@
 
 Todo lo que necesitas para votar el 29 de noviembre, con fuentes oficiales y también si vives en el extranjero: el voto por correo, los plazos, los programas oficiales y qué es la ley D'Hondt o qué significan el voto nulo y la abstención. Y un verificador que contrasta los bulos sobre cómo se vota con la fuente oficial, sin juicios sobre partidos ni candidatos.
 
-Equipos: `como-voto-a` y `como-voto-b`, con el mismo reto.
+Equipos: `como-voto-a` y `como-voto-b`: mismo reto, una pieza cada uno.
 
 ## Qué se espera en la demo
 
-Por ejemplo, alguna de estas tres cosas:
+Por ejemplo, alguna de estas cosas:
 
 - Responder «vivo en València y el día 29 no estoy» con los pasos y las fechas del voto por correo.
 - Responder «vivo en Berlín, ¿cómo voto?» con las dos opciones del voto desde el extranjero (en el consulado o por correo) y sus fechas.
 - Contrastar un bulo sobre cómo se vota con la fuente oficial que lo confirma o lo desmiente.
 - Mostrar cómo se reparten los escaños de una provincia con los datos reales de 2023.
+
+## Piezas
+
+| Pieza                           | Alcance en unas 4 h                                                                                                                   | Hecho cuando…                                                                                                                                    |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Voto por correo, aquí y fuera   | Convertir el calendario y las fuentes oficiales en pasos para quien vive en España y para quien vive en el extranjero o estará fuera. | Cada paso y cada fecha salen de `calendario_29N_2026.json` y enlazan a BOE, JEC, Correos o INE; la consulta del censo se enlaza sin pedir datos. |
+| ¿Es verdad lo que me han dicho? | Contrastar bulos sobre cómo se vota con la fuente oficial.                                                                            | Responde «coincide», «no coincide» o «no verificable» con la cita de la fuente; nunca juzga partidos, candidatos ni promesas.                    |
+| Cómo se reparten los escaños    | Aplicar D'Hondt a una provincia con los resultados oficiales de 2023.                                                                 | Reproduce los escaños oficiales de 2023 con el umbral del 3 %; no hace proyecciones ni usa encuestas.                                            |
 
 ## Materiales en esta carpeta
 

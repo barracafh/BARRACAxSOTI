@@ -8,11 +8,7 @@
   "glifo": "+",
   "estado": "nucleo",
   "lead": "por asignar",
-  "piezas": [
-    "Ayudas para ti",
-    "Compatibilidades y requisitos",
-    "Calendario de convocatorias"
-  ],
+  "piezas": ["Ayudas para ti", "Convocatorias en vivo"],
   "fuentes": [
     {
       "nombre": "www.infosubvenciones.es",

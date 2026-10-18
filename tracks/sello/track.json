@@ -8,28 +8,16 @@
   "glifo": "#",
   "estado": "nucleo",
   "lead": "por asignar",
-  "piezas": [
-    "¿Esta web es oficial?",
-    "Las citas son gratis",
-    "¿Este aviso es oficial?"
-  ],
+  "piezas": ["¿Esta web es oficial?", "¿Este mensaje es de verdad?"],
   "fuentes": [
     {
-      "nombre": "datos.gob.es",
-      "url": "https://datos.gob.es/"
-    },
-    {
       "nombre": "www.incibe.es",
-      "url": "https://www.incibe.es/"
-    },
-    {
-      "nombre": "www.proteccioncivil.es",
-      "url": "https://www.proteccioncivil.es/"
+      "url": "https://www.incibe.es/ciudadania/avisos"
     }
   ],
   "dificultad": "Media",
   "guias": [
     "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales.",
-    "Prepara dominios-oficiales.json; atribuye las comprobaciones a sus fuentes."
+    "Atribuye cada comprobación a su fuente: una lista de dominios oficiales no certifica que una página sea segura."
   ]
 }

@@ -4,11 +4,18 @@
 
 Le cuentas tu problema con tus palabras y te dice qué trámite es, los pasos y el enlace directo a la sede. La necesidad es humana («me han echado», «me empadrono») y la sede habla en organigramas.
 
-Equipos: `brujula-a` y `brujula-b`, con el mismo reto.
+Equipos: `brujula-a` y `brujula-b`: mismo reto, una pieza cada uno.
 
 ## Qué se espera en la demo
 
 A partir de una frase como «me han echado del trabajo», la herramienta identifica el trámite (en este caso, la prestación por desempleo), da los pasos en orden, la documentación y el plazo, y enlaza a la sede correspondiente.
+
+## Piezas
+
+| Pieza                | Alcance en unas 4 h                                                                                                | Hecho cuando…                                                                                                             |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| Qué trámite necesito | Resolver frases libres, en castellano o en valenciano, sobre el catálogo del pack.                                 | Devuelve trámite, organismo, pasos, documentación, plazo y sede; fuera del catálogo lo dice y enlaza al buscador del PAG. |
+| Y después, ¿qué?     | Encadenar los trámites de una situación (del despido a Labora y al paro, por ejemplo) con el campo `relacionados`. | Propone el siguiente trámite con su enlace y su fuente, y avisa si una entrada tiene `verificado: false`.                 |
 
 ## Materiales en esta carpeta
 
@@ -29,7 +36,7 @@ A partir de una frase como «me han echado del trabajo», la herramienta identif
 
 - No hay que inventar pasos, plazos ni enlaces: si no están en una fuente, no se dan.
 - Si el trámite no está en el catálogo, hay que decirlo y remitir al buscador del PAG.
-- Tres entradas tienen `"verificado": false`: inscripción en Labora, bono alquiler joven y Xarxa Llibres.
+- Las 21 entradas están comprobadas en la sede, el BOE o el DOGV a 18/10/2026. Si se añaden entradas sin comprobar, van con `"verificado": false`.
 - Plazo del paro: el BOE confirma 15 días; la nota de la entrada explica la duda sobre si son hábiles.
 
 ## Resumen para el agente
