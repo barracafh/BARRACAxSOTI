@@ -1,5 +1,5 @@
-import { lstat, readdir } from "node:fs/promises";
-import { join, relative } from "node:path";
+import { lstat } from "node:fs/promises";
+import { join } from "node:path";
 import {
   equipoSchema,
   trackSchema,
@@ -98,16 +98,6 @@ async function versionados(carpeta: string) {
   return lista.split("\0").filter(Boolean);
 }
 
-async function recorrer(dir: string): Promise<string[]> {
-  const dentro = await readdir(dir, { withFileTypes: true });
-  const rutas = await Promise.all(
-    dentro.map((d) =>
-      d.isDirectory() ? recorrer(join(dir, d.name)) : [join(dir, d.name)],
-    ),
-  );
-  return rutas.flat();
-}
-
 // The team's repo: tracked starter files only, its ficha and feedback link,
 // and its track's brief, data and knowledge base.
 export async function archivosEquipo(
@@ -160,10 +150,14 @@ export async function archivosEquipo(
   files["SETUP.md"] = await Bun.file(join(carpeta, "SETUP.md")).bytes();
   if (await Bun.file(join(carpeta, "contexto.md")).exists())
     files["contexto.md"] = await Bun.file(join(carpeta, "contexto.md")).bytes();
+  // Tracked files only: a stray local file must never reach a public repo.
   // datos/README.md documents the committee's packs, not the team's data.
-  for (const path of await recorrer(join(carpeta, "datos")))
-    if (relative(carpeta, path) !== join("datos", "README.md"))
-      files[relative(carpeta, path)] = await Bun.file(path).bytes();
+  const prefijo = `tracks/${track.slug}/`;
+  for (const path of await versionados(`${prefijo}datos`))
+    if (path !== `${prefijo}datos/README.md`)
+      files[path.slice(prefijo.length)] = await Bun.file(
+        join(root, path),
+      ).bytes();
   return files;
 }
 
