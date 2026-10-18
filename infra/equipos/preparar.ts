@@ -389,6 +389,12 @@ export async function preparar(config: {
   const tracks = await leerTracks();
   const raw = await Bun.file(config.equipos).json();
   const equipos = validarEquipos(raw, tracks);
+  // The CLI's registry needs each team's repo and plain handles. Normalizing
+  // is local, so write it now: a later remote failure must not skip it.
+  if (apply && JSON.stringify(raw) !== JSON.stringify(equipos)) {
+    await Bun.write(config.equipos, JSON.stringify(equipos, null, 2) + "\n");
+    log(`${config.equipos} actualizado con los repos y usuarios normalizados.`);
+  }
   const elegidos = config.solo
     ? equipos.filter((e) => e.id === config.solo)
     : equipos;
@@ -428,13 +434,6 @@ export async function preparar(config: {
     apply,
     log,
   );
-  // The CLI's registry needs each team's repo, so the defaults are written back.
-  if (apply && JSON.stringify(raw) !== JSON.stringify(equipos)) {
-    await Bun.write(config.equipos, JSON.stringify(equipos, null, 2) + "\n");
-    log(
-      `\n${config.equipos} actualizado con los repos y usuarios normalizados.`,
-    );
-  }
 }
 
 if (import.meta.main) {
