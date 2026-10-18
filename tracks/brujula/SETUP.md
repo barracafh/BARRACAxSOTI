@@ -8,7 +8,7 @@ Equipos: `brujula-a` y `brujula-b`, con el mismo reto.
 
 ## Qué se espera en la demo
 
-A partir de una frase como «me han echado del trabajo», la herramienta identifica el trámite (en este caso, la prestación por desempleo), da los pasos en orden, la documentación y el plazo, y enlaza a la sede correspondiente.
+A partir de una frase como «me han echado del trabajo», la herramienta identifica el trámite (en este caso, la prestación por desempleo), da los pasos en orden, la documentación y el plazo, y enlaza a la sede correspondiente. El voto por correo del 29-N no se explica aquí: remite a la herramienta de ¿Cómo voto? del centro (`https://build.barraca.house`).
 
 ## Materiales en esta carpeta
 
