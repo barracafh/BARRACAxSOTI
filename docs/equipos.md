@@ -12,15 +12,15 @@ Plan de Íñigo del 11/10. **Los equipos se forman antes de la noche**: cada uno
 | **Lun 19/10** | Cierre de equipos y reparto por track. Cada equipo recibe su paquete de accesos y los datos de su track. |
 | **Jue 22/10** | Build night.                                                                                             |
 
-**Pau valida la lista final de tracks el lunes 12/10.** El catálogo actual se mantiene hasta esa validación.
-
 ## Si vas a participar
+
+Lo que hay que hacer antes del jueves y durante la noche está en la [guía de participantes](guia-participantes.md).
 
 1. **Comparte el formulario de Luma y forma equipo.** Al inscribirte, cuenta qué haces mejor (front, back/datos, IA, diseño/producto o contenido/legal), tu nivel, tus tres tracks favoritos, si vienes con equipo o solo y si te apetece capitanear un squad. Los equipos son de 3 a 5 personas.
 2. **Confirma tu plaza 48 h antes.** Si no confirmas, tu sitio pasa a la lista de espera.
 3. **Lee el contexto largo que llega el 16/10** y forma equipo como máximo el 18/10. El 19/10 se cierran los equipos y se reparten los tracks, accesos y datos. Cada squad tiene su canal para conocerse antes.
 4. **En la sala solo se cubren huecos.** Hay 15 minutos de fichajes (18:15–18:30); desde las 18:30 no hay cambios.
-5. **¿Vienes solo?** Por defecto entras en un squad al que le falte gente. Si prefieres ir por tu cuenta, el **tablón de piezas sueltas** tiene tareas pequeñas y cerradas que mejoran toda la plataforma: traducir al valenciano, revisar la accesibilidad, añadir una fuente de datos o probar las herramientas con casos ficticios.
+5. **¿Vienes solo?** Entras en un squad al que le falte gente.
 6. **¿Perfil no técnico?** Hay trabajo de verdad para ti: citar fuentes es una de las seis reglas, y alguien tiene que encontrarlas y comprobarlas. Con un asistente de IA, un perfil de producto también construye.
 
 ## Para el comité

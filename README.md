@@ -10,6 +10,8 @@ Una noche para construir entre todos **una plataforma de atención ciudadana**: 
 | **Organizan** | BARRACA x SOTI                                                                                     |
 | **Formato**   | No hay premios: se gana si la plataforma funciona. Cada squad publica su pieza antes de las 22:00. |
 
+**¿Participas?** Empieza por la [guía de participantes](docs/guia-participantes.md). La organización tiene la suya en [docs/guia-organizacion.md](docs/guia-organizacion.md), con los [mensajes](docs/mensajes.md) de estos días.
+
 Este es el monorepo de la organización: CLI, web, tracks, plantilla e infra. **Cada squad construye en su propio repo**, que la organización crea desde la [plantilla común](plantilla/README.md) con [infra/equipos](infra/equipos/README.md).
 
 ## La noche
