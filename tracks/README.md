@@ -4,7 +4,7 @@ Aquí edita cada track lead el material de su herramienta. Los squads construyen
 
 - `<slug>/track.json`: fuente de verdad del catálogo del CLI y el servidor.
 - `<slug>/README.md`: ficha técnica breve, piezas propuestas y pendientes.
-- `<slug>/datos/`: formatos y fuentes de los paquetes por preparar.
+- `<slug>/datos/`: el pack de datos que se copia a cada squad; su README dice qué está listo y qué falta.
 - `<slug>/guias/`: guías que redacta la IA y revisa una persona antes del 20/10.
 - `<slug>/contexto.md`: marco de conocimiento verificado del track, con su infografía `contexto.html` al lado.
 - [comun/](comun/README.md): la parte del marco común a todos los tracks (territorio, competencias y plataformas de sede), con el índice y las convenciones de todo el marco. No es un track: no lleva `track.json` y el generador lo ignora.
@@ -20,4 +20,4 @@ El generador ordena por ventanilla y valida rutas, esquema y unicidad de slug y 
 
 ## Material de partida
 
-Las fichas resumen la propuesta técnica, las piezas rescatadas, la investigación de dolores/datos y el brief del comité del 07/10/2026. Los enlaces públicos están en cada ficha. No son guías legales terminadas: datasets, fechas, trámites concretos y revisión editorial siguen pendientes. Hasta el 29/11, especial cuidado con contenido electoral, extranjería y DANA.
+Las fichas resumen la propuesta técnica, las piezas rescatadas, la investigación de dolores/datos y el brief del comité del 07/10/2026. Los enlaces públicos están en cada ficha. No son guías legales terminadas: la revisión editorial y algunos datasets siguen pendientes (el `datos/README.md` de cada track dice cuáles). Hasta el 29/11, especial cuidado con contenido electoral, extranjería y DANA.

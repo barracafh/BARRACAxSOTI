@@ -23,7 +23,7 @@ import {
 
 const dominio = "build.barraca.house";
 const hubProject = "build-hub";
-// The CLI's registry: every participant needs Write there to register and ask for help.
+// The CLI's registry: every participant needs Write there to register.
 const registro = "barracafh/build-registro";
 // A team's repo and Vercel project share this name.
 export const proyecto = (id: string) => `build-${id}`;
