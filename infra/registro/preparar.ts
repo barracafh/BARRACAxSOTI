@@ -59,19 +59,19 @@ export async function registryPlan(
           "--push",
         ],
       },
-      ...[["aviso", "FF2E88"]].map(([label, color]) => ({
+      {
         args: [
           "gh",
           "label",
           "create",
-          label!,
+          "aviso",
           "--repo",
           repo,
           "--color",
-          color!,
+          "FF2E88",
           "--force",
         ],
-      })),
+      },
       {
         args: [
           "gh",
