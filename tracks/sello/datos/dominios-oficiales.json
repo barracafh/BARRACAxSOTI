@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-17",
+  "version": "2026-10-18",
   "notas": "Lista blanca de dominios oficiales para el Verificador de webs y mensajes. Se comprueba sobre el dominio registrable real (eTLD+1) o el subdominio exacto, nunca sobre una subcadena: 'sede.dgt.gob.es' es oficial; 'sede-dgt.gob.es.multas[.]top' o 'dgt-multas[.]com' NO lo son. La regla *.gob.es es la única con respaldo normativo de reserva (Orden ITC/1542/2005, apartado décimo d); muchos organismos oficiales usan .es normales (dgt.es, seg-social.es, correos.es, gva.es, valencia.es), por eso hace falta la lista de entidades. Que un dominio esté en la lista no garantiza que un enlace concreto sea seguro (p. ej. redirecciones abiertas), y los remitentes de SMS (alias como 'DGT' o 'AEAT') se pueden falsificar: el nombre del remitente nunca es prueba de autenticidad. 'verificado: true' significa que el dominio se confirmó en una página consultada o en un resultado de búsqueda que lo muestra con el título oficial de la entidad el 17/10/2026; los resultados de búsqueda se filtraron a veces por dominio, así que conviene una revisión humana antes de producción.",
   "reglas": [
     {
@@ -47,7 +47,7 @@
       "fuente": "https://sede.agenciatributaria.gob.es/Sede/ayuda/Phishing.html",
       "fuente_adicional": "https://www.incibe.es/ciudadania/avisos/suplantacion-de-la-agencia-tributaria-sms-durante-el-periodo-de-presentacion-de",
       "verificado": true,
-      "nota": "agenciatributaria.es (portal antiguo con páginas AEAT.internet) confirmado por resultados de búsqueda. La AEAT afirma que 'nunca solicita por correo electrónico o SMS información confidencial, económica o personal'."
+      "nota": "agenciatributaria.es redirige de forma permanente (301) a sede.agenciatributaria.gob.es, que enlaza páginas de www.agenciatributaria.es (18/10/2026). La AEAT afirma que 'nunca solicita por correo electrónico o SMS información confidencial, económica o personal'."
     },
     {
       "entidad": "Dirección General de Tráfico (DGT)",
@@ -78,7 +78,7 @@
       "web_oficial": "https://imv.seg-social.es/",
       "fuente": "https://imv.seg-social.es/",
       "verificado": true,
-      "nota": "Confirmado por un resultado de búsqueda con el título 'Ingreso Mínimo Vital' junto a páginas de seg-social.es sobre la solicitud del IMV."
+      "nota": "La página de seg-social.es sobre el IMV enlaza https://imv.seg-social.es/, titulada 'Ingreso Mínimo Vital' (18/10/2026)."
     },
     {
       "entidad": "Servicio Público de Empleo Estatal (SEPE)",
@@ -128,7 +128,7 @@
       "web_oficial": "https://dehu.redsara.es/",
       "fuente": "https://sede.agenciatributaria.gob.es/Sede/ayuda/consultas-informaticas/notificaciones-electronicas-ayuda-tecnica/recibir-avisos-nuevas-notificaciones-comunicaciones-dehu.html",
       "verificado": true,
-      "nota": "Dominio oficial que no termina en .gob.es (redsara.es es la red de la Administración). La DEHú tiene un 'Validador de autenticidad de correos' (https://dehu.redsara.es/es/check-security-email), visto en resultados de búsqueda; su contenido no se pudo leer porque es una página JavaScript."
+      "nota": "Dominio oficial que no termina en .gob.es (redsara.es es la red de la Administración). Validador de autenticidad de correos: https://dehu.redsara.es/es/check-security-email (se comprueba el correo y el código recibido); abierto el 18/10/2026."
     },
     {
       "entidad": "Cl@ve (identificación electrónica)",
@@ -142,9 +142,9 @@
       "dominios": ["dnielectronico.es", "citapreviadnie.es"],
       "web_oficial": "https://www.citapreviadnie.es/citaPreviaDni/",
       "fuente": "https://www.citapreviadnie.es/citaPreviaDni/doc/43CITAPREVIAnivelinternet.pdf",
-      "fuente_adicional": "https://www.dnielectronico.es/PortalDNIe/PRF1_Cons02.action?pag=REF_400",
+      "fuente_adicional": "https://www.interior.gob.es/opencms/es/servicios-al-ciudadano/tramites-y-gestiones/dni/como-obtener-su-dni/index.html",
       "verificado": true,
-      "nota": "Confirmado por resultados de búsqueda: el manual del 'Cuerpo Nacional de Policía' está alojado en citapreviadnie.es. No se abrió ninguna página de policia.es que enlace a ese dominio; conviene revisarlo."
+      "nota": "Confirmado en interior.gob.es (Ministerio del Interior), que remite a https://www.citapreviadnie.es y a dnielectronico.es; ambos dominios se enlazan entre sí (18/10/2026)."
     },
     {
       "entidad": "Policía Nacional",
@@ -220,11 +220,11 @@
     },
     {
       "entidad": "LABORA (Servei Valencià d'Ocupació i Formació)",
-      "dominios": ["labora.gva.es"],
+      "dominios": ["labora.gva.es", "puntlabora.gva.es"],
       "web_oficial": "https://labora.gva.es",
-      "fuente": "https://labora.gva.es/es/informacio-general/tramits-telematics",
+      "fuente": "https://sede.gva.es/es/detall-tramit?id_proc=1684",
       "verificado": true,
-      "nota": "Confirmado solo por un resultado de búsqueda (título 'Trámites Telemáticos - Labora - Generalitat Valenciana')."
+      "nota": "Confirmado en la ficha 1684 de la sede de la GVA, que enlaza labora.gva.es y puntlabora.gva.es (18/10/2026)."
     },
     {
       "entidad": "Ajuntament de València",
@@ -250,7 +250,7 @@
       "fuente": "https://www.bde.es/wbe/es/punto-informacion/contenidos/advertencias-publico/correos-fraudulentos/",
       "fuente_adicional": "https://clientebancario.bde.es/pcb/es/blog/suplantacion-de-sms-y-del-identificador-de-llamadas.html",
       "verificado": true,
-      "nota": "El Banco de España tiene una página de advertencias sobre 'Correos fraudulentos en nombre del Banco de España'; se vio en los resultados de búsqueda pero no se abrió."
+      "nota": "La página «Correos fraudulentos en nombre del Banco de España» de bde.es enlaza clientebancario.bde.es; ambas abiertas el 18/10/2026."
     },
     {
       "entidad": "Agencia Española de Protección de Datos (AEPD)",

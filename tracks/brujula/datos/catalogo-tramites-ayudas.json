@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-17",
+  "version": "2026-10-18",
   "ambito": "Ciudadanía residente en la ciudad de València",
   "aviso": "Catálogo curado para el hackathon. Verificar siempre en la sede oficial antes de actuar.",
   "items": [
@@ -100,20 +100,28 @@
         "vull apuntar-me a Labora"
       ],
       "requisitos_clave": [
-        "Inscripción previa obligatoria para pedir la prestación o el subsidio por desempleo",
+        "Residir en la Comunitat Valenciana y tener 16 años cumplidos",
+        "Nacionalidad española, UE/EEE o Suiza (y sus familiares); resto de personas extranjeras, con acceso reconocido al mercado de trabajo",
+        "Voluntaria, salvo para cobrar prestación o subsidio por desempleo: entonces es obligatoria y hay 15 días hábiles desde el fin de la última relación laboral",
         "La inscripción y la renovación de la demanda las gestiona Labora (no el SEPE)"
       ],
       "pasos": [
-        "Solicitar la inscripción inicial online en la sede de la Generalitat, o pedir cita previa en tu Espai Labora para inscribirte",
-        "Renovar la demanda en las fechas indicadas para no causar baja"
+        "Online: 'primera inscripción online' en Punt Labora (puntlabora.gva.es) con certificado digital o Cl@ve, adjuntando foto o escaneo del NIF/NIE por ambas caras",
+        "Presencial: pedir cita previa ('cita previa 1ª inscripción') en la web o la app GVA Punt Labora o en el 012 (963 866 000), y acudir al Espai Labora que corresponda por domicilio",
+        "Guardar el DARDE (Documento de Alta y Renovación de la Demanda de Empleo), que indica la fecha de renovación",
+        "Renovar en esa fecha (app o web Punt Labora con el PIN del DARDE o firma ACCV, 012 o puntos Punt Labora); si no se renueva, la demanda causa baja"
       ],
-      "documentacion": ["DNI/NIE"],
-      "plazo": null,
+      "documentacion": [
+        "NIF o NIE (ambas caras)",
+        "Permiso de residencia, en el caso de personas extranjeras no comunitarias",
+        "Con cita previa presencial: también un documento que acredite el domicilio de residencia"
+      ],
+      "plazo": "Todo el año. Si se va a pedir prestación o subsidio por desempleo, 15 días hábiles desde el fin de la última relación laboral",
       "enlace_info": "https://labora.gva.es/es/ciutadania/busque-ocupacio/com-inscriuret/inscrpicio",
       "enlace_tramite": "https://sede.gva.es/es/detall-tramit?id_proc=1684",
-      "fuente": "https://sede.sepe.gob.es/portalSede/en/procedimientos-y-servicios/personas/proteccion-por-desempleo/cita-previa",
-      "verificado": false,
-      "nota": "labora.gva.es y sede.gva.es bloquean la lectura automática; enlaces tomados de resultados de búsqueda. Cita previa para inscribirse: https://sede.gva.es/en/detall-tramit?id_proc=G14988. Que la inscripción es requisito previo se confirmó en la sede del SEPE.",
+      "fuente": "https://sede.gva.es/es/detall-tramit?id_proc=1684 ; https://sede.gva.es/es/detall-tramit?id_proc=G14988 ; https://labora.gva.es/es/ciutadania/busque-ocupacio/com-inscriuret/inscrpicio",
+      "verificado": true,
+      "nota": "Cita previa para inscribirse: https://sede.gva.es/es/detall-tramit?id_proc=G14988 (pide DNI/NIE, fecha de nacimiento, nombre, código postal y móvil). Si las citas superan el plazo de 15 días para pedir la prestación, hay que ir directamente al Espai Labora. Todos los servicios de Labora son gratuitos. Comprobado en la sede de la GVA el 18/10/2026.",
       "relacionados": ["prestacion-desempleo", "subsidio-desempleo"]
     },
     {
@@ -608,7 +616,7 @@
       "tipo": "ayuda",
       "titulo": "Renta Valenciana de Inclusión (RVI)",
       "administracion": "Generalitat Valenciana",
-      "organismo": "Conselleria de Servicios Sociales (tramitación a través de los servicios sociales municipales)",
+      "organismo": "Conselleria de Servicios Sociales, Familia e Infancia (dirección general competente en RVI; los servicios sociales municipales informan y hacen el diagnóstico)",
       "frases_usuario": [
         "no tengo ingresos y me han denegado el IMV",
         "necesito la renta de inclusión",
@@ -617,28 +625,29 @@
         "vull demanar la renda valenciana d'inclusió"
       ],
       "requisitos_clave": [
-        "Estar empadronado o residir en un municipio valenciano 12 meses continuados antes de solicitar, o 5 años en los últimos 10 (sin mínimo para refugiados y víctimas de violencia de género o trata)",
-        "Edad general de 25 a 64 años (excepciones para menores de 25 en ciertos casos)",
-        "Ingresos inferiores a la cuantía que correspondería y sin patrimonio suficiente aparte de la vivienda habitual",
-        "Haber solicitado las prestaciones públicas a las que se tenga derecho, incluido el Ingreso Mínimo Vital",
-        "Firmar un acuerdo de inclusión"
+        "Estar empadronado en la Comunitat Valenciana 15 meses continuados antes de solicitar, o 5 años en los últimos 10 (sin mínimo para protección internacional, víctimas de trata o explotación sexual y víctimas de violencia sobre la mujer o intrafamiliar)",
+        "Edad mínima de 23 años; de 23 a 30, haber vivido de forma independiente los 2 años anteriores (con excepciones); de 18 a 22, solo en supuestos concretos",
+        "No estar de alta laboral",
+        "Ingresos de la unidad de convivencia al menos 10 € por debajo de la cuantía máxima (793,80 €/mes para una persona) y sin patrimonio suficiente",
+        "Haber solicitado antes las prestaciones a las que se tenga derecho, incluido el Ingreso Mínimo Vital",
+        "Situación de vulnerabilidad social acreditada con el diagnóstico de los servicios sociales y firma del acuerdo de inclusión"
       ],
       "pasos": [
-        "Pedir cita en los servicios sociales municipales de tu barrio (Ajuntament de València)",
-        "Presentar la solicitud preferentemente en el registro del ayuntamiento de residencia",
-        "Los servicios sociales envían la propuesta a la Generalitat en un máximo de 3 meses",
-        "Renovar a los 3 años"
+        "Informarse en los servicios sociales municipales de tu barrio o en el 012",
+        "Presentar la solicitud (con declaración responsable y acuerdo de inclusión), preferentemente por vía telemática, o en los servicios sociales o en el registro del ayuntamiento",
+        "Los servicios sociales emiten el diagnóstico de vulnerabilidad (máximo 1 mes) y la Generalitat resuelve",
+        "Duración inicial de 6 años; después, renovación cada 3 años"
       ],
       "documentacion": [
         "No hace falta aportar lo que la Administración pueda consultar si lo autorizas",
         "El resto, según indique la ficha del procedimiento o los servicios sociales"
       ],
-      "plazo": "Todo el año. Resolución en 6 meses; si no hay respuesta, se considera estimada",
+      "plazo": "Todo el año. Resolución en 5 meses; si no hay respuesta, se considera DESESTIMADA (Ley 2/2026, art. 36, en vigor desde el 20/10/2026)",
       "enlace_info": "https://www.gva.es/en/inicio/procedimientos?id_proc=19152",
       "enlace_tramite": "https://sede.gva.es/en/detall-tramit?id_proc=19152",
-      "fuente": "https://www.gva.es/en/inicio/procedimientos?id_proc=19152",
+      "fuente": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-9799 ; https://dogv.gva.es/es/eli/es-vc/l/2026/04/14/2/dof/spa/html ; https://sede.gva.es/es/detall-tramit?id_proc=19152",
       "verificado": true,
-      "nota": "En 2026 la Generalitat tramita una reforma de la ley de la RVI (información de prensa, no confirmada en fuente oficial abierta); comprobar requisitos vigentes con servicios sociales. Información general: https://serviciossociales.gva.es/es/web/integracion-inclusionsocial-cooperacion/renta-valenciana-de-inclusion-rvi (no se pudo abrir).",
+      "nota": "Desde el 20/10/2026 rige la Ley 2/2026 (DOGV n.º 10345 de 20/04/2026), que deroga la Ley 19/2017. La ficha 19152 de la sede aún describe la ley anterior (25-64 años, 12 meses, silencio positivo a los 6 meses); revisar si se actualiza o cambia de código. Quien ya cobra la RVI la mantiene con al menos la misma cuantía. El desarrollo reglamentario de la nueva ley aún no existe.",
       "relacionados": [
         "ingreso-minimo-vital",
         "certificado-empadronamiento",
@@ -695,7 +704,7 @@
       "tipo": "ayuda",
       "titulo": "Bono Alquiler Joven (convocatoria 2026, Comunitat Valenciana)",
       "administracion": "Generalitat Valenciana",
-      "organismo": "Conselleria de Vivienda (programa estatal gestionado por la Generalitat)",
+      "organismo": "Vicepresidencia Primera y Conselleria de Vivienda, Empleo, Juventud e Igualdad (Servicios Territoriales de Vivienda)",
       "frases_usuario": [
         "soy joven y no puedo pagar el alquiler",
         "ayuda de 250 euros para el alquiler",
@@ -704,28 +713,33 @@
         "sóc jove i vull ajuda per al lloguer"
       ],
       "requisitos_clave": [
-        "Tener 35 años o menos en el momento de solicitar (el programa estatal fija 18 a 35)",
-        "Ser titular de un contrato de alquiler (vivienda o habitación) en la Comunitat Valenciana y estar empadronado en ella",
-        "Ingresos regulares y, en general, no superiores a 3 veces el IPREM",
-        "Cuantía: 250 €/mes durante un máximo de 24 meses"
+        "Ser mayor de edad y tener hasta 35 años incluidos al solicitar (todos los titulares del contrato)",
+        "Ser titular, o estar en condiciones de firmar, un contrato de alquiler o cesión de vivienda o habitación en la Comunitat Valenciana, de al menos un año, como residencia habitual y empadronado en ella (no valen subarriendos, alquiler turístico ni uso distinto de vivienda)",
+        "Tener una fuente regular de ingresos y rentas anuales de hasta 3 veces el IPREM (4 veces si conviven dos jóvenes que pueden ser beneficiarios, 5 si son tres o más)",
+        "Alquiler máximo en València ciudad: 900 €/mes (vivienda) o 450 €/mes (habitación)",
+        "No ser propietario de una vivienda en España ni tener parentesco de primer o segundo grado con el arrendador",
+        "Cuantía: 250 €/mes durante 24 mensualidades desde enero de 2025 (o desde el inicio del contrato si es posterior); concurrencia competitiva por nivel de ingresos"
       ],
       "pasos": [
-        "Consultar si hay convocatoria abierta en la sede de la Generalitat",
-        "Presentar la solicitud telemática con certificado digital o Cl@ve dentro del plazo de la convocatoria",
+        "Comprobar si hay convocatoria abierta en la sede de la Generalitat (G110699)",
+        "Presentar la solicitud telemática con certificado digital o Cl@ve; sin certificado, rellenar el formulario online, imprimir el justificante y registrarlo firmado (preferentemente en el Servicio Territorial de Vivienda de València, C/ Gregorio Gea, 27, con cita previa)",
+        "Consultar los listados provisionales en la sede (aviso por SMS) y subsanar en 10 días hábiles si hace falta",
         "Justificar después los pagos del alquiler"
       ],
       "documentacion": [
-        "Solicitud",
-        "Contrato de alquiler vigente",
-        "Información de ingresos",
-        "Datos bancarios y autorizaciones"
+        "Solicitud con declaración responsable",
+        "Contrato de alquiler o cesión completo y firmado, con referencia catastral (o compromiso de aportarlo en 2 meses desde la concesión)",
+        "Acreditación de la fuente regular de ingresos (contrato de trabajo o alta censal)",
+        "Justificantes de pago del alquiler desde el 1 de enero de 2025 (o desde el inicio del contrato)",
+        "Certificado colectivo o volante único de empadronamiento",
+        "Impreso de domiciliación bancaria si es la primera ayuda de la Generalitat o cambia la cuenta"
       ],
-      "plazo": "Convocatoria 2026: del 24 de agosto al 11 de septiembre de 2026 (según prensa). A 17/10/2026 el plazo está CERRADO.",
-      "enlace_info": "https://www.mivau.gob.es/vivienda/bono-alquiler-joven",
+      "plazo": "Convocatoria 2026: del 24 de agosto al 11 de septiembre de 2026 (15 días hábiles desde el extracto del DOGV n.º 10434 de 21/08/2026). A 18/10/2026 el plazo de solicitud está CERRADO; sigue abierta la aportación de documentación para quien ya solicitó. Resolución en 3 meses desde la publicación; sin respuesta, se entiende desestimada",
+      "enlace_info": "https://sede.gva.es/es/detall-tramit?id_proc=G110699",
       "enlace_tramite": "https://sede.gva.es/es/detall-tramit?id_proc=G110699",
-      "fuente": "https://www.mivau.gob.es/vivienda/bono-alquiler-joven ; https://www.ocu.org/fincas-y-casas/gestion/alquiler/analisis-gratis/2026/09/bono-joven-valencia-26 ; https://www.valenciabonita.es/2026/08/22/bono-alquiler-joven-2026/",
-      "verificado": false,
-      "nota": "Estado 2026: la prensa (OCU 11/09/2026; Valencia Bonita 22/08/2026) indica convocatoria publicada en el DOGV n.º 10434 de 21/08/2026, presupuesto de casi 30 M€ y plazo 24/08-11/09/2026; en València ciudad el alquiler máximo sería 900 €/mes (vivienda) o 450 € (habitación). Las páginas oficiales de la GVA (sede, habitatge.gva.es, IVAJ) no se pudieron abrir; la del Ministerio no indica el estado en 2026.",
+      "fuente": "https://sede.gva.es/es/detall-tramit?id_proc=G110699 ; https://dogv.gva.es/es/resultat-dogv?signatura=2026/27284 ; https://dogv.gva.es/es/resultat-dogv?signatura=2026/27322 ; https://dogv.gva.es/es/resultat-dogv?signatura=2026/27605",
+      "verificado": true,
+      "nota": "Bases: Resolución de 18/08/2026 (DOGV n.º 10434 de 21/08/2026). Correcciones de errores: DOGV n.º 10440 (31/08/2026) y n.º 10457 (23/09/2026). Es compatible con el IMV y con la RVI salvo si la RVI incluye complemento de alquiler. Comprobado en la sede y el DOGV el 18/10/2026.",
       "relacionados": ["alta-padron-valencia", "identificacion-digital"]
     },
     {
@@ -767,7 +781,7 @@
     {
       "id": "xarxa-llibres",
       "tipo": "ayuda",
-      "titulo": "Banco de libros Xarxa Llibres (curso 2026-2027)",
+      "titulo": "Programa Banco de Libros (curso 2026-2027)",
       "administracion": "Generalitat Valenciana",
       "organismo": "Conselleria de Educación, Cultura y Universidades",
       "frases_usuario": [
@@ -778,20 +792,27 @@
         "vull participar en la Xarxa Llibres"
       ],
       "requisitos_clave": [
-        "Programa de banco de libros de la Generalitat para alumnado de centros sostenidos con fondos públicos",
-        "Las familias solicitan la participación cada curso"
+        "Alumnado de Primaria, Educación Especial, ESO, FP de grado básico o Bachillerato matriculado en 2026-2027 en un centro de la Generalitat, concertado o de una corporación local participante",
+        "Haber devuelto el lote completo de libros del curso 2025-2026 (salvo quien entra en 1.º de Primaria; en 1.º y 2.º de Primaria el centro puede eximir por ser material no reutilizable)",
+        "Solo lo piden quienes no participaron en 2025-2026: quien ya participaba sigue dentro salvo renuncia",
+        "El alumnado de centros singulares o específicos de Educación Especial participa de oficio",
+        "Compromiso de uso responsable y de devolver todo al final del curso; si falta material, hay que reponerlo"
       ],
       "pasos": [
-        "Solicitar la participación en el programa para el curso 2026-2027 (sede de la Generalitat o según indique el centro)",
-        "Seguir las instrucciones del centro educativo sobre entrega y recogida de lotes"
+        "Descargar el formulario de solicitud de participación (web de la Conselleria o ficha G112587 de la sede)",
+        "Rellenarlo, firmarlo y entregarlo en el centro escolar (en el centro del curso 2025-2026; quien entra en 1.º de Primaria, en el de 2026-2027)",
+        "Seguir las instrucciones del centro para recoger y devolver los lotes"
       ],
-      "documentacion": ["Según indique la convocatoria o el centro educativo"],
-      "plazo": null,
+      "documentacion": [
+        "Formulario de solicitud de participación firmado por la persona responsable legal del alumno",
+        "Lote completo de libros del curso anterior devuelto en el centro"
+      ],
+      "plazo": "Desde el 18 de junio hasta el 10 de noviembre de 2026, inclusive (Resolución de 11 de junio de 2026, DOGV n.º 10386 de 17/06/2026). A 18/10/2026 el plazo está ABIERTO",
       "enlace_info": "https://ceice.gva.es/es/web/centros-docentes/ayudas/subvenciones/libros-de-texto",
       "enlace_tramite": "https://sede.gva.es/es/detall-tramit?id_proc=G112587",
-      "fuente": "https://sede.gva.es/es/detall-tramit?id_proc=G112587",
-      "verificado": false,
-      "nota": "Enlaces tomados de resultados de búsqueda (existe el trámite 'Solicitud de participación en el Programa de Banco de Libros por parte de las familias para el curso escolar 2026-2027'). No se pudo abrir ninguna página oficial (ceice.gva.es, sede.gva.es y webs de centros bloquean la lectura automática): requisitos, plazo y documentación sin confirmar.",
+      "fuente": "https://sede.gva.es/es/detall-tramit?id_proc=G112587 ; https://dogv.gva.es/es/resultat-dogv?signatura=2026/20807",
+      "verificado": true,
+      "nota": "No es un trámite online: se entrega en el centro. La sede y la Conselleria lo llaman «Programa Banco de Libros»; «Xarxa Llibres» se mantiene solo como frase de usuario. Dudas: ajudesllibres@gva.es. La sede dice entregar en el centro 'donde se encuentre matriculado'; el DOGV precisa el centro del curso 2025-2026. Normativa base: Orden 26/2016, modificada por la Orden 9/2023. Comprobado el 18/10/2026.",
       "relacionados": ["ayudas-comedor-escolar", "complemento-ayuda-infancia"]
     }
   ]

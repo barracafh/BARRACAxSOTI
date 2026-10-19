@@ -12,11 +12,12 @@ A partir de una frase como «me han echado del trabajo», la herramienta identif
 
 ## Piezas
 
-El reto se puede abordar por partes. Haced las que os dé tiempo. Empezad por «Qué trámite necesito»: las otras dos completan el trámite que identifica.
+El reto se puede abordar por partes. Haced las que os dé tiempo. Empezad por «Qué trámite necesito»: «Y después, ¿qué?» parte del trámite que identifica.
 
-- **Qué trámite necesito.** Consultas resueltas sobre el catálogo: trámite, organismo, pasos y sede. Fuera del catálogo, reconoce que no lo sabe.
-- **¿Y si no hay cita?** Para los trámites que piden cita, las alternativas revisadas cuando no la hay: registro, atención e identificación por otras vías, con la fuente de cada afirmación. No automatiza citas ni afirma un derecho general a ser atendido sin cita.
-- **Oficinas y canales oficiales.** Oficinas y canales filtrados de un extracto local de DIR3, PROP y València, con el canal y el origen de cada dato. Los horarios que no estén se marcan como pendientes.
+| Pieza                | Alcance en unas 4 h                                                                                                | Hecho cuando…                                                                                                             |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| Qué trámite necesito | Resolver frases libres, en castellano o en valenciano, sobre el catálogo del pack.                                 | Devuelve trámite, organismo, pasos, documentación, plazo y sede; fuera del catálogo lo dice y enlaza al buscador del PAG. |
+| Y después, ¿qué?     | Encadenar los trámites de una situación (del despido a Labora y al paro, por ejemplo) con el campo `relacionados`. | Propone el siguiente trámite con su enlace y su fuente, y avisa si una entrada tiene `verificado: false`.                 |
 
 ## Materiales en esta carpeta
 
@@ -37,7 +38,7 @@ El reto se puede abordar por partes. Haced las que os dé tiempo. Empezad por «
 
 - No hay que inventar pasos, plazos ni enlaces: si no están en una fuente, no se dan.
 - Si el trámite no está en el catálogo, hay que decirlo y remitir al buscador del PAG.
-- Tres entradas tienen `"verificado": false`: inscripción en Labora, bono alquiler joven y Xarxa Llibres.
+- Las 21 entradas están comprobadas en la sede, el BOE o el DOGV a 18/10/2026. Si se añaden entradas sin comprobar, van con `"verificado": false`.
 - Plazo del paro: el BOE confirma 15 días; la nota de la entrada explica la duda sobre si son hábiles.
 
 ## Resumen para el agente

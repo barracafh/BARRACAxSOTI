@@ -2,29 +2,21 @@
   "slug": "claridad",
   "nombre": "Claridad",
   "frase": "Del PDF a los pasos claros.",
-  "ciudadano": "Convierte convocatorias en listas de qué hacer y para cuándo.",
+  "ciudadano": "Convierte un PDF o una notificación en una lista clara de qué hacer y para cuándo.",
   "ventanilla": 3,
   "color": "after",
   "glifo": "=",
   "estado": "nucleo",
-  "piezas": [
-    "PDF a checklist",
-    "¿Qué me piden y qué no pueden pedirme?",
-    "Dónde descargar cada documento"
-  ],
+  "piezas": ["Del PDF a la checklist", "De la foto a la checklist"],
   "fuentes": [
     {
       "nombre": "www.boe.es",
-      "url": "https://www.boe.es/"
-    },
-    {
-      "nombre": "www.infosubvenciones.es",
-      "url": "https://www.infosubvenciones.es/"
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565"
     }
   ],
   "dificultad": "Fácil",
   "guias": [
     "Cada squad construye las piezas que le dé tiempo. Cita la fuente oficial y no uses datos personales reales.",
-    "Usa PDFs de convocatorias públicas, nunca notificaciones personales. El catálogo de documentos debe llegar revisado antes del hack."
+    "Prueba solo con los documentos ficticios del pack, nunca con notificaciones reales de personas."
   ]
 }

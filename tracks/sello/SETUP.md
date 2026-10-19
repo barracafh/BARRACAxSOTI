@@ -12,11 +12,12 @@ Pegar un mensaje o una URL y obtener un veredicto (oficial, sospechoso o fraude)
 
 ## Piezas
 
-El reto se puede abordar por partes. Elegid las que os dé tiempo y en el orden que queráis:
+El reto se puede abordar por partes. Elegid las que os dé tiempo y en el orden que queráis.
 
-- **¿Esta web es oficial?** El dominio se compara con la lista oficial sin visitar la URL: distingue coincidencia exacta, subdominio válido y desconocido, y lo desconocido no se da por fraude.
-- **Las citas son gratis.** Ante un caso sintético de reventa de citas, las señales que la delatan y la ruta oficial y gratuita para pedir la cita, con enlace a Interior. No consulta ni reserva citas.
-- **¿Este aviso es oficial?** Avisos sintéticos contrastados con los canales de Protección Civil, GVA 112 y AEMET: qué se pudo comprobar y qué no, con su fuente. No sustituye a las alertas de emergencia.
+| Pieza                       | Alcance en unas 4 h                                                                               | Hecho cuando…                                                                                                                                    |
+| --------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ¿Esta web es oficial?       | Comprobar una URL contra la lista de dominios oficiales, sin visitarla.                           | Distingue coincidencia exacta, subdominio válido y dominio desconocido; no equipara desconocido con fraude y da la web oficial correcta.         |
+| ¿Este mensaje es de verdad? | Analizar un SMS o un correo pegado: remitente, enlaces y señales de fraude publicadas por INCIBE. | Acierta el resultado `esperado` de los 10 casos de `mensajes-ejemplo.json`, explica el motivo y, ante la duda, remite a la web oficial y al 017. |
 
 ## Materiales en esta carpeta
 
@@ -41,7 +42,7 @@ El reto se puede abordar por partes. Elegid las que os dé tiempo y en el orden 
 - El peor error es decir «oficial» de algo que no lo es. Ante la duda, la respuesta es «no puedo confirmarlo; entra tú por la web oficial».
 - Ojo con las trampas de dominio: `dgt.es.multas-pago.com` no es `dgt.es`.
 - No hay que abrir ni descargar las URL sospechosas.
-- Algunos dominios de la lista se confirmaron solo con resultados de búsqueda (Labora, cita previa DNI, Banco de España): revisad el campo `fuente` de cada uno.
+- Todos los dominios de la lista están confirmados en una página oficial a 18/10/2026; el campo `fuente` de cada entidad dice cuál.
 
 ## Resumen para el agente
 
