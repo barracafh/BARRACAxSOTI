@@ -8,13 +8,13 @@ Equipos: `brujula-a` y `brujula-b`, con el mismo reto.
 
 ## Qué se espera en la demo
 
-A partir de una frase como «me han echado del trabajo», la herramienta identifica el trámite (en este caso, la prestación por desempleo), da los pasos en orden, la documentación y el plazo, y enlaza a la sede correspondiente.
+A partir de una frase como «me han echado del trabajo», la herramienta identifica el trámite (en este caso, la prestación por desempleo), da los pasos en orden, la documentación y el plazo, y enlaza a la sede correspondiente. El voto por correo del 29-N no se explica aquí: remite a la herramienta de ¿Cómo voto? del centro (`https://build.barraca.house`).
 
 ## Materiales en esta carpeta
 
 - `catalogo-tramites-ayudas.json`: 21 entradas (13 trámites y 8 ayudas), el mismo catálogo que el track 1.
   - Cada entrada incluye `frases_usuario` (cómo lo pide la gente, con una frase en valenciano), `pasos`, `documentacion`, `plazo`, `enlace_info`, `enlace_tramite`, `fuente`, `verificado` y `relacionados`.
-  - Trámites incluidos: prestación y subsidio por desempleo, inscripción en Labora, alta y certificado de padrón en València, cambio de domicilio en la DGT, renovación del DNI, vida laboral, identificación digital (Cl@ve y certificado), declaración de la renta, tarjeta sanitaria SIP, cita médica de la GVA, voto por correo del 29-N y multas de la DGT.
+  - Trámites incluidos: prestación y subsidio por desempleo, inscripción en Labora, alta y certificado de padrón en València, cambio de domicilio en la DGT, renovación del DNI, vida laboral, identificación digital (Cl@ve y certificado), declaración de la renta, tarjeta sanitaria SIP, cita médica de la GVA, voto por correo del 29-N (remite a ¿Cómo voto?) y multas de la DGT.
 
 ## Fuentes oficiales
 
