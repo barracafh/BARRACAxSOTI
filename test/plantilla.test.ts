@@ -71,3 +71,25 @@ test("la plantilla independiente pasa revisar salvo la URL pública", async () =
     await rm(dir, { recursive: true, force: true });
   }
 }, 15000);
+
+test("plantilla: la IA espera y reintenta cuando HelmCode responde 429", async () => {
+  const { completar } = await import("../plantilla/src/lib/ia");
+  const previo = { ...process.env };
+  const fetchPrevio = globalThis.fetch;
+  let llamadas = 0;
+  globalThis.fetch = (async () =>
+    ++llamadas === 1
+      ? new Response("", { status: 429, headers: { "retry-after": "0.01" } })
+      : Response.json({
+          choices: [{ message: { content: "hola" } }],
+        })) as unknown as typeof fetch;
+  process.env.HELMCODE_API_KEY = "synthetic-helmcode-value";
+  process.env.HELMCODE_MODEL = "glm5.3-flash";
+  try {
+    expect(await completar([{ role: "user", content: "?" }])).toBe("hola");
+    expect(llamadas).toBe(2);
+  } finally {
+    globalThis.fetch = fetchPrevio;
+    process.env = previo;
+  }
+});
