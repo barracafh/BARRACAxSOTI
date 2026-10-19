@@ -35,6 +35,6 @@
 - **En la sala:**
   - el check-in va de 17:00 a 17:30;
   - un squad que se quede con menos de 3 personas se fusiona con el otro squad de su track.
-- **En el CLI:** las asignaciones van en `equipos.json` del registro. Así `hacknight` enseña a cada persona su squad, su pieza y su mesa. El formato está en [el README del CLI](../apps/cli/README.md#montar-el-registro-guía-del-comité).
+- **En el CLI:** las asignaciones van en `equipos.json` del registro. Así `hacknight` enseña a cada persona su squad, su track y su mesa. El formato está en [el README del CLI](../apps/cli/README.md#montar-el-registro-guía-del-comité). Para formarlos desde el CSV de Luma: `bun run reparto` ([infra/reparto](../infra/reparto/README.md)).
 
 Cada squad construye su herramienta en su propio repo, que la organización crea desde la plantilla; el monorepo guarda el material de la organización.

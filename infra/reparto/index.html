@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reparto · Build night</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font:
+          13px/1.45 ui-monospace,
+          "Space Mono",
+          Menlo,
+          monospace;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--nit);
+        color: var(--paper);
+      }
+      /* Grid items keep their intrinsic width unless told otherwise. */
+      .grupo > *,
+      .campos > *,
+      .persona > * {
+        min-width: 0;
+      }
+      .grupo input,
+      .grupo select,
+      .persona select,
+      #buscar {
+        width: 100%;
+      }
+      h1,
+      h2 {
+        margin: 0;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+      a {
+        color: var(--cian);
+      }
+      button,
+      .boton,
+      input,
+      select {
+        font: inherit;
+        color: inherit;
+        background: var(--nit-2);
+        border: 1px solid var(--muted);
+        border-radius: 0;
+        padding: 4px 8px;
+      }
+      button,
+      .boton {
+        cursor: pointer;
+      }
+      .accion {
+        background: var(--acid);
+        color: var(--nit);
+        border-color: var(--acid);
+      }
+      :focus-visible,
+      .boton:focus-within {
+        outline: 2px solid var(--cian);
+        outline-offset: 1px;
+      }
+      .boton input {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+      }
+      header {
+        display: grid;
+        gap: 8px;
+        padding: 16px;
+        border-bottom: 1px solid var(--muted);
+      }
+      .barra {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+      }
+      .barra h1 {
+        margin-right: auto;
+      }
+      #resumen,
+      #mensaje {
+        margin: 0;
+      }
+      #mensaje.error {
+        color: var(--magenta);
+      }
+      #tracks {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      #tracks li {
+        border-left: 3px solid var(--c);
+        background: var(--nit-2);
+        padding: 2px 8px;
+      }
+      main {
+        display: grid;
+        grid-template-columns: minmax(260px, 340px) 1fr;
+        gap: 16px;
+        padding: 16px;
+        align-items: start;
+      }
+      @media (max-width: 760px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+        #bolsa {
+          position: static;
+          max-height: none;
+        }
+      }
+      #bolsa {
+        position: sticky;
+        top: 8px;
+        display: grid;
+        gap: 8px;
+        max-height: calc(100vh - 16px);
+        overflow: auto;
+      }
+      #grupos {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 12px;
+      }
+      ul.lista {
+        display: grid;
+        gap: 6px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        min-height: 40px;
+      }
+      .grupo {
+        display: grid;
+        gap: 6px;
+        align-content: start;
+        border: 1px solid var(--muted);
+        border-top: 4px solid var(--c, var(--muted));
+        padding: 8px;
+      }
+      .grupo .nombre {
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      .campos {
+        display: grid;
+        grid-template-columns: 1fr 5em;
+        gap: 4px;
+      }
+      .campos select {
+        grid-column: 1 / -1;
+      }
+      .avisos {
+        margin: 0;
+        padding-left: 1.2em;
+        color: var(--after);
+      }
+      .ok {
+        margin: 0;
+        color: var(--acid);
+      }
+      .persona {
+        /* Only track chips take a colour, not the team's. */
+        --c: initial;
+        display: grid;
+        gap: 3px;
+        background: var(--nit-2);
+        border: 1px solid transparent;
+        padding: 6px;
+        cursor: grab;
+      }
+      .persona.fuera {
+        opacity: 0.55;
+      }
+      .persona.capitana {
+        border-color: var(--acid);
+      }
+      .cabeza {
+        display: flex;
+        gap: 6px;
+        align-items: baseline;
+      }
+      .cabeza strong {
+        margin-right: auto;
+      }
+      .tenue,
+      .notas {
+        color: var(--muted);
+        margin: 0;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3px;
+      }
+      .chip {
+        border: 1px solid var(--c, var(--muted));
+        color: var(--c, var(--paper));
+        padding: 0 4px;
+        font-size: 0.85em;
+      }
+      [aria-pressed="true"] {
+        background: var(--acid);
+        color: var(--nit);
+      }
+      details p {
+        margin: 4px 0 0;
+        white-space: pre-line;
+      }
+      .zona.encima {
+        outline: 2px dashed var(--acid);
+      }
+    </style>
+    <script type="module" src="./app.ts"></script>
+  </head>
+  <body>
+    <header>
+      <div class="barra">
+        <h1>Reparto de equipos · Build night</h1>
+        <label class="boton"
+          >Importar CSV de Luma o equipos.json<input
+            id="csv"
+            type="file"
+            accept=".csv,.json,text/csv,application/json"
+        /></label>
+        <button id="nuevo" type="button">Nuevo equipo</button>
+        <button id="exportar" type="button" class="accion">
+          Exportar equipos.json
+        </button>
+      </div>
+      <p id="resumen"></p>
+      <ul id="tracks"></ul>
+      <p id="mensaje" role="status"></p>
+    </header>
+    <main>
+      <section id="bolsa" class="zona" data-zona>
+        <h2>Sin equipo <span id="cuenta"></span></h2>
+        <input
+          id="buscar"
+          type="search"
+          placeholder="Buscar: nombre, habilidad, track…"
+          aria-label="Buscar entre quienes no tienen equipo"
+        />
+        <ul id="sueltas" class="lista"></ul>
+        <details>
+          <summary id="fuera-titulo">Fuera de la lista</summary>
+          <ul id="fuera" class="lista"></ul>
+        </details>
+      </section>
+      <section id="grupos" aria-label="Equipos"></section>
+    </main>
+  </body>
+</html>
