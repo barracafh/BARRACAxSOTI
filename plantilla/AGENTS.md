@@ -6,7 +6,7 @@ Este repo es la herramienta de un equipo para la plataforma de atención ciudada
 
 - Next.js (App Router) y Tailwind, con Bun: `bun install`, `bun run dev`, `bun run build`.
 - La app vive en `/<equipo>`, el campo `equipo` de `ficha.json`: en local, `http://localhost:3000/<equipo>`; publicada, `https://build.barraca.house/<equipo>`. No cambies `equipo`: de él salen la ruta y el sitio en la plataforma.
-- `<Link>` y `next/image` añaden esa ruta solos; `fetch` y los archivos de `public/` no. Usa `ruta()` de `src/config/sitio.ts`: `fetch(ruta("/api/ia"))`.
+- `<Link>` añade esa ruta solo. Para `fetch` e imágenes de `public/`, también con `next/image`, usa `ruta()` de `src/config/sitio.ts`: `fetch(ruta("/api/ia"))` y `<Image src={ruta("/foto.png")} ... />`.
 - Cada push a `main` se publica solo. Trabajad sobre `main`, con `git pull --rebase` antes de cada push: las ramas no tienen vista previa que podáis abrir.
 - `bun run build` tiene que pasar antes de cada push. Si falla, no se publica.
 
@@ -21,7 +21,7 @@ Este repo es la herramienta de un equipo para la plataforma de atención ciudada
 Todas las herramientas de la plataforma usan Sol, el sistema visual de Reforma Digital, y deben verse como una sola web.
 
 - Los tokens están en `src/styles/tema.css`. No cambies sus valores ni añadas colores, fuentes, radios o sombras. Fondo blanco, texto `text-foreground` y secundario `text-(--text-secondary)`.
-- Los componentes, en `src/components/ui/` (shadcn/ui con Base UI): `Button`, `Card`, `Badge`, `Input` y `Textarea`. Úsalos con sus variantes y tamaños; las clases que añadas son de composición. Para más piezas, `bunx shadcn@latest add <componente>`, ya configurado en `components.json`. Nunca `shadcn init`: sobrescribe el tema.
+- Los componentes, en `src/components/ui/` (shadcn/ui con Base UI): `Button`, `Card`, `Badge`, `Input` y `Textarea`. Úsalos con sus variantes y tamaños; las clases que añadas son de composición. Para más piezas, `bunx shadcn@4.22.1 add <componente>`, ya configurado en `components.json`. Responde **no** si pide sobrescribir componentes existentes: `Button` tiene la variante propia `sunset`. No uses `--overwrite` ni `shadcn init`. Sube también los cambios de `package.json` y `bun.lock`.
 - Tipografía: la serif (`font-heading`, peso normal) solo en `h1`, `h2` y cifras grandes; Geist en todo lo demás, también botones y menús; `font-mono` para datos, URLs y etiquetas cortas en mayúsculas. Texto de lectura desde 16 px.
 - Color: el rojo `brand` es un acento (números de paso, icono), no un color de botón ni de texto largo. Una acción principal por pantalla, `Button` con `variant="sunset"`; el resto, `outline` o `secondary`. Un enlace con aspecto de botón es `<a className={buttonVariants({ variant: "sunset" })}>`, no un `Button`. Una sola tarjeta con el sol (amarillo) por vista: la del dato que más importa.
 - Respuestas: compón como `src/app/page.tsx`: la pregunta como titular, pasos numerados, tarjetas para requisitos, plazos o coste, «Dónde se hace» con el enlace a la sede y `<Fuentes />`.

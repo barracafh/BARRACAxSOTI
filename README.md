@@ -70,7 +70,7 @@ Más detalle en [docs/equipos.md](docs/equipos.md).
 
 ## Prepara tu portátil
 
-Hace falta **Git**, **Bun** y la **CLI de GitHub** (`gh`) con tu sesión iniciada.
+Hace falta **Git**, **Bun**, **[Node.js 22 o superior](https://nodejs.org/en/download)** para la plantilla y la **CLI de GitHub** (`gh`) con tu sesión iniciada.
 
 macOS y Linux:
 
@@ -90,7 +90,7 @@ gh auth login
 
 El instalador deja Bun en `~/.bun/bin` y lo añade al PATH de tu shell: si `bun` no responde, abre una terminal nueva. En macOS también vale `brew install oven-sh/bun/bun`. Más opciones en [bun.sh/docs/installation](https://bun.sh/docs/installation).
 
-Comprueba que todo responde con `git --version`, `bun --version` y `gh auth status`. Trae también tu asistente de código de IA favorito, ya configurado.
+Comprueba que todo responde con `git --version`, `bun --version`, `node --version` y `gh auth status`. Trae también tu asistente de código de IA favorito, ya configurado.
 
 ## Instala el CLI
 

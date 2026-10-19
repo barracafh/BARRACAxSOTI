@@ -135,6 +135,35 @@ test("ranking: el estado público suma por squad y no lista a las personas", asy
   expect(JSON.stringify(body)).not.toContain("demo-alba");
 });
 
+test("ranking: un fallo de GitHub se puede reintentar con la misma sesión", async () => {
+  const fallos = [
+    ...[403, 429, 502, 503].map((status) => () => new Response("", { status })),
+    () => {
+      throw new Error("Sin conexión");
+    },
+    () => new Response("JSON inválido"),
+    () => Response.json({}),
+  ];
+  for (const [i, fallo] of fallos.entries()) {
+    const token = `token-reintento-${i}`;
+    const { consulta, sentencias } = baseDeDatos();
+    const req = () => enviar(lote("demo-alba"), token);
+    const failed = await recibirUso(req(), {
+      consulta,
+      now: enElBuild,
+      fetcher: (async () => fallo()) as unknown as typeof fetch,
+    });
+    expect([i, failed.status]).toEqual([i, 503]);
+    expect(sentencias).toHaveLength(0);
+    const retry = await recibirUso(req(), {
+      consulta,
+      now: enElBuild,
+      fetcher: github({ [token]: "demo-alba" }),
+    });
+    expect(retry.status).toBe(200);
+  }
+});
+
 test("ranking: el watcher se identifica una vez y luego solo envía lo nuevo", async () => {
   const dir = await mkdtemp(join(tmpdir(), "hacknight-ranking-"));
   const previas = {
@@ -194,7 +223,11 @@ test("ranking: el watcher se identifica una vez y luego solo envía lo nuevo", a
     process.env.HACKNIGHT_CLAUDE_DIR = logs;
     process.env.HACKNIGHT_CODEX_DIR = join(dir, "vacio");
     process.env.HACKNIGHT_PI_DIR = join(dir, "vacio");
-    const recibidos: { auth: string | null; eventos: number }[] = [];
+    const recibidos: {
+      auth: string | null;
+      eventos: number;
+      ventana: string;
+    }[] = [];
     const servidor = Bun.serve({
       hostname: "127.0.0.1",
       port: 0,
@@ -203,6 +236,7 @@ test("ranking: el watcher se identifica una vez y luego solo envía lo nuevo", a
         recibidos.push({
           auth: req.headers.get("authorization"),
           eventos: body.eventos.length,
+          ventana: body.ventana,
         });
         return Response.json({
           ok: true,
@@ -219,18 +253,32 @@ test("ranking: el watcher se identifica una vez y luego solo envía lo nuevo", a
         fin: new Date(ahora.getTime() + 3600_000).toISOString(),
       };
       const enviados = new Map<string, number>();
-      for (let i = 0; i < 2; i++)
+      const nuevaVentana = {
+        ...ventana,
+        fin: new Date(ahora.getTime() + 7200_000).toISOString(),
+      };
+      for (const horario of [ventana, ventana, nuevaVentana, nuevaVentana])
         await escanear({
           cwd: dir,
           usuario: "demo-alba",
-          evento: ventana,
+          evento: horario,
           servidor: servidor.url.href,
           token,
           enviados,
         });
       expect(recibidos).toEqual([
-        { auth: "Bearer token-alba", eventos: 1 },
-        { auth: "Bearer token-alba", eventos: 0 },
+        { auth: "Bearer token-alba", eventos: 1, ventana: ventanaId(ventana) },
+        { auth: "Bearer token-alba", eventos: 0, ventana: ventanaId(ventana) },
+        {
+          auth: "Bearer token-alba",
+          eventos: 1,
+          ventana: ventanaId(nuevaVentana),
+        },
+        {
+          auth: "Bearer token-alba",
+          eventos: 0,
+          ventana: ventanaId(nuevaVentana),
+        },
       ]);
     } finally {
       servidor.stop(true);

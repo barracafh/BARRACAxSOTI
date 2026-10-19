@@ -172,13 +172,12 @@ export async function revisar(
     );
   const hallazgos: Hallazgo[] = [];
   const textos: { archivo: string; texto: string }[] = [];
+  let files: string[] = [];
   let scanOK = true;
   let scanDetalle =
     "Archivos versionados analizados; es una comprobación heurística.";
   try {
-    const files = (
-      await ejecutar(["git", "ls-files", "-z"], undefined, ctx.cwd)
-    )
+    files = (await ejecutar(["git", "ls-files", "-z"], undefined, ctx.cwd))
       .split("\0")
       .filter(Boolean);
     if (!files.length) {
@@ -262,8 +261,8 @@ export async function revisar(
   });
   if (
     ficha?.herramienta === "sello" &&
-    !textos.some((t) =>
-      /(dominios-oficiales|lista-blanca)\.json$/.test(t.archivo),
+    !files.some((archivo) =>
+      /(?:^|\/)(dominios-oficiales|lista-blanca)\.json$/.test(archivo),
     )
   )
     avisos.push(

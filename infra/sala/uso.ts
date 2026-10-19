@@ -19,10 +19,13 @@ export async function quien(token: string, fetcher: typeof fetch, now: number) {
       authorization: `Bearer ${token}`,
       "user-agent": "build-night-sala",
     },
+    signal: AbortSignal.timeout(5000),
   });
-  if (!res.ok) return undefined;
+  if (res.status === 401) return undefined;
+  if (!res.ok) throw new Error(`GitHub respondió HTTP ${res.status}`);
   const { login } = (await res.json()) as { login?: unknown };
-  if (typeof login !== "string") return undefined;
+  if (typeof login !== "string" || !login)
+    throw new Error("GitHub no devolvió un usuario válido.");
   logins.set(clave, { login, hasta: now + 600_000 });
   return login;
 }
@@ -61,7 +64,18 @@ export async function recibirUso(
       { error: "Lote inválido; solo se admiten contadores del contrato v1" },
       400,
     );
-  const login = await quien(token, fetcher, now);
+  let login: string | undefined;
+  try {
+    login = await quien(token, fetcher, now);
+  } catch {
+    return json(
+      {
+        error:
+          "No se pudo comprobar la sesión con GitHub. Reintenta en unos segundos.",
+      },
+      503,
+    );
+  }
   if (!login) return json({ error: "La sesión de GitHub no es válida." }, 401);
   if (login.toLowerCase() !== lote.data.usuario.toLowerCase())
     return json({ error: "Ese lote es de otra persona." }, 403);
