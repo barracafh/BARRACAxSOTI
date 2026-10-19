@@ -133,7 +133,7 @@ export async function archivosEquipo(
   files["ficha.json"] =
     JSON.stringify(
       {
-        nombre: equipo.pieza,
+        nombre: track.nombre,
         frase: track.frase,
         icono: track.glifo,
         herramienta: track.slug,

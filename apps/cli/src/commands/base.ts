@@ -35,13 +35,11 @@ export async function tracks(ctx: Contexto, slug?: string) {
           ...(slug
             ? [
                 t.ciudadano,
-                `Lead: ${t.lead} · Dificultad: ${t.dificultad}`,
+                `Dificultad: ${t.dificultad}`,
                 ...t.piezas.map((p) => `Pieza: ${p}`),
                 ...t.fuentes.map((f) => `Fuente: ${f.nombre} · ${f.url}`),
                 ...t.guias,
-                ...t.squads.map(
-                  (s) => `Squad: ${s.nombre} · Mesa ${s.mesa} · ${s.pieza}`,
-                ),
+                ...t.squads.map((s) => `Squad: ${s.nombre} · Mesa ${s.mesa}`),
               ]
             : []),
           ...(t.cupo
@@ -80,7 +78,7 @@ export async function expediente(ctx: Contexto) {
         equipo
           ? `Squad: ${equipo.nombre} · Mesa ${equipo.mesa}`
           : "Squad: pendiente de asignación",
-        `Track: ${track?.slug ?? "pendiente"} · Pieza: ${equipo?.pieza ?? "pendiente"}`,
+        `Track: ${track?.nombre ?? "pendiente"}`,
         `Fin del build: ${evento.fin} · Quedan ${reloj.texto}`,
         ...reglas.map(
           (r, i) => `${i + 1}. [${r.ok ? "OK" : "FALTA"}] ${r.nombre}`,

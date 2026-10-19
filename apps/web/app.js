@@ -114,7 +114,7 @@ function detail(slug) {
   selectedDetail = slug;
   const squads = state.equipos.filter((s) => s.herramienta === slug);
   $("detalle-contenido").innerHTML =
-    `<p class="eyebrow">NEGOCIADO · VENTANILLA ${t.ventanilla} · TRACK ${esc(t.slug)}</p><h2>${esc(t.nombre)}</h2><p>${esc(t.ciudadano)}</p><h3>Piezas para construir</h3><ul>${t.piezas.map((p) => `<li>${esc(p)}</li>`).join("")}</ul><p><strong>Lead:</strong> ${esc(t.lead)}<br><strong>Dificultad:</strong> ${esc(t.dificultad)}</p><h3>Squads</h3><p>${squads.length ? squads.map((s) => `${esc(s.nombre)} · Mesa ${esc(s.mesa)}`).join("<br>") : "Pendiente de asignación"}</p><h3>Fuentes de referencia</h3><ul>${t.fuentes.map((f) => `<li><a href="${esc(safeUrl(f.url))}" target="_blank" rel="noopener noreferrer">${esc(f.nombre)} ↗</a></li>`).join("")}</ul>`;
+    `<p class="eyebrow">NEGOCIADO · VENTANILLA ${t.ventanilla} · TRACK ${esc(t.slug)}</p><h2>${esc(t.nombre)}</h2><p>${esc(t.ciudadano)}</p><h3>Piezas para construir</h3><ul>${t.piezas.map((p) => `<li>${esc(p)}</li>`).join("")}</ul><p><strong>Dificultad:</strong> ${esc(t.dificultad)}</p><h3>Squads</h3><p>${squads.length ? squads.map((s) => `${esc(s.nombre)} · Mesa ${esc(s.mesa)}`).join("<br>") : "Pendiente de asignación"}</p><h3>Fuentes de referencia</h3><ul>${t.fuentes.map((f) => `<li><a href="${esc(safeUrl(f.url))}" target="_blank" rel="noopener noreferrer">${esc(f.nombre)} ↗</a></li>`).join("")}</ul>`;
   if (!$("detalle").open) $("detalle").showModal();
 }
 function render() {

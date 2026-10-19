@@ -87,7 +87,6 @@ export function clasificar(
         id: e.id,
         nombre: e.nombre,
         track: e.herramienta,
-        pieza: e.pieza,
         mesa: e.mesa,
         total: miembros.reduce((s, p) => s + p.total, 0),
         peticiones: miembros.reduce((s, p) => s + p.peticiones, 0),

@@ -2,7 +2,7 @@
 
 La ventanilla de **BARRACA x SOTI · BUILD NIGHT**, 22 de octubre de 2026, Flywire (València). Bun + TypeScript, con GitHub como registro mediante `gh` o un directorio local. Trámites y expedientes para coordinar el hack. Usa tu sesión de `gh` sin guardar su token y no modifica herramientas de IA; qué lee y qué envía está en [Seguridad y privacidad](../../README.md#seguridad-y-privacidad).
 
-El build del evento va de **17:40 a 22:00 Europe/Madrid**. Los seis tracks son los negociados; cada squad tiene una pieza y una mesa. El comité asigna squads, piezas y el cupo único del track libre en `equipos.json`.
+El build del evento va de **17:40 a 22:00 Europe/Madrid**. Los seis tracks son los negociados; cada squad trabaja en un track y tiene una mesa. El comité asigna squads, tracks y el cupo único del track libre en `equipos.json`.
 
 ## Instalar y desarrollar
 
@@ -60,7 +60,7 @@ No hay identidad local predeterminada. Indica `--usuario <tu-handle>` o `HACKNIG
 | Comando                        | Trámite                                                                                 |
 | ------------------------------ | --------------------------------------------------------------------------------------- |
 | `hacknight`                    | Su expediente y, solo con TTY, menú navegable.                                          |
-| `expediente`                   | Identidad, squad, mesa, track, pieza, cuenta atrás y seis reglas; nunca abre menú.      |
+| `expediente`                   | Identidad, squad, mesa, track, cuenta atrás y seis reglas; nunca abre menú.             |
 | `tracks [slug]` / `negociados` | Tarjetas o detalle: piezas, fuentes, guías y squads. `--todos` incluye los descartados. |
 | `ficha`                        | Editor interactivo. Sin TTY: `ficha --desde archivo.json`.                              |
 | `ficha validar`                | Valida `ficha.json` y el slug contra los tracks activos.                                |
@@ -106,13 +106,13 @@ El registro por defecto es `barracafh/build-registro`, y las releases, `barracaf
 
 El comité crea y configura el repo central; el [script de infra](../../infra/registro/README.md) muestra el plan con `--dry-run`. El CLI de participantes no provisiona esos repos ni sus releases. Copia los JSON de `packages/shared/registro-base`, añade los equipos y handles del comité, sustituye los placeholders, y revisa los tracks antes de abrir el evento.
 
-| Ruta                  | Formato                                                                                                                                                                                                                                       |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `evento.json`         | Objeto: `nombre`, `nombre_corto`, `organizan`, `inicio`, `fin` ISO con offset, `enlaces` (mapa nombre→URL) y `registroFueraDePlazo` booleano.                                                                                                 |
-| `equipos.json`        | Array de `{id,nombre,herramienta,pieza,mesa,miembros,repo}`. `id` y `herramienta` son slugs; `mesa` es texto; `miembros` son handles sin `@`; `repo` es `owner/repo` (puede estar vacío mientras se prepara el equipo). Un usuario, un squad. |
-| `tracks.json`         | Array descrito abajo; es la autoridad de los slugs válidos.                                                                                                                                                                                   |
-| `comite.json`         | Array de handles con autoría de avisos.                                                                                                                                                                                                       |
-| `fichas/<squad>.json` | Ficha validada; llega por PR, el comité la revisa e integra.                                                                                                                                                                                  |
+| Ruta                  | Formato                                                                                                                                                                                                                                 |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `evento.json`         | Objeto: `nombre`, `nombre_corto`, `organizan`, `inicio`, `fin` ISO con offset, `enlaces` (mapa nombre→URL) y `registroFueraDePlazo` booleano.                                                                                           |
+| `equipos.json`        | Array de `{id,nombre,herramienta,mesa,miembros,repo}`. `id` y `herramienta` son slugs; `mesa` es texto; `miembros` son handles sin `@`; `repo` es `owner/repo` (puede estar vacío mientras se prepara el equipo). Un usuario, un squad. |
+| `tracks.json`         | Array descrito abajo; es la autoridad de los slugs válidos.                                                                                                                                                                             |
+| `comite.json`         | Array de handles con autoría de avisos.                                                                                                                                                                                                 |
+| `fichas/<squad>.json` | Ficha validada; llega por PR, el comité la revisa e integra.                                                                                                                                                                            |
 
 Ejemplo de evento (las fechas llevan el offset de Madrid del día del hack):
 
@@ -128,7 +128,7 @@ Ejemplo de evento (las fechas llevan el offset de Madrid del día del hack):
 }
 ```
 
-Cada track contiene `slug`, `nombre`, `frase`, `ciudadano`, `ventanilla` (número), `color` (token de la paleta), `glifo`, `estado`, `lead`, `piezas` (2–3 textos), `fuentes`, `dificultad` y `guias`. `cupo` es opcional; el track libre tiene cupo 1. Estados: `nucleo` y `libre`. El catálogo se edita en [tracks/](../../tracks/README.md); el [JSON generado](../../packages/shared/registro-base/tracks.json) se incluye en el registro base.
+Cada track contiene `slug`, `nombre`, `frase`, `ciudadano`, `ventanilla` (número), `color` (token de la paleta), `glifo`, `estado`, `piezas` (2–3 textos), `fuentes`, `dificultad` y `guias`. `cupo` es opcional; el track libre tiene cupo 1. Estados: `nucleo` y `libre`. El catálogo se edita en [tracks/](../../tracks/README.md); el [JSON generado](../../packages/shared/registro-base/tracks.json) se incluye en el registro base.
 
 La ficha tiene `nombre`, `frase`, `icono`, `herramienta`, `equipo`, `url`, `fuentes:[{nombre,url}]` y `datos:"reales"|"simulados"`. «Reales» significa datos públicos, nunca personales. El centro puede usar [esquemas/ficha.schema.json](esquemas/ficha.schema.json). El esquema se genera desde `fichaSchema` con `bun run --cwd apps/cli schema`; una prueba evita que diverjan. La existencia del slug se valida adicionalmente contra `tracks.json`.
 

@@ -8,7 +8,6 @@
     "color": "acid",
     "glifo": "+",
     "estado": "nucleo",
-    "lead": "por asignar",
     "piezas": [
       "Ayudas para ti",
       "Compatibilidades y requisitos",
@@ -38,7 +37,6 @@
     "color": "after",
     "glifo": "=",
     "estado": "nucleo",
-    "lead": "por asignar",
     "piezas": [
       "PDF a checklist",
       "¿Qué me piden y qué no pueden pedirme?",
@@ -69,7 +67,6 @@
     "color": "magenta",
     "glifo": "#",
     "estado": "nucleo",
-    "lead": "por asignar",
     "piezas": [
       "¿Esta web es oficial?",
       "Las citas son gratis",
@@ -104,7 +101,6 @@
     "color": "cian",
     "glifo": ">",
     "estado": "nucleo",
-    "lead": "por asignar",
     "piezas": [
       "Qué trámite necesito",
       "¿Y si no hay cita?",
@@ -138,7 +134,6 @@
     "color": "muted",
     "glifo": "*",
     "estado": "nucleo",
-    "lead": "por asignar",
     "piezas": [
       "Voto por correo",
       "Dónde votar y censo",
@@ -177,7 +172,6 @@
     "color": "after",
     "glifo": "~",
     "estado": "si-hay-gente",
-    "lead": "por asignar",
     "piezas": [
       "Plazos de ayudas",
       "Calendario descargable",
@@ -203,7 +197,6 @@
     "color": "acid",
     "glifo": "%",
     "estado": "si-hay-gente",
-    "lead": "por asignar",
     "piezas": [
       "Contratos en claro",
       "Presupuestos consultables",
@@ -237,7 +230,6 @@
     "color": "cian",
     "glifo": ":",
     "estado": "condicional",
-    "lead": "por asignar",
     "piezas": ["En qué paso estoy", "Qué viene después"],
     "fuentes": [
       {
@@ -264,7 +256,6 @@
     "color": "paper",
     "glifo": "?",
     "estado": "libre",
-    "lead": "por asignar",
     "piezas": ["Propuesta de utilidad ciudadana", "Integración en el centro"],
     "fuentes": [
       {
@@ -287,7 +278,6 @@
     "color": "muted",
     "glifo": "-",
     "estado": "fuera",
-    "lead": "por asignar",
     "piezas": ["¿Y si no hay cita? → Brújula", "Las citas son gratis → Sello"],
     "fuentes": [
       {
@@ -310,7 +300,6 @@
     "color": "muted",
     "glifo": "-",
     "estado": "fuera",
-    "lead": "por asignar",
     "piezas": [
       "¿Este aviso es oficial? → Sello",
       "Ayudas públicas → Derechos, solo si se cura el contenido"
@@ -336,7 +325,6 @@
     "color": "muted",
     "glifo": "-",
     "estado": "fuera",
-    "lead": "por asignar",
     "piezas": [
       "¿Qué me piden? → Claridad",
       "Dónde descargar documentos → Claridad"
@@ -362,7 +350,6 @@
     "color": "muted",
     "glifo": "-",
     "estado": "fuera",
-    "lead": "por asignar",
     "piezas": [
       "Dato oficial → Abierto",
       "Definiciones de indicadores → Abierto"
