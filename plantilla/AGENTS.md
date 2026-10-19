@@ -13,6 +13,8 @@ Este repo es la herramienta de un equipo para la plataforma de atención ciudada
 ## IA y claves
 
 - La IA es de HelmCode, compatible con la API de OpenAI. `src/lib/ia.ts` la llama y `src/app/api/ia/route.ts` es un ejemplo completo.
+- El modelo es `glm5.3-flash` (`HELMCODE_MODEL`) y lee también imágenes: manda `content` como lista de partes, `[{ type: "text", text }, { type: "image_url", image_url: { url: "data:image/jpeg;base64,…" } }]`. Para un PDF con texto, extrae el texto en el servidor y manda solo eso.
+- Todos los equipos comparten los límites de HelmCode. `completar()` reintenta cuando responde 429, pero no la llames en bucle ni una vez por cada tecla.
 - Llámala solo desde el servidor: rutas de `src/app/api/` o Server Actions. Ninguna clave lleva el prefijo `NEXT_PUBLIC_`.
 - En local, las claves van en `.env.local`, que nunca se sube: `HELMCODE_API_KEY`, `HELMCODE_MODEL` y, si os la dan, `HELMCODE_BASE_URL`. Sello usa además `SAFE_BROWSING_API_KEY` y ¿Cómo voto?, `FACTCHECK_API_KEY`. En la versión publicada ya están puestas.
 

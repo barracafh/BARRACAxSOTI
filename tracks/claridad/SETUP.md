@@ -55,7 +55,7 @@ Nueve notificaciones **ficticias**, con marca de agua y datos inventados, que im
 - En la demo, solo los documentos ficticios de `datos/`. Nunca documentos reales de personas.
 - Cada fecha es un cálculo orientativo, no asesoramiento legal: la herramienta muestra la regla aplicada (por ejemplo, «10 días hábiles, Ley 39/2015 art. 30») y remite al órgano emisor o a su sede para confirmarla.
 - El 22/10 ya habrán vencido los plazos de 01 y 04 (20/10) y de 09 (21/10): la herramienta dice «el plazo venció el …» y qué opciones quedan, sin cuenta atrás negativa.
-- Los nueve PDF tienen capa de texto: extraedla en el servidor (por ejemplo, con `bun add unpdf`) y mandad a la IA solo el texto. La foto (03b) necesita un modelo con visión, y `src/lib/ia.ts` solo envía texto: confirmad con la organización si el modelo tiene visión.
+- Los nueve PDF tienen capa de texto: extraedla en el servidor (por ejemplo, con `bun add unpdf`) y mandad a la IA solo el texto. La foto (03b) necesita un modelo con visión: el del evento, `glm5.3-flash`, la tiene, y `completar()` acepta imágenes (ver `AGENTS.md`).
 
 ## Resumen para el agente
 
