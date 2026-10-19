@@ -7,7 +7,7 @@
     "url_defanged": null,
     "nota_url": "INCIBE no publicó la URL maliciosa (solo dice que no es oficial de la AEAT y que lleva a una web que imita a la AEAT). Para probar el verificador, usar url_prueba_sintetica.",
     "url_prueba_sintetica": "hxxps://agenciatributaria-devolucion[.]top/renta2023",
-    "esperado": "fraude",
+    "esperado": "no_oficial",
     "pistas": [
       "Promete una devolución de dinero y pide pulsar un enlace",
       "El enlace no lleva a sede.agenciatributaria.gob.es",
@@ -26,7 +26,7 @@
     "url_defanged": null,
     "nota_url": "En las capturas de INCIBE el enlace aparece solo como '[URL]'.",
     "url_prueba_sintetica": "hxxps://dgt-multas-pago[.]com/expediente",
-    "esperado": "fraude",
+    "esperado": "no_oficial",
     "pistas": [
       "Mete prisa con un plazo de 24 horas para evitar un recargo",
       "La DGT notifica las multas por carta certificada o por la DEV (Dirección Electrónica Vial), no con enlaces de pago en un SMS",
@@ -45,7 +45,7 @@
     "url_defanged": null,
     "nota_url": "INCIBE usa los marcadores '[URL fraudulenta]' y '[URL maliciosa]'. En un aviso relacionado (30/03/2022) explica que las webs falsas imitan los dominios reales e incluyen el nombre de la empresa en la URL.",
     "url_prueba_sintetica": "hxxps://correos-aduanas-pago[.]com/envio",
-    "esperado": "fraude",
+    "esperado": "no_oficial",
     "pistas": [
       "Pide pagar una pequeña cantidad (tasas de aduana) mediante un enlace",
       "Correos nunca pide datos bancarios ni pagos por SMS o email",
@@ -64,7 +64,7 @@
     "url_defanged": null,
     "nota_url": "INCIBE solo muestra el marcador '[URL maliciosa]'.",
     "url_prueba_sintetica": "hxxps://seg-social-tarjeta[.]info/actualizar",
-    "esperado": "fraude",
+    "esperado": "no_oficial",
     "pistas": [
       "Pide 'actualizar' datos mediante un enlace y amenaza con perder servicios",
       "La Seguridad Social no pide actualizar datos ni pagar deudas mediante enlaces en SMS (INCIBE, aviso del 19/08/2026)",
@@ -84,7 +84,7 @@
     "url_defanged": null,
     "nota_url": "INCIBE no muestra ni el remitente ni la URL; dice que los correos no vienen del dominio oficial de la DGT.",
     "url_prueba_sintetica": "hxxps://sede-dgt-gob-es[.]click/revisar",
-    "esperado": "fraude",
+    "esperado": "no_oficial",
     "pistas": [
       "'La DGT NUNCA notifica sus multas a través de correo electrónico' (dgt.es)",
       "Amenaza con un recargo para meter prisa",
@@ -103,8 +103,9 @@
     "entidad": "Agencia Tributaria (AEAT)",
     "texto": "AEAT: Tiene una nueva notificación disponible. Puede consultarla accediendo por sus propios medios a la Sede electrónica de la Agencia Tributaria (sede.agenciatributaria.gob.es) o a la DEHú. Este mensaje es solo informativo.",
     "url_defanged": null,
-    "esperado": "legitimo",
+    "esperado": "no_determinable",
     "pistas": [
+      "El texto encaja con un aviso oficial, pero no prueba quién lo envía: el remitente se puede falsificar. Por eso no se confirma; se remite a la sede tecleando la dirección",
       "Solo avisa de que hay una notificación; no pide datos, pagos ni tarjeta",
       "No incluye un enlace para pulsar: remite a la sede oficial .gob.es",
       "La AEAT envía 'avisos informativos' por SMS o correo a quien se ha suscrito"
@@ -122,8 +123,9 @@
     "entidad": "Dirección General de Tráfico (DGT) – Dirección Electrónica Vial",
     "texto": "Asunto: Dirección Electrónica Vial – Tiene una nueva notificación. Le informamos de que tiene una nueva notificación en su Dirección Electrónica Vial (DEV). Para consultarla, acceda a la Sede electrónica de la DGT (sede.dgt.gob.es) e identifíquese con DNI electrónico, certificado digital o Cl@ve.",
     "url_defanged": null,
-    "esperado": "legitimo",
+    "esperado": "no_determinable",
     "pistas": [
+      "El texto encaja con un aviso oficial, pero no prueba quién lo envía: el remitente se puede falsificar. Por eso no se confirma; se remite a la sede tecleando la dirección",
       "Solo lo recibe quien se ha dado de alta voluntariamente en la DEV",
       "No contiene importes, plazos de 24 horas ni enlaces de pago",
       "Pide identificarse en la sede oficial con DNIe o certificado digital"
@@ -141,9 +143,10 @@
     "entidad": "Correos",
     "texto": "De: correos@correos.com. Asunto: Tu envío está en camino. Hola, tu envío con referencia PQ00000000000000000000 está en reparto. Puedes seguirlo en el Localizador de Envíos de www.correos.es o en la app de Correos. Código seguro: XXXX-XXXX (recuadro amarillo al final del mensaje).",
     "url_defanged": null,
-    "esperado": "legitimo",
+    "esperado": "no_determinable",
     "pistas": [
-      "El remitente es correos@correos.com, el que Correos indica para sus comunicaciones oficiales",
+      "El texto encaja con un aviso oficial, pero no prueba quién lo envía: el remitente se puede falsificar. Por eso no se confirma; se remite a la sede tecleando la dirección",
+      "El remitente es correos@correos.com, el que Correos indica para sus comunicaciones oficiales, aunque un remitente se puede falsificar",
       "Incluye un código seguro que se puede comprobar en el verificador de email de correos.es",
       "No pide pagos, tasas ni datos bancarios"
     ],
@@ -160,8 +163,9 @@
     "entidad": "DEHú (Dirección Electrónica Habilitada única)",
     "texto": "Asunto: DEHú – Aviso de nueva notificación. Le informamos de que tiene a su disposición una nueva notificación de la Agencia Estatal de Administración Tributaria en la Dirección Electrónica Habilitada única. Puede acceder a ella en dehu.redsara.es identificándose con Cl@ve, certificado o DNIe. Este es un aviso de cortesía.",
     "url_defanged": null,
-    "esperado": "legitimo",
+    "esperado": "no_determinable",
     "pistas": [
+      "El texto encaja con un aviso oficial, pero no prueba quién lo envía: el remitente se puede falsificar. Por eso no se confirma; se remite a la sede tecleando la dirección",
       "La DEHú envía 'avisos de cortesía' por email cuando llega una nueva notificación de un organismo adherido",
       "Remite al dominio oficial dehu.redsara.es, que no es .gob.es pero sí es oficial",
       "No pide datos ni pagos; el acceso exige identificarse"
@@ -179,8 +183,9 @@
     "texto": "Página 'Ayuda Solicitud de Cita en Atención Primaria – Portal del Paciente – Conselleria de Sanidad'. Para pedir cita con tu médico o enfermería de atención primaria, introduce tu número SIP y tu fecha de nacimiento y elige día y hora.",
     "url": "https://www.san.gva.es/es/web/portal-del-paciente/ayuda-solicitud-de-cita-en-atencion-primaria",
     "url_defanged": null,
-    "esperado": "legitimo",
+    "esperado": "oficial_verificado",
     "pistas": [
+      "La URL está en la lista de dominios oficiales (san.gva.es) y no lleva parámetros de redirección",
       "Dominio san.gva.es, subdominio oficial de la Generalitat Valenciana",
       "Pide SIP y fecha de nacimiento, pero nunca datos bancarios ni de tarjeta",
       "Se llega a la página escribiendo la dirección o desde gva.es, no desde un enlace de un SMS"

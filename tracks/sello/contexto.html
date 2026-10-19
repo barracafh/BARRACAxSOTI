@@ -446,7 +446,8 @@
             <ol class="steps">
               <li>
                 Extraer URLs (también <code>hxxp</code>, <code>[.]</code> y QR)
-                y resolver redirecciones.
+                sin abrirlas: ni redirecciones ni acortadores. Un acortador es
+                <code>no_determinable</code>.
               </li>
               <li>
                 IP como host o credenciales en la URL: <code>no_oficial</code>.
@@ -470,7 +471,10 @@
               </li>
             </ol>
             <ol class="steps" start="9" style="counter-reset: s 8">
-              <li>TLS solo para confirmar y para sospechosos.</li>
+              <li>
+                TLS solo para confirmar dominios de la lista o
+                <code>.gob.es</code>; nunca a sospechosos.
+              </li>
               <li>
                 Parecido a la lista: <code>no_oficial</code> solo con otra señal
                 independiente.
