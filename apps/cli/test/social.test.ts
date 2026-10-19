@@ -3,7 +3,7 @@ import { mkdtemp, cp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { RegistroLocal } from "@hacknight/shared/registro/local";
+import { RegistroLocal } from "@buildnight/shared/registro/local";
 import { entradas } from "../src/commands/social";
 const tempDirs: string[] = [];
 afterEach(async () => {
@@ -11,7 +11,7 @@ afterEach(async () => {
     await rm(dir, { recursive: true, force: true });
 });
 async function fixture() {
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-social-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-social-"));
   tempDirs.push(dir);
   await cp(join(import.meta.dir, "../../../test/fixtures/registro"), dir, {
     recursive: true,
@@ -47,7 +47,7 @@ async function cli(dir: string, args: string[], user = "demo-alba") {
     {
       stdout: "pipe",
       stderr: "pipe",
-      env: { ...process.env, HACKNIGHT_USUARIO: "demo-alba" },
+      env: { ...process.env, BUILDNIGHT_USUARIO: "demo-alba" },
     },
   );
   const out = await new Response(p.stdout).text();

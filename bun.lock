@@ -3,9 +3,9 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "hacknight-workspace",
+      "name": "buildnight-workspace",
       "devDependencies": {
-        "@hacknight/shared": "workspace:*",
+        "@buildnight/shared": "workspace:*",
         "@neondatabase/serverless": "^1.0.2",
         "@playwright/test": "1.64.0",
         "@types/bun": "^1.3.0",
@@ -14,31 +14,31 @@
       },
     },
     "apps/cli": {
-      "name": "hacknight",
+      "name": "buildnight",
       "version": "0.1.3",
       "bin": {
-        "hacknight": "./src/index.ts",
+        "buildnight": "./src/index.ts",
       },
       "dependencies": {
         "@clack/prompts": "^1.7.0",
-        "@hacknight/shared": "workspace:*",
+        "@buildnight/shared": "workspace:*",
         "commander": "^14.0.3",
         "zod": "^4.1.0",
       },
     },
     "apps/server": {
-      "name": "@hacknight/server",
+      "name": "@buildnight/server",
       "version": "0.1.0",
       "bin": {
-        "hacknight-server": "./src/index.ts",
+        "buildnight-server": "./src/index.ts",
       },
       "dependencies": {
-        "@hacknight/shared": "workspace:*",
+        "@buildnight/shared": "workspace:*",
         "commander": "^14.0.3",
       },
     },
     "packages/shared": {
-      "name": "@hacknight/shared",
+      "name": "@buildnight/shared",
       "version": "0.1.0",
       "dependencies": {
         "zod": "^4.1.0",
@@ -50,9 +50,9 @@
 
     "@clack/prompts": ["@clack/prompts@1.8.1", "", { "dependencies": { "@clack/core": "1.5.1", "fast-string-width": "^3.0.2", "fast-wrap-ansi": "^0.2.0", "sisteransi": "^1.0.5" } }, "sha512-dlT1m5e/0yUL0kRNcQn7yGLVThkgbB0Ga/1AmfDDC/8ik6AIiSf2QLQO2zPYvefsHP0aFgxO93cVLCCfDp7kzQ=="],
 
-    "@hacknight/server": ["@hacknight/server@workspace:apps/server"],
+    "@buildnight/server": ["@buildnight/server@workspace:apps/server"],
 
-    "@hacknight/shared": ["@hacknight/shared@workspace:packages/shared"],
+    "@buildnight/shared": ["@buildnight/shared@workspace:packages/shared"],
 
     "@neondatabase/serverless": ["@neondatabase/serverless@1.2.0", "", {}, "sha512-tnaqgixUengZQNd9ZrS3ytQfamJzLKY8QxgqWQTNHHtB+KrFQWk77JTbbpg4RD+J3qE4eO2lVytvGDX5Kj6FdQ=="],
 
@@ -72,7 +72,7 @@
 
     "fast-wrap-ansi": ["fast-wrap-ansi@0.2.2", "", { "dependencies": { "fast-string-width": "^3.0.2" } }, "sha512-7F2Fl+TjRSenLqlU3UjSH0iyqopqoZIu7eZVpEirP2g1GtWa2G/ecEmBdgz31+Mxr+ELclgg6sokpSFIQiZ02Q=="],
 
-    "hacknight": ["hacknight@workspace:apps/cli"],
+    "buildnight": ["buildnight@workspace:apps/cli"],
 
     "playwright": ["playwright@1.64.0", "", { "dependencies": { "playwright-core": "1.64.0" }, "bin": { "playwright": "cli.js" } }, "sha512-kVzTnYFYEyQ9RGzBjNCd2+yEqWmVbxl3AHPynv3qQ6JTjv4a+kwRcnqQwIpuP3NnrnIrE/Q6wWAIAvMfIE2/Yg=="],
 

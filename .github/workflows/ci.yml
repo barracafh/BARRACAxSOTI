@@ -37,8 +37,8 @@ jobs:
       - run: bun run build:bin:host
       - name: Comprobar los binarios autónomos
         run: |
-          export HACKNIGHT_BIN="$PWD/apps/cli/dist/hacknight"
-          export HACKNIGHT_SERVER_BIN="$PWD/apps/server/dist/hacknight-server"
+          export BUILDNIGHT_BIN="$PWD/apps/cli/dist/buildnight"
+          export BUILDNIGHT_SERVER_BIN="$PWD/apps/server/dist/buildnight-server"
           bun run test:flujo
           bun run test:live
       - name: Compilar la plantilla independiente

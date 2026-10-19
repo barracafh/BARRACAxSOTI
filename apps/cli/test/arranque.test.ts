@@ -17,7 +17,7 @@ afterEach(async () => {
     await rm(dir, { recursive: true, force: true });
 });
 async function setup() {
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-start-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-start-"));
   tempDirs.push(dir);
   const reg = join(dir, "registro");
   await cp(join(import.meta.dir, "../../../test/fixtures/registro"), reg, {
@@ -42,9 +42,9 @@ async function cli(reg: string, cwd: string, args: string[]) {
       stderr: "pipe",
       env: {
         ...process.env,
-        HACKNIGHT_USUARIO: "demo-alba",
+        BUILDNIGHT_USUARIO: "demo-alba",
         // Empty switches the update off, so no test reaches GitHub releases.
-        HACKNIGHT_RELEASES: "",
+        BUILDNIGHT_RELEASES: "",
       },
     },
   );
@@ -56,8 +56,8 @@ test("actualizar está desactivado sin releases", async () => {
   expect((await cli(reg, dir, ["actualizar"])).data.habilitada).toBe(false);
 });
 test("assets, semver y SHA256 de actualización", () => {
-  expect(assetName("darwin", "arm64")).toBe("hacknight-darwin-arm64");
-  expect(assetName("win32", "x64")).toBe("hacknight-windows-x64.exe");
+  expect(assetName("darwin", "arm64")).toBe("buildnight-darwin-arm64");
+  expect(assetName("win32", "x64")).toBe("buildnight-windows-x64.exe");
   expect(isNewer("cli-v0.2.0", "0.1.0")).toBe(true);
   expect(isNewer("cli-v0.1.0", "0.1.0")).toBe(false);
   const b = Buffer.from("binary");
@@ -66,7 +66,7 @@ test("assets, semver y SHA256 de actualización", () => {
   expect(() => verificar(b, `${sha256(b)}  evil-binary`, "binary")).toThrow();
 });
 test("actualización con fetch simulado reemplaza únicamente tras checksum correcto", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-update-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-update-"));
   tempDirs.push(dir);
   const target = join(dir, "binary");
   await writeFile(target, "old");

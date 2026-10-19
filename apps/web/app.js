@@ -153,7 +153,8 @@ function render() {
   $("actualizado").textContent =
     `ACT. ${new Date(c.generado).toLocaleTimeString("es-ES")}`;
   actualizarMarca(state.evento);
-  $("comando").textContent = `hacknight observar --servidor ${location.origin}`;
+  $("comando").textContent =
+    `buildnight observar --servidor ${location.origin}`;
   const active = state.tracks.filter((t) => t.estado !== "fuera");
   const filters = active.length ? active : (state.consumo?.tracks ?? []);
   const nextFilterKey = JSON.stringify(filters.map((t) => [t.slug, t.nombre]));

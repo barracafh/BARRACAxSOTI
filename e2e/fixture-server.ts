@@ -6,7 +6,7 @@ import { AlmacenUso } from "../apps/server/src/almacen";
 import { crearHandler } from "../apps/server/src/servidor";
 import { fixtureKey, fixtureUrl } from "./fixture-data";
 
-const dir = await mkdtemp(join(tmpdir(), "hacknight-browser-"));
+const dir = await mkdtemp(join(tmpdir(), "buildnight-browser-"));
 const registry = join(dir, "registro");
 let store: AlmacenUso | undefined;
 let server: ReturnType<typeof Bun.serve> | undefined;

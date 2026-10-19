@@ -55,16 +55,16 @@ export async function leerConsumo(
   fin: string,
   rutas: RutasConsumo = {
     claude:
-      process.env.HACKNIGHT_CLAUDE_DIR ??
+      process.env.BUILDNIGHT_CLAUDE_DIR ??
       join(
         process.env.CLAUDE_CONFIG_DIR ?? join(homedir(), ".claude"),
         "projects",
       ),
     codex:
-      process.env.HACKNIGHT_CODEX_DIR ??
+      process.env.BUILDNIGHT_CODEX_DIR ??
       join(process.env.CODEX_HOME ?? join(homedir(), ".codex"), "sessions"),
     pi:
-      process.env.HACKNIGHT_PI_DIR ??
+      process.env.BUILDNIGHT_PI_DIR ??
       join(
         process.env.PI_CODING_AGENT_DIR ?? join(homedir(), ".pi", "agent"),
         "sessions",

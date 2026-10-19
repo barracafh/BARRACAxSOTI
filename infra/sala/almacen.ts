@@ -1,7 +1,11 @@
 import { neon } from "@neondatabase/serverless";
-import type { Parte } from "@hacknight/shared/clasificacion";
-import { totalUso, ventanaId, type Lote } from "@hacknight/shared/contrato-uso";
-import type { Evento } from "@hacknight/shared/modelo";
+import type { Parte } from "@buildnight/shared/clasificacion";
+import {
+  totalUso,
+  ventanaId,
+  type Lote,
+} from "@buildnight/shared/contrato-uso";
+import type { Evento } from "@buildnight/shared/modelo";
 
 // One statement with positional parameters; returns its rows.
 export type Consulta = (

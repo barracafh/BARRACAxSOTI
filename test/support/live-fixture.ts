@@ -3,14 +3,14 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { strict as assert } from "node:assert";
-import { inicializarRegistro } from "@hacknight/shared/registro/gestion";
+import { inicializarRegistro } from "@buildnight/shared/registro/gestion";
 import { contexto } from "../../apps/cli/src/lib/contexto";
-import { RegistroLocal } from "@hacknight/shared/registro/local";
+import { RegistroLocal } from "@buildnight/shared/registro/local";
 import { iniciarServidor } from "../../apps/server/src/servidor";
 
 const root = resolve(import.meta.dir, "../..");
 export async function prepararPruebaLive() {
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-live-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-live-"));
   const reg = join(dir, "registro");
   await inicializarRegistro(reg);
   const evento = await Bun.file(join(reg, "evento.json")).json();
@@ -166,8 +166,8 @@ export async function arrancarPruebaLive(puerto = 0) {
   );
   const children: ReturnType<typeof Bun.spawn>[] = [];
   const logs: Promise<unknown>[] = [];
-  const cli = process.env.HACKNIGHT_BIN
-    ? [resolve(process.env.HACKNIGHT_BIN)]
+  const cli = process.env.BUILDNIGHT_BIN
+    ? [resolve(process.env.BUILDNIGHT_BIN)]
     : [process.execPath, join(root, "apps/cli/src/index.ts")];
   const command = (i: number) => [
     ...cli,
@@ -185,9 +185,9 @@ export async function arrancarPruebaLive(puerto = 0) {
   ];
   const watcherEnv = (i: number) => ({
     ...process.env,
-    HACKNIGHT_CLAUDE_DIR: f.participants[i]!.claude,
-    HACKNIGHT_CODEX_DIR: f.participants[i]!.codex,
-    HACKNIGHT_PI_DIR: f.participants[i]!.codex,
+    BUILDNIGHT_CLAUDE_DIR: f.participants[i]!.claude,
+    BUILDNIGHT_CODEX_DIR: f.participants[i]!.codex,
+    BUILDNIGHT_PI_DIR: f.participants[i]!.codex,
   });
   function spawnWatcher(i: number) {
     const p = Bun.spawn([...command(i), "--json"], {

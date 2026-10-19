@@ -10,17 +10,17 @@ import {
 } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { tmpdir } from "node:os";
-import { conBloqueo } from "@hacknight/shared/registro/bloqueo";
+import { conBloqueo } from "@buildnight/shared/registro/bloqueo";
 import {
   administracion,
   guardarGestion,
   inicializarRegistro,
-} from "@hacknight/shared/registro/gestion";
-import { RegistroLocal } from "@hacknight/shared/registro/local";
+} from "@buildnight/shared/registro/gestion";
+import { RegistroLocal } from "@buildnight/shared/registro/local";
 
 const childScript = resolve(import.meta.dir, "support/lock-process.ts");
 async function fixture() {
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-lock-test-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-lock-test-"));
   await inicializarRegistro(dir);
   return dir;
 }

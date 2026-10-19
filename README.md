@@ -39,7 +39,7 @@ Cada track es una herramienta de la plataforma. Son los seis publicados: puede h
 | ¿Cómo voto?     | Voto por correo, dónde votar y plazos de las generales del 29/11.                  |
 | Track libre     | Una pieza nueva para el centro. Un solo squad, por orden de llegada.               |
 
-Las [fichas técnicas](tracks/README.md) y el material de cada track viven en `tracks/`. El detalle también está en el CLI: `hacknight tracks <track>`.
+Las [fichas técnicas](tracks/README.md) y el material de cada track viven en `tracks/`. El detalle también está en el CLI: `buildnight tracks <track>`.
 
 ## Las reglas
 
@@ -52,7 +52,7 @@ Una herramienta entra en la plataforma si cumple las seis:
 5. **No usa datos personales reales.** Nada de DNI, expedientes ni contraseñas: se simulan.
 6. **Lleva el botón «¿Algo está mal? Avísanos».**
 
-`hacknight revisar` comprueba las seis antes de registrar.
+`buildnight revisar` comprueba las seis antes de registrar.
 
 ## Cómo se forman los equipos
 
@@ -94,44 +94,44 @@ Comprueba que todo responde con `git --version`, `bun --version`, `node --versio
 
 ## Instala el CLI
 
-`hacknight` es el CLI del evento: tu expediente, la revisión de las reglas, la entrega de la ficha y el contador de tokens. En macOS y Linux:
+`buildnight` es el CLI del evento: tu expediente, la revisión de las reglas, la entrega de la ficha y el contador de tokens. En macOS y Linux:
 
 ```sh
 curl -fsSL https://build.barraca.house/instalar.sh | sh
 ```
 
-El instalador es [`apps/cli/install.sh`](apps/cli/install.sh): descarga de la [última release](https://github.com/barracafh/build-comite/releases/latest) el binario de tu plataforma, comprueba su SHA256 con `SHA256SUMS` y lo deja en `~/.local/bin` (`HACKNIGHT_INSTALL_DIR` cambia el destino). En Windows, descarga `hacknight-windows-x64.exe` de esa misma release.
+El instalador es [`apps/cli/install.sh`](apps/cli/install.sh): descarga de la [última release](https://github.com/barracafh/build-comite/releases/latest) el binario de tu plataforma, comprueba su SHA256 con `SHA256SUMS` y lo deja en `~/.local/bin` (`BUILDNIGHT_INSTALL_DIR` cambia el destino). En Windows, descarga `buildnight-windows-x64.exe` de esa misma release.
 
 Para comprobar un binario a mano:
 
 ```sh
-gh release download -R barracafh/build-comite -p 'hacknight-darwin-arm64' -p SHA256SUMS
+gh release download -R barracafh/build-comite -p 'buildnight-darwin-arm64' -p SHA256SUMS
 shasum -a 256 -c --ignore-missing SHA256SUMS
 ```
 
-Si prefieres no fiarte del binario, compílalo desde este código: `bun install --frozen-lockfile` y `bun run --cwd apps/cli build:bin:host` dejan el tuyo en `apps/cli/dist/hacknight`. Cada versión publicada corresponde al commit «Release the CLI X.Y.Z» de este repo; la compila el comité con [`infra/cli/publicar.ts`](infra/cli/publicar.ts).
+Si prefieres no fiarte del binario, compílalo desde este código: `bun install --frozen-lockfile` y `bun run --cwd apps/cli build:bin:host` dejan el tuyo en `apps/cli/dist/buildnight`. Cada versión publicada corresponde al commit «Release the CLI X.Y.Z» de este repo; la compila el comité con [`infra/cli/publicar.ts`](infra/cli/publicar.ts).
 
 Los trámites principales:
 
-| Comando               | Para qué                                                         |
-| --------------------- | ---------------------------------------------------------------- |
-| `hacknight`           | Tu expediente: squad, track, cuenta atrás y estado de las reglas |
-| `hacknight tracks`    | Los tracks y sus piezas                                          |
-| `hacknight revisar`   | Comprueba las seis reglas                                        |
-| `hacknight registrar` | Entrega tu ficha y te da el justificante de registro             |
-| `hacknight tablon`    | Lo que está pasando en la sala                                   |
+| Comando                | Para qué                                                         |
+| ---------------------- | ---------------------------------------------------------------- |
+| `buildnight`           | Tu expediente: squad, track, cuenta atrás y estado de las reglas |
+| `buildnight tracks`    | Los tracks y sus piezas                                          |
+| `buildnight revisar`   | Comprueba las seis reglas                                        |
+| `buildnight registrar` | Entrega tu ficha y te da el justificante de registro             |
+| `buildnight tablon`    | Lo que está pasando en la sala                                   |
 
 La lista completa y la configuración están en [apps/cli/README.md](apps/cli/README.md).
 
 ## Seguridad y privacidad
 
-Qué hace `hacknight` en tu máquina, según el código:
+Qué hace `buildnight` en tu máquina, según el código:
 
-- **GitHub:** usa tu sesión de `gh`; no guarda su token. Lee el registro del evento, [barracafh/build-registro](https://github.com/barracafh/build-registro), y para el tablón los eventos públicos de los repos de squad. Solo escribe ahí con `registrar`: una rama `hacknight/ficha-<squad>`, el archivo `fichas/<squad>.json` y una PR que revisa el comité ([`registro/github.ts`](apps/cli/src/registro/github.ts)).
+- **GitHub:** usa tu sesión de `gh`; no guarda su token. Lee el registro del evento, [barracafh/build-registro](https://github.com/barracafh/build-registro), y para el tablón los eventos públicos de los repos de squad. Solo escribe ahí con `registrar`: una rama `buildnight/ficha-<squad>`, el archivo `fichas/<squad>.json` y una PR que revisa el comité ([`registro/github.ts`](apps/cli/src/registro/github.ts)).
 - **`revisar`:** lee los archivos que Git tiene versionados en tu proyecto y pide una vez la URL pública de tu ficha. Busca indicios de datos personales y claves, y nunca imprime lo que encuentra ([`lib/revision.ts`](apps/cli/src/lib/revision.ts)).
 - **`observar` y `consumo`:** leen los registros locales de Claude Code (`~/.claude/projects`), Codex (`~/.codex/sessions`) y Pi (`~/.pi/agent/sessions`), solo de tu proyecto y dentro del horario del build, y se quedan con los contadores de tokens ([`consumo/`](apps/cli/src/consumo/)). `consumo` no envía nada.
 - **Qué envía `observar` a la sala:** tu usuario de GitHub y, por cada mensaje, un hash de su ID, la herramienta, la fecha y los cuatro contadores (entrada, salida y caché). Ni prompts, ni respuestas, ni rutas, ni nombres de proyecto: el [contrato](packages/shared/src/contrato-uso.ts) rechaza cualquier otro campo. Va a `https://sala.build.barraca.house/api/uso`, una vez por minuto por defecto y solo con lo que ha cambiado ([`watcher/cliente.ts`](apps/cli/src/watcher/cliente.ts)).
-- **Tu cuenta en la sala:** la primera vez, `observar` te pide confirmar tu cuenta en `github.com/login/device` con la OAuth App «Build night», sin permisos: el token solo demuestra quién eres. Se guarda en `~/.config/hacknight/sesion.json` con permisos `0600` ([`watcher/sesion.ts`](apps/cli/src/watcher/sesion.ts)). Puedes revocarlo en [github.com/settings/applications](https://github.com/settings/applications).
+- **Tu cuenta en la sala:** la primera vez, `observar` te pide confirmar tu cuenta en `github.com/login/device` con la OAuth App «Build night», sin permisos: el token solo demuestra quién eres. Se guarda en `~/.config/buildnight/sesion.json` con permisos `0600` ([`watcher/sesion.ts`](apps/cli/src/watcher/sesion.ts)). Puedes revocarlo en [github.com/settings/applications](https://github.com/settings/applications).
 - **La sala** guarda esos contadores por usuario y muestra solo squads, tracks y herramientas, nunca personas ([`infra/sala/`](infra/sala/README.md)).
 - **`actualizar`:** solo cuando lo ejecutas; descarga la release y comprueba su SHA256 antes de sustituir el binario.
 
@@ -152,7 +152,7 @@ Ese registro local trae los tracks reales, sin equipos todavía. Para ver el rec
 
 | Carpeta                                               | Contenido                                                         |
 | ----------------------------------------------------- | ----------------------------------------------------------------- |
-| [apps/cli/](apps/cli/)                                | `hacknight`, el CLI de participantes                              |
+| [apps/cli/](apps/cli/)                                | `buildnight`, el CLI de participantes                             |
 | [apps/web/](apps/web/) · [apps/server/](apps/server/) | Web, proyector, administración y backend Bun/SQLite               |
 | [packages/shared/](packages/shared/)                  | Modelos, paleta, evento y registro base                           |
 | [tracks/](tracks/README.md)                           | Fichas técnicas, catálogo y preparación de datos y guías          |
@@ -173,7 +173,7 @@ El nombre del evento está en un solo sitio: [`packages/shared/registro-base/eve
 bun run start           # web y administración en http://127.0.0.1:4310
 bun run check           # tipos, tests y formato
 bun run test:browser    # regresiones de la web y del admin en Chromium
-bun run build:bin:host  # binarios apps/cli/dist/hacknight y apps/server/dist/hacknight-server
+bun run build:bin:host  # binarios apps/cli/dist/buildnight y apps/server/dist/buildnight-server
 ```
 
 Para ejecutar las pruebas de navegador, instala Chromium una vez con `bunx playwright install chromium`. Usan una instancia temporal y participantes ficticios; no consultan historiales personales.

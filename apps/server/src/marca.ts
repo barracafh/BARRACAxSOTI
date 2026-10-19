@@ -1,5 +1,5 @@
-import type { Evento } from "@hacknight/shared/modelo";
-import { paleta } from "@hacknight/shared/paleta";
+import type { Evento } from "@buildnight/shared/modelo";
+import { paleta } from "@buildnight/shared/paleta";
 
 const escaparHtml = (value: string) =>
   value.replace(

@@ -1,4 +1,4 @@
-declare const HACKNIGHT_COMPILED: boolean;
-export const VERSION = "0.1.4";
+declare const BUILDNIGHT_COMPILED: boolean;
+export const VERSION = "0.1.5";
 export const COMPILED =
-  typeof HACKNIGHT_COMPILED !== "undefined" && HACKNIGHT_COMPILED;
+  typeof BUILDNIGHT_COMPILED !== "undefined" && BUILDNIGHT_COMPILED;

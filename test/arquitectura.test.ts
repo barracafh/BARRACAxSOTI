@@ -6,7 +6,7 @@ import { tmpdir } from "node:os";
 const root = resolve(import.meta.dir, "..");
 async function dependencias(entrypoints: string[]) {
   // Los source maps describen el código que realmente entra en cada bundle.
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-bundle-test-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-bundle-test-"));
   try {
     const build = Bun.spawn(
       [

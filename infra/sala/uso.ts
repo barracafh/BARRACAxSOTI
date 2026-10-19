@@ -1,5 +1,5 @@
-import { hash, loteSchema, validarLote } from "@hacknight/shared/contrato-uso";
-import type { Equipo, Evento } from "@hacknight/shared/modelo";
+import { hash, loteSchema, validarLote } from "@buildnight/shared/contrato-uso";
+import type { Equipo, Evento } from "@buildnight/shared/modelo";
 import { RegistroGitHub } from "../../apps/cli/src/registro/github";
 import { guardar, postgres, type Consulta } from "./almacen";
 import { lectorGitHub, registro } from "./estado";

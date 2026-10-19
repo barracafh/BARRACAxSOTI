@@ -19,10 +19,10 @@ Abrid un issue en vuestro repo con estos cuatro puntos; la organización lo vali
 
 Las dos piezas son entregas sucesivas del mismo squad, no dos squads.
 
-| Pieza                           | Alcance en unas 4 h                                                               | Hecho cuando…                                                                                |
-| ------------------------------- | --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| Propuesta de utilidad ciudadana | Acotar un problema y construir un único recorrido con datos públicos o simulados. | La organización valida alcance y fuentes; una persona puede completar la tarea de ejemplo.   |
-| Integración en el centro        | Publicar e integrar la misma herramienta con ficha, fuentes y botón de aviso.     | URL pública y `hacknight revisar` sin bloqueos; el README explica qué falta para producción. |
+| Pieza                           | Alcance en unas 4 h                                                               | Hecho cuando…                                                                                 |
+| ------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Propuesta de utilidad ciudadana | Acotar un problema y construir un único recorrido con datos públicos o simulados. | La organización valida alcance y fuentes; una persona puede completar la tarea de ejemplo.    |
+| Integración en el centro        | Publicar e integrar la misma herramienta con ficha, fuentes y botón de aviso.     | URL pública y `buildnight revisar` sin bloqueos; el README explica qué falta para producción. |
 
 ## Fuera de alcance
 

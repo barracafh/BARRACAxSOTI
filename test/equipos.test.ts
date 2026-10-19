@@ -3,7 +3,7 @@ import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join, posix, resolve } from "node:path";
 import { tmpdir } from "node:os";
 import { pathToFileURL } from "node:url";
-import { fichaSchema } from "@hacknight/shared/modelo";
+import { fichaSchema } from "@buildnight/shared/modelo";
 import {
   archivosEquipo,
   enlazar,
@@ -63,7 +63,7 @@ test("equipos: normaliza usuarios de Luma y rechaza repartos imposibles", async 
 
 test("equipos: cada repo trae su ficha y su track, y pasa revisar salvo la URL publicada", async () => {
   const tracks = await leerTracks();
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-equipos-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-equipos-"));
   try {
     for (const e of validarEquipos(seis, tracks)) {
       const files = await archivosEquipo(
@@ -184,7 +184,7 @@ test("equipos: sin reparto, el hub se publica vacío", async () => {
 });
 
 test("equipos: la simulación no ejecuta nada ni imprime claves", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-equipos-dry-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-equipos-dry-"));
   const previa = process.env.HELMCODE_API_KEY;
   process.env.HELMCODE_API_KEY = "synthetic-helmcode-value";
   try {

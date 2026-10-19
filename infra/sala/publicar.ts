@@ -1,7 +1,7 @@
 import { readdir } from "node:fs/promises";
 import { basename, join } from "node:path";
-import { eventoSchema } from "@hacknight/shared/modelo";
-import { paleta } from "@hacknight/shared/paleta";
+import { eventoSchema } from "@buildnight/shared/modelo";
+import { paleta } from "@buildnight/shared/paleta";
 import { paginaEvento } from "../../apps/server/src/marca";
 import {
   ejecutar,

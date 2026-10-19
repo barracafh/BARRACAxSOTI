@@ -2,8 +2,8 @@ import { join } from "node:path";
 import { homedir } from "node:os";
 import { readFile } from "node:fs/promises";
 import { z } from "zod";
-import { esAusente } from "@hacknight/shared/io";
-import { CliError } from "@hacknight/shared/errors";
+import { esAusente } from "@buildnight/shared/io";
+import { CliError } from "@buildnight/shared/errors";
 const schema = z.object({
   registro: z.string().optional(),
   avisos: z.string().optional(),
@@ -18,10 +18,10 @@ export type Options = {
   plain?: boolean;
 };
 export const rutaConfig = () =>
-  process.env.HACKNIGHT_CONFIG ??
+  process.env.BUILDNIGHT_CONFIG ??
   join(
     process.env.XDG_CONFIG_HOME ?? join(homedir(), ".config"),
-    "hacknight",
+    "buildnight",
     "config.json",
   );
 // releases stays optional in the type: without it, actualizar is disabled.
@@ -46,14 +46,14 @@ export async function config(opts: Options): Promise<{
   return {
     registro:
       opts.registro ??
-      process.env.HACKNIGHT_REGISTRO ??
+      process.env.BUILDNIGHT_REGISTRO ??
       file.registro ??
       "barracafh/build-registro",
     avisos:
-      process.env.HACKNIGHT_AVISOS ?? file.avisos ?? "barracafh/build-comite",
+      process.env.BUILDNIGHT_AVISOS ?? file.avisos ?? "barracafh/build-comite",
     releases:
       opts.releases ??
-      process.env.HACKNIGHT_RELEASES ??
+      process.env.BUILDNIGHT_RELEASES ??
       file.releases ??
       "barracafh/build-comite",
   };

@@ -3,7 +3,7 @@ import { cp, mkdtemp, mkdir, rm } from "node:fs/promises";
 import { join, resolve, relative } from "node:path";
 import { tmpdir } from "node:os";
 import { pathToFileURL } from "node:url";
-import { fichaSchema } from "@hacknight/shared/modelo";
+import { fichaSchema } from "@buildnight/shared/modelo";
 import { contexto } from "../apps/cli/src/lib/contexto";
 import { revisar, type Revision } from "../apps/cli/src/lib/revision";
 import { ejecutar } from "../apps/cli/src/lib/proceso";
@@ -25,7 +25,7 @@ async function copyTemplate(target: string) {
 }
 
 test("la plantilla independiente pasa revisar salvo la URL pública", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-template-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-template-"));
   try {
     const project = join(dir, "project");
     await copyTemplate(project);
@@ -47,7 +47,7 @@ test("la plantilla independiente pasa revisar salvo la URL pública", async () =
       {
         stdout: "pipe",
         stderr: "pipe",
-        env: { ...process.env, HACKNIGHT_CONFIG: join(dir, "no-config.json") },
+        env: { ...process.env, BUILDNIGHT_CONFIG: join(dir, "no-config.json") },
       },
     );
     const [output, stderr, status] = await Promise.all([

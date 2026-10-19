@@ -5,8 +5,8 @@ import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { z } from "zod";
 import { dniValido, ibanValido, detectar } from "../src/lib/detectores";
-import { RegistroLocal } from "@hacknight/shared/registro/local";
-import { fichaSchema, type Ficha } from "@hacknight/shared/modelo";
+import { RegistroLocal } from "@buildnight/shared/registro/local";
+import { fichaSchema, type Ficha } from "@buildnight/shared/modelo";
 import { numeroRegistro, justificante, sello } from "../src/lib/justificante";
 import {
   revisar,
@@ -17,7 +17,7 @@ import {
 } from "../src/lib/revision";
 import { validarFicha } from "../src/lib/ficha";
 import schema from "../esquemas/ficha.schema.json";
-import { eventoBase } from "@hacknight/shared/evento";
+import { eventoBase } from "@buildnight/shared/evento";
 const tempDirs: string[] = [];
 afterEach(async () => {
   for (const dir of tempDirs.splice(0))
@@ -130,7 +130,7 @@ test("el sello tiene doble borde, sangría fija y todas sus filas del mismo anch
 });
 
 test("local actualiza una ficha y conserva el número", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-reg-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-reg-"));
   tempDirs.push(dir);
   await mkdir(join(dir, "fichas"));
   const r = new RegistroLocal(dir);
@@ -164,12 +164,12 @@ test("URL con timeout da error", async () => {
   await expect(comprobarUrl("http://localhost", true, f)).rejects.toThrow();
 });
 test("revisión falla por DNI y botón, y se subsana", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-revision-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-revision-"));
   tempDirs.push(dir);
-  await mkdir(join(dir, ".hacknight"));
+  await mkdir(join(dir, ".buildnight"));
   await writeFile(
-    join(dir, ".hacknight/plantilla.json"),
-    JSON.stringify({ plantilla: "hacknight", version: "demo" }),
+    join(dir, ".buildnight/plantilla.json"),
+    JSON.stringify({ plantilla: "buildnight", version: "demo" }),
   );
   await writeFile(join(dir, "ficha.json"), JSON.stringify(fichaPrueba));
   await writeFile(join(dir, "app.ts"), 'const dni="12345678Z"');
@@ -222,7 +222,7 @@ test("revisión falla por DNI y botón, y se subsana", async () => {
       {
         stdout: "pipe",
         stderr: "pipe",
-        env: { ...process.env, HACKNIGHT_USUARIO: "demo-alba" },
+        env: { ...process.env, BUILDNIGHT_USUARIO: "demo-alba" },
       },
     );
     const data = JSON.parse(await new Response(p.stdout).text());
@@ -237,7 +237,7 @@ test("revisión falla por DNI y botón, y se subsana", async () => {
 });
 
 test("la ficha que se publicará se escanea aunque todavía no esté versionada", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-untracked-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-untracked-"));
   tempDirs.push(dir);
   await writeFile(join(dir, "app.ts"), "<BotonAviso />");
   for (const args of [
@@ -272,12 +272,12 @@ test("la ficha que se publicará se escanea aunque todavía no esté versionada"
 });
 
 test("la revisión detecta datos decodificados de la ficha y oculta sus valores", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-escaped-ficha-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-escaped-ficha-"));
   tempDirs.push(dir);
-  await mkdir(join(dir, ".hacknight"));
+  await mkdir(join(dir, ".buildnight"));
   await writeFile(
-    join(dir, ".hacknight/plantilla.json"),
-    JSON.stringify({ plantilla: "hacknight", version: "demo" }),
+    join(dir, ".buildnight/plantilla.json"),
+    JSON.stringify({ plantilla: "buildnight", version: "demo" }),
   );
   await writeFile(join(dir, "app.ts"), "<BotonAviso />");
   const syntheticDni = "12345678Z";

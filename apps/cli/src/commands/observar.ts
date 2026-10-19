@@ -1,6 +1,6 @@
 import type { Contexto } from "../lib/contexto";
 import { miEquipo } from "../lib/contexto";
-import { CliError } from "@hacknight/shared/errors";
+import { CliError } from "@buildnight/shared/errors";
 import { salida } from "../lib/output";
 import { panel, trackLabel, fit, terminalText } from "../lib/estilo";
 import { escanear, servidorDestino, SesionCaducada } from "../watcher/cliente";

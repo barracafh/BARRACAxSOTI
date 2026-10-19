@@ -1,12 +1,12 @@
 {
-  "name": "hacknight",
-  "version": "0.1.4",
+  "name": "buildnight",
+  "version": "0.1.5",
   "private": true,
   "type": "module",
   "license": "MIT",
   "description": "La ventanilla de BARRACA x SOTI · BUILD NIGHT",
   "bin": {
-    "hacknight": "./src/index.ts"
+    "buildnight": "./src/index.ts"
   },
   "scripts": {
     "dev": "bun src/index.ts",
@@ -24,6 +24,6 @@
     "@clack/prompts": "^1.7.0",
     "commander": "^14.0.3",
     "zod": "^4.1.0",
-    "@hacknight/shared": "workspace:*"
+    "@buildnight/shared": "workspace:*"
   }
 }

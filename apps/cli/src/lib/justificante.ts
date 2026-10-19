@@ -1,5 +1,5 @@
-import type { Evento, RegistroFicha, Track } from "@hacknight/shared/modelo";
-import { eventoBase } from "@hacknight/shared/evento";
+import type { Evento, RegistroFicha, Track } from "@buildnight/shared/modelo";
+import { eventoBase } from "@buildnight/shared/evento";
 import { fechaMadrid } from "./tiempo";
 import { paint, trackLabel, panel, terminalText, width, wrap } from "./estilo";
 export const numeroRegistro = (n: number) =>

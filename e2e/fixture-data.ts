@@ -4,7 +4,7 @@ import comite from "../test/fixtures/registro/comite.json" with { type: "json" }
 import type { Gestion } from "../packages/shared/src/registro/gestion";
 
 // Clave ficticia exclusiva del servidor efímero de pruebas.
-export const fixtureKey = "hacknight-browser-fixture-key-00000000";
+export const fixtureKey = "buildnight-browser-fixture-key-00000000";
 export const fixtureUrl = "http://127.0.0.1:4317";
 export const initialConfig = {
   evento,
