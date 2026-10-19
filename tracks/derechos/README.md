@@ -10,11 +10,11 @@ Ayudas del Estado, GVA y ayuntamiento con requisitos y enlace de solicitud. Pers
 
 Una pieza por squad, con unas 4 h de build y el pack preparado. Alcances propuestos para que los cierre el track lead.
 
-| Pieza                         | Alcance en 4 h                                                                                    | Hecho cuando…                                                                                              |
-| ----------------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| Ayudas para ti                | Filtrar un extracto pequeño de convocatorias por situación ficticia y territorio.                 | Devuelve ayudas con requisitos, fecha del dato y enlace de solicitud; explica cuando no hay coincidencias. |
-| Compatibilidades y requisitos | Mostrar una tabla revisada de requisitos y compatibilidades para las ayudas elegidas.             | Cada requisito tiene fuente; los casos no cubiertos salen como pendientes, sin prometer elegibilidad.      |
-| Calendario de convocatorias   | Listar apertura y cierre de las mismas convocatorias; acordar con Radar quién hace el calendario. | Distingue plazos cerrados, vigentes y sin fecha, con enlace al detalle oficial.                            |
+| Pieza                         | Alcance en 4 h                                                                        | Hecho cuando…                                                                                              |
+| ----------------------------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Ayudas para ti                | Filtrar un extracto pequeño de convocatorias por situación ficticia y territorio.     | Devuelve ayudas con requisitos, fecha del dato y enlace de solicitud; explica cuando no hay coincidencias. |
+| Compatibilidades y requisitos | Mostrar una tabla revisada de requisitos y compatibilidades para las ayudas elegidas. | Cada requisito tiene fuente; los casos no cubiertos salen como pendientes, sin prometer elegibilidad.      |
+| Calendario de convocatorias   | Listar apertura y cierre de las mismas convocatorias.                                 | Distingue plazos cerrados, vigentes y sin fecha, con enlace al detalle oficial.                            |
 
 ## Datos disponibles y estado
 
@@ -32,4 +32,4 @@ Hasta el 29/11: explicar condiciones, sin valorar gobiernos ni prometer prestaci
 
 ## Qué falta antes del 20/10
 
-Asignar track lead y revisión humana. Elegir las ayudas, revisar requisitos y cambio de RVI y coordinar el pack con Radar. Dejar los datos en `datos/` con su procedencia y fecha de consulta.
+Asignar revisión humana. Elegir las ayudas y revisar sus requisitos y el cambio de la RVI. Dejar los datos en `datos/` con su procedencia y fecha de consulta.
