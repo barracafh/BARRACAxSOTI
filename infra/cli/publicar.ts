@@ -3,9 +3,9 @@ import manifest from "../../apps/cli/package.json";
 import { VERSION } from "../../apps/cli/src/version";
 import { ejecutar, options, root, type Command } from "../common";
 
-// Releases live in the public registry: the monorepo is private, so its own
-// releases could not be downloaded by participants.
-const releases = "barracafh/build-registro";
+// Public, since the monorepo is private, and committee-only: squads get Write
+// on the registry, which would let anyone replace the binaries everyone installs.
+const releases = "barracafh/build-comite";
 const assets = [
   "hacknight-linux-x64",
   "hacknight-linux-arm64",

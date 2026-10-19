@@ -51,6 +51,6 @@ export async function config(opts: Options): Promise<{
       opts.releases ??
       process.env.HACKNIGHT_RELEASES ??
       file.releases ??
-      "barracafh/build-registro",
+      "barracafh/build-comite",
   };
 }

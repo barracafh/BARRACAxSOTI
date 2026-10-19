@@ -26,6 +26,8 @@ const dominio = "build.barraca.house";
 const hubProject = "build-hub";
 // The CLI's registry: every participant needs Write there to register.
 const registro = "barracafh/build-registro";
+// Never the registry: squads may not touch the binaries.
+const releases = "barracafh/build-comite";
 // A team's repo and Vercel project share this name.
 export const proyecto = (id: string) => `build-${id}`;
 // Copied to every project when set in this shell; track keys only to that track.
@@ -336,7 +338,7 @@ ${
 <h2>El CLI del evento</h2>
 <p>Vuestra ficha, la revisión de las seis reglas y el tablón. Con <code>gh auth login</code> hecho, en macOS o Linux:</p>
 <pre><code>curl -fsSL https://${dominio}/instalar.sh | sh</code></pre>
-<p>En Windows, descarga <code>hacknight-windows-x64.exe</code> de la <a href="https://github.com/${registro}/releases/latest">última release</a>.</p>
+<p>En Windows, descarga <code>hacknight-windows-x64.exe</code> de la <a href="https://github.com/${releases}/releases/latest">última release</a>.</p>
 </section>
 </main>
 </body>

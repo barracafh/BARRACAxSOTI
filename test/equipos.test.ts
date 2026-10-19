@@ -140,7 +140,7 @@ test("equipos: el hub reenvía cada ruta a su proyecto y escapa los nombres", as
 test("equipos: sin reparto, el hub se publica vacío", async () => {
   const tracks = await leerTracks();
   const files = await archivosHub(validarEquipos([], tracks), tracks, {});
-  expect(files["instalar.sh"]).toContain("barracafh/build-registro");
+  expect(files["instalar.sh"]).toContain("barracafh/build-comite");
   expect(JSON.parse(files["vercel.json"] as string).rewrites).toEqual([]);
   expect(files["index.html"]).toContain("cuando cada equipo publica la suya");
 });

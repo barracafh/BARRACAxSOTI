@@ -17,7 +17,7 @@ bun run --cwd apps/cli build:bin:host
 
 El binario es autónomo. Cópialo a un directorio de tu `PATH` si quieres invocarlo como `hacknight`. Git es necesario para revisar; para el backend GitHub también hace falta `gh` instalado y `gh auth login`. Se usa su sesión existente, sin guardar credenciales propias.
 
-Las releases se publican en el registro público, `barracafh/build-registro`, con `bun infra/cli/publicar.ts`. El instalador descarga el asset de la plataforma y comprueba `SHA256SUMS`; `HACKNIGHT_RELEASES` cambia el repo:
+Las releases se publican en `barracafh/build-comite`, público y solo con escritura del comité (los squads escriben en el registro), con `bun infra/cli/publicar.ts`. El instalador descarga el asset de la plataforma y comprueba `SHA256SUMS`; `HACKNIGHT_RELEASES` cambia el repo:
 
 ```sh
 curl -fsSL https://build.barraca.house/instalar.sh | sh
@@ -96,11 +96,11 @@ Precedencia: flag → variable de entorno → `~/.config/hacknight/config.json` 
 ```json
 {
   "registro": "barracafh/build-registro",
-  "releases": "barracafh/build-registro"
+  "releases": "barracafh/build-comite"
 }
 ```
 
-El registro por defecto es `barracafh/build-registro`. Variables equivalentes: `HACKNIGHT_REGISTRO` y `HACKNIGHT_RELEASES`. Los repos de los squads los crea `infra/equipos` desde la [plantilla real](../../plantilla/README.md), con su ficha y el marcador `.hacknight/plantilla.json` que exige `revisar`.
+El registro por defecto es `barracafh/build-registro`, y las releases, `barracafh/build-comite`. Variables equivalentes: `HACKNIGHT_REGISTRO` y `HACKNIGHT_RELEASES`. Los repos de los squads los crea `infra/equipos` desde la [plantilla real](../../plantilla/README.md), con su ficha y el marcador `.hacknight/plantilla.json` que exige `revisar`.
 
 ## Montar el registro: guía del comité
 
@@ -190,7 +190,7 @@ La paleta común está en [packages/shared/src/paleta.ts](../../packages/shared/
 
 El CLI no lleva logo: muestra el wordmark (77 columnas) y, en terminal estrecho, `☾ build night`. Dentro de cajas se usa `☾` para mantener la alineación. `NO_COLOR` desactiva el color.
 
-`scripts/build-all.sh` compila macOS/Linux x64/arm64 y Windows x64; produce `dist/SHA256SUMS`. `--host` solo compila esta máquina y `--target bun-<os>-<arch>` compila una plataforma de la matriz. El script no publica; [release-cli.yml](../../.github/workflows/release-cli.yml) comprueba la versión y compila los cinco targets al subir un tag, y `infra/cli/publicar.ts` publica la release en el registro. Las releases deben usar tags `cli-vX.Y.Z`, assets `hacknight-<os>-<arch>[.exe]` y `SHA256SUMS`. Ajusta `package.json` y `src/version.ts` juntos antes de versionar.
+`scripts/build-all.sh` compila macOS/Linux x64/arm64 y Windows x64; produce `dist/SHA256SUMS`. `--host` solo compila esta máquina y `--target bun-<os>-<arch>` compila una plataforma de la matriz. El script no publica; [release-cli.yml](../../.github/workflows/release-cli.yml) comprueba la versión y compila los cinco targets al subir un tag, y `infra/cli/publicar.ts` publica la release en `barracafh/build-comite`. Las releases deben usar tags `cli-vX.Y.Z`, assets `hacknight-<os>-<arch>[.exe]` y `SHA256SUMS`. Ajusta `package.json` y `src/version.ts` juntos antes de versionar.
 
 ## Créditos
 
