@@ -44,7 +44,7 @@ export async function registryPlan(
       .map((path) => `${path} ${reviewers.join(" ")}`)
       .join("\n") + "\n";
   files["README.md"] =
-    "# Registro del evento\n\nAsignaciones del comité y fichas de los squads. Los cambios entran por PR; los avisos del comité usan Issues. No subas claves ni datos personales.\n";
+    "# Registro del evento\n\nAsignaciones del comité y fichas de los squads. Los cambios entran por PR. No subas claves ni datos personales.\n";
   return {
     files,
     commands: [
@@ -59,19 +59,6 @@ export async function registryPlan(
           "--source=.",
           "--remote=origin",
           "--push",
-        ],
-      },
-      {
-        args: [
-          "gh",
-          "label",
-          "create",
-          "aviso",
-          "--repo",
-          repo,
-          "--color",
-          "FF2E88",
-          "--force",
         ],
       },
       {

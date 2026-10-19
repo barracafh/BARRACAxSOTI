@@ -27,7 +27,7 @@ export async function contexto(opts: Options): Promise<Contexto> {
     cwd: resolve(opts.cwd ?? process.cwd()),
     registro: local
       ? new RegistroLocal(fileURLToPath(cfg.registro), opts.usuario)
-      : new RegistroGitHub(cfg.registro),
+      : new RegistroGitHub(cfg.registro, undefined, cfg.avisos),
   };
 }
 export async function identidad(ctx: Contexto) {

@@ -97,6 +97,24 @@ test("GitHub pagina las issues sin mezclar PRs", async () => {
   expect(count).toBe(2);
 });
 
+test("GitHub lee los avisos del repo del comité y las fichas del registro", async () => {
+  const paths: string[] = [];
+  const r = new RegistroGitHub(
+    "owner/registry",
+    async (args) => {
+      paths.push(args[2]!);
+      return "[]";
+    },
+    "owner/comite",
+  );
+  await r.issues();
+  await r.fichas();
+  expect(paths).toEqual([
+    "repos/owner/comite/issues?state=all&per_page=100&page=1",
+    "repos/owner/registry/pulls?state=all&per_page=100&page=1",
+  ]);
+});
+
 test("GitHub conserva la pantalla cuando un squad todavía no ha creado su repo", async () => {
   const files: Record<string, unknown> = {};
   for (const name of [
