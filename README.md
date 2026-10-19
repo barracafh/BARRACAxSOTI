@@ -2,13 +2,13 @@
 
 Una noche para construir entre todos **una plataforma de atención ciudadana**: un centro único («¿qué necesitas?») y las herramientas que lo llenan, una por squad. El reto es la fricción del día a día con la administración: trámites opacos, ayudas que nadie encuentra, PDFs ilegibles y citas imposibles.
 
-|               |                                                                                                    |
-| ------------- | -------------------------------------------------------------------------------------------------- |
-| **Cuándo**    | Jueves 22 de octubre de 2026, de 17:00 a 23:00                                                     |
-| **Dónde**     | Flywire, València                                                                                  |
-| **Quién**     | Unos 50 builders en squads de 3 a 5 personas                                                       |
-| **Organizan** | BARRACA x SOTI                                                                                     |
-| **Formato**   | No hay premios: se gana si la plataforma funciona. Cada squad publica su pieza antes de las 22:00. |
+|               |                                                                                                          |
+| ------------- | -------------------------------------------------------------------------------------------------------- |
+| **Cuándo**    | Jueves 22 de octubre de 2026, de 17:00 a 23:00                                                           |
+| **Dónde**     | Flywire, València                                                                                        |
+| **Quién**     | Unos 50 builders en squads de 3 a 5 personas                                                             |
+| **Organizan** | BARRACA x SOTI                                                                                           |
+| **Formato**   | No hay premios: se gana si la plataforma funciona. Cada squad publica su herramienta antes de las 22:00. |
 
 Este es el monorepo de la organización: CLI, web, tracks, plantilla e infra. **Cada squad construye en su propio repo**, que la organización crea desde la [plantilla común](plantilla/README.md) con [infra/equipos](infra/equipos/README.md).
 
@@ -28,7 +28,7 @@ Horario provisional:
 
 ## Los tracks
 
-Cada track es una herramienta de la plataforma. Son los seis publicados: hasta dos squads por track con el mismo reto, y uno solo en el track libre.
+Cada track es una herramienta de la plataforma. Son los seis publicados: puede haber hasta dos squads por track, los dos con el mismo reto, y uno solo en el track libre.
 
 | Track           | Qué hace por ti                                                                    |
 | --------------- | ---------------------------------------------------------------------------------- |
@@ -100,12 +100,12 @@ Comprueba que todo responde con `git --version`, `bun --version` y `gh auth stat
 curl -fsSL https://build.barraca.house/instalar.sh | sh
 ```
 
-El instalador es [`apps/cli/install.sh`](apps/cli/install.sh): descarga de la [última release](https://github.com/barracafh/build-registro/releases/latest) el binario de tu plataforma, comprueba su SHA256 con `SHA256SUMS` y lo deja en `~/.local/bin` (`HACKNIGHT_INSTALL_DIR` cambia el destino). En Windows, descarga `hacknight-windows-x64.exe` de esa misma release.
+El instalador es [`apps/cli/install.sh`](apps/cli/install.sh): descarga de la [última release](https://github.com/barracafh/build-comite/releases/latest) el binario de tu plataforma, comprueba su SHA256 con `SHA256SUMS` y lo deja en `~/.local/bin` (`HACKNIGHT_INSTALL_DIR` cambia el destino). En Windows, descarga `hacknight-windows-x64.exe` de esa misma release.
 
 Para comprobar un binario a mano:
 
 ```sh
-gh release download -R barracafh/build-registro -p 'hacknight-darwin-arm64' -p SHA256SUMS
+gh release download -R barracafh/build-comite -p 'hacknight-darwin-arm64' -p SHA256SUMS
 shasum -a 256 -c --ignore-missing SHA256SUMS
 ```
 

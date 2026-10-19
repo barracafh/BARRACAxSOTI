@@ -114,7 +114,7 @@ export async function ficha(ctx: Contexto, accion?: string, desde?: string) {
   }
   const data = validarFicha(
     {
-      nombre: await ask("Nombre", old.nombre ?? equipo.pieza),
+      nombre: await ask("Nombre", old.nombre ?? track.nombre),
       frase: await ask("Frase", old.frase ?? track.frase),
       icono: await ask("Icono o glifo", old.icono ?? track.glifo),
       herramienta,

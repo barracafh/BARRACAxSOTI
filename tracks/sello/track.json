@@ -7,7 +7,6 @@
   "color": "magenta",
   "glifo": "#",
   "estado": "nucleo",
-  "lead": "por asignar",
   "piezas": ["¿Esta web es oficial?", "¿Este mensaje es de verdad?"],
   "fuentes": [
     {
@@ -17,7 +16,7 @@
   ],
   "dificultad": "Media",
   "guias": [
-    "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales.",
+    "Cada squad construye las piezas que le dé tiempo. Cita la fuente oficial y no uses datos personales reales.",
     "Atribuye cada comprobación a su fuente: una lista de dominios oficiales no certifica que una página sea segura."
   ]
 }

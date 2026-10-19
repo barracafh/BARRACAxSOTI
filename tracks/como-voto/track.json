@@ -7,7 +7,6 @@
   "color": "muted",
   "glifo": "*",
   "estado": "nucleo",
-  "lead": "por asignar",
   "piezas": [
     "Voto por correo, aquí y fuera",
     "¿Es verdad lo que me han dicho?",
@@ -33,7 +32,7 @@
   ],
   "dificultad": "Fácil",
   "guias": [
-    "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales.",
+    "Cada squad construye las piezas que le dé tiempo. Cita la fuente oficial y no uses datos personales reales.",
     "Cada fecha debe citar BOE o Junta Electoral. El calendario del pack está comprobado en el BOE y la JEC (18/10)."
   ]
 }

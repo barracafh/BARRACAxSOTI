@@ -7,7 +7,6 @@
   "color": "paper",
   "glifo": "?",
   "estado": "libre",
-  "lead": "por asignar",
   "piezas": ["Propuesta de utilidad ciudadana", "Integración en el centro"],
   "fuentes": [
     {
@@ -17,7 +16,7 @@
   ],
   "dificultad": "Por acotar",
   "guias": [
-    "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+    "Un solo squad completa las dos piezas. Cita la fuente oficial y no uses datos personales reales."
   ],
   "cupo": 1
 }

@@ -4,13 +4,15 @@
 
 Comprueba si una web, un SMS o un aviso es oficial de verdad y, si no lo es, te dice cuál es la buena. Antiphishing contra las estafas que suplantan a la DGT, a Hacienda y a otros organismos.
 
-Equipos: `sello-a` y `sello-b`: mismo reto, una pieza cada uno.
+Puede haber hasta dos squads en este track, los dos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden que prefiera.
 
 ## Qué se espera en la demo
 
 Pegar un mensaje o una URL y obtener un veredicto (oficial, sospechoso o fraude), el motivo y la web oficial correcta.
 
 ## Piezas
+
+El reto se puede abordar por partes. Elegid las que os dé tiempo y en el orden que queráis.
 
 | Pieza                       | Alcance en unas 4 h                                                                               | Hecho cuando…                                                                                                                                    |
 | --------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |

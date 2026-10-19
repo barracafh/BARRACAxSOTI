@@ -4,13 +4,15 @@
 
 Le cuentas tu problema con tus palabras y te dice qué trámite es, los pasos y el enlace directo a la sede. La necesidad es humana («me han echado», «me empadrono») y la sede habla en organigramas.
 
-Equipos: `brujula-a` y `brujula-b`: mismo reto, una pieza cada uno.
+Puede haber hasta dos squads en este track, los dos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden de abajo.
 
 ## Qué se espera en la demo
 
-A partir de una frase como «me han echado del trabajo», la herramienta identifica el trámite (en este caso, la prestación por desempleo), da los pasos en orden, la documentación y el plazo, y enlaza a la sede correspondiente.
+A partir de una frase como «me han echado del trabajo», la herramienta identifica el trámite (en este caso, la prestación por desempleo), da los pasos en orden, la documentación y el plazo, y enlaza a la sede correspondiente. El voto por correo del 29-N no se explica aquí: remite a la herramienta de ¿Cómo voto? del centro (`https://build.barraca.house`).
 
 ## Piezas
+
+El reto se puede abordar por partes. Haced las que os dé tiempo. Empezad por «Qué trámite necesito»: «Y después, ¿qué?» parte del trámite que identifica.
 
 | Pieza                | Alcance en unas 4 h                                                                                                | Hecho cuando…                                                                                                             |
 | -------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
@@ -21,7 +23,7 @@ A partir de una frase como «me han echado del trabajo», la herramienta identif
 
 - `catalogo-tramites-ayudas.json`: 21 entradas (13 trámites y 8 ayudas), el mismo catálogo que el track 1.
   - Cada entrada incluye `frases_usuario` (cómo lo pide la gente, con una frase en valenciano), `pasos`, `documentacion`, `plazo`, `enlace_info`, `enlace_tramite`, `fuente`, `verificado` y `relacionados`.
-  - Trámites incluidos: prestación y subsidio por desempleo, inscripción en Labora, alta y certificado de padrón en València, cambio de domicilio en la DGT, renovación del DNI, vida laboral, identificación digital (Cl@ve y certificado), declaración de la renta, tarjeta sanitaria SIP, cita médica de la GVA, voto por correo del 29-N y multas de la DGT.
+  - Trámites incluidos: prestación y subsidio por desempleo, inscripción en Labora, alta y certificado de padrón en València, cambio de domicilio en la DGT, renovación del DNI, vida laboral, identificación digital (Cl@ve y certificado), declaración de la renta, tarjeta sanitaria SIP, cita médica de la GVA, voto por correo del 29-N (remite a ¿Cómo voto?) y multas de la DGT.
 
 ## Fuentes oficiales
 

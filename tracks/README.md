@@ -1,6 +1,6 @@
 # Tracks
 
-Aquí edita cada track lead el material de su herramienta. Los squads construyen en sus propios repos, que la organización crea desde `plantilla/` con `infra/equipos/`.
+Aquí edita el comité el material de cada herramienta. Los squads construyen en sus propios repos, que la organización crea desde `plantilla/` con `infra/equipos/`.
 
 - `<slug>/track.json`: fuente de verdad del catálogo del CLI y el servidor.
 - `<slug>/SETUP.md`: el reto, las piezas con su criterio de hecho y el resumen para el agente. Se copia al repo de cada squad.
@@ -13,7 +13,7 @@ Aquí edita cada track lead el material de su herramienta. Los squads construyen
 ## Editar un track
 
 1. Cambia su `track.json`, su `SETUP.md` y su ficha. Las piezas de `track.json` y las de `SETUP.md` deben coincidir. Conserva el slug si ya tiene equipos asignados. Para descartar uno, borra su carpeta.
-2. Mantén 2–3 piezas, una por squad. El track libre tiene una excepción explícita: un solo squad completa sus dos entregas.
+2. Mantén 2–3 piezas: cada squad del track construye las que le dé tiempo. Si una pieza necesita a otra, indica el orden en `SETUP.md`; si no, cada squad elige el suyo. El track libre tiene una excepción explícita: un solo squad completa sus dos entregas.
 3. Ejecuta `bun run tracks:generar` y `bun run check`. Incluye también el JSON generado en el commit; **no edites a mano** `packages/shared/registro-base/tracks.json`. El test exige que esté al día.
 
 El generador ordena por ventanilla y valida rutas, esquema y unicidad de slug y ventanilla. `bun run tracks:comprobar` solo comprueba, sin escribir.

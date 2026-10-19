@@ -1,6 +1,6 @@
 # Build night · BARRACA x SOTI
 
-Este repo es la herramienta de un equipo para la plataforma de atención ciudadana del Build night (jueves 22 de octubre de 2026, València). Antes de escribir código, lee `SETUP.md`: el reto del track, la demo esperada, los riesgos y los archivos de `datos/`. `contexto.md` es el marco de conocimiento verificado del track; es largo, así que busca en él en vez de leerlo entero.
+Este repo es la herramienta de un equipo para la plataforma de atención ciudadana del Build night (jueves 22 de octubre de 2026, València). Antes de escribir código, lee `SETUP.md`: el reto del track, la demo esperada, los riesgos y los archivos de `datos/`. `contexto.md` es el marco de conocimiento verificado del track; es largo, así que busca en él en vez de leerlo entero. Lo completan los ficheros de `comun/` (territorio, competencias y, en algunos tracks, gestores de expedientes), que `contexto.md` cita por su código: 00, 00b y 04b.
 
 ## Cómo está montado
 
@@ -36,4 +36,4 @@ Todas las herramientas de la plataforma usan Sol, el sistema visual de Reforma D
 4. Ante la duda, la herramienta dice que no puede confirmarlo y enlaza la sede oficial. Nunca inventa importes, plazos ni requisitos.
 5. Se conservan el aviso «Herramienta experimental. No es un servicio oficial.» y el botón «¿Algo está mal? Avísanos».
 6. `ficha.json` describe la herramienta: nombre, frase, icono, fuentes y `datos` (`simulados`, o `reales` si son datos públicos).
-7. `datos/`, `contexto.md` y `SETUP.md` son material de la organización: no los editéis. Vuestros datos van en otra carpeta, por ejemplo `src/datos/`.
+7. `datos/`, `comun/`, `contexto.md` y `SETUP.md` son material de la organización: no los editéis. Vuestros datos van en otra carpeta, por ejemplo `src/datos/`.

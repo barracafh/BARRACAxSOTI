@@ -7,7 +7,6 @@
   "color": "acid",
   "glifo": "+",
   "estado": "nucleo",
-  "lead": "por asignar",
   "piezas": ["Ayudas para ti", "Convocatorias en vivo"],
   "fuentes": [
     {
@@ -21,6 +20,6 @@
   ],
   "dificultad": "Fácil",
   "guias": [
-    "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+    "Cada squad construye las piezas que le dé tiempo. Cita la fuente oficial y no uses datos personales reales."
   ]
 }

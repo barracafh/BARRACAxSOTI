@@ -4,13 +4,15 @@
 
 El ciudadano cuenta su situación con sus palabras y la herramienta le dice a qué ayudas públicas (estatales, autonómicas y municipales) **podría optar** y dónde pedirlas. Hoy están repartidas entre administraciones y nadie te dice a cuáles puedes optar.
 
-Equipos: `derechos-a` y `derechos-b`: mismo reto, una pieza cada uno.
+Puede haber hasta dos squads en este track, los dos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden que prefiera.
 
 ## Qué se espera en la demo
 
 A partir de una descripción como «tengo 24 años, estoy en paro y vivo de alquiler en València», la herramienta devuelve varias ayudas con el motivo por el que encajan, los requisitos que hay que comprobar, su estado (abierta, cerrada o permanente) y el enlace oficial.
 
 ## Piezas
+
+El reto se puede abordar por partes. Elegid las que os dé tiempo y en el orden que queráis.
 
 | Pieza                 | Alcance en unas 4 h                                                                                                        | Hecho cuando…                                                                                                                                                           |
 | --------------------- | -------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

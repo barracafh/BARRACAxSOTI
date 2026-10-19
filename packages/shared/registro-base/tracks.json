@@ -8,7 +8,6 @@
     "color": "cian",
     "glifo": ">",
     "estado": "nucleo",
-    "lead": "por asignar",
     "piezas": ["Qué trámite necesito", "Y después, ¿qué?"],
     "fuentes": [
       { "nombre": "www.gva.es", "url": "https://www.gva.es/" },
@@ -20,7 +19,7 @@
     ],
     "dificultad": "Fácil",
     "guias": [
-      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+      "Cada squad construye las piezas que le dé tiempo. Cita la fuente oficial y no uses datos personales reales."
     ]
   },
   {
@@ -32,7 +31,6 @@
     "color": "acid",
     "glifo": "+",
     "estado": "nucleo",
-    "lead": "por asignar",
     "piezas": ["Ayudas para ti", "Convocatorias en vivo"],
     "fuentes": [
       {
@@ -43,7 +41,7 @@
     ],
     "dificultad": "Fácil",
     "guias": [
-      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+      "Cada squad construye las piezas que le dé tiempo. Cita la fuente oficial y no uses datos personales reales."
     ]
   },
   {
@@ -55,7 +53,6 @@
     "color": "after",
     "glifo": "=",
     "estado": "nucleo",
-    "lead": "por asignar",
     "piezas": ["Del PDF a la checklist", "De la foto a la checklist"],
     "fuentes": [
       {
@@ -65,7 +62,7 @@
     ],
     "dificultad": "Fácil",
     "guias": [
-      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales.",
+      "Cada squad construye las piezas que le dé tiempo. Cita la fuente oficial y no uses datos personales reales.",
       "Prueba solo con los documentos ficticios del pack, nunca con notificaciones reales de personas."
     ]
   },
@@ -78,7 +75,6 @@
     "color": "magenta",
     "glifo": "#",
     "estado": "nucleo",
-    "lead": "por asignar",
     "piezas": ["¿Esta web es oficial?", "¿Este mensaje es de verdad?"],
     "fuentes": [
       {
@@ -88,7 +84,7 @@
     ],
     "dificultad": "Media",
     "guias": [
-      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales.",
+      "Cada squad construye las piezas que le dé tiempo. Cita la fuente oficial y no uses datos personales reales.",
       "Atribuye cada comprobación a su fuente: una lista de dominios oficiales no certifica que una página sea segura."
     ]
   },
@@ -101,7 +97,6 @@
     "color": "muted",
     "glifo": "*",
     "estado": "nucleo",
-    "lead": "por asignar",
     "piezas": [
       "Voto por correo, aquí y fuera",
       "¿Es verdad lo que me han dicho?",
@@ -118,7 +113,7 @@
     ],
     "dificultad": "Fácil",
     "guias": [
-      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales.",
+      "Cada squad construye las piezas que le dé tiempo. Cita la fuente oficial y no uses datos personales reales.",
       "Cada fecha debe citar BOE o Junta Electoral. El calendario del pack está comprobado en el BOE y la JEC (18/10)."
     ]
   },
@@ -131,12 +126,11 @@
     "color": "paper",
     "glifo": "?",
     "estado": "libre",
-    "lead": "por asignar",
     "piezas": ["Propuesta de utilidad ciudadana", "Integración en el centro"],
     "fuentes": [{ "nombre": "datos.gob.es", "url": "https://datos.gob.es/" }],
     "dificultad": "Por acotar",
     "guias": [
-      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+      "Un solo squad completa las dos piezas. Cita la fuente oficial y no uses datos personales reales."
     ],
     "cupo": 1
   }

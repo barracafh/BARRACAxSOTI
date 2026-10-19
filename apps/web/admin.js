@@ -78,7 +78,7 @@ function renderTeams() {
     ? teams
         .map(
           (t, i) =>
-            `<article class="admin-team"><p class="eyebrow">MESA ${esc(t.mesa)} · ${esc(state.tracks.find((s) => s.slug === t.herramienta)?.nombre ?? t.herramienta)}</p><h3>${esc(t.nombre)}</h3><p>${esc(t.pieza)}</p><p class="team-members">${t.miembros.length ? t.miembros.map((m) => `<span>@${esc(m)}</span>`).join("") : "Sin participantes asignados"}</p><div class="team-actions"><button type="button" data-edit="${i}">Editar ${esc(t.nombre)}</button><button type="button" data-remove="${i}">Quitar equipo</button></div></article>`,
+            `<article class="admin-team"><p class="eyebrow">MESA ${esc(t.mesa)} · ${esc(state.tracks.find((s) => s.slug === t.herramienta)?.nombre ?? t.herramienta)}</p><h3>${esc(t.nombre)}</h3><p class="team-members">${t.miembros.length ? t.miembros.map((m) => `<span>@${esc(m)}</span>`).join("") : "Sin participantes asignados"}</p><div class="team-actions"><button type="button" data-edit="${i}">Editar ${esc(t.nombre)}</button><button type="button" data-remove="${i}">Quitar equipo</button></div></article>`,
         )
         .join("")
     : '<div class="empty admin-empty"><h3>Todo empieza con un equipo.</h3><p>Aún no hay equipos ni participantes. Crea el primero y asígnale su negociado.</p></div>';
@@ -187,14 +187,6 @@ form.addEventListener("submit", async (e) => {
       .forEach((b) => (b.disabled = false));
   }
 });
-function pieces() {
-  $("piezas").innerHTML = (
-    state.tracks.find((t) => t.slug === teamField("herramienta").value)
-      ?.piezas ?? []
-  )
-    .map((p) => `<option value="${esc(p)}">`)
-    .join("");
-}
 function editTeam(i = null) {
   editing = i;
   teamForm.reset();
@@ -208,14 +200,14 @@ function editTeam(i = null) {
     )
     .join("");
   if (i !== null)
-    for (const [key, value] of Object.entries(teams[i]))
-      teamField(key).value = Array.isArray(value) ? value.join("\n") : value;
+    for (const [key, value] of Object.entries(teams[i])) {
+      const field = teamField(key);
+      if (field) field.value = Array.isArray(value) ? value.join("\n") : value;
+    }
   teamField("id").readOnly = i !== null;
   $("equipo-error").hidden = true;
-  pieces();
   $("equipo-dialog").showModal();
 }
-teamField("herramienta").addEventListener("change", pieces);
 $("nuevo-equipo").addEventListener("click", () => editTeam());
 $("cancelar-equipo").addEventListener("click", () =>
   $("equipo-dialog").close(),
