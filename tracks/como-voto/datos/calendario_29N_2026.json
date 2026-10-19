@@ -1,7 +1,7 @@
 {
   "eleccion": "Elecciones Generales (Congreso y Senado) 29 de noviembre de 2026",
   "norma": "Real Decreto 806/2026, de 5 de octubre, de disolución del Congreso de los Diputados y del Senado y de convocatoria de elecciones (BOE-A-2026-20742)",
-  "nota": "Fechas comprobadas el 2026-10-18 en el BOE (Real Decreto 806/2026 y LOREG consolidada) y en el calendario electoral de la Junta Electoral Central (PDF de 05/10/2026). Cubre a los residentes en España, a los residentes en el extranjero (CERA) y a los temporalmente ausentes (ERTA).",
+  "nota": "Fechas comprobadas el 2026-10-18 en el BOE (Real Decreto 806/2026 y LOREG consolidada) y en el calendario electoral de la Junta Electoral Central (PDF de 05/10/2026), y el 2026-10-19 en los plazos para electores del INE (Oficina del Censo Electoral). Cubre a los residentes en España, a los residentes en el extranjero (CERA) y a los temporalmente ausentes (ERTA). Donde el INE y la JEC dan un inicio distinto para un plazo, la entrada lo indica.",
   "fechas": [
     {
       "id": "convocatoria_boe",
@@ -27,18 +27,9 @@
       "id": "voto_correo_solicitud",
       "fecha_inicio": "2026-10-06",
       "fecha_fin": "2026-11-19",
-      "evento": "Solicitud del voto por correo (residentes en España)",
-      "fuente": "https://www.juntaelectoralcentral.es/cs/jec/documentos/eg2026_calendario.pdf"
-    },
-    {
-      "id": "cera_voto_correo",
-      "fecha_inicio": "2026-10-06",
-      "fecha_fin": "2026-11-24",
-      "evento": "Envío del voto por correo de los residentes en el extranjero (CERA) a la oficina consular en la que están inscritos",
+      "evento": "Solicitud del voto por correo (residentes en España y residentes en el extranjero que están temporalmente en España)",
       "fuente": "https://www.juntaelectoralcentral.es/cs/jec/documentos/eg2026_calendario.pdf",
-      "fuentes_adicionales": [
-        "https://www.boe.es/buscar/act.php?id=BOE-A-1985-11672#asetentaycinco"
-      ]
+      "fuentes_adicionales": ["https://www.ine.es/dyngs/CEL/index.htm?cid=1702"]
     },
     {
       "id": "coaliciones",
@@ -107,15 +98,36 @@
       "id": "erta_envio_documentacion",
       "fecha_inicio": "2026-11-03",
       "fecha_fin": "2026-11-09",
-      "evento": "Envío de la documentación de voto a los temporalmente ausentes (ERTA) si no hay recursos contra la proclamación; si los hay, desde su resolución",
-      "fuente": "https://www.juntaelectoralcentral.es/cs/jec/documentos/eg2026_calendario.pdf"
+      "evento": "Envío de la documentación de voto a los temporalmente ausentes (ERTA) si no hay recursos contra la proclamación; si los hay, desde su resolución (el INE da del 10 al 17 de noviembre)",
+      "fuente": "https://www.juntaelectoralcentral.es/cs/jec/documentos/eg2026_calendario.pdf",
+      "fuentes_adicionales": ["https://www.ine.es/dyngs/CEL/index.htm?cid=1702"]
+    },
+    {
+      "id": "erta_remision_voto",
+      "fecha_inicio": "2026-11-03",
+      "fecha_fin": "2026-11-25",
+      "evento": "Envío del voto de los temporalmente ausentes (ERTA) por correo certificado a su mesa en España, desde que reciben la documentación y hasta antes del tercer día previo a la elección",
+      "fuente": "https://www.juntaelectoralcentral.es/cs/jec/documentos/eg2026_calendario.pdf",
+      "fuentes_adicionales": ["https://www.ine.es/dyngs/CEL/index.htm?cid=1702"]
     },
     {
       "id": "cera_envio_papeletas",
       "fecha_inicio": "2026-11-04",
       "fecha_fin": "2026-11-08",
-      "evento": "Envío de las papeletas oficiales a los residentes en el extranjero (CERA); del 6 al 14 de noviembre si hay recursos contra la proclamación",
+      "evento": "Envío de las papeletas oficiales a los residentes en el extranjero (CERA); si hay recursos contra la proclamación, del 6 al 14 de noviembre según la JEC (del 9 al 14 según el INE)",
       "fuente": "https://www.juntaelectoralcentral.es/cs/jec/documentos/eg2026_calendario.pdf"
+    },
+    {
+      "id": "cera_voto_correo",
+      "fecha_inicio": "2026-11-04",
+      "fecha_fin": "2026-11-24",
+      "evento": "Envío del voto por correo de los residentes en el extranjero (CERA) a la oficina consular en la que están inscritos",
+      "nota": "La JEC fija el inicio formal el 6/10, pero no son válidos los sobres que lleguen al consulado antes de la proclamación definitiva de candidaturas ni después del 27/11 (art. 75.7 LOREG). El INE da del 4 al 24 de noviembre.",
+      "fuente": "https://www.juntaelectoralcentral.es/cs/jec/documentos/eg2026_calendario.pdf",
+      "fuentes_adicionales": [
+        "https://www.ine.es/dyngs/CEL/index.htm?cid=1702",
+        "https://www.boe.es/buscar/act.php?id=BOE-A-1985-11672#asetentaycinco"
+      ]
     },
     {
       "id": "voto_correo_envio_documentacion",
@@ -128,10 +140,11 @@
       "id": "voto_correo_remision",
       "fecha_inicio": "2026-11-10",
       "fecha_fin": "2026-11-25",
-      "evento": "Envío del voto por correo certificado, sin franqueo, desde que se recibe la documentación hasta antes del tercer día previo a la elección (residentes en España y ERTA)",
+      "evento": "Envío del voto por correo certificado, sin franqueo, desde que se recibe la documentación hasta antes del tercer día previo a la elección (residentes en España y residentes en el extranjero que están temporalmente en España). El INE da como inicio el 9 de noviembre",
       "fuente": "https://www.juntaelectoralcentral.es/cs/jec/documentos/eg2026_calendario.pdf",
       "fuentes_adicionales": [
-        "https://www.boe.es/buscar/act.php?id=BOE-A-1985-11672#asetentaytres"
+        "https://www.boe.es/buscar/act.php?id=BOE-A-1985-11672#asetentaytres",
+        "https://www.ine.es/dyngs/CEL/index.htm?cid=1702"
       ]
     },
     {
@@ -168,6 +181,7 @@
       "id": "votacion",
       "fecha": "2026-11-29",
       "evento": "Jornada de votación, de 9:00 a 20:00",
+      "nota": "La fecha la fija el Real Decreto 806/2026 (art. 2); el horario, de 9:00 a 20:00, el art. 84.1 de la LOREG.",
       "fuente": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-20742",
       "fuentes_adicionales": [
         "https://www.boe.es/buscar/act.php?id=BOE-A-1985-11672#aochentaycuatro"

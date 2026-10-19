@@ -19,4 +19,4 @@ El reto, las piezas con su criterio de hecho y el resumen para el agente están 
 
 ## Riesgos
 
-Riesgo electoral alto hasta el 29/11: solo el proceso, sin candidatos, encuestas ni proyecciones. Los bulos se contrastan solo si tratan de cómo se vota. No recoger datos censales ni recomendar voto. Convocatoria y calendario comprobados el 18/10 en el BOE y la JEC; si la JEC publica cambios, actualizar `datos/calendario_29N_2026.json`.
+Riesgo electoral alto hasta el 29/11: solo el proceso, sin candidatos, programas, encuestas ni proyecciones. Los bulos se contrastan solo si tratan de cómo se vota. No recoger datos censales ni recomendar voto. Convocatoria y calendario comprobados el 18/10 en el BOE y la JEC, y el 19/10 en los plazos del INE; si la JEC publica cambios, actualizar `datos/calendario_29N_2026.json`.
