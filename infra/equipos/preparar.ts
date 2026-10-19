@@ -1,5 +1,5 @@
 import { lstat } from "node:fs/promises";
-import { join } from "node:path";
+import { join, posix } from "node:path";
 import {
   equipoSchema,
   trackSchema,
@@ -30,6 +30,38 @@ const registro = "barracafh/build-registro";
 const releases = "barracafh/build-comite";
 // A team's repo and Vercel project share this name.
 export const proyecto = (id: string) => `build-${id}`;
+// The public monorepo, for links to material a team repo does not carry.
+const monorepo = "https://github.com/barracafh/BARRACAxSOTI/blob/main/";
+
+// The shared knowledge files each track cites, as tracks/comun/README.md lists them.
+const comunes = (slug: string) => [
+  "00-territorio.md",
+  "00b-competencias-y-sector-publico.md",
+  ...(["brujula", "claridad", "sello"].includes(slug)
+    ? ["04b-gestores-expedientes.md"]
+    : []),
+];
+
+// Copied Markdown keeps working links: those to files the team repo carries
+// become relative to it, the rest point to the public monorepo.
+export function enlazar(
+  md: string,
+  origen: string,
+  destino: string,
+  copias: Map<string, string>,
+) {
+  return md.replace(/\]\(([^)\s]+)\)/g, (todo, href: string) => {
+    if (/^(?:[a-z][a-z\d+.-]*:|#|\/)/i.test(href)) return todo;
+    const [ruta = "", ancla = ""] = href.split(/(?=#)/);
+    const enMonorepo = posix.join(posix.dirname(origen), ruta);
+    const copia = copias.get(enMonorepo);
+    const nueva =
+      copia === undefined
+        ? monorepo + enMonorepo
+        : posix.relative(posix.dirname(destino), copia);
+    return `](${nueva}${ancla})`;
+  });
+}
 // Copied to every project when set in this shell; track keys only to that track.
 const claves = ["HELMCODE_API_KEY", "HELMCODE_BASE_URL", "HELMCODE_MODEL"];
 const clavesTrack: Record<string, string[]> = {
@@ -102,7 +134,7 @@ async function versionados(carpeta: string) {
 }
 
 // The team's repo: tracked starter files only, its ficha and feedback link,
-// and its track's brief, data and knowledge base.
+// and its track's brief, data and knowledge base, shared files included.
 export async function archivosEquipo(
   equipo: Equipo,
   track: Track,
@@ -150,12 +182,21 @@ export async function archivosEquipo(
   const carpeta = join(root, "tracks", track.slug);
   if (!(await Bun.file(join(carpeta, "SETUP.md")).exists()))
     throw new Error(`tracks/${track.slug} no tiene SETUP.md.`);
-  files["SETUP.md"] = await Bun.file(join(carpeta, "SETUP.md")).bytes();
+  const prefijo = `tracks/${track.slug}/`;
+  const copias = new Map([[`${prefijo}SETUP.md`, "SETUP.md"]]);
   if (await Bun.file(join(carpeta, "contexto.md")).exists())
-    files["contexto.md"] = await Bun.file(join(carpeta, "contexto.md")).bytes();
+    copias.set(`${prefijo}contexto.md`, "contexto.md");
+  for (const comun of comunes(track.slug))
+    copias.set(`tracks/comun/${comun}`, `comun/${comun}`);
+  for (const [origen, destino] of copias)
+    files[destino] = enlazar(
+      await Bun.file(join(root, origen)).text(),
+      origen,
+      destino,
+      copias,
+    );
   // Tracked files only: a stray local file must never reach a public repo.
   // datos/README.md documents the committee's packs, not the team's data.
-  const prefijo = `tracks/${track.slug}/`;
   for (const path of await versionados(`${prefijo}datos`))
     if (path !== `${prefijo}datos/README.md`)
       files[path.slice(prefijo.length)] = await Bun.file(
