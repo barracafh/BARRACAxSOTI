@@ -45,13 +45,17 @@ Nueve notificaciones **ficticias**, con marca de agua y datos inventados, que im
   - Los días hábiles excluyen sábados, domingos y festivos.
   - Los plazos en meses vencen el mismo día del mes siguiente.
   - Si el último día es inhábil, el plazo pasa al siguiente día hábil.
+- **Plazos electorales (documento 08):** son siempre naturales e improrrogables, aunque el escrito diga solo «días» (LOREG art. 119).
 - **Lectura Fácil:** norma UNE 153101:2018 EX, para el criterio de «lenguaje humano».
 
 ## A tener en cuenta
 
 - El error más grave es calcular mal un plazo (hábiles frente a naturales, o festivos locales). Conviene mostrar siempre la frase original del documento de la que sale cada plazo.
 - «Sin guardar nada»: ni el archivo ni su contenido se almacenan ni se registran. Hay que avisar al usuario si el documento se envía a un proveedor de LLM.
-- En la demo, solo los documentos ficticios de esta carpeta. Nunca documentos reales de personas.
+- En la demo, solo los documentos ficticios de `datos/`. Nunca documentos reales de personas.
+- Cada fecha es un cálculo orientativo, no asesoramiento legal: la herramienta muestra la regla aplicada (por ejemplo, «10 días hábiles, Ley 39/2015 art. 30») y remite al órgano emisor o a su sede para confirmarla.
+- El 22/10 ya habrán vencido los plazos de 01 y 04 (20/10) y de 09 (21/10): la herramienta dice «el plazo venció el …» y qué opciones quedan, sin cuenta atrás negativa.
+- Los nueve PDF tienen capa de texto: extraedla en el servidor (por ejemplo, con `bun add unpdf`) y mandad a la IA solo el texto. La foto (03b) necesita un modelo con visión, y `src/lib/ia.ts` solo envía texto: confirmad con la organización si el modelo tiene visión.
 
 ## Resumen para el agente
 
@@ -60,5 +64,5 @@ Nueve notificaciones **ficticias**, con marca de agua y datos inventados, que im
 
 Objetivo: a partir de un PDF o una foto de una notificación administrativa, explicar qué dice en lenguaje claro, qué hay que hacer y la fecha límite, y qué pasa si no se hace nada.
 Datos de prueba: datos/documentos/ (9 PDF ficticios + 1 foto); datos/documentos/indice.json contiene la fecha límite esperada de cada uno; datos/festivos-2026.json, los festivos de 2026 en València con su fuente.
-Reglas: no guardar ni registrar el documento ni su contenido; mostrar el texto original del que sale cada plazo; plazos según la Ley 39/2015, art. 30 (festivos de 2026 en datos/festivos-2026.json); responder en el idioma del documento o en el que pida el usuario; claves solo en servidor; la herramienta se sirve bajo /<slug> y muestra el aviso "No es un servicio oficial".
+Reglas: no guardar ni registrar el documento ni su contenido; mostrar el texto original del que sale cada plazo; plazos según la Ley 39/2015, art. 30 (festivos de 2026 en datos/festivos-2026.json), y los electorales, naturales e improrrogables (LOREG art. 119); cada fecha es orientativa, muestra la regla aplicada y remite al órgano emisor; si el plazo ya venció, decirlo; responder en el idioma del documento o en el que pida el usuario; claves solo en servidor; la herramienta se sirve bajo /<equipo> (campo `equipo` de ficha.json) y muestra el aviso "No es un servicio oficial".
 ```

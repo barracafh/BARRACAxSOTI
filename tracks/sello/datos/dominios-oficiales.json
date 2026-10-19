@@ -91,13 +91,13 @@
     },
     {
       "entidad": "Correos",
-      "dominios": ["correos.es"],
+      "dominios": ["correos.es", "correos.com"],
       "dominios_remitente_email": ["correos.com"],
       "web_oficial": "https://www.correos.es",
       "fuente": "https://www.correos.es/es/es/actualidad/2026/confia-en-correos-rechaza-imitaciones",
       "fuente_adicional": "https://www.correos.es/es/es/atencion-al-cliente/seguridad-de-la-informacion/phishing",
       "verificado": true,
-      "nota": "Correos indica que sus comunicaciones oficiales por email llegan desde correos@correos.com e incluyen un código seguro en un recuadro amarillo, que se puede comprobar en su verificador de email en correos.es. 'Correos nunca solicita datos personales, bancarios o movimientos económicos por correo electrónico o mensaje de texto (SMS)'. Ojo: correos.com es el dominio del remitente de email, no de la web."
+      "nota": "Correos indica que sus comunicaciones oficiales por email llegan desde correos@correos.com e incluyen un código seguro en un recuadro amarillo, que se puede comprobar en su verificador de email en correos.es. 'Correos nunca solicita datos personales, bancarios o movimientos económicos por correo electrónico o mensaje de texto (SMS)'. correos.com es también el remitente de email y la web corporativa (www.correos.com, Grupo Correos, enlaza con www.correos.es, comprobado el 19/10/2026); los envíos y trámites están en correos.es."
     },
     {
       "entidad": "INCIBE (Instituto Nacional de Ciberseguridad) y Línea de Ayuda 017",
@@ -106,7 +106,7 @@
       "web_oficial": "https://www.incibe.es/ciudadania",
       "fuente": "https://www.incibe.es/incibe/sala-de-prensa/incibe-lanza-el-017-el-nuevo-numero-corto-ayuda-ciberseguridad",
       "verificado": true,
-      "nota": "017 es el número corto gratuito de la Línea de Ayuda en Ciberseguridad (nota de prensa del 11/02/2020). El horario publicado entonces (9:00-21:00) puede haber cambiado. INCIBE también ha sido suplantado (aviso del 10/07/2026)."
+      "nota": "017 es el número corto gratuito de la Línea de Ayuda en Ciberseguridad (nota de prensa del 11/02/2020). Atiende de 8:00 a 23:00 los 365 días, también por WhatsApp (900 116 117) y Telegram (@INCIBE017), según https://www.incibe.es/linea-de-ayuda-en-ciberseguridad (consultado el 19/10/2026). INCIBE también ha sido suplantado (aviso del 10/07/2026)."
     },
     {
       "entidad": "Punto de Acceso General (PAG)",
