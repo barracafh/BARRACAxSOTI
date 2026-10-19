@@ -453,6 +453,17 @@ export async function preparar(config: {
     if (apply) throw new Error(`${texto} Cárgalas antes de --apply.`);
     log(`${texto} --apply no seguirá sin ellas.`);
   }
+  // A handle mistyped in Luma would stop every invitation after it: skip it
+  // and say so, to be invited by hand once corrected. Checked only when applying.
+  const sinCuenta = new Set<string>();
+  if (apply)
+    for (const m of new Set(elegidos.flatMap((e) => e.miembros)))
+      if (!(await existe(["gh", "api", `users/${m}`]))) sinCuenta.add(m);
+  for (const e of elegidos)
+    for (const m of e.miembros.filter((m) => sinCuenta.has(m)))
+      log(
+        `Aviso: ${m} (${e.id}) no existe en GitHub y no se invita. Con su usuario bueno: gh api -X PUT repos/${e.repo}/collaborators/<usuario> -f permission=push, y lo mismo en ${registro}.`,
+      );
   // Build every repo before touching anything remote, so a bad track fails early.
   const archivos = await Promise.all(
     elegidos.map((e) =>
@@ -466,7 +477,10 @@ export async function preparar(config: {
   );
   const invitaciones: Command[] = [];
   for (const [i, equipo] of elegidos.entries()) {
-    const pasos = await pasosEquipo(equipo, apply);
+    const pasos = await pasosEquipo(
+      { ...equipo, miembros: equipo.miembros.filter((m) => !sinCuenta.has(m)) },
+      apply,
+    );
     const { nuevo, commands, aviso } = pasos;
     invitaciones.push(...pasos.invitaciones);
     await ejecutar(
