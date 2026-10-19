@@ -7,14 +7,14 @@ import {
   inicializarRegistro,
   administracion,
   type Gestion,
-} from "@hacknight/shared/registro/gestion";
-import { RegistroLocal } from "@hacknight/shared/registro/local";
+} from "@buildnight/shared/registro/gestion";
+import { RegistroLocal } from "@buildnight/shared/registro/local";
 import { contexto, miEquipo } from "../apps/cli/src/lib/contexto";
 import { AlmacenUso } from "../apps/server/src/almacen";
 import { crearHandler } from "../apps/server/src/servidor";
 import { claveAdministracion } from "../apps/server/src/admin";
-import { hash, ventanaId } from "@hacknight/shared/contrato-uso";
-import { eventoBase } from "@hacknight/shared/evento";
+import { hash, ventanaId } from "@buildnight/shared/contrato-uso";
+import { eventoBase } from "@buildnight/shared/evento";
 import { banner } from "../apps/cli/src/lib/banner";
 import { sello } from "../apps/cli/src/lib/justificante";
 
@@ -33,7 +33,7 @@ const equipo = {
   repo: "",
 };
 async function fixture() {
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-admin-test-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-admin-test-"));
   directories.push(dir);
   await inicializarRegistro(dir);
   const ctx = await contexto({
@@ -420,7 +420,7 @@ test("reasignar o retirar personas y cambiar la ventana no borra ni duplica los 
 });
 
 test("la clave local se conserva al reiniciar y solo el propietario puede leer el archivo", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-key-test-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-key-test-"));
   directories.push(dir);
   const first = await claveAdministracion(dir),
     next = await claveAdministracion(dir);

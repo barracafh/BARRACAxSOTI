@@ -5,7 +5,7 @@ import { rutaConfig } from "../lib/config";
 // The "Build night" OAuth App of barracafh. The device flow asks for no scopes,
 // so the token only proves who you are to the room's server.
 export const CLIENT_ID =
-  process.env.HACKNIGHT_GITHUB_CLIENT_ID ?? "Ov23lifK0IfDbZCDoTPX";
+  process.env.BUILDNIGHT_GITHUB_CLIENT_ID ?? "Ov23lifK0IfDbZCDoTPX";
 const archivo = () => join(dirname(rutaConfig()), "sesion.json");
 const pausa = (s: number) => new Promise((r) => setTimeout(r, s * 1000));
 

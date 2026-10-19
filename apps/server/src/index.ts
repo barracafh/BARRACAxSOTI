@@ -2,21 +2,21 @@
 import { Command, CommanderError } from "commander";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
-import { inicializarRegistro } from "@hacknight/shared/registro/gestion";
-import { RegistroLocal } from "@hacknight/shared/registro/local";
-import { CliError } from "@hacknight/shared/errors";
+import { inicializarRegistro } from "@buildnight/shared/registro/gestion";
+import { RegistroLocal } from "@buildnight/shared/registro/local";
+import { CliError } from "@buildnight/shared/errors";
 import { iniciarServidor } from "./servidor";
-import { eventoBase } from "@hacknight/shared/evento";
+import { eventoBase } from "@buildnight/shared/evento";
 
 const json = process.argv.includes("--json");
 const program = new Command()
-  .name("hacknight-server")
+  .name("buildnight-server")
   .description(`Web y administración local de ${eventoBase.nombre}`)
   .version("0.1.0")
   .option(
     "--directorio <ruta>",
     "Crear o abrir el registro local",
-    ".hacknight-live/registro",
+    ".buildnight-live/registro",
   )
   .option("--puerto <numero>", "Puerto HTTP local", "4310")
   .option("--db <archivo>", "Persistencia SQLite de contadores")
@@ -86,7 +86,7 @@ try {
             error instanceof Error
               ? error.message
               : "No se pudo arrancar el servidor.",
-            "Consulta hacknight-server --help y revisa el directorio y el puerto.",
+            "Consulta buildnight-server --help y revisa el directorio y el puerto.",
             error instanceof CommanderError ? 2 : 1,
           );
     if (json)

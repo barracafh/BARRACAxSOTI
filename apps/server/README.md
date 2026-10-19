@@ -11,15 +11,15 @@ bun install --frozen-lockfile
 bun run start
 ```
 
-Web: **http://127.0.0.1:4310/**. Administración: **http://127.0.0.1:4310/admin**. El primer arranque crea `.hacknight-live/registro/` con los tracks reales, el horario del evento y **cero equipos, participantes, avisos o consumo**. Reiniciar conserva los datos. No arranca watchers ni genera tokens.
+Web: **http://127.0.0.1:4310/**. Administración: **http://127.0.0.1:4310/admin**. El primer arranque crea `.buildnight-live/registro/` con los tracks reales, el horario del evento y **cero equipos, participantes, avisos o consumo**. Reiniciar conserva los datos. No arranca watchers ni genera tokens.
 
 La terminal indica dónde está `.admin-key`; introduce el contenido de ese archivo en el formulario de administración. Es una clave local, creada con permisos `0600`; no se imprime, no se sube a GitHub y no se guarda en el navegador. La sesión usa una cookie HttpOnly/SameSite y caduca en ocho horas o al reiniciar el servidor. `Cerrar sesión` la revoca.
 
 Después de `bun run build:bin:host` desde la raíz, también funciona desde su propio binario, sin Bun ni archivos web externos:
 
 ```sh
-./apps/server/dist/hacknight-server
-./apps/server/dist/hacknight-server --directorio /ruta/instancia --puerto 4320
+./apps/server/dist/buildnight-server
+./apps/server/dist/buildnight-server --directorio /ruta/instancia --puerto 4320
 ```
 
 Para un registro local que ya existe: `bun run start --directorio /ruta/registro`. `--directorio` crea o abre una instancia; nunca sobreescribe los JSON existentes. `--db` permite elegir la SQLite (por defecto, `uso.sqlite` dentro del registro). `Ctrl+C` cierra el servidor.
@@ -47,7 +47,7 @@ Las versiones antiguas creaban los directorios `.admin-lock/` y `.lock/` sin ide
 ## Contadores y persistencia
 
 ```sh
-bun run start --directorio /ruta/registro --puerto 4310 --db /tmp/hacknight-uso.sqlite
+bun run start --directorio /ruta/registro --puerto 4310 --db /tmp/buildnight-uso.sqlite
 bun run cli --registro file:///ruta/registro --cwd /ruta/proyecto --usuario TU_HANDLE observar --servidor http://127.0.0.1:4310
 ```
 
@@ -65,7 +65,7 @@ Desde la raíz:
 bun run check
 bun run test:live
 bun run build:bin:host
-HACKNIGHT_BIN="$PWD/apps/cli/dist/hacknight" HACKNIGHT_SERVER_BIN="$PWD/apps/server/dist/hacknight-server" bun run test:live
+BUILDNIGHT_BIN="$PWD/apps/cli/dist/buildnight" BUILDNIGHT_SERVER_BIN="$PWD/apps/server/dist/buildnight-server" bun run test:live
 ```
 
 `test:live` prueba administración, watcher, clasificación, privacidad del payload, controles de vistas, reintentos y reinicio con persistencia; cierra todos sus procesos. Los participantes ficticios solo existen en los fixtures de `test/`.

@@ -25,17 +25,17 @@ Cada push a `main` se publica solo en `https://build.barraca.house/<equipo>`. No
 
 ## CLI del evento
 
-`hacknight` revisa las seis reglas, entrega la ficha y enseña el tablón. Necesita `gh auth login`. En macOS o Linux:
+`buildnight` revisa las seis reglas, entrega la ficha y enseña el tablón. Necesita `gh auth login`. En macOS o Linux:
 
 ```sh
 curl -fsSL https://build.barraca.house/instalar.sh | sh
-hacknight                          # vuestro expediente: equipo, track y cuenta atrás
-hacknight observar                 # déjalo abierto: suma vuestros tokens al ranking
+buildnight                          # vuestro expediente: equipo, track y cuenta atrás
+buildnight observar                 # déjalo abierto: suma vuestros tokens al ranking
 ```
 
 `observar` cuenta los tokens de Claude Code, Codex y Pi en este proyecto durante el build. La primera vez te pide confirmar tu cuenta en GitHub; no da acceso a nada.
 
-En Windows, descarga `hacknight-windows-x64.exe` de la [última release](https://github.com/barracafh/build-comite/releases/latest).
+En Windows, descarga `buildnight-windows-x64.exe` de la [última release](https://github.com/barracafh/build-comite/releases/latest).
 
 ## Ficha y entrega
 
@@ -43,13 +43,13 @@ En Windows, descarga `hacknight-windows-x64.exe` de la [última release](https:/
 
 ```sh
 git add .
-hacknight ficha validar
-hacknight revisar
+buildnight ficha validar
+buildnight revisar
 ```
 
-Hasta que la herramienta esté publicada, la regla de URL pública fallará; las otras cinco deben pasar. La revisión analiza archivos versionados; no acredita la exactitud del contenido. Incluid en vuestro README media página con problema, usuario, qué habéis hecho y qué falta para producción. Entregad con `hacknight registrar`.
+Hasta que la herramienta esté publicada, la regla de URL pública fallará; las otras cinco deben pasar. La revisión analiza archivos versionados; no acredita la exactitud del contenido. Incluid en vuestro README media página con problema, usuario, qué habéis hecho y qué falta para producción. Entregad con `buildnight registrar`.
 
-El contrato es `apps/cli/esquemas/ficha.schema.json` en el monorepo del evento. Conservad `.hacknight/plantilla.json`.
+El contrato es `apps/cli/esquemas/ficha.schema.json` en el monorepo del evento. Conservad `.buildnight/plantilla.json`.
 
 ## Diseño
 

@@ -2,8 +2,8 @@ import { chmod, rename, writeFile, rm } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { z } from "zod";
 import type { Contexto } from "../lib/contexto";
-import { repo } from "@hacknight/shared/modelo";
-import { CliError } from "@hacknight/shared/errors";
+import { repo } from "@buildnight/shared/modelo";
+import { CliError } from "@buildnight/shared/errors";
 import { salida } from "../lib/output";
 import { VERSION, COMPILED } from "../version";
 export const sha256 = (bytes: Uint8Array) =>
@@ -21,7 +21,7 @@ export function assetName(platform = process.platform, arch = process.arch) {
       "Compila desde el código fuente.",
       2,
     );
-  return `hacknight-${os}-${arch}${os === "windows" ? ".exe" : ""}`;
+  return `buildnight-${os}-${arch}${os === "windows" ? ".exe" : ""}`;
 }
 export function isNewer(candidate: string, current: string) {
   const a = candidate
@@ -56,7 +56,7 @@ async function request(url: string, fetcher: typeof fetch) {
   try {
     const r = await fetcher(url, {
       signal: AbortSignal.timeout(30000),
-      headers: { "User-Agent": `hacknight/${VERSION}` },
+      headers: { "User-Agent": `buildnight/${VERSION}` },
     });
     if (!r.ok) throw new Error("HTTP");
     return r;

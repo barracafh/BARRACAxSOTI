@@ -1,18 +1,18 @@
 import { mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
-import { estadoPublico, snapshot } from "@hacknight/shared/actividad";
-import { paleta } from "@hacknight/shared/paleta";
+import { estadoPublico, snapshot } from "@buildnight/shared/actividad";
+import { paleta } from "@buildnight/shared/paleta";
 import { AlmacenUso } from "./almacen";
-import { loteSchema } from "@hacknight/shared/contrato-uso";
+import { loteSchema } from "@buildnight/shared/contrato-uso";
 import html from "../../web/index.html" with { type: "text" };
 import css from "../../web/style.css" with { type: "text" };
 import js from "../../web/app.js" with { type: "text" };
 
-import { RegistroLocal } from "@hacknight/shared/registro/local";
+import { RegistroLocal } from "@buildnight/shared/registro/local";
 import {
   administracion,
   ErrorGestion,
-} from "@hacknight/shared/registro/gestion";
+} from "@buildnight/shared/registro/gestion";
 import {
   crearAdmin,
   claveAdministracion,

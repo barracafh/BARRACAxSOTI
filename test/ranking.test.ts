@@ -2,8 +2,8 @@ import { expect, test } from "bun:test";
 import { mkdtemp, mkdir, rm, stat, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { tmpdir } from "node:os";
-import { hash, ventanaId, type Lote } from "@hacknight/shared/contrato-uso";
-import { eventoSchema } from "@hacknight/shared/modelo";
+import { hash, ventanaId, type Lote } from "@buildnight/shared/contrato-uso";
+import { eventoSchema } from "@buildnight/shared/modelo";
 import { estado } from "../infra/sala/estado";
 import { recibirUso } from "../infra/sala/uso";
 import type { Consulta } from "../infra/sala/almacen";
@@ -165,15 +165,15 @@ test("ranking: un fallo de GitHub se puede reintentar con la misma sesión", asy
 });
 
 test("ranking: el watcher se identifica una vez y luego solo envía lo nuevo", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-ranking-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-ranking-"));
   const previas = {
-    config: process.env.HACKNIGHT_CONFIG,
-    claude: process.env.HACKNIGHT_CLAUDE_DIR,
-    codex: process.env.HACKNIGHT_CODEX_DIR,
-    pi: process.env.HACKNIGHT_PI_DIR,
+    config: process.env.BUILDNIGHT_CONFIG,
+    claude: process.env.BUILDNIGHT_CLAUDE_DIR,
+    codex: process.env.BUILDNIGHT_CODEX_DIR,
+    pi: process.env.BUILDNIGHT_PI_DIR,
   };
   try {
-    process.env.HACKNIGHT_CONFIG = join(dir, "config", "config.json");
+    process.env.BUILDNIGHT_CONFIG = join(dir, "config", "config.json");
     const pasos: number[] = [];
     const respuestas = [
       {
@@ -220,9 +220,9 @@ test("ranking: el watcher se identifica una vez y luego solo envía lo nuevo", a
         },
       }),
     );
-    process.env.HACKNIGHT_CLAUDE_DIR = logs;
-    process.env.HACKNIGHT_CODEX_DIR = join(dir, "vacio");
-    process.env.HACKNIGHT_PI_DIR = join(dir, "vacio");
+    process.env.BUILDNIGHT_CLAUDE_DIR = logs;
+    process.env.BUILDNIGHT_CODEX_DIR = join(dir, "vacio");
+    process.env.BUILDNIGHT_PI_DIR = join(dir, "vacio");
     const recibidos: {
       auth: string | null;
       eventos: number;
@@ -294,10 +294,10 @@ test("ranking: el watcher se identifica una vez y luego solo envía lo nuevo", a
       expect(() => servidorDestino(url)).toThrow();
   } finally {
     for (const [k, v] of Object.entries({
-      HACKNIGHT_CONFIG: previas.config,
-      HACKNIGHT_CLAUDE_DIR: previas.claude,
-      HACKNIGHT_CODEX_DIR: previas.codex,
-      HACKNIGHT_PI_DIR: previas.pi,
+      BUILDNIGHT_CONFIG: previas.config,
+      BUILDNIGHT_CLAUDE_DIR: previas.claude,
+      BUILDNIGHT_CODEX_DIR: previas.codex,
+      BUILDNIGHT_PI_DIR: previas.pi,
     }))
       if (v === undefined) delete process.env[k];
       else process.env[k] = v;

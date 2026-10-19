@@ -1,4 +1,4 @@
-# hacknight
+# buildnight
 
 La ventanilla de **BARRACA x SOTI · BUILD NIGHT**, 22 de octubre de 2026, Flywire (València). Bun + TypeScript, con GitHub como registro mediante `gh` o un directorio local. Trámites y expedientes para coordinar el hack. Usa tu sesión de `gh` sin guardar su token y no modifica herramientas de IA; qué lee y qué envía está en [Seguridad y privacidad](../../README.md#seguridad-y-privacidad).
 
@@ -12,24 +12,24 @@ Desde la raíz del repo (un único workspace Bun y lockfile):
 bun install --frozen-lockfile
 bun run check
 bun run --cwd apps/cli build:bin:host
-./apps/cli/dist/hacknight --help
+./apps/cli/dist/buildnight --help
 ```
 
-El binario es autónomo. Cópialo a un directorio de tu `PATH` si quieres invocarlo como `hacknight`. Git es necesario para revisar; para el backend GitHub también hace falta `gh` instalado y `gh auth login`. Se usa su sesión existente, sin guardar credenciales propias.
+El binario es autónomo. Cópialo a un directorio de tu `PATH` si quieres invocarlo como `buildnight`. Git es necesario para revisar; para el backend GitHub también hace falta `gh` instalado y `gh auth login`. Se usa su sesión existente, sin guardar credenciales propias.
 
-Las releases se publican en `barracafh/build-comite`, público y solo con escritura del comité (los squads escriben en el registro), con `bun infra/cli/publicar.ts`. El instalador descarga el asset de la plataforma y comprueba `SHA256SUMS`; `HACKNIGHT_RELEASES` cambia el repo:
+Las releases se publican en `barracafh/build-comite`, público y solo con escritura del comité (los squads escriben en el registro), con `bun infra/cli/publicar.ts`. El instalador descarga el asset de la plataforma y comprueba `SHA256SUMS`; `BUILDNIGHT_RELEASES` cambia el repo:
 
 ```sh
 curl -fsSL https://build.barraca.house/instalar.sh | sh
-hacknight actualizar --check
-hacknight actualizar
+buildnight actualizar --check
+buildnight actualizar
 ```
 
-`actualizar` sustituye únicamente binarios compilados; nunca el ejecutable Bun de desarrollo. En Windows descarga `hacknight-windows-x64.exe` de la release y verifica su hash. La actualización de un `.exe` conserva el anterior con sufijo `.old`. No hay publicación automática ni comprobaciones en segundo plano.
+`actualizar` sustituye únicamente binarios compilados; nunca el ejecutable Bun de desarrollo. En Windows descarga `buildnight-windows-x64.exe` de la release y verifica su hash. La actualización de un `.exe` conserva el anterior con sufijo `.old`. No hay publicación automática ni comprobaciones en segundo plano.
 
 ## Web y administración
 
-Viven fuera de este paquete: [apps/web/](../web) contiene la interfaz y [apps/server/](../server) el backend local con administración, SQLite y proyector web. Desde la raíz del repo, `bun run start` abre una instancia vacía. El servidor tiene su propio ejecutable, `apps/server/dist/hacknight-server`.
+Viven fuera de este paquete: [apps/web/](../web) contiene la interfaz y [apps/server/](../server) el backend local con administración, SQLite y proyector web. Desde la raíz del repo, `bun run start` abre una instancia vacía. El servidor tiene su propio ejecutable, `apps/server/dist/buildnight-server`.
 
 El CLI local lee las mismas asignaciones guardadas desde `/admin`. La configuración, la clave de administración y el control de vistas se explican en [apps/server/README.md](../server/README.md). Para conectar el watcher, consulta [el circuito con uso real](#probar-web--watcher--leaderboard-con-uso-real).
 
@@ -49,17 +49,17 @@ Para comprobar el ejecutable autónomo:
 
 ```sh
 bun run build:bin:host
-HACKNIGHT_BIN="$PWD/apps/cli/dist/hacknight" HACKNIGHT_SERVER_BIN="$PWD/apps/server/dist/hacknight-server" bun run test:live
-HACKNIGHT_BIN="$PWD/apps/cli/dist/hacknight" bun run test:flujo
+BUILDNIGHT_BIN="$PWD/apps/cli/dist/buildnight" BUILDNIGHT_SERVER_BIN="$PWD/apps/server/dist/buildnight-server" bun run test:live
+BUILDNIGHT_BIN="$PWD/apps/cli/dist/buildnight" bun run test:flujo
 ```
 
-No hay identidad local predeterminada. Indica `--usuario <tu-handle>` o `HACKNIGHT_USUARIO`. GitHub ignora esa variable y rechaza `--usuario`: allí la identidad procede de `gh api user`.
+No hay identidad local predeterminada. Indica `--usuario <tu-handle>` o `BUILDNIGHT_USUARIO`. GitHub ignora esa variable y rechaza `--usuario`: allí la identidad procede de `gh api user`.
 
 ## Comandos
 
 | Comando                        | Trámite                                                                                 |
 | ------------------------------ | --------------------------------------------------------------------------------------- |
-| `hacknight`                    | Su expediente y, solo con TTY, menú navegable.                                          |
+| `buildnight`                   | Su expediente y, solo con TTY, menú navegable.                                          |
 | `expediente`                   | Identidad, squad, mesa, track, cuenta atrás y seis reglas; nunca abre menú.             |
 | `tracks [slug]` / `negociados` | Tarjetas o detalle: piezas, fuentes, guías y squads. `--todos` incluye los descartados. |
 | `ficha`                        | Editor interactivo. Sin TTY: `ficha --desde archivo.json`.                              |
@@ -91,7 +91,7 @@ Un error devuelve `ok:false`, `code`, `message`, `hint`, `exitCode` y, si aplica
 
 ## Configuración
 
-Precedencia: flag → variable de entorno → `~/.config/hacknight/config.json` → valor por defecto. Se respeta `XDG_CONFIG_HOME`. `HACKNIGHT_CONFIG` permite elegir otro archivo.
+Precedencia: flag → variable de entorno → `~/.config/buildnight/config.json` → valor por defecto. Se respeta `XDG_CONFIG_HOME`. `BUILDNIGHT_CONFIG` permite elegir otro archivo.
 
 ```json
 {
@@ -100,7 +100,7 @@ Precedencia: flag → variable de entorno → `~/.config/hacknight/config.json` 
 }
 ```
 
-El registro por defecto es `barracafh/build-registro`, y las releases, `barracafh/build-comite`. Variables equivalentes: `HACKNIGHT_REGISTRO` y `HACKNIGHT_RELEASES`. Los repos de los squads los crea `infra/equipos` desde la [plantilla real](../../plantilla/README.md), con su ficha y el marcador `.hacknight/plantilla.json` que exige `revisar`.
+El registro por defecto es `barracafh/build-registro`, y las releases, `barracafh/build-comite`. Variables equivalentes: `BUILDNIGHT_REGISTRO` y `BUILDNIGHT_RELEASES`. Los repos de los squads los crea `infra/equipos` desde la [plantilla real](../../plantilla/README.md), con su ficha y el marcador `.buildnight/plantilla.json` que exige `revisar`.
 
 ## Montar el registro: guía del comité
 
@@ -134,9 +134,9 @@ La ficha tiene `nombre`, `frase`, `icono`, `herramienta`, `equipo`, `url`, `fuen
 
 ### Etiquetas y permisos en GitHub
 
-Los avisos son issues de texto normal con la etiqueta **`aviso`** en `barracafh/build-comite` (`HACKNIGHT_AVISOS` o `avisos` en la configuración cambian el repo), escritos por un handle de `comite.json`; los de otros autores se ignoran. No van en el registro: los squads tienen Write allí y podrían editar un aviso que seguiría firmado por el comité. Crea la etiqueta en ese repo antes del evento.
+Los avisos son issues de texto normal con la etiqueta **`aviso`** en `barracafh/build-comite` (`BUILDNIGHT_AVISOS` o `avisos` en la configuración cambian el repo), escritos por un handle de `comite.json`; los de otros autores se ignoran. No van en el registro: los squads tienen Write allí y podrían editar un aviso que seguiría firmado por el comité. Crea la etiqueta en ese repo antes del evento.
 
-El CLI usa **ramas en el registro central**, `hacknight/ficha-<squad>`, y Contents/PR API de GitHub. Los participantes necesitan permiso **Write** en ese repo para crear la rama y actualizar su ficha. No se crean forks automáticamente. Protege la rama principal: sin pushes directos, con revisión del comité; protege también los JSON de asignación y permisos mediante CODEOWNERS/revisión. El CLI valida identidad y asignación, pero **no sustituye los controles de GitHub** frente a alguien que escriba directamente con la API.
+El CLI usa **ramas en el registro central**, `buildnight/ficha-<squad>`, y Contents/PR API de GitHub. Los participantes necesitan permiso **Write** en ese repo para crear la rama y actualizar su ficha. No se crean forks automáticamente. Protege la rama principal: sin pushes directos, con revisión del comité; protege también los JSON de asignación y permisos mediante CODEOWNERS/revisión. El CLI valida identidad y asignación, pero **no sustituye los controles de GitHub** frente a alguien que escriba directamente con la API.
 
 Las operaciones locales se guardan bajo lock de directorio y escritura atómica. `.estado.json` conserva numeración/recibos locales; no se sube a GitHub. Un lock huérfano exige comprobar que no queda otro proceso antes de retirarlo.
 
@@ -159,38 +159,38 @@ En GitHub la URL debe resolver a una red pública; cada redirección se comprueb
 3. Desde otra terminal, ejecuta explícitamente el watcher para tu proyecto:
 
 ```sh
-hacknight --registro file:///ruta/instancia --usuario TU_HANDLE --cwd /ruta/proyecto observar --servidor http://127.0.0.1:4310
+buildnight --registro file:///ruta/instancia --usuario TU_HANDLE --cwd /ruta/proyecto observar --servidor http://127.0.0.1:4310
 ```
 
-Usa la URL `file://` del registro que imprime el servidor. Si aún no instalaste el binario, sustituye `hacknight` por `bun /ruta/a/apps/cli/src/index.ts`.
+Usa la URL `file://` del registro que imprime el servidor. Si aún no instalaste el binario, sustituye `buildnight` por `bun /ruta/a/apps/cli/src/index.ts`.
 
 La web muestra clasificación por squads, personas (si se habilita) y tracks, desglose de entrada/salida/caché, herramientas y evolución. El tablón consulta el mismo registro que el CLI; `/pantalla` es el proyector. Sin logs del proyecto en la ventana configurada, el contador permanece en cero. El watcher cuenta actividad existente dentro de esa ventana, además de la que se produzca a partir de su arranque.
 
 `p` pausa el watcher y `q` o `Ctrl+C` lo cierra. El watcher y el servidor son procesos independientes: cerrar uno no cierra el otro. No se instalan servicios de fondo.
 
-En el evento, con el registro de GitHub, `hacknight observar` envía por defecto a la sala (`enlaces.sala` de `evento.json`, [infra/sala](../../infra/sala/README.md)). La primera vez pide confirmar tu cuenta en `github.com/login/device`: el token no tiene permisos, solo prueba quién eres, y se guarda con permisos `0600` junto a la configuración. Después solo envía lo que ha cambiado, una vez por minuto.
+En el evento, con el registro de GitHub, `buildnight observar` envía por defecto a la sala (`enlaces.sala` de `evento.json`, [infra/sala](../../infra/sala/README.md)). La primera vez pide confirmar tu cuenta en `github.com/login/device`: el token no tiene permisos, solo prueba quién eres, y se guarda con permisos `0600` junto a la configuración. Después solo envía lo que ha cambiado, una vez por minuto.
 
 ### Consulta puntual
 
-`hacknight consumo` lee contadores existentes de Claude Code, Codex y Pi, los filtra por directorio del proyecto (incluidos subdirectorios) y por la ventana de build, y muestra la contribución local al squad. No es el total de otras máquinas del equipo. No lee prompts para mostrarlos, no persiste historiales y no envía métricas; solo salen contadores agregados. El justificante añade «Tasa abonada: N tokens» cuando hay consumo atribuible.
+`buildnight consumo` lee contadores existentes de Claude Code, Codex y Pi, los filtra por directorio del proyecto (incluidos subdirectorios) y por la ventana de build, y muestra la contribución local al squad. No es el total de otras máquinas del equipo. No lee prompts para mostrarlos, no persiste historiales y no envía métricas; solo salen contadores agregados. El justificante añade «Tasa abonada: N tokens» cuando hay consumo atribuible.
 
 Es una consulta puntual. Para lectura continua usa `observar` (alias oculto `watch`): con el registro de GitHub envía a la sala; `--servidor` acepta otra URL HTTPS o un servidor HTTP en loopback, y con un registro local sin `--servidor` todo queda en local. `--once` hace un único ciclo; `--intervalo 60` (por defecto) fija la cadencia; `p` pausa y `q` sale en TTY. También admite `--plain` y `--json` (un documento al terminar; progreso en stderr).
 
 El backend guarda y deduplica contadores por ventana, usuario e ID. Solo se envían campos del [contrato compartido](../../packages/shared/src/contrato-uso.ts), sin conversaciones ni rutas. Los detalles de persistencia y los requisitos de producción están en [apps/server/README.md](../server/README.md#contadores-y-persistencia).
 
-Rutas de lectura: `~/.claude/projects` (respeta `CLAUDE_CONFIG_DIR`), `~/.codex/sessions` (respeta `CODEX_HOME`) y `~/.pi/agent/sessions` (respeta `PI_CODING_AGENT_DIR`). Para un directorio de pruebas o una copia local usa `HACKNIGHT_CLAUDE_DIR`, `HACKNIGHT_CODEX_DIR` y `HACKNIGHT_PI_DIR`; esas variables no cambian ninguna configuración de los asistentes. Las líneas malformadas se ignoran; errores de lectura producen avisos de total parcial. Bloques repetidos de Claude, contadores acumulativos de Codex y mensajes copiados en sesiones bifurcadas de Pi se deduplican; el razonamiento ya incluido en salida no se suma dos veces.
+Rutas de lectura: `~/.claude/projects` (respeta `CLAUDE_CONFIG_DIR`), `~/.codex/sessions` (respeta `CODEX_HOME`) y `~/.pi/agent/sessions` (respeta `PI_CODING_AGENT_DIR`). Para un directorio de pruebas o una copia local usa `BUILDNIGHT_CLAUDE_DIR`, `BUILDNIGHT_CODEX_DIR` y `BUILDNIGHT_PI_DIR`; esas variables no cambian ninguna configuración de los asistentes. Las líneas malformadas se ignoran; errores de lectura producen avisos de total parcial. Bloques repetidos de Claude, contadores acumulativos de Codex y mensajes copiados en sesiones bifurcadas de Pi se deduplican; el razonamiento ya incluido en salida no se suma dos veces.
 
 Cursor queda sin recolector: el origen necesitaba instalar hooks para obtener contadores. Se respeta la prohibición de modificar configuraciones del usuario. Tampoco se incorporan OTel ni otros proveedores. La compatibilidad se valida con fixtures de los formatos del commit fijado; formatos futuros pueden requerir adaptación.
 
 ## Marca y releases
 
-La marca por defecto se define en [packages/shared/registro-base/evento.json](../../packages/shared/registro-base/evento.json): `nombre` es el nombre oficial; `nombre_corto`, la marca de terminal y web; `organizan`, la firma del comité. El CLI y el servidor importan esos datos mediante `@hacknight/shared/evento`; las vistas leen el evento del registro activo. Cambiar el nombre oficial solo requiere editar `nombre`, sin buscar cadenas en el código. En instancias ya creadas, edita su `evento.json` o los campos de `/admin` si existe `.gestion.json`.
+La marca por defecto se define en [packages/shared/registro-base/evento.json](../../packages/shared/registro-base/evento.json): `nombre` es el nombre oficial; `nombre_corto`, la marca de terminal y web; `organizan`, la firma del comité. El CLI y el servidor importan esos datos mediante `@buildnight/shared/evento`; las vistas leen el evento del registro activo. Cambiar el nombre oficial solo requiere editar `nombre`, sin buscar cadenas en el código. En instancias ya creadas, edita su `evento.json` o los campos de `/admin` si existe `.gestion.json`.
 
 La paleta común está en [packages/shared/src/paleta.ts](../../packages/shared/src/paleta.ts); [src/lib/estilo.ts](src/lib/estilo.ts) la aplica al terminal. Los badges de track usan fondo propio y tinta clara/oscura de la misma paleta: el significado también lleva glifo, nombre y ventanilla. No hay banderas, escudos ni logos de terceros.
 
 El CLI no lleva logo: muestra el wordmark (77 columnas) y, en terminal estrecho, `☾ build night`. Dentro de cajas se usa `☾` para mantener la alineación. `NO_COLOR` desactiva el color.
 
-`scripts/build-all.sh` compila macOS/Linux x64/arm64 y Windows x64; produce `dist/SHA256SUMS`. `--host` solo compila esta máquina y `--target bun-<os>-<arch>` compila una plataforma de la matriz. El script no publica; [release-cli.yml](../../.github/workflows/release-cli.yml) comprueba la versión y compila los cinco targets al subir un tag, y `infra/cli/publicar.ts` publica la release en `barracafh/build-comite`. Las releases deben usar tags `cli-vX.Y.Z`, assets `hacknight-<os>-<arch>[.exe]` y `SHA256SUMS`. Ajusta `package.json` y `src/version.ts` juntos antes de versionar.
+`scripts/build-all.sh` compila macOS/Linux x64/arm64 y Windows x64; produce `dist/SHA256SUMS`. `--host` solo compila esta máquina y `--target bun-<os>-<arch>` compila una plataforma de la matriz. El script no publica; [release-cli.yml](../../.github/workflows/release-cli.yml) comprueba la versión y compila los cinco targets al subir un tag, y `infra/cli/publicar.ts` publica la release en `barracafh/build-comite`. Las releases deben usar tags `cli-vX.Y.Z`, assets `buildnight-<os>-<arch>[.exe]` y `SHA256SUMS`. Ajusta `package.json` y `src/version.ts` juntos antes de versionar.
 
 ## Créditos
 

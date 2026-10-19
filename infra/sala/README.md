@@ -9,7 +9,7 @@ bun infra/sala/publicar.ts --dry-run
 Son archivos estáticos y dos funciones en Frankfurt (`fra1`):
 
 - **`api/estado`** lee el registro `barracafh/build-registro`, los avisos de `barracafh/build-comite` y el ranking de la base de datos, y responde lo mismo que `/api/estado` del servidor local. Vercel guarda esa respuesta 30 segundos, así que todas las pantallas de la sala comparten una consulta cada medio minuto.
-- **`api/uso`** recibe los contadores de `hacknight observar`. Solo acepta lotes firmados con una sesión de GitHub cuyo usuario coincida con el del lote y esté en `equipos.json`. Se queda con el contador mayor de cada petición, como el servidor local.
+- **`api/uso`** recibe los contadores de `buildnight observar`. Solo acepta lotes firmados con una sesión de GitHub cuyo usuario coincida con el del lote y esté en `equipos.json`. Se queda con el contador mayor de cada petición, como el servidor local.
 
 Variables del proyecto:
 

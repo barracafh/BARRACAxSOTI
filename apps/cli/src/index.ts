@@ -4,17 +4,17 @@ import { select, isCancel } from "@clack/prompts";
 import { contexto, type Contexto } from "./lib/contexto";
 import { setPlain } from "./lib/estilo";
 import { fallo, salida } from "./lib/output";
-import { CliError } from "@hacknight/shared/errors";
+import { CliError } from "@buildnight/shared/errors";
 import { tracks, expediente } from "./commands/base";
 import { ficha, revision, registrar } from "./commands/entrega";
 import { tablon } from "./commands/social";
 import { actualizar } from "./commands/actualizar";
 import { consumo } from "./commands/consumo";
 import { observar } from "./commands/observar";
-import { eventoBase } from "@hacknight/shared/evento";
+import { eventoBase } from "@buildnight/shared/evento";
 import { VERSION } from "./version";
 const program = new Command()
-  .name("hacknight")
+  .name("buildnight")
   .description(`La ventanilla de ${eventoBase.nombre}`)
   .version(VERSION, "-V, --version", "Mostrar versión")
   .helpOption("-h, --help", "Mostrar ayuda")
@@ -168,7 +168,7 @@ try {
         ? new CliError(
             "USAGE",
             "El comando o sus argumentos no son válidos.",
-            "Usa hacknight --help para consultar los trámites y opciones.",
+            "Usa buildnight --help para consultar los trámites y opciones.",
             2,
           )
         : e,

@@ -1,5 +1,5 @@
 import { join, resolve } from "node:path";
-import { trackSchema, type Track } from "@hacknight/shared/modelo";
+import { trackSchema, type Track } from "@buildnight/shared/modelo";
 import { format } from "prettier";
 
 const root = resolve(import.meta.dir, "..");

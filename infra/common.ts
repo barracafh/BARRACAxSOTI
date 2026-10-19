@@ -57,7 +57,7 @@ export const commit = (...args: string[]): Command => ({
   args: [
     "git",
     "-c",
-    "user.name=Hacknight",
+    "user.name=Build night",
     "-c",
     "user.email=organizacion@example.invalid",
     "-c",
@@ -94,7 +94,7 @@ export async function executePlan(
     }
     return;
   }
-  const directory = await mkdtemp(join(tmpdir(), "hacknight-infra-"));
+  const directory = await mkdtemp(join(tmpdir(), "buildnight-infra-"));
   try {
     for (const [path, content] of Object.entries(plan.files)) {
       const target = join(directory, path);
@@ -176,7 +176,7 @@ export async function ejecutar(
     }
     return;
   }
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-equipo-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-equipo-"));
   try {
     for (const [path, content] of Object.entries(files)) {
       await mkdir(dirname(join(dir, path)), { recursive: true });

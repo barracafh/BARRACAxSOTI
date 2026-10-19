@@ -1,6 +1,6 @@
 dist/
 node_modules/
-.hacknight-live/
+.buildnight-live/
 *.tmp
 
 .admin-key

@@ -1,4 +1,4 @@
-import { CliError } from "@hacknight/shared/errors";
+import { CliError } from "@buildnight/shared/errors";
 export type Runner = (
   args: string[],
   input?: unknown,

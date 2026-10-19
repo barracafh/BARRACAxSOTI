@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "hacknight-squad",
+      "name": "buildnight-squad",
       "dependencies": {
         "@base-ui/react": "1.8.0",
         "class-variance-authority": "0.7.1",

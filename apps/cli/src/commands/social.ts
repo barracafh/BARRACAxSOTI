@@ -1,6 +1,6 @@
-import { entradas as leerEntradas } from "@hacknight/shared/actividad";
+import { entradas as leerEntradas } from "@buildnight/shared/actividad";
 import type { Contexto } from "../lib/contexto";
-import { usage } from "@hacknight/shared/errors";
+import { usage } from "@buildnight/shared/errors";
 import { salida } from "../lib/output";
 import { terminalText, wrap } from "../lib/estilo";
 export const entradas = (ctx: Contexto) => leerEntradas(ctx.registro);

@@ -123,7 +123,7 @@ test("Pi toma el cwd de la cabecera, cuenta una vez las sesiones bifurcadas y de
 });
 
 test("consumo filtra ventana y proyecto, deduplica bloques y nunca devuelve prompts", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-consumo-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-consumo-"));
   tempDirs.push(dir);
   const rutas = { claude: join(dir, "claude"), codex: join(dir, "codex") };
   await mkdir(rutas.claude);
@@ -168,7 +168,7 @@ test("consumo filtra ventana y proyecto, deduplica bloques y nunca devuelve prom
   expect(JSON.stringify(report)).not.toContain(project);
 });
 test("consumo --json y tasa en justificante con historiales sintéticos", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-tasa-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-tasa-"));
   tempDirs.push(dir);
   const reg = join(dir, "registro");
   await cp(join(import.meta.dir, "../../../test/fixtures/registro"), reg, {
@@ -200,10 +200,10 @@ test("consumo --json y tasa en justificante con historiales sintéticos", async 
       {
         env: {
           ...process.env,
-          HACKNIGHT_USUARIO: "demo-alba",
-          HACKNIGHT_CLAUDE_DIR: logs,
-          HACKNIGHT_CODEX_DIR: empty,
-          HACKNIGHT_PI_DIR: empty,
+          BUILDNIGHT_USUARIO: "demo-alba",
+          BUILDNIGHT_CLAUDE_DIR: logs,
+          BUILDNIGHT_CODEX_DIR: empty,
+          BUILDNIGHT_PI_DIR: empty,
         },
         stdout: "pipe",
         stderr: "pipe",

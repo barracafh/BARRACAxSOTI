@@ -6,11 +6,11 @@ import {
   ventanaId,
   type EventoUso,
   type Lote,
-} from "@hacknight/shared/contrato-uso";
+} from "@buildnight/shared/contrato-uso";
 import { hostname } from "node:os";
 import { resolve } from "node:path";
 import { leerConsumo } from "../consumo/local";
-import type { Evento } from "@hacknight/shared/modelo";
+import type { Evento } from "@buildnight/shared/modelo";
 
 // The room's server answered 401: the GitHub session is gone or revoked.
 export class SesionCaducada extends Error {}

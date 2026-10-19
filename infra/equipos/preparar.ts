@@ -5,8 +5,8 @@ import {
   trackSchema,
   type Equipo,
   type Track,
-} from "@hacknight/shared/modelo";
-import { paleta } from "@hacknight/shared/paleta";
+} from "@buildnight/shared/modelo";
+import { paleta } from "@buildnight/shared/paleta";
 import {
   commit,
   ejecutar,
@@ -177,8 +177,8 @@ export async function archivosEquipo(
       null,
       2,
     ) + "\n";
-  files[".hacknight/plantilla.json"] =
-    JSON.stringify({ plantilla: "hacknight", version: "0" }, null, 2) + "\n";
+  files[".buildnight/plantilla.json"] =
+    JSON.stringify({ plantilla: "buildnight", version: "0" }, null, 2) + "\n";
   const carpeta = join(root, "tracks", track.slug);
   if (!(await Bun.file(join(carpeta, "SETUP.md")).exists()))
     throw new Error(`tracks/${track.slug} no tiene SETUP.md.`);
@@ -397,7 +397,7 @@ ${
 <h2>El CLI del evento</h2>
 <p>Vuestra ficha, la revisión de las seis reglas y el tablón. Con <code>gh auth login</code> hecho, en macOS o Linux:</p>
 <pre><code>curl -fsSL https://${dominio}/instalar.sh | sh</code></pre>
-<p>En Windows, descarga <code>hacknight-windows-x64.exe</code> de la <a href="https://github.com/${releases}/releases/latest">última release</a>.</p>
+<p>En Windows, descarga <code>buildnight-windows-x64.exe</code> de la <a href="https://github.com/${releases}/releases/latest">última release</a>.</p>
 </section>
 </main>
 </body>

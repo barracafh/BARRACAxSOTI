@@ -2,7 +2,7 @@ import { afterEach, test, expect } from "bun:test";
 import { mkdtemp, cp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { RegistroLocal } from "@hacknight/shared/registro/local";
+import { RegistroLocal } from "@buildnight/shared/registro/local";
 import { cuentaAtras } from "../src/lib/tiempo";
 import { wordmarkRows, banner } from "../src/lib/banner";
 import { panel } from "../src/lib/estilo";
@@ -22,7 +22,7 @@ test("el fixture de pruebas tiene todos los negociados y cuatro squads", async (
   expect((await r.evento()).fin).toBe("2026-10-22T22:00:00+02:00");
 });
 test("registro local persiste issues", async () => {
-  const p = await mkdtemp(join(tmpdir(), "hacknight-test-"));
+  const p = await mkdtemp(join(tmpdir(), "buildnight-test-"));
   tempDirs.push(p);
   await cp(join(import.meta.dir, "../../../test/fixtures/registro"), p, {
     recursive: true,
@@ -55,8 +55,8 @@ test("marca y azulejos caben en 80 columnas y marca pequeña en 30", () => {
   for (const columns of [30, 72, 73, 80])
     for (const line of banner(columns).split("\n"))
       expect(Bun.stringWidth(line)).toBeLessThanOrEqual(columns);
-  const lunar = panel("🌙 Hack night", ["Una noche 🌙 para construir"], 30);
-  expect(lunar).toContain("☾ Hack night");
+  const lunar = panel("🌙 Build night", ["Una noche 🌙 para construir"], 30);
+  expect(lunar).toContain("☾ Build night");
   expect(lunar).not.toContain("🌙");
   expect(new Set(lunar.split("\n").map((s) => Bun.stringWidth(s))).size).toBe(
     1,
@@ -83,7 +83,7 @@ for (const args of [
       {
         stdout: "pipe",
         stderr: "pipe",
-        env: { ...process.env, HACKNIGHT_USUARIO: "demo-alba" },
+        env: { ...process.env, BUILDNIGHT_USUARIO: "demo-alba" },
       },
     );
     const out = await new Response(p.stdout).text();

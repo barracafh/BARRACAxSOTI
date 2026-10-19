@@ -1,6 +1,6 @@
 import { paint, wrap, terminalText, width, fit } from "./estilo";
-import { eventoBase } from "@hacknight/shared/evento";
-import type { Evento } from "@hacknight/shared/modelo";
+import { eventoBase } from "@buildnight/shared/evento";
+import type { Evento } from "@buildnight/shared/modelo";
 // Mecánica de glifos del banner MIT, con las letras de la marca del evento.
 const glyphs: Record<string, string[]> = {
   B: ["██████╗ ", "██╔══██╗", "██████╔╝", "██╔══██╗", "██████╔╝", "╚═════╝ "],

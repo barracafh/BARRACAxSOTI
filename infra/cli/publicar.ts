@@ -7,11 +7,11 @@ import { ejecutar, options, root, type Command } from "../common";
 // on the registry, which would let anyone replace the binaries everyone installs.
 const releases = "barracafh/build-comite";
 const assets = [
-  "hacknight-linux-x64",
-  "hacknight-linux-arm64",
-  "hacknight-darwin-x64",
-  "hacknight-darwin-arm64",
-  "hacknight-windows-x64.exe",
+  "buildnight-linux-x64",
+  "buildnight-linux-arm64",
+  "buildnight-darwin-x64",
+  "buildnight-darwin-arm64",
+  "buildnight-windows-x64.exe",
   "SHA256SUMS",
 ];
 
@@ -34,7 +34,7 @@ export function pasosRelease(): Command[] {
         "--title",
         tag,
         "--notes",
-        "Binarios de hacknight con sumas SHA256. Instalación: curl -fsSL https://build.barraca.house/instalar.sh | sh",
+        "Binarios de buildnight con sumas SHA256. Instalación: curl -fsSL https://build.barraca.house/instalar.sh | sh",
       ],
     },
   ];

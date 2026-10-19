@@ -1,6 +1,6 @@
 import type { Contexto } from "../lib/contexto";
 import { identidad } from "../lib/contexto";
-import { CliError } from "@hacknight/shared/errors";
+import { CliError } from "@buildnight/shared/errors";
 import { salida, tramitando } from "../lib/output";
 import { panel, trackLabel, terminalText } from "../lib/estilo";
 import { banner } from "../lib/banner";
@@ -17,7 +17,7 @@ export async function tracks(ctx: Contexto, slug?: string) {
     throw new CliError(
       "NOT_FOUND",
       "No existe ese negociado.",
-      "Usa hacknight tracks para ver la lista.",
+      "Usa buildnight tracks para ver la lista.",
       4,
     );
   const teams = await ctx.registro.equipos();
@@ -83,7 +83,7 @@ export async function expediente(ctx: Contexto) {
         ...reglas.map(
           (r, i) => `${i + 1}. [${r.ok ? "OK" : "FALTA"}] ${r.nombre}`,
         ),
-        `Siguiente trámite: hacknight revisar`,
+        `Siguiente trámite: buildnight revisar`,
       ]),
     ctx.opts.json,
   );

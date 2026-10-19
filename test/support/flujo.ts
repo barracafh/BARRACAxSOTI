@@ -4,7 +4,7 @@ import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { proyectoDePrueba } from "../../apps/cli/test/proyecto";
 const root = resolve(import.meta.dir, "../..");
-const dir = await mkdtemp(join(tmpdir(), "hacknight-demo-"));
+const dir = await mkdtemp(join(tmpdir(), "buildnight-demo-"));
 const registro = join(dir, "registro"),
   project = join(dir, "squad-taronja");
 await cp(join(root, "test/fixtures/registro"), registro, { recursive: true });
@@ -19,8 +19,8 @@ const server = Bun.serve({
       headers: { "Content-Type": "text/html" },
     }),
 });
-const cmd = process.env.HACKNIGHT_BIN
-  ? [resolve(process.env.HACKNIGHT_BIN)]
+const cmd = process.env.BUILDNIGHT_BIN
+  ? [resolve(process.env.BUILDNIGHT_BIN)]
   : [process.execPath, join(root, "apps/cli/src/index.ts")];
 async function run(name: string, args: string[], cwd = dir, expect = 0) {
   const p = Bun.spawn(
@@ -38,9 +38,9 @@ async function run(name: string, args: string[], cwd = dir, expect = 0) {
       env: {
         ...process.env,
         NO_COLOR: "1",
-        HACKNIGHT_CLAUDE_DIR: join(dir, "sin-historiales"),
-        HACKNIGHT_CODEX_DIR: join(dir, "sin-historiales"),
-        HACKNIGHT_PI_DIR: join(dir, "sin-historiales"),
+        BUILDNIGHT_CLAUDE_DIR: join(dir, "sin-historiales"),
+        BUILDNIGHT_CODEX_DIR: join(dir, "sin-historiales"),
+        BUILDNIGHT_PI_DIR: join(dir, "sin-historiales"),
       },
       stdout: "pipe",
       stderr: "pipe",

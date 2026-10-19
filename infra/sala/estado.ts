@@ -1,6 +1,6 @@
-import { estadoPublico, snapshot } from "@hacknight/shared/actividad";
-import { clasificar } from "@hacknight/shared/clasificacion";
-import { CliError } from "@hacknight/shared/errors";
+import { estadoPublico, snapshot } from "@buildnight/shared/actividad";
+import { clasificar } from "@buildnight/shared/clasificacion";
+import { CliError } from "@buildnight/shared/errors";
 import { RegistroGitHub } from "../../apps/cli/src/registro/github";
 import { leer, postgres, type Consulta } from "./almacen";
 

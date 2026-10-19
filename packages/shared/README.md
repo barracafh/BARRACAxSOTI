@@ -1,6 +1,6 @@
 # Código compartido de Build night
 
-Paquete interno `@hacknight/shared`, consumido por el CLI y el backend a través del workspace Bun. No depende de ninguna aplicación ni de SQLite.
+Paquete interno `@buildnight/shared`, consumido por el CLI y el backend a través del workspace Bun. No depende de ninguna aplicación ni de SQLite.
 
 - `src/evento.ts`: exporta la marca por defecto desde `registro-base/evento.json` (`nombre`, `nombre_corto`, `organizan`).
 - `src/modelo.ts`: esquemas y tipos de evento, tracks, equipos, fichas e interfaz `Registro`.

@@ -10,7 +10,7 @@ afterEach(async () => {
     await rm(dir, { recursive: true, force: true });
 });
 test("registro JSON: revisar, registrar, actualizar y plazo; sin red real", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-flujo-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-flujo-"));
   tempDirs.push(dir);
   const reg = join(dir, "registro");
   await cp(join(import.meta.dir, "../../../test/fixtures/registro"), reg, {
@@ -35,7 +35,7 @@ test("registro JSON: revisar, registrar, actualizar y plazo; sin red real", asyn
       {
         stdout: "pipe",
         stderr: "pipe",
-        env: { ...process.env, HACKNIGHT_USUARIO: "demo-alba" },
+        env: { ...process.env, BUILDNIGHT_USUARIO: "demo-alba" },
       },
     );
     const out = await new Response(p.stdout).text();

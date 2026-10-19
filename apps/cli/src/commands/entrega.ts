@@ -5,13 +5,13 @@ import { join, resolve } from "node:path";
 import type { Contexto } from "../lib/contexto";
 import { miEquipo } from "../lib/contexto";
 import { leerFicha, validarFicha } from "../lib/ficha";
-import { guardar } from "@hacknight/shared/io";
-import { CliError, usage } from "@hacknight/shared/errors";
+import { guardar } from "@buildnight/shared/io";
+import { CliError, usage } from "@buildnight/shared/errors";
 import { salida } from "../lib/output";
 import { panel } from "../lib/estilo";
 import { revisar, revisionTexto, revisionPublica } from "../lib/revision";
 import { justificante, justificanteTexto } from "../lib/justificante";
-import type { Ficha } from "@hacknight/shared/modelo";
+import type { Ficha } from "@buildnight/shared/modelo";
 async function ask(message: string, initialValue = "") {
   const v = await text({
     message,
@@ -54,7 +54,7 @@ export async function ficha(ctx: Contexto, accion?: string, desde?: string) {
     await guardar(join(ctx.cwd, "ficha.json"), data);
     return salida(
       data,
-      "Ficha guardada. Sigue con hacknight revisar.",
+      "Ficha guardada. Sigue con buildnight revisar.",
       ctx.opts.json,
     );
   }
@@ -128,7 +128,7 @@ export async function ficha(ctx: Contexto, accion?: string, desde?: string) {
   await guardar(join(ctx.cwd, "ficha.json"), data);
   salida(
     data,
-    "Ficha guardada. Apa! Sigue con hacknight revisar.",
+    "Ficha guardada. Apa! Sigue con buildnight revisar.",
     ctx.opts.json,
   );
 }

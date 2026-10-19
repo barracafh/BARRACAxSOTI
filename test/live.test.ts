@@ -1,4 +1,4 @@
-import { RegistroLocal } from "@hacknight/shared/registro/local";
+import { RegistroLocal } from "@buildnight/shared/registro/local";
 import { publicarUso, servidorLocal } from "../apps/cli/src/watcher/cliente";
 import { test, expect, afterEach } from "bun:test";
 import { mkdtemp, cp, writeFile, mkdir, rm } from "node:fs/promises";
@@ -11,7 +11,7 @@ import {
   loteSchema,
   ventanaId,
   type Lote,
-} from "@hacknight/shared/contrato-uso";
+} from "@buildnight/shared/contrato-uso";
 import { contexto } from "../apps/cli/src/lib/contexto";
 import { crearHandler } from "../apps/server/src/servidor";
 import { leerConsumo } from "../apps/cli/src/consumo/local";
@@ -23,7 +23,7 @@ afterEach(async () => {
 });
 
 async function fixture() {
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-live-test-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-live-test-"));
   directories.push(dir);
   const reg = join(dir, "registro");
   await cp(join(import.meta.dir, "./fixtures/registro"), reg, {
@@ -222,10 +222,10 @@ test("observar --once --json funciona sin servidor, sin leer logs del usuario", 
     {
       env: {
         ...process.env,
-        HACKNIGHT_USUARIO: "demo-alba",
-        HACKNIGHT_CLAUDE_DIR: join(f.dir, "empty"),
-        HACKNIGHT_CODEX_DIR: join(f.dir, "empty"),
-        HACKNIGHT_PI_DIR: join(f.dir, "empty"),
+        BUILDNIGHT_USUARIO: "demo-alba",
+        BUILDNIGHT_CLAUDE_DIR: join(f.dir, "empty"),
+        BUILDNIGHT_CODEX_DIR: join(f.dir, "empty"),
+        BUILDNIGHT_PI_DIR: join(f.dir, "empty"),
       },
       stdout: "pipe",
       stderr: "pipe",

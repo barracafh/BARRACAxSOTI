@@ -18,7 +18,7 @@ venv/
 htmlcov/
 
 # Node
-.hacknight-live/
+.buildnight-live/
 node_modules/
 .vite/
 .turbo/

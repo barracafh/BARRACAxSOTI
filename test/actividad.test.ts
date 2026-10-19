@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test";
-import { snapshot } from "@hacknight/shared/actividad";
+import { snapshot } from "@buildnight/shared/actividad";
 import { RegistroGitHub } from "../apps/cli/src/registro/github";
-import type { Ficha } from "@hacknight/shared/modelo";
+import type { Ficha } from "@buildnight/shared/modelo";
 import evento from "./fixtures/registro/evento.json";
 import equipos from "./fixtures/registro/equipos.json";
 import tracks from "./fixtures/registro/tracks.json";
@@ -31,7 +31,7 @@ test("cada captura reutiliza las lecturas de GitHub sin conservar datos viejos",
     state: "open",
     merged_at: null,
     head: {
-      ref: `hacknight/ficha-demo-${i}`,
+      ref: `buildnight/ficha-demo-${i}`,
       sha: `sha-${i}`,
       repo: { full_name: "demo/registro" },
     },
@@ -79,7 +79,7 @@ test("el tablón ignora fichas de forks y fichas rotas", async () => {
     state: "open",
     merged_at: null,
     head: {
-      ref: `hacknight/ficha-demo-${number}`,
+      ref: `buildnight/ficha-demo-${number}`,
       sha: `sha-${number}`,
       repo: repo && { full_name: repo },
     },

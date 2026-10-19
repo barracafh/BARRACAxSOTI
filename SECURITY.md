@@ -1,6 +1,6 @@
 # Seguridad
 
-`hacknight` se instala en los portátiles de los participantes, así que cualquier fallo que exponga datos, credenciales o permita ejecutar código nos importa.
+`buildnight` se instala en los portátiles de los participantes, así que cualquier fallo que exponga datos, credenciales o permita ejecutar código nos importa.
 
 ## Cómo avisar
 

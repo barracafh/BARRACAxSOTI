@@ -14,7 +14,7 @@ Copia `evento.json`, `equipos.json`, `tracks.json` y `comite.json` desde `packag
 2. Decide propietario y repo. Ten `git`, Bun, `gh` y `gh auth login`; necesitas permiso para crear repos y administración del repo para proteger ramas, además de Contents e Issues Write. Un token limitado debe cubrir esas operaciones; no se guarda aquí.
 3. El usuario o equipo de `--owners` debe existir y tener Write explícito en el registro. GitHub no pide revisión a un owner sin acceso. El script no concede acceso a participantes ni al comité: configúralo y verifica CODEOWNERS antes de abrir el evento.
 4. Solo tras revisar el plan, sustituye `--dry-run` por `--apply`. El script usa un directorio temporal nuevo; no modifica tu checkout. Es de arranque, **no de actualización**: si el repo ya existe, falla. Si falla después de crearlo, inspecciona lo aplicado y completa manualmente los comandos pendientes; no borres el repo para repetir.
-5. Comprueba la rama y su protección en GitHub. Configura `HACKNIGHT_REGISTRO=organizacion/registro` para el CLI.
+5. Comprueba la rama y su protección en GitHub. Configura `BUILDNIGHT_REGISTRO=organizacion/registro` para el CLI.
 
 El CLI necesita Write para que los squads envíen fichas por ramas/PR; [infra/equipos](../equipos/README.md) lo concede a cada miembro al invitarlo. CODEOWNERS no concede permisos y una heurística del CLI no sustituye las revisiones.
 

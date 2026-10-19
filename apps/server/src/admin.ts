@@ -1,12 +1,12 @@
 import { readFile, writeFile, chmod } from "node:fs/promises";
 import { join } from "node:path";
 import { createHash, timingSafeEqual } from "node:crypto";
-import { esAusente } from "@hacknight/shared/io";
+import { esAusente } from "@buildnight/shared/io";
 import {
   administracion,
   guardarGestion,
-} from "@hacknight/shared/registro/gestion";
-import type { RegistroLocal } from "@hacknight/shared/registro/local";
+} from "@buildnight/shared/registro/gestion";
+import type { RegistroLocal } from "@buildnight/shared/registro/local";
 
 export async function claveAdministracion(dir: string) {
   const path = join(dir, ".admin-key");
@@ -73,14 +73,14 @@ export function crearAdmin(registro: RegistroLocal, clave?: string) {
   let intentos = 0,
     ventana = 0;
   const cookie = (value: string, age: number) =>
-    `hacknight_admin=${value}; HttpOnly; SameSite=Strict; Path=/api/admin; Max-Age=${age}`;
+    `buildnight_admin=${value}; HttpOnly; SameSite=Strict; Path=/api/admin; Max-Age=${age}`;
   const token = (req: Request) =>
     req.headers
       .get("cookie")
       ?.split(";")
       .map((p) => p.trim())
-      .find((p) => p.startsWith("hacknight_admin="))
-      ?.slice("hacknight_admin=".length) ?? "";
+      .find((p) => p.startsWith("buildnight_admin="))
+      ?.slice("buildnight_admin=".length) ?? "";
   return async (req: Request): Promise<Response | undefined> => {
     const path = new URL(req.url).pathname;
     if (!path.startsWith("/api/admin")) return;

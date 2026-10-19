@@ -10,7 +10,7 @@ test("el catálogo generado está al día con tracks/**/track.json", async () =>
 });
 
 test("rechaza rutas inconsistentes y ventanillas duplicadas", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "hacknight-tracks-"));
+  const dir = await mkdtemp(join(tmpdir(), "buildnight-tracks-"));
   try {
     await mkdir(join(dir, "derechos"));
     await Bun.write(

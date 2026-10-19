@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { ejecutar, type Runner } from "../lib/proceso";
-import { CliError } from "@hacknight/shared/errors";
+import { CliError } from "@buildnight/shared/errors";
 import {
   eventoSchema,
   equipoSchema,
@@ -12,7 +12,7 @@ import {
   type Ficha,
   type RegistroFicha,
   type Equipo,
-} from "@hacknight/shared/modelo";
+} from "@buildnight/shared/modelo";
 const ghIssue = z.object({
   number: z.number(),
   title: z.string(),
@@ -163,10 +163,10 @@ export class RegistroGitHub implements Registro {
     for (const p of prs.filter(
       (p) =>
         p.head.repo?.full_name === this.nombre &&
-        p.head.ref.startsWith("hacknight/ficha-") &&
+        p.head.ref.startsWith("buildnight/ficha-") &&
         (p.state === "open" || p.merged_at),
     )) {
-      const id = p.head.ref.slice("hacknight/ficha-".length);
+      const id = p.head.ref.slice("buildnight/ficha-".length);
       if (!/^[a-z0-9-]+$/.test(id)) continue;
       try {
         const ficha = await this.archivo(
@@ -194,7 +194,7 @@ export class RegistroGitHub implements Registro {
     return result.sort((a, b) => b.fecha.localeCompare(a.fecha));
   }
   async registrar(ficha: Ficha, fecha: string): Promise<RegistroFicha> {
-    const branch = `hacknight/ficha-${ficha.equipo}`;
+    const branch = `buildnight/ficha-${ficha.equipo}`;
     const path = `fichas/${ficha.equipo}.json`;
     const meta = await this.api("", z.object({ default_branch: z.string() }));
     let branchExists = true;
@@ -250,7 +250,7 @@ export class RegistroGitHub implements Registro {
           title: `Ficha: ${ficha.nombre}`,
           head: branch,
           base: meta.default_branch,
-          body: `Registro de ${ficha.equipo} · track ${ficha.herramienta}\n\n${fecha}\n\nRevisado con hacknight. Pendiente de integración por el comité.`,
+          body: `Registro de ${ficha.equipo} · track ${ficha.herramienta}\n\n${fecha}\n\nRevisado con buildnight. Pendiente de integración por el comité.`,
         },
       ));
     return {

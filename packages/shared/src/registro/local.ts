@@ -33,14 +33,14 @@ export class RegistroLocal implements Registro {
   readonly tipo = "local" as const;
   constructor(
     public dir: string,
-    private login = process.env.HACKNIGHT_USUARIO ?? "",
+    private login = process.env.BUILDNIGHT_USUARIO ?? "",
   ) {}
   usuario = async () => {
     if (!this.login)
       throw new CliError(
         "USAGE",
         "Falta tu identidad local.",
-        "Indica --usuario <handle> o HACKNIGHT_USUARIO.",
+        "Indica --usuario <handle> o BUILDNIGHT_USUARIO.",
         2,
       );
     return this.login;
