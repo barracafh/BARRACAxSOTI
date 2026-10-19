@@ -119,6 +119,20 @@ test("equipos: cada repo trae su ficha y su track, y pasa revisar salvo la URL p
       expect(report.reglas.filter((r) => !r.ok).map((r) => r.numero)).toEqual([
         2,
       ]);
+      if (e.herramienta === "sello") {
+        const aviso =
+          "Sello: falta dominios-oficiales.json (lista blanca de dominios).";
+        expect(report.avisos).not.toContain(aviso);
+        await ejecutar(
+          ["git", "rm", "--cached", "datos/dominios-oficiales.json"],
+          undefined,
+          project,
+        );
+        const sinVersionar = await revisar(ctx, (async () => {
+          throw new Error("Sin publicar");
+        }) as unknown as typeof fetch);
+        expect(sinVersionar.avisos).toContain(aviso);
+      }
     }
   } finally {
     await rm(dir, { recursive: true, force: true });
