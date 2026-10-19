@@ -1,6 +1,6 @@
 # Claridad
 
-**Estado:** nucleo · **Track lead:** por asignar.
+**Estado:** nucleo.
 
 ## Qué resuelve y para quién
 
@@ -8,7 +8,7 @@ Convierte convocatorias en listas de qué hacer y para cuándo. Personas que rec
 
 ## Piezas y criterio de hecho
 
-Una pieza por squad, con unas 4 h de build y el pack preparado. Alcances propuestos para que los cierre el track lead.
+Puede haber hasta dos squads en el track, los dos con el mismo reto: cada uno construye las piezas que le dé tiempo, empezando por «PDF a checklist», porque las otras dos trabajan sobre los documentos que saca de cada notificación. Unas 4 h de build con el pack preparado. Alcances propuestos para que los cierre el comité.
 
 | Pieza                                  | Alcance en 4 h                                                                        | Hecho cuando…                                                                                         |
 | -------------------------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
@@ -35,4 +35,4 @@ Hasta el 29/11: lenguaje neutral y atribuido. Sin notificaciones personales, moc
 
 ## Qué falta antes del 20/10
 
-Asignar track lead y revisión humana. Seleccionar PDFs, descargar y revisar catálogo PID, preparar respuestas esperadas y verificar enlaces de las tres carpetas. Dejar los datos en `datos/` con su procedencia y fecha de consulta.
+Asignar revisión humana. Seleccionar PDFs, descargar y revisar catálogo PID, preparar respuestas esperadas y verificar enlaces de las tres carpetas. Dejar los datos en `datos/` con su procedencia y fecha de consulta.

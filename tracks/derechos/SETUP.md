@@ -4,11 +4,19 @@
 
 El ciudadano cuenta su situación con sus palabras y la herramienta le dice a qué ayudas públicas (estatales, autonómicas y municipales) **podría optar** y dónde pedirlas. Hoy están repartidas entre administraciones y nadie te dice a cuáles puedes optar.
 
-Equipos: `derechos-a` y `derechos-b`, con el mismo reto.
+Puede haber hasta dos squads en este track, los dos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden que prefiera.
 
 ## Qué se espera en la demo
 
 A partir de una descripción como «tengo 24 años, estoy en paro y vivo de alquiler en València», la herramienta devuelve varias ayudas con el motivo por el que encajan, los requisitos que hay que comprobar, su estado (abierta, cerrada o permanente) y el enlace oficial.
+
+## Piezas
+
+El reto se puede abordar por partes. Elegid las que os dé tiempo y en el orden que queráis:
+
+- **Ayudas para ti.** A partir de la situación de la persona, las ayudas a las que podría optar, con sus requisitos, la fecha del dato y el enlace de solicitud. Si no hay ninguna, lo explica.
+- **Compatibilidades y requisitos.** Una tabla de requisitos y compatibilidades de las ayudas del catálogo: qué se puede cobrar a la vez y qué no. Cada requisito lleva su fuente; lo no revisado sale como pendiente, sin prometer que se pueda pedir.
+- **Calendario de convocatorias.** La apertura y el cierre de esas ayudas: distingue plazos cerrados, vigentes y sin fecha, con enlace al detalle oficial.
 
 ## Materiales en esta carpeta
 

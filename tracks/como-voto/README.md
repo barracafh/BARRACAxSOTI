@@ -1,6 +1,6 @@
 # ¿Cómo voto? (29N)
 
-**Estado:** nucleo · **Track lead:** por asignar.
+**Estado:** nucleo.
 
 ## Qué resuelve y para quién
 
@@ -8,7 +8,7 @@ Guía de voto por correo, consulta del censo y plazos con fuentes electorales. P
 
 ## Piezas y criterio de hecho
 
-Una pieza por squad, con unas 4 h de build y el pack preparado. Alcances propuestos para que los cierre el track lead.
+Puede haber hasta dos squads en el track, los dos con el mismo reto: cada uno construye las piezas que le dé tiempo, en el orden que prefiera. Unas 4 h de build con el pack preparado. Alcances propuestos para que los cierre el comité.
 
 | Pieza                  | Alcance en 4 h                                                                                       | Hecho cuando…                                                                                   |
 | ---------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
@@ -33,4 +33,4 @@ Riesgo electoral alto hasta el 29/11: solo proceso, sin candidatos, encuestas ni
 
 ## Qué falta antes del 20/10
 
-Asignar track lead y revisión humana. Revisar excepciones, asignar responsable editorial y fechar todas las guías.
+Asignar revisión humana. Revisar excepciones, asignar responsable editorial y fechar todas las guías.

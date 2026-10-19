@@ -4,11 +4,19 @@
 
 Le pasas el PDF o la notificación de turno y te lo traduce a lenguaje humano, con un checklist de qué tienes que hacer y para cuándo. **Sin guardar nada.**
 
-Equipos: `claridad-a` y `claridad-b`, con el mismo reto.
+Puede haber hasta dos squads en este track, los dos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden de abajo.
 
 ## Qué se espera en la demo
 
 Subir uno de los documentos de prueba y obtener: qué dice (en pocas frases y sin jerga), qué hay que hacer y la fecha límite, junto con lo que pasa si no se hace nada.
+
+## Piezas
+
+El reto se puede abordar por partes. Haced las que os dé tiempo. Empezad por «PDF a checklist»: las otras dos trabajan sobre los documentos que saca de cada notificación.
+
+- **PDF a checklist.** De un documento de prueba, los pasos y las fechas en una checklist. Cada punto remite al fragmento del que sale; lo ambiguo se marca como pendiente.
+- **¿Qué me piden y qué no pueden pedirme?** De los documentos que pide una notificación, cuáles puede consultar la propia administración (no hay que aportarlos), cuáles no y cuáles son privados, con su fuente y sus excepciones. Sin inventar derechos.
+- **Dónde descargar cada documento.** Cada documento de los ejemplos, enlazado a su descarga oficial (carpetas de la AGE, la GVA o València) o marcado como pendiente. No se almacena nada.
 
 ## Materiales (`datos/documentos/`)
 

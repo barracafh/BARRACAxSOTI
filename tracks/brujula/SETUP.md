@@ -4,11 +4,19 @@
 
 Le cuentas tu problema con tus palabras y te dice qué trámite es, los pasos y el enlace directo a la sede. La necesidad es humana («me han echado», «me empadrono») y la sede habla en organigramas.
 
-Equipos: `brujula-a` y `brujula-b`, con el mismo reto.
+Puede haber hasta dos squads en este track, los dos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden de abajo.
 
 ## Qué se espera en la demo
 
 A partir de una frase como «me han echado del trabajo», la herramienta identifica el trámite (en este caso, la prestación por desempleo), da los pasos en orden, la documentación y el plazo, y enlaza a la sede correspondiente. El voto por correo del 29-N no se explica aquí: remite a la herramienta de ¿Cómo voto? del centro (`https://build.barraca.house`).
+
+## Piezas
+
+El reto se puede abordar por partes. Haced las que os dé tiempo. Empezad por «Qué trámite necesito»: las otras dos completan el trámite que identifica.
+
+- **Qué trámite necesito.** Consultas resueltas sobre el catálogo: trámite, organismo, pasos y sede. Fuera del catálogo, reconoce que no lo sabe.
+- **¿Y si no hay cita?** Para los trámites que piden cita, las alternativas revisadas cuando no la hay: registro, atención e identificación por otras vías, con la fuente de cada afirmación. No automatiza citas ni afirma un derecho general a ser atendido sin cita.
+- **Oficinas y canales oficiales.** Oficinas y canales filtrados de un extracto local de DIR3, PROP y València, con el canal y el origen de cada dato. Los horarios que no estén se marcan como pendientes.
 
 ## Materiales en esta carpeta
 

@@ -1,6 +1,6 @@
 # Brújula (GVA y València)
 
-**Estado:** nucleo · **Track lead:** por asignar.
+**Estado:** nucleo.
 
 ## Qué resuelve y para quién
 
@@ -8,7 +8,7 @@ Orienta en trámites de GVA y València con pasos y enlaces a sedes oficiales. P
 
 ## Piezas y criterio de hecho
 
-Una pieza por squad, con unas 4 h de build y el pack preparado. Alcances propuestos para que los cierre el track lead.
+Puede haber hasta dos squads en el track, los dos con el mismo reto: cada uno construye las piezas que le dé tiempo, empezando por «Qué trámite necesito», porque las otras dos completan el trámite que identifica. Unas 4 h de build con el pack preparado. Alcances propuestos para que los cierre el comité.
 
 | Pieza                        | Alcance en 4 h                                                                        | Hecho cuando…                                                                                                                           |
 | ---------------------------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
@@ -34,4 +34,4 @@ Hasta el 29/11: cita previa y extranjería tienen lectura política. Atribuir do
 
 ## Qué falta antes del 20/10
 
-Asignar track lead y revisión humana. Acotar trámites, redactar y revisar las ocho fichas propuestas, limpiar oficinas y decidir si se puede reutilizar el buscador de Reforma Digital con Samu. Dejar los datos en `datos/` con su procedencia y fecha de consulta.
+Asignar revisión humana. Acotar trámites, redactar y revisar las ocho fichas propuestas, limpiar oficinas y decidir si se puede reutilizar el buscador de Reforma Digital con Samu. Dejar los datos en `datos/` con su procedencia y fecha de consulta.
