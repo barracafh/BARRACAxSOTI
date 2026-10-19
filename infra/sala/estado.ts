@@ -5,6 +5,7 @@ import { RegistroGitHub } from "../../apps/cli/src/registro/github";
 import { leer, postgres, type Consulta } from "./almacen";
 
 export const registro = "barracafh/build-registro";
+const avisos = "barracafh/build-comite";
 // The ranking shows squads only; personas lists every handle with its count.
 export const vistas = {
   clasificacion: true,
@@ -44,7 +45,7 @@ export async function estado(
   consulta: Consulta | undefined = postgres(),
 ) {
   const lector = lectorGitHub(process.env.GITHUB_TOKEN, fetcher);
-  const actual = await snapshot(new RegistroGitHub(registro, lector));
+  const actual = await snapshot(new RegistroGitHub(registro, lector, avisos));
   // Without a database the ranking stays off instead of failing the page.
   const conRanking = { ...vistas, clasificacion: Boolean(consulta) };
   let consumo = null;

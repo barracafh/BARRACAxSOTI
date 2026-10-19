@@ -134,7 +134,7 @@ La ficha tiene `nombre`, `frase`, `icono`, `herramienta`, `equipo`, `url`, `fuen
 
 ### Etiquetas y permisos en GitHub
 
-Prepara la etiqueta **`aviso`** con el script de infra antes del evento. Los avisos son issues de texto normal con esa etiqueta, escritos por un handle de `comite.json`; los de otros autores se ignoran.
+Los avisos son issues de texto normal con la etiqueta **`aviso`** en `barracafh/build-comite` (`HACKNIGHT_AVISOS` o `avisos` en la configuración cambian el repo), escritos por un handle de `comite.json`; los de otros autores se ignoran. No van en el registro: los squads tienen Write allí y podrían editar un aviso que seguiría firmado por el comité. Crea la etiqueta en ese repo antes del evento.
 
 El CLI usa **ramas en el registro central**, `hacknight/ficha-<squad>`, y Contents/PR API de GitHub. Los participantes necesitan permiso **Write** en ese repo para crear la rama y actualizar su ficha. No se crean forks automáticamente. Protege la rama principal: sin pushes directos, con revisión del comité; protege también los JSON de asignación y permisos mediante CODEOWNERS/revisión. El CLI valida identidad y asignación, pero **no sustituye los controles de GitHub** frente a alguien que escriba directamente con la API.
 

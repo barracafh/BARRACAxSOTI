@@ -6,6 +6,7 @@ import { esAusente } from "@hacknight/shared/io";
 import { CliError } from "@hacknight/shared/errors";
 const schema = z.object({
   registro: z.string().optional(),
+  avisos: z.string().optional(),
   releases: z.string().optional(),
 });
 export type Options = {
@@ -26,6 +27,7 @@ export const rutaConfig = () =>
 // releases stays optional in the type: without it, actualizar is disabled.
 export async function config(opts: Options): Promise<{
   registro: string;
+  avisos: string;
   releases?: string;
 }> {
   let file: z.infer<typeof schema> = {};
@@ -47,6 +49,8 @@ export async function config(opts: Options): Promise<{
       process.env.HACKNIGHT_REGISTRO ??
       file.registro ??
       "barracafh/build-registro",
+    avisos:
+      process.env.HACKNIGHT_AVISOS ?? file.avisos ?? "barracafh/build-comite",
     releases:
       opts.releases ??
       process.env.HACKNIGHT_RELEASES ??
