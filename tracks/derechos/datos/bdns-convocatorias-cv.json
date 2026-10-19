@@ -12,10 +12,11 @@
   ],
   "notas": [
     "Origen de los datos: Intervención General de la Administración del Estado.",
-    "Selección: convocatorias recibidas en BDNS desde el 01/07/2026 con tiposBeneficiario=1 (personas físicas que no desarrollan actividad económica). Incluye las 18 autonómicas de la Comunitat Valenciana (regiones 54, 55, 56 y 57), las 17 del Ayuntamiento de València (órgano 2903) y las 25 estatales (tipoAdministracion=C) más recientes con ámbito España o todo el mundo. Se excluyen las estatales limitadas a otras comunidades.",
+    "Selección: convocatorias recibidas en BDNS desde el 01/07/2026 con tiposBeneficiario=1 (personas físicas que no desarrollan actividad económica). Incluye las 18 autonómicas de la Comunitat Valenciana (regiones 54, 55, 56 y 57), las 17 del Ayuntamiento de València (órgano 2903) y las 24 estatales (tipoAdministracion=C) más recientes con ámbito España o todo el mundo. Se excluyen las estatales limitadas a otras comunidades.",
     "plazoSolicitud.abierto copia el campo `abierto` de BDNS («¿Se puede solicitar indefinidamente?»), que no significa «abierta hoy». Las fechas y textos de plazo se copian tal cual.",
     "Si tipoConvocatoria es «Concesión directa - instrumental», suele tratarse de una subvención nominativa o directa que no admite solicitudes de la ciudadanía, aunque esté etiquetada para personas físicas.",
-    "grupoConsulta indica de qué consulta procede cada convocatoria."
+    "grupoConsulta indica de qué consulta procede cada convocatoria.",
+    "Los nombres de campo no son los de la API: numeroBDNS es codigoBDNS, titulo es descripcion y plazoSolicitud agrupa abierto, fechas y textos de plazo (textoInicio y textoFin son textInicio y textFin). La lista completa está en SETUP.md."
   ],
   "convocatorias": [
     {
@@ -68,51 +69,6 @@
       ],
       "urlFichaOficial": "https://www.infosubvenciones.es/bdnstrans/GE/es/convocatorias/935684",
       "urlApiDetalle": "https://www.infosubvenciones.es/bdnstrans/api/convocatorias?vpd=GE&numConv=935684"
-    },
-    {
-      "numeroBDNS": "935147",
-      "titulo": "Concesión Directa subvenciones a corporaciones locales para financiar la contratación de personas desempleadas en labores de reconstrucción de las zonas dañadas por diversos fenómenos meteorológicos adversos",
-      "tituloLenguaCooficial": null,
-      "grupoConsulta": "estatal",
-      "organo": {
-        "nivel1": "ESTADO",
-        "nivel2": "MINISTERIO DE TRABAJO Y ECONOMÍA SOCIAL",
-        "nivel3": "SERVICIO PÚBLICO DE EMPLEO ESTATAL"
-      },
-      "tipoConvocatoria": "Concesión directa - instrumental",
-      "instrumentos": ["SUBVENCIÓN Y ENTREGA DINERARIA SIN CONTRAPRESTACIÓN"],
-      "presupuestoTotal": 50000000,
-      "regiones": ["ES - ESPAÑA"],
-      "tiposBeneficiario": [
-        "PERSONAS FÍSICAS QUE NO DESARROLLAN ACTIVIDAD ECONÓMICA"
-      ],
-      "finalidad": "Fomento del Empleo",
-      "fechaRecepcion": "2026-10-14",
-      "publicacionesDiarioOficial": [],
-      "plazoSolicitud": {
-        "abierto": false,
-        "fechaInicioSolicitud": "2026-07-31",
-        "fechaFinSolicitud": "2026-08-31",
-        "textoInicio": null,
-        "textoFin": null
-      },
-      "basesReguladoras": {
-        "titulo": "Orden TES/1077/2023, de 28 de septiembre, por la que se establecen las bases reguladoras para la concesión de subvenciones destinadas a la financiación de programas de políticas activas de empleo previstos en el Real Decreto 818/2021, de 28 de septiembre",
-        "url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-16553"
-      },
-      "sedeElectronica": null,
-      "mrr": false,
-      "fondosUE": [],
-      "documentos": [
-        {
-          "descripcion": "Texto en castellano de la convocatoria",
-          "nombreFichero": "BOE-A-2026-16553.pdf",
-          "fechaPublicacion": "2026-10-14",
-          "url": "https://www.infosubvenciones.es/bdnstrans/api/convocatorias/documentos?idDocumento=1536363"
-        }
-      ],
-      "urlFichaOficial": "https://www.infosubvenciones.es/bdnstrans/GE/es/convocatorias/935147",
-      "urlApiDetalle": "https://www.infosubvenciones.es/bdnstrans/api/convocatorias?vpd=GE&numConv=935147"
     },
     {
       "numeroBDNS": "934474",

@@ -1,6 +1,6 @@
 # Derechos · Buscador de ayudas
 
-Este fichero cubre quién concede ayudas públicas a ciudadanos en España (Estado, comunidades y ciudades autónomas, nivel provincial o insular y municipios), dónde se publican y cómo construir un buscador sobre ellas. Corresponde al track Derechos de la Build Night: «te dice a qué ayudas públicas tienes derecho y dónde pedirlas». Todo lo que no lleva la marca [sin verificar] se ha comprobado en fuente oficial entre el 12 y el 13/10/2026. Las peticiones a la API fueron repetidas por una revisión independiente el mismo día. Las consultas son de octubre de 2026. Territorio y competencias: ver 00, apartados 1 a 5, y 00b, apartado 1.
+Este fichero cubre quién concede ayudas públicas a ciudadanos en España (Estado, comunidades y ciudades autónomas, nivel provincial o insular y municipios), dónde se publican y cómo construir un buscador sobre ellas. Corresponde al track Derechos de la Build Night: «te dice a qué ayudas públicas podrías optar y dónde pedirlas». Todo lo que no lleva la marca [sin verificar] se ha comprobado en fuente oficial entre el 12 y el 13/10/2026. Las peticiones a la API fueron repetidas por una revisión independiente el mismo día. Las consultas son de octubre de 2026. Territorio y competencias: ver 00, apartados 1 a 5, y 00b, apartado 1.
 
 ## Correcciones a las premisas del encargo
 
