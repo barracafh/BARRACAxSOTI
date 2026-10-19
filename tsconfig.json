@@ -20,6 +20,7 @@
     "test/**/*.ts",
     "scripts/**/*.ts",
     "infra/**/*.ts",
-    "e2e/**/*.ts"
+    "e2e/**/*.ts",
+    "data-backup/**/*.ts"
   ]
 }

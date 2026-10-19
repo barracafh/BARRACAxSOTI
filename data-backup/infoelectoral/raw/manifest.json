@@ -1,0 +1,12 @@
+[
+  {
+    "url": "https://infoelectoral.interior.gob.es/estaticos/docxl/apliextr/02202307_MUNI.zip",
+    "finalUrl": "https://infoelectoral.interior.gob.es/estaticos/docxl/apliextr/02202307_MUNI.zip",
+    "file": "02202307_MUNI.zip",
+    "status": 200,
+    "contentType": "application/zip",
+    "bytes": 856306,
+    "sha256": "08cc98de85fa91f3e808705b9cb1886f63a78997b3563a106f5bedb213aee420",
+    "fetchedAt": "2026-10-19T09:16:17.593Z"
+  }
+]
