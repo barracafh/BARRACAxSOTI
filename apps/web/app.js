@@ -114,7 +114,7 @@ function detail(slug) {
   selectedDetail = slug;
   const squads = state.equipos.filter((s) => s.herramienta === slug);
   $("detalle-contenido").innerHTML =
-    `<p class="eyebrow">NEGOCIADO · VENTANILLA ${t.ventanilla} · TRACK ${esc(t.slug)}</p><h2>${esc(t.nombre)}</h2><p>${esc(t.ciudadano)}</p><h3>Piezas para construir</h3><ul>${t.piezas.map((p) => `<li>${esc(p)}</li>`).join("")}</ul><p><strong>Lead:</strong> ${esc(t.lead)}<br><strong>Dificultad:</strong> ${esc(t.dificultad)}</p><h3>Squads</h3><p>${squads.length ? squads.map((s) => `${esc(s.nombre)} · Mesa ${esc(s.mesa)}`).join("<br>") : "Pendiente de asignación"}</p><h3>Fuentes de referencia</h3><ul>${t.fuentes.map((f) => `<li><a href="${esc(safeUrl(f.url))}" target="_blank" rel="noopener noreferrer">${esc(f.nombre)} ↗</a></li>`).join("")}</ul>`;
+    `<p class="eyebrow">NEGOCIADO · VENTANILLA ${t.ventanilla} · TRACK ${esc(t.slug)}</p><h2>${esc(t.nombre)}</h2><p>${esc(t.ciudadano)}</p><h3>Piezas para construir</h3><ul>${t.piezas.map((p) => `<li>${esc(p)}</li>`).join("")}</ul><p><strong>Dificultad:</strong> ${esc(t.dificultad)}</p><h3>Squads</h3><p>${squads.length ? squads.map((s) => `${esc(s.nombre)} · Mesa ${esc(s.mesa)}`).join("<br>") : "Pendiente de asignación"}</p><h3>Fuentes de referencia</h3><ul>${t.fuentes.map((f) => `<li><a href="${esc(safeUrl(f.url))}" target="_blank" rel="noopener noreferrer">${esc(f.nombre)} ↗</a></li>`).join("")}</ul>`;
   if (!$("detalle").open) $("detalle").showModal();
 }
 function render() {
@@ -142,7 +142,6 @@ function render() {
         b.setAttribute("aria-pressed", String(b.dataset.group === group)),
       );
   }
-  $("ventanilla").hidden = !state.vistas.ventanilla && !state.vistas.tablon;
   if (!state.vistas.negociados && $("detalle").open) $("detalle").close();
   $("contenido").hidden = projector && !state.vistas.pantalla;
   $("total").textContent = compact(c.total);
@@ -209,14 +208,6 @@ function render() {
     .join("");
   $("inicio-grafico").textContent = time(state.evento.inicio);
   $("fin-grafico").textContent = time(state.evento.fin);
-  $("turnos").innerHTML = state.cola.length
-    ? state.cola
-        .map(
-          (t) =>
-            `<article class="turno"><div><strong>${esc(t.turno)}</strong><small>${esc(trackName(t.herramienta))}<br>${esc(t.motivo)}</small></div><div>MESA ${esc(t.mesa)}<small>${t.estado === "llamado" ? "PASE, POR FAVOR" : "EN ESPERA"}</small></div></article>`,
-        )
-        .join("")
-    : '<p class="empty">Sin turnos pendientes. Pide ayuda con <code>hacknight cita</code>.</p>';
   $("tablon").innerHTML = state.entradas.length
     ? state.entradas
         .slice(0, 4)

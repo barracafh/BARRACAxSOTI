@@ -2,6 +2,7 @@ import { mkdtemp, cp, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
+import { proyectoDePrueba } from "../../apps/cli/test/proyecto";
 const root = resolve(import.meta.dir, "../..");
 const dir = await mkdtemp(join(tmpdir(), "hacknight-demo-"));
 const registro = join(dir, "registro"),
@@ -21,20 +22,14 @@ const server = Bun.serve({
 const cmd = process.env.HACKNIGHT_BIN
   ? [resolve(process.env.HACKNIGHT_BIN)]
   : [process.execPath, join(root, "apps/cli/src/index.ts")];
-async function run(
-  name: string,
-  args: string[],
-  cwd = dir,
-  expect = 0,
-  user = "demo-alba",
-) {
+async function run(name: string, args: string[], cwd = dir, expect = 0) {
   const p = Bun.spawn(
     [
       ...cmd,
       "--registro",
       pathToFileURL(registro).href,
       "--usuario",
-      user,
+      "demo-alba",
       "--cwd",
       cwd,
       ...args,
@@ -63,7 +58,7 @@ async function run(
 }
 try {
   await run("expediente", ["expediente"]);
-  await run("tramitar", ["tramitar"]);
+  await proyectoDePrueba(dir);
   const ficha = await Bun.file(join(project, "ficha.json")).json();
   ficha.url = server.url.href;
   await writeFile(
@@ -89,19 +84,6 @@ try {
   await run("revisar", ["revisar"], project);
   await run("registrar", ["registrar"], project);
   await run("expediente-final", ["expediente"], project);
-  await run(
-    "cita",
-    ["cita", "--motivo", "Conectar la pieza al centro"],
-    project,
-  );
-  await run(
-    "ventanilla-llamar",
-    ["ventanilla", "llamar"],
-    project,
-    0,
-    "demo-mentor-ona",
-  );
-  await run("pantalla", ["pantalla", "--once", "--plain"], project);
   console.log(`\nDemo completa. Registro, proyecto y capturas: ${dir}`);
 } finally {
   await server.stop(true);

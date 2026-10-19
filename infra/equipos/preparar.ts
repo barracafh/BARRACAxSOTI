@@ -1,5 +1,5 @@
-import { lstat, readdir } from "node:fs/promises";
-import { join, relative } from "node:path";
+import { lstat } from "node:fs/promises";
+import { join, posix } from "node:path";
 import {
   equipoSchema,
   trackSchema,
@@ -8,6 +8,7 @@ import {
 } from "@hacknight/shared/modelo";
 import { paleta } from "@hacknight/shared/paleta";
 import {
+  commit,
   ejecutar,
   existe,
   initialCommit,
@@ -23,10 +24,44 @@ import {
 
 const dominio = "build.barraca.house";
 const hubProject = "build-hub";
-// The CLI's registry: every participant needs Write there to register and ask for help.
+// The CLI's registry: every participant needs Write there to register.
 const registro = "barracafh/build-registro";
+// Never the registry: squads may not touch the binaries.
+const releases = "barracafh/build-comite";
 // A team's repo and Vercel project share this name.
 export const proyecto = (id: string) => `build-${id}`;
+// The public monorepo, for links to material a team repo does not carry.
+const monorepo = "https://github.com/barracafh/BARRACAxSOTI/blob/main/";
+
+// The shared knowledge files each track cites, as tracks/comun/README.md lists them.
+const comunes = (slug: string) => [
+  "00-territorio.md",
+  "00b-competencias-y-sector-publico.md",
+  ...(["brujula", "claridad", "sello"].includes(slug)
+    ? ["04b-gestores-expedientes.md"]
+    : []),
+];
+
+// Copied Markdown keeps working links: those to files the team repo carries
+// become relative to it, the rest point to the public monorepo.
+export function enlazar(
+  md: string,
+  origen: string,
+  destino: string,
+  copias: Map<string, string>,
+) {
+  return md.replace(/\]\(([^)\s]+)\)/g, (todo, href: string) => {
+    if (/^(?:[a-z][a-z\d+.-]*:|#|\/)/i.test(href)) return todo;
+    const [ruta = "", ancla = ""] = href.split(/(?=#)/);
+    const enMonorepo = posix.join(posix.dirname(origen), ruta);
+    const copia = copias.get(enMonorepo);
+    const nueva =
+      copia === undefined
+        ? monorepo + enMonorepo
+        : posix.relative(posix.dirname(destino), copia);
+    return `](${nueva}${ancla})`;
+  });
+}
 // Copied to every project when set in this shell; track keys only to that track.
 const claves = ["HELMCODE_API_KEY", "HELMCODE_BASE_URL", "HELMCODE_MODEL"];
 const clavesTrack: Record<string, string[]> = {
@@ -98,18 +133,8 @@ async function versionados(carpeta: string) {
   return lista.split("\0").filter(Boolean);
 }
 
-async function recorrer(dir: string): Promise<string[]> {
-  const dentro = await readdir(dir, { withFileTypes: true });
-  const rutas = await Promise.all(
-    dentro.map((d) =>
-      d.isDirectory() ? recorrer(join(dir, d.name)) : [join(dir, d.name)],
-    ),
-  );
-  return rutas.flat();
-}
-
 // The team's repo: tracked starter files only, its ficha and feedback link,
-// and its track's brief, data and knowledge base.
+// and its track's brief, data and knowledge base, shared files included.
 export async function archivosEquipo(
   equipo: Equipo,
   track: Track,
@@ -140,7 +165,7 @@ export async function archivosEquipo(
   files["ficha.json"] =
     JSON.stringify(
       {
-        nombre: equipo.pieza,
+        nombre: track.nombre,
         frase: track.frase,
         icono: track.glifo,
         herramienta: track.slug,
@@ -153,21 +178,30 @@ export async function archivosEquipo(
       2,
     ) + "\n";
   files[".hacknight/plantilla.json"] =
-    JSON.stringify(
-      { plantilla: "hacknight", version: "0", exampleFicha: false },
-      null,
-      2,
-    ) + "\n";
+    JSON.stringify({ plantilla: "hacknight", version: "0" }, null, 2) + "\n";
   const carpeta = join(root, "tracks", track.slug);
   if (!(await Bun.file(join(carpeta, "SETUP.md")).exists()))
     throw new Error(`tracks/${track.slug} no tiene SETUP.md.`);
-  files["SETUP.md"] = await Bun.file(join(carpeta, "SETUP.md")).bytes();
+  const prefijo = `tracks/${track.slug}/`;
+  const copias = new Map([[`${prefijo}SETUP.md`, "SETUP.md"]]);
   if (await Bun.file(join(carpeta, "contexto.md")).exists())
-    files["contexto.md"] = await Bun.file(join(carpeta, "contexto.md")).bytes();
+    copias.set(`${prefijo}contexto.md`, "contexto.md");
+  for (const comun of comunes(track.slug))
+    copias.set(`tracks/comun/${comun}`, `comun/${comun}`);
+  for (const [origen, destino] of copias)
+    files[destino] = enlazar(
+      await Bun.file(join(root, origen)).text(),
+      origen,
+      destino,
+      copias,
+    );
+  // Tracked files only: a stray local file must never reach a public repo.
   // datos/README.md documents the committee's packs, not the team's data.
-  for (const path of await recorrer(join(carpeta, "datos")))
-    if (relative(carpeta, path) !== join("datos", "README.md"))
-      files[relative(carpeta, path)] = await Bun.file(path).bytes();
+  for (const path of await versionados(`${prefijo}datos`))
+    if (path !== `${prefijo}datos/README.md`)
+      files[path.slice(prefijo.length)] = await Bun.file(
+        join(root, path),
+      ).bytes();
   return files;
 }
 
@@ -230,24 +264,9 @@ export async function pasosEquipo(
     commands.push(vercel(`/v10/projects/${name}/env?upsert=true`, "POST", env));
   // Linking a repo deploys nothing; a push after the link deploys with its keys.
   if (nuevo)
-    commands.push(
-      {
-        args: [
-          "git",
-          "-c",
-          "user.name=Hacknight",
-          "-c",
-          "user.email=organizacion@example.invalid",
-          "-c",
-          "commit.gpgsign=false",
-          "commit",
-          "--allow-empty",
-          "-m",
-          "Deploy on Vercel",
-        ],
-      },
-      { args: ["git", "push", "origin", "main"] },
-    );
+    commands.push(commit("--allow-empty", "-m", "Deploy on Vercel"), {
+      args: ["git", "push", "origin", "main"],
+    });
   for (const m of equipo.miembros)
     for (const repo of [equipo.repo, registro])
       commands.push({
@@ -358,9 +377,9 @@ ${
 }
 <section class="cli">
 <h2>El CLI del evento</h2>
-<p>Vuestra ficha, la revisión de las seis reglas, los turnos de ayuda y el tablón. Con <code>gh auth login</code> hecho, en macOS o Linux:</p>
+<p>Vuestra ficha, la revisión de las seis reglas y el tablón. Con <code>gh auth login</code> hecho, en macOS o Linux:</p>
 <pre><code>curl -fsSL https://${dominio}/instalar.sh | sh</code></pre>
-<p>En Windows, descarga <code>hacknight-windows-x64.exe</code> de la <a href="https://github.com/${registro}/releases/latest">última release</a>.</p>
+<p>En Windows, descarga <code>hacknight-windows-x64.exe</code> de la <a href="https://github.com/${releases}/releases/latest">última release</a>.</p>
 </section>
 </main>
 </body>
@@ -399,6 +418,12 @@ export async function preparar(config: {
   const tracks = await leerTracks();
   const raw = await Bun.file(config.equipos).json();
   const equipos = validarEquipos(raw, tracks);
+  // The CLI's registry needs each team's repo and plain handles. Normalizing
+  // is local, so write it now: a later remote failure must not skip it.
+  if (apply && JSON.stringify(raw) !== JSON.stringify(equipos)) {
+    await Bun.write(config.equipos, JSON.stringify(equipos, null, 2) + "\n");
+    log(`${config.equipos} actualizado con los repos y usuarios normalizados.`);
+  }
   const elegidos = config.solo
     ? equipos.filter((e) => e.id === config.solo)
     : equipos;
@@ -438,13 +463,6 @@ export async function preparar(config: {
     apply,
     log,
   );
-  // The CLI's registry needs each team's repo, so the defaults are written back.
-  if (apply && JSON.stringify(raw) !== JSON.stringify(equipos)) {
-    await Bun.write(config.equipos, JSON.stringify(equipos, null, 2) + "\n");
-    log(
-      `\n${config.equipos} actualizado con los repos y usuarios normalizados.`,
-    );
-  }
 }
 
 if (import.meta.main) {

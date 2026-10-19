@@ -1,26 +1,43 @@
 @import "tailwindcss";
-@import "../styles/paleta.css";
+@import "../styles/tema.css";
 
-/* Syne para titulares y Space Mono para el texto, servidas por next/font. */
-@theme inline {
-  --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-space-mono), ui-monospace, monospace;
-}
+/* La base de Sol, como el layout de Reforma Digital: fondo blanco, Geist para
+   todo y la serif solo en h1 y h2. */
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-border);
+  }
 
-body {
-  margin: 0;
-  background: var(--color-nit);
-  color: var(--color-paper);
-  font-family: var(--font-mono);
-  -webkit-font-smoothing: antialiased;
-}
+  body {
+    @apply bg-background font-sans text-base leading-[1.55] text-foreground antialiased;
+    font-synthesis: none;
+  }
 
-::selection {
-  background: var(--color-magenta);
-  color: var(--color-nit);
-}
+  h1,
+  h2 {
+    @apply font-heading font-normal;
+  }
 
-:focus-visible {
-  outline: 2px solid var(--color-acid);
-  outline-offset: 3px;
+  :is(h1, h2, h3, h4, dt) {
+    text-wrap: balance;
+  }
+
+  :is(p, li, dd, figcaption, small) {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--brand-yellow);
+    color: var(--foreground);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      transition-duration: 0.01ms !important;
+    }
+  }
 }

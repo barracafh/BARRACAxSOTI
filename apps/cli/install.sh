@@ -1,7 +1,7 @@
 #!/bin/sh
 # Instala la última release de hacknight; se sirve en build.barraca.house/instalar.sh.
 set -eu
-release_repo=${HACKNIGHT_RELEASES:-barracafh/build-registro}
+release_repo=${HACKNIGHT_RELEASES:-barracafh/build-comite}
 case "$release_repo" in *[!a-zA-Z0-9_./-]*|/*|*/|*..*) echo 'Repositorio inválido.' >&2; exit 2;; esac
 if ! printf '%s\n' "$release_repo" | awk -F/ 'NF==2 && length($1)>0 && length($2)>0 {ok=1} END {exit !ok}'; then exit 2; fi
 case "$(uname -s)" in Darwin) os=darwin;; Linux) os=linux;; *) echo 'Descarga el .exe de la release para Windows.' >&2; exit 2;; esac
@@ -10,6 +10,7 @@ asset="hacknight-$os-$cpu"
 install_dir=${HACKNIGHT_INSTALL_DIR:-"$HOME/.local/bin"}
 mkdir -p "$install_dir"
 stage=$(mktemp -d "$install_dir/.hacknight-install.XXXXXX")
+trap 'rm -rf "$stage"' EXIT
 base="https://github.com/$release_repo/releases/latest/download"
 curl --fail --silent --show-error --location --proto '=https' --max-time 120 "$base/$asset" -o "$stage/$asset"
 curl --fail --silent --show-error --location --proto '=https' --max-time 30 "$base/SHA256SUMS" -o "$stage/SHA256SUMS"

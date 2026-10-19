@@ -1,6 +1,6 @@
 name: Release del CLI
 # Comprueba y compila un tag cli-v*. La publicación va al registro público con
-# infra/cli/publicar.ts: las releases de este repo privado no se pueden descargar.
+# infra/cli/publicar.ts, porque el CLI y el instalador descargan de allí.
 on:
   push:
     tags:
@@ -21,30 +21,5 @@ jobs:
           RELEASE_TAG: ${{ github.ref_name }}
         run: bun scripts/check-release.ts
       - run: bun run check
-  build:
-    needs: validate
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        target:
-          - bun-linux-x64
-          - bun-linux-arm64
-          - bun-darwin-x64
-          - bun-darwin-arm64
-          - bun-windows-x64
-    steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.3.11
-      - run: bun install --frozen-lockfile
-      - name: Compilar binario
-        env:
-          BUILD_TARGET: ${{ matrix.target }}
-        run: bash apps/cli/scripts/build-all.sh --target "$BUILD_TARGET"
-      - uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.target }}
-          path: apps/cli/dist/hacknight-*
-          if-no-files-found: error
+      - name: Compilar los cinco binarios
+        run: bash apps/cli/scripts/build-all.sh

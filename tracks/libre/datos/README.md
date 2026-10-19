@@ -1,7 +1,8 @@
 # Datos · Track libre
 
-| Paquete necesario | Formato           | Origen y preparación                                                | Estado    |
-| ----------------- | ----------------- | ------------------------------------------------------------------- | --------- |
-| Pack por definir  | Formato pendiente | Fuente oficial pendiente de la propuesta; no hay dataset preparado. | pendiente |
+| Recurso                  | Formato    | Origen                                                                                                                      | Estado           |
+| ------------------------ | ---------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| Recursos de otros tracks | JSON y CSV | Catálogo de trámites y ayudas, dominios oficiales y datos electorales, copiados de sus tracks. Ver [SETUP.md](../SETUP.md). | listo            |
+| Fuente propia            | —          | La trae el squad con su propuesta, con el enlace ya probado.                                                                | con la propuesta |
 
-Antes del 20/10: descargar, acotar, limpiar y guardar procedencia, licencia y fecha de consulta. Verificar que no contiene datos personales. Publicar el pack fuera de esta carpeta de documentación y poner URL, SHA256 y `pendiente: false` en `../track.json`; ejecutar `bun run tracks:generar` desde la raíz. [Fuentes oficiales](../README.md#fuentes-oficiales).
+Cada archivo lleva su procedencia y fecha de consulta; ninguno contiene datos personales. `infra/equipos` copia esta carpeta al repo de cada squad, sin este README.

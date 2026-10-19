@@ -1,9 +1,8 @@
 # Datos · Claridad
 
-| Paquete necesario        | Formato                                    | Origen y preparación                                                                                     | Estado    |
-| ------------------------ | ------------------------------------------ | -------------------------------------------------------------------------------------------------------- | --------- |
-| Convocatorias de ejemplo | PDF público + JSON de resultados esperados | BDNS; selección y extracción pendientes.                                                                 | pendiente |
-| Catálogo de documentos   | JSON curado (~25 servicios como propuesta) | PID/SVD; la lista vigente no se pudo verificar automáticamente en el comité. Descarga manual y revisión. | pendiente |
-| Rutas de descarga        | JSON/Markdown                              | Carpetas oficiales AGE, GVA y València; verificar enlaces profundos.                                     | pendiente |
+| Recurso               | Formato                                      | Origen                                                                                                                                                                     | Estado |
+| --------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| Documentos de ejemplo | PDF ficticios + JSON de resultados esperados | `documentos/`: 9 notificaciones ficticias y una foto de móvil; `indice.json` trae la fecha límite esperada de cada una, recalculada el 18/10. Ver [SETUP.md](../SETUP.md). | listo  |
+| Festivos de 2026      | JSON                                         | `festivos-2026.json`: 14 festivos de València ciudad (nacionales, autonómicos y locales) con su fuente en el BOE o el DOGV, consultados el 18/10.                          | listo  |
 
-Antes del 20/10: descargar, acotar, limpiar y guardar procedencia, licencia y fecha de consulta. Verificar que no contiene datos personales. Publicar el pack fuera de esta carpeta de documentación y poner URL, SHA256 y `pendiente: false` en `../track.json`; ejecutar `bun run tracks:generar` desde la raíz. [Fuentes oficiales](../README.md#fuentes-oficiales).
+Cada archivo lleva su procedencia y fecha de consulta; ninguno contiene datos personales. `infra/equipos` copia esta carpeta al repo de cada squad, sin este README.

@@ -85,6 +85,11 @@ export async function archivosSala(): Promise<Archivos> {
 if (import.meta.main) {
   const args = options([]);
   const token = process.env.GITHUB_TOKEN;
+  // Without it every refresh hits GitHub's 60 requests/hour and the room goes blank.
+  if (args.apply && !token)
+    throw new Error(
+      "Carga GITHUB_TOKEN (.local-secrets/build-night.env) antes de --apply.",
+    );
   await ejecutar(
     `sala · https://${dominio}`,
     await archivosSala(),

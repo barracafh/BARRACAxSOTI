@@ -1,9 +1,8 @@
-# Datos · Brújula (GVA y València)
+# Datos · Brújula
 
-| Paquete necesario     | Formato                                                   | Origen y preparación                                                                  | Estado    |
-| --------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------- | --------- |
-| Trámites y plazos     | JSON/Markdown curado                                      | Sedes GVA y València; no hay catálogo descargable según la investigación.             | pendiente |
-| Alternativas sin cita | 8 fichas Markdown propuestas                              | DNI, TIE/NIE, SEPE, INSS/TGSS, DGT, AEAT, PROP y padrón; revisión jurídica pendiente. | pendiente |
-| Oficinas y canales    | DIR3 XLSX, PROP CSV, equipamientos municipales CSV → JSON | Descarga y limpieza; los equipamientos municipales del contexto no traen horarios.    | pendiente |
+| Recurso              | Formato | Origen                                                                                                                                                                                | Estado  |
+| -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Trámites y ayudas    | JSON    | `catalogo-tramites-ayudas.json`: 21 entradas (13 trámites y 8 ayudas), cada una con su fuente y el campo `verificado`. Ver [SETUP.md](../SETUP.md).                                   | listo   |
+| Buscador de trámites | Web     | [Buscador del PAG](https://administracion.gob.es/tramites-electronicos/resultados-actuaciones) (SIA): la herramienta remite a él fuera del catálogo; no tiene API ni descarga masiva. | en vivo |
 
-Antes del 20/10: descargar, acotar, limpiar y guardar procedencia, licencia y fecha de consulta. Verificar que no contiene datos personales. Publicar el pack fuera de esta carpeta de documentación y poner URL, SHA256 y `pendiente: false` en `../track.json`; ejecutar `bun run tracks:generar` desde la raíz. [Fuentes oficiales](../README.md#fuentes-oficiales).
+Cada archivo lleva su procedencia y fecha de consulta; ninguno contiene datos personales. `infra/equipos` copia esta carpeta al repo de cada squad, sin este README.

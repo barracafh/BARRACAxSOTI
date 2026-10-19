@@ -14,7 +14,6 @@ case "${1:-}" in
   '') ;;
   *) echo 'Uso: build-all.sh [--host | --target bun-<plataforma>]' >&2; exit 2 ;;
 esac
-bun scripts/embed-plantilla.ts
 common=(bun build --compile --minify --no-compile-autoload-dotenv --define 'HACKNIGHT_COMPILED=true' src/index.ts)
 mkdir -p dist
 if [[ "${1:-}" == "--host" ]]; then

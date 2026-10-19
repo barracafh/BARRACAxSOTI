@@ -1,11 +1,12 @@
 import { expect, test } from "bun:test";
 import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
-import { dirname, join, resolve } from "node:path";
+import { dirname, join, posix, resolve } from "node:path";
 import { tmpdir } from "node:os";
 import { pathToFileURL } from "node:url";
 import { fichaSchema } from "@hacknight/shared/modelo";
 import {
   archivosEquipo,
+  enlazar,
   archivosHub,
   leerTracks,
   preparar,
@@ -21,7 +22,6 @@ const equipo = (id: string, herramienta: string, miembros: string[]) => ({
   id,
   nombre: `Squad ${id}`,
   herramienta,
-  pieza: "Pieza de prueba",
   mesa: "1",
   miembros,
   repo: "",
@@ -85,6 +85,17 @@ test("equipos: cada repo trae su ficha y su track, y pasa revisar salvo la URL p
       expect(files["SETUP.md"]).toBeDefined();
       expect(files["AGENTS.md"]).toBeDefined();
       expect(files["datos/README.md"]).toBeUndefined();
+      expect(files["comun/00-territorio.md"]).toBeDefined();
+      expect(files["comun/04b-gestores-expedientes.md"] !== undefined).toBe(
+        ["brujula", "claridad", "sello"].includes(e.herramienta),
+      );
+      // Every relative link in the committee's Markdown resolves in the repo.
+      for (const md of Object.keys(files).filter((p) =>
+        /^(?:comun\/.*|contexto|SETUP)\.md$/.test(p),
+      ))
+        for (const [, href] of text(md).matchAll(/\]\(([^)\s#]+)[^)]*\)/g))
+          if (!/^[a-z][a-z\d+.-]*:/i.test(href!))
+            expect(files[posix.join(posix.dirname(md), href!)]).toBeDefined();
       expect(
         Object.keys(files).some((p) => /node_modules|^\.next/.test(p)),
       ).toBe(false);
@@ -108,6 +119,20 @@ test("equipos: cada repo trae su ficha y su track, y pasa revisar salvo la URL p
       expect(report.reglas.filter((r) => !r.ok).map((r) => r.numero)).toEqual([
         2,
       ]);
+      if (e.herramienta === "sello") {
+        const aviso =
+          "Sello: falta dominios-oficiales.json (lista blanca de dominios).";
+        expect(report.avisos).not.toContain(aviso);
+        await ejecutar(
+          ["git", "rm", "--cached", "datos/dominios-oficiales.json"],
+          undefined,
+          project,
+        );
+        const sinVersionar = await revisar(ctx, (async () => {
+          throw new Error("Sin publicar");
+        }) as unknown as typeof fetch);
+        expect(sinVersionar.avisos).toContain(aviso);
+      }
     }
   } finally {
     await rm(dir, { recursive: true, force: true });
@@ -140,7 +165,7 @@ test("equipos: el hub reenvía cada ruta a su proyecto y escapa los nombres", as
 test("equipos: sin reparto, el hub se publica vacío", async () => {
   const tracks = await leerTracks();
   const files = await archivosHub(validarEquipos([], tracks), tracks, {});
-  expect(files["instalar.sh"]).toContain("barracafh/build-registro");
+  expect(files["instalar.sh"]).toContain("barracafh/build-comite");
   expect(JSON.parse(files["vercel.json"] as string).rewrites).toEqual([]);
   expect(files["index.html"]).toContain("cuando cada equipo publica la suya");
 });
@@ -166,4 +191,29 @@ test("equipos: la simulación no ejecuta nada ni imprime claves", async () => {
     else process.env.HELMCODE_API_KEY = previa;
     await rm(dir, { recursive: true, force: true });
   }
+});
+
+test("equipos: los enlaces del material siguen funcionando en el repo del equipo", () => {
+  const copias = new Map([
+    ["tracks/sello/contexto.md", "contexto.md"],
+    ["tracks/comun/00-territorio.md", "comun/00-territorio.md"],
+  ]);
+  expect(
+    enlazar(
+      "[00](../comun/00-territorio.md#2-niveles) [Claridad](../claridad/contexto.md) [BOE](https://www.boe.es/) [arriba](#indice)",
+      "tracks/sello/contexto.md",
+      "contexto.md",
+      copias,
+    ),
+  ).toBe(
+    "[00](comun/00-territorio.md#2-niveles) [Claridad](https://github.com/barracafh/BARRACAxSOTI/blob/main/tracks/claridad/contexto.md) [BOE](https://www.boe.es/) [arriba](#indice)",
+  );
+  expect(
+    enlazar(
+      "[Sello](../sello/contexto.md)",
+      "tracks/comun/00-territorio.md",
+      "comun/00-territorio.md",
+      copias,
+    ),
+  ).toBe("[Sello](../contexto.md)");
 });

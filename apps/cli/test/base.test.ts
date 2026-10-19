@@ -21,17 +21,16 @@ test("el fixture de pruebas tiene todos los negociados y cuatro squads", async (
   expect(await r.comite()).toHaveLength(2);
   expect((await r.evento()).fin).toBe("2026-10-22T22:00:00+02:00");
 });
-test("registro local persiste y cierra issues", async () => {
+test("registro local persiste issues", async () => {
   const p = await mkdtemp(join(tmpdir(), "hacknight-test-"));
   tempDirs.push(p);
   await cp(join(import.meta.dir, "../../../test/fixtures/registro"), p, {
     recursive: true,
   });
   const r = new RegistroLocal(p, "demo-alba");
-  const i = await r.crearIssue("Ayuda", "Texto", ["ventanilla"]);
+  const i = await r.crearIssue("Hola", "Texto", ["aviso"]);
   expect(i.numero).toBe(1);
-  await r.editarIssue(i.numero, { estado: "closed" });
-  expect((await new RegistroLocal(p).issues())[0]?.estado).toBe("closed");
+  expect((await new RegistroLocal(p).issues())[0]?.titulo).toBe("Hola");
 });
 test("cuenta atrás no depende de la zona de la máquina", () => {
   expect(
@@ -51,10 +50,10 @@ test("marca y azulejos caben en 80 columnas y marca pequeña en 30", () => {
     expect(Bun.stringWidth(line)).toBeLessThanOrEqual(80);
   expect(wordmarkRows()).toHaveLength(6);
   expect(new Set(wordmarkRows().map((s) => Bun.stringWidth(s))).size).toBe(1);
-  expect(banner(30, null)).toContain("☾ build night");
-  expect(banner(80, null)).toContain("BARRACA x SOTI · 22/10/2026 · MAISA");
+  expect(banner(30)).toContain("☾ build night");
+  expect(banner(80)).toContain("BARRACA x SOTI · 22/10/2026 · Flywire");
   for (const columns of [30, 72, 73, 80])
-    for (const line of banner(columns, null).split("\n"))
+    for (const line of banner(columns).split("\n"))
       expect(Bun.stringWidth(line)).toBeLessThanOrEqual(columns);
   const lunar = panel("🌙 Hack night", ["Una noche 🌙 para construir"], 30);
   expect(lunar).toContain("☾ Hack night");

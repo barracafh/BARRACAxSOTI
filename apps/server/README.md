@@ -11,7 +11,7 @@ bun install --frozen-lockfile
 bun run start
 ```
 
-Web: **http://127.0.0.1:4310/**. Administración: **http://127.0.0.1:4310/admin**. El primer arranque crea `.hacknight-live/registro/` con los tracks reales, el horario del evento y **cero equipos, participantes, publicaciones o consumo**. Reiniciar conserva los datos. No arranca watchers ni genera tokens.
+Web: **http://127.0.0.1:4310/**. Administración: **http://127.0.0.1:4310/admin**. El primer arranque crea `.hacknight-live/registro/` con los tracks reales, el horario del evento y **cero equipos, participantes, avisos o consumo**. Reiniciar conserva los datos. No arranca watchers ni genera tokens.
 
 La terminal indica dónde está `.admin-key`; introduce el contenido de ese archivo en el formulario de administración. Es una clave local, creada con permisos `0600`; no se imprime, no se sube a GitHub y no se guarda en el navegador. La sesión usa una cookie HttpOnly/SameSite y caduca en ocho horas o al reiniciar el servidor. `Cerrar sesión` la revoca.
 
@@ -29,8 +29,8 @@ Para un registro local que ya existe: `bun run start --directorio /ruta/registro
 En `/admin` el comité puede:
 
 - Editar nombre oficial, nombre corto, organizadores, inicio y fin del build, entregas tardías y handles del comité. Los campos de fecha muestran la zona horaria del navegador; la web pública siempre presenta la hora de València.
-- Crear, editar y quitar equipos; asignarles un negociado, pieza, mesa, repo y hasta cinco handles de GitHub. Se admiten equipos vacíos durante la preparación. Se rechazan participantes repetidos, tracks fuera del hack y cupos excedidos.
-- Habilitar tokenmaxxing, ranking individual, catálogo de negociados, ventanilla, tablón y proyector. El ranking individual empieza deshabilitado. Las vistas apagadas tampoco entregan sus datos desde la API. Los avisos y publicaciones pueden identificar a sus autores aunque el ranking individual esté oculto.
+- Crear, editar y quitar equipos; asignarles un negociado, mesa, repo y hasta cinco handles de GitHub. Se admiten equipos vacíos durante la preparación. Se rechazan participantes repetidos, tracks fuera del hack y cupos excedidos.
+- Habilitar tokenmaxxing, ranking individual, catálogo de negociados, tablón y proyector. El ranking individual empieza deshabilitado. Las vistas apagadas tampoco entregan sus datos desde la API. Los avisos identifican a sus autores aunque el ranking individual esté oculto.
 
 Los equipos se editan en un borrador. **Guardar configuración** aplica el conjunto de cambios, con control de revisión para impedir que dos pestañas se sobreescriban. La web los recoge en su siguiente consulta, cada dos segundos. Los permisos de vistas son globales para esta web; no sustituyen los permisos de GitHub ni deshabilitan los comandos del CLI.
 
@@ -53,7 +53,7 @@ bun run cli --registro file:///ruta/registro --cwd /ruta/proyecto --usuario TU_H
 
 El backend local persiste en SQLite y deduplica cada evento por ventana, persona e ID: se puede reintentar o reiniciar sin sumar dos veces. El total incluye entrada, salida y caché, con desglose separado. Solo acepta miembros del registro, y el periodo es `[inicio, fin)`. Los IDs de eventos salen como hashes; no se envían conversaciones, rutas ni nombres de proyectos. El watcher vuelve a leer el historial retenido en cada ciclo y recupera envíos fallidos mientras esos archivos existan.
 
-La identidad local `--usuario` es declarada por el cliente: no equivale a autenticar a una persona. El servidor escucha exclusivamente en `127.0.0.1` y el watcher solo admite destinos locales. **TODO producción:** elegir y provisionar infraestructura propia, autenticar usuarios, autorizar el squad en el servidor, acordar visibilidad/retención de métricas, HTTPS, límites y copias de seguridad. No se transporta consumo mediante GitHub ni se ha desplegado ningún servicio.
+La identidad local `--usuario` es declarada por el cliente: no equivale a autenticar a una persona. El servidor escucha exclusivamente en `127.0.0.1` y el watcher solo admite destinos locales. Es un servidor de desarrollo y ensayo. En el evento, la web y el ranking los sirve la [sala en Vercel](../../infra/sala/README.md), que comprueba con GitHub quién envía cada lote.
 
 ## Desarrollo y pruebas
 
@@ -68,6 +68,6 @@ bun run build:bin:host
 HACKNIGHT_BIN="$PWD/apps/cli/dist/hacknight" HACKNIGHT_SERVER_BIN="$PWD/apps/server/dist/hacknight-server" bun run test:live
 ```
 
-`test:live` prueba administración, watcher, clasificación, privacidad del payload, controles de vistas, reintentos y reinicio con persistencia; cierra todos sus procesos. Los participantes ficticios solo existen en los fixtures de `test/`. Producción queda pendiente: [TODO de infraestructura](../web/README.md#todo-antes-de-alojarlo).
+`test:live` prueba administración, watcher, clasificación, privacidad del payload, controles de vistas, reintentos y reinicio con persistencia; cierra todos sus procesos. Los participantes ficticios solo existen en los fixtures de `test/`.
 
-Licencia MIT y créditos: [LICENSE](../cli/LICENSE) y [AVISO.md](../cli/AVISO.md).
+Licencia MIT y créditos: [LICENSE](../../LICENSE) y [AVISO.md](../cli/AVISO.md).

@@ -6,7 +6,6 @@ import { panel, trackLabel, terminalText } from "../lib/estilo";
 import { banner } from "../lib/banner";
 import { cuentaAtras } from "../lib/tiempo";
 import { revisar } from "../lib/revision";
-import { cola } from "@hacknight/shared/cola";
 export async function tracks(ctx: Contexto, slug?: string) {
   const ts = await tramitando("Consultando el registro…", ctx.opts.json, () =>
     ctx.registro.tracks(),
@@ -36,17 +35,11 @@ export async function tracks(ctx: Contexto, slug?: string) {
           ...(slug
             ? [
                 t.ciudadano,
-                `Lead: ${t.lead} · Dificultad: ${t.dificultad}`,
+                `Dificultad: ${t.dificultad}`,
                 ...t.piezas.map((p) => `Pieza: ${p}`),
-                ...t.paquetes.map(
-                  (p) =>
-                    `Datos: ${p.id} · ${p.pendiente ? "PENDIENTE" : p.url}`,
-                ),
                 ...t.fuentes.map((f) => `Fuente: ${f.nombre} · ${f.url}`),
                 ...t.guias,
-                ...t.squads.map(
-                  (s) => `Squad: ${s.nombre} · Mesa ${s.mesa} · ${s.pieza}`,
-                ),
+                ...t.squads.map((s) => `Squad: ${s.nombre} · Mesa ${s.mesa}`),
               ]
             : []),
           ...(t.cupo
@@ -59,17 +52,13 @@ export async function tracks(ctx: Contexto, slug?: string) {
   salida(data, text, ctx.opts.json);
 }
 export async function expediente(ctx: Contexto) {
-  const [{ usuario, equipo }, evento, tracks, issues] = await Promise.all([
+  const [{ usuario, equipo }, evento, tracks] = await Promise.all([
     identidad(ctx),
     ctx.registro.evento(),
     ctx.registro.tracks(),
-    ctx.registro.issues(),
   ]);
   const track = tracks.find((t) => t.slug === equipo?.herramienta);
   const reloj = cuentaAtras(evento.fin);
-  const turno = equipo
-    ? cola(issues, [equipo], tracks).find((c) => c.squad === equipo.id)
-    : undefined;
   const revision = await revisar(ctx);
   const reglas = revision.reglas;
   const data = {
@@ -78,15 +67,10 @@ export async function expediente(ctx: Contexto) {
     track: track ?? null,
     cuentaAtras: reloj,
     reglas,
-    turno: turno ?? null,
   };
   salida(
     data,
-    banner(
-      undefined,
-      ctx.opts.plain || ctx.opts.json ? null : undefined,
-      evento,
-    ) +
+    banner(undefined, evento) +
       "\n" +
       (track ? trackLabel(track) + "\n" : "") +
       panel("Su expediente", [
@@ -94,14 +78,11 @@ export async function expediente(ctx: Contexto) {
         equipo
           ? `Squad: ${equipo.nombre} · Mesa ${equipo.mesa}`
           : "Squad: pendiente de asignación",
-        `Track: ${track?.slug ?? "pendiente"} · Pieza: ${equipo?.pieza ?? "pendiente"}`,
+        `Track: ${track?.nombre ?? "pendiente"}`,
         `Fin del build: ${evento.fin} · Quedan ${reloj.texto}`,
         ...reglas.map(
           (r, i) => `${i + 1}. [${r.ok ? "OK" : "FALTA"}] ${r.nombre}`,
         ),
-        turno
-          ? `Ventanilla: ${turno.turno} · ${turno.estado}`
-          : "Ventanilla: sin turno",
         `Siguiente trámite: hacknight revisar`,
       ]),
     ctx.opts.json,

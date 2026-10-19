@@ -10,7 +10,6 @@ export const vistas = {
   clasificacion: true,
   personas: false,
   negociados: true,
-  ventanilla: true,
   tablon: true,
   pantalla: true,
 };

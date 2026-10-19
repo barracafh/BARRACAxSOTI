@@ -2,27 +2,12 @@
   "slug": "brujula",
   "nombre": "Brújula (GVA y València)",
   "frase": "Encuentra el trámite y el siguiente paso.",
-  "ciudadano": "Orienta en trámites de GVA y València con pasos y enlaces a sedes oficiales.",
+  "ciudadano": "Le cuentas tu problema y te dice qué trámite es, los pasos y el enlace a la sede.",
   "ventanilla": 1,
   "color": "cian",
   "glifo": ">",
-  "prefijo": "B",
   "estado": "nucleo",
-  "lead": "por asignar",
-  "piezas": [
-    "Qué trámite necesito",
-    "¿Y si no hay cita?",
-    "Oficinas y canales oficiales"
-  ],
-  "paquetes": [
-    {
-      "id": "brujula-base",
-      "nombre": "Pack Brújula (GVA y València)",
-      "url": "https://example.invalid/pendiente/brujula.zip",
-      "sha256": "PENDIENTE",
-      "pendiente": true
-    }
-  ],
+  "piezas": ["Qué trámite necesito", "Y después, ¿qué?"],
   "fuentes": [
     {
       "nombre": "www.gva.es",
@@ -33,12 +18,12 @@
       "url": "https://sede.valencia.es/"
     },
     {
-      "nombre": "www.boe.es",
-      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565"
+      "nombre": "administracion.gob.es",
+      "url": "https://administracion.gob.es/tramites-electronicos/resultados-actuaciones"
     }
   ],
   "dificultad": "Fácil",
   "guias": [
-    "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+    "Cada squad construye las piezas que le dé tiempo. Cita la fuente oficial y no uses datos personales reales."
   ]
 }

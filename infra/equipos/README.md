@@ -6,11 +6,11 @@ Un repo público por equipo en `barracafh`, conectado a su proyecto de Vercel, y
 bun infra/equipos/preparar.ts --equipos /ruta/equipos.json --dry-run
 ```
 
-`equipos.json` usa el formato del registro del CLI: `id`, `nombre`, `herramienta`, `pieza`, `mesa`, `miembros` y `repo`. El `id` es la ruta (`derechos-a`, `derechos-b`… y `libre`) y `pieza`, el nombre inicial de la herramienta. `miembros` acepta los usuarios de GitHub tal como los exporta Luma (`https://github.com/usuario/`). Con `repo` vacío se usa `barracafh/build-<id>`. El archivo sale del reparto y no se sube a ningún repo.
+`equipos.json` usa el formato del registro del CLI: `id`, `nombre`, `herramienta`, `mesa`, `miembros` y `repo`. El `id` es la ruta (`derechos-a`, `derechos-b`… y `libre`); la herramienta empieza con el nombre del track. `miembros` acepta los usuarios de GitHub tal como los exporta Luma (`https://github.com/usuario/`). Con `repo` vacío se usa `barracafh/build-<id>`. El archivo sale del reparto y no se sube a ningún repo.
 
 Para cada equipo, el script:
 
-1. Crea el repo público con los archivos versionados de `plantilla/`, su ficha, el botón de avisos apuntando a sus issues y, de `tracks/<track>/`, `SETUP.md`, `datos/` y `contexto.md`.
+1. Crea el repo público con los archivos versionados de `plantilla/`, su ficha, el botón de avisos apuntando a sus issues y, de `tracks/<track>/`, `SETUP.md`, `datos/` y `contexto.md`, con los ficheros de `tracks/comun/` que cita su track en `comun/`. Los enlaces a material que el repo no lleva apuntan al monorepo público.
 2. Crea el proyecto `build-<id>` en Vercel, conectado al repo y sin protección de despliegue: el hub lo lee por su dominio `vercel.app`.
 3. Copia las variables que estén definidas en tu shell: `HELMCODE_API_KEY`, `HELMCODE_BASE_URL` y `HELMCODE_MODEL` a todos; `SAFE_BROWSING_API_KEY` solo a Sello y `FACTCHECK_API_KEY` solo a ¿Cómo voto?.
 4. Hace un push para el primer despliegue e invita a cada miembro con permiso de escritura.

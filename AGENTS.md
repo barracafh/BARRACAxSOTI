@@ -1,6 +1,6 @@
 # BARRACA x SOTI · BUILD NIGHT
 
-Este monorepo contiene lo que pone la organización. **Los squads construyen en sus propios repos**, que crea `infra/equipos/` desde `plantilla/`; no añadas sus herramientas al workspace. Las decisiones y el contexto del comité viven en el repo privado `luisgonzaleznf/barrahack`, de solo lectura en esta tarea.
+Este monorepo contiene lo que pone la organización. **Los squads construyen en sus propios repos**, que crea `infra/equipos/` desde `plantilla/`; no añadas sus herramientas al workspace.
 
 | Dónde                                         | Qué se cambia                                                                                                                |
 | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
@@ -9,9 +9,9 @@ Este monorepo contiene lo que pone la organización. **Los squads construyen en 
 | `packages/shared/`                            | Contratos, modelos, persistencia compartida y paleta                                                                         |
 | `packages/shared/registro-base/evento.json`   | Único lugar para cambiar el nombre del evento                                                                                |
 | `tracks/<slug>/track.json`                    | Fuente de verdad del catálogo: los seis tracks publicados                                                                    |
-| `tracks/<slug>/`                              | Ficha técnica, datos y guías que completa el track lead                                                                      |
+| `tracks/<slug>/`                              | Ficha técnica, datos y guías del track                                                                                       |
 | `tracks/<slug>/contexto.md` · `tracks/comun/` | Marco de conocimiento verificado (del track y común) con su infografía `.html` al lado; índice visual en `tracks/index.html` |
-| `plantilla/`                                  | Starter independiente de los squads; copia los tokens de paleta, no importa el workspace                                     |
+| `plantilla/`                                  | Starter independiente de los squads, con el diseño Sol de Reforma Digital; no importa el workspace                           |
 | `infra/` · `.github/workflows/`               | Scripts de preparación (registro, repos de equipo, hub y sala), CI y releases                                                |
 | `docs/`                                       | Guías cortas; calendario de equipos en `docs/equipos.md` y README raíz                                                       |
 | `test/` · `apps/cli/test/`                    | Pruebas y fixtures ficticios; el stub con fallos vive en `apps/cli/test/fixtures/`                                           |
@@ -24,4 +24,4 @@ Este monorepo contiene lo que pone la organización. **Los squads construyen en 
 - Infra es `--dry-run` por defecto. No ejecutar `--apply` contra servicios reales sin una instrucción expresa; nunca imprimir claves ni versionar `.local-secrets/`.
 - Textos, docs y mensajes al usuario en castellano. Código y commits en inglés.
 - Nada de datos personales reales: pruebas con fixtures ficticios. Mantener breves las guías; no crear páginas en `docs/` sin necesidad.
-- Los tracks son los seis publicados; un track descartado se borra, no se archiva. El calendario de equipos vigente es el de Íñigo del 11/10; no recuperar el reparto antiguo del 20/10.
+- Los tracks son los seis publicados; un track descartado se borra, no se archiva. El calendario de equipos vigente es el de `docs/equipos.md`; no recuperar el reparto antiguo del 20/10.

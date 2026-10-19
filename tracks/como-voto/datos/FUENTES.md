@@ -1,4 +1,4 @@
-# Fuentes y procesamiento — Generales 23-J 2023 (Congreso)
+# Fuentes y procesamiento: generales 23-J 2023 (Congreso) y calendario del 29-N
 
 ## Origen de los datos
 
@@ -60,4 +60,4 @@ https://github.com/rOpenSpain/infoelectoral.
 - `resultados_congreso_2023_municipios_valencia.csv`: 2.926 filas (266 municipios × candidatura). **Aviso:** no incluye el voto CERA
   (residentes en el extranjero), que solo se agrega a nivel provincial. La suma municipal es 7.334 votos a candidaturas, 43 blancos y 142 nulos menor que el total provincial.
   No tiene `escanos_obtenidos`, porque los escaños solo se asignan a nivel provincial.
-- `calendario_29N_2026.json`: fechas del 29-N 2026 con su fuente. La fecha límite para depositar el voto por correo no coincide entre fuentes (25 o 26 de noviembre); está anotado en el JSON.
+- `calendario_29N_2026.json`: fechas del 29-N 2026, comprobadas el 18/10/2026 en el BOE (Real Decreto 806/2026, BOE-A-2026-20742, y LOREG) y en el [calendario electoral de la Junta Electoral Central](https://www.juntaelectoralcentral.es/cs/jec/documentos/eg2026_calendario.pdf). Incluye el voto de los residentes en el extranjero (CERA) y de los temporalmente ausentes (ERTA). El último día para enviar el voto por correo desde España es el 25 de noviembre, según la JEC.

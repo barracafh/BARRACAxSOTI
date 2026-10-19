@@ -36,7 +36,7 @@ export async function leerFicha(cwd: string, tracks: Track[]) {
     throw new CliError(
       "VALIDATION",
       "Falta ficha.json o no es JSON válido.",
-      "Ejecuta hacknight ficha o tramitar.",
+      "Ejecuta hacknight ficha.",
       2,
     );
   }

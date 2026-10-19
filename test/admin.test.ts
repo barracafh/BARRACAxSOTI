@@ -28,7 +28,6 @@ const equipo = {
   id: "test-equipo",
   nombre: "Equipo de prueba",
   herramienta: "derechos",
-  pieza: "Una pieza",
   mesa: "1",
   miembros: ["test-builder"],
   repo: "",
@@ -117,7 +116,6 @@ test("el arranque es vacío, idempotente y no inventa una identidad local", asyn
       squads: [],
       personas: [],
     });
-    expect(s.cola).toEqual([]);
     expect(s.entradas).toEqual([]);
     expect(s.tracks).toHaveLength(6);
     expect(
@@ -163,8 +161,8 @@ test("la marca del registro llega a web, admin y CLI, con HTML escapado", async 
     }
     const evento = await f.ctx.registro.evento();
     expect((await f.publico()).evento).toEqual(evento);
-    expect(banner(80, null, evento)).toContain("OTRA NOCHE");
-    expect(banner(80, null, evento)).toContain("Comité & builders");
+    expect(banner(80, evento)).toContain("OTRA NOCHE");
+    expect(banner(80, evento)).toContain("Comité & builders");
     expect(sello(evento)).toContain("OTRA NOCHE");
   } finally {
     f.almacen.close();
@@ -340,21 +338,13 @@ test("deshabilitar vistas retira sus datos de la API y no interrumpe la recolecc
   const f = await fixture();
   try {
     const cookie = await f.login();
-    await f.request("/api/admin", "PUT", f.config, cookie);
-    await f.reg.crearIssue("Prueba", "Texto del tablón", ["tablon"]);
-    await f.reg.crearIssue(
-      "Ayuda",
-      JSON.stringify({
-        tipo: "cita",
-        squad: equipo.id,
-        herramienta: equipo.herramienta,
-        mesa: "1",
-        motivo: "Ayuda",
-        estado: "espera",
-      }),
-      ["ventanilla"],
+    await f.request(
+      "/api/admin",
+      "PUT",
+      { ...f.config, comite: ["test-builder"] },
+      cookie,
     );
-    expect((await f.publico()).cola).toHaveLength(1);
+    await f.reg.crearIssue("Prueba", "Aviso del comité", ["aviso"]);
     expect((await f.publico()).entradas).toHaveLength(1);
     let g = await administracion(f.reg);
     for (const k of Object.keys(g.vistas) as (keyof Gestion["vistas"])[])
@@ -365,7 +355,6 @@ test("deshabilitar vistas retira sus datos de la API y no interrumpe la recolecc
       consumo: null,
       tracks: [],
       equipos: [],
-      cola: [],
       entradas: [],
       registros: [],
     });

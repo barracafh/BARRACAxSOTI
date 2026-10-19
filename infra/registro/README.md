@@ -6,7 +6,7 @@ Desde la raíz, revisa el plan (no necesita sesión ni hace llamadas a GitHub):
 bun infra/registro/preparar.ts --repo organizacion/registro --owners '@organizacion/comite' --dry-run
 ```
 
-Copia `evento.json`, `equipos.json`, `tracks.json` y `comite.json` desde `packages/shared/registro-base/`, sin inventar equipos. Prepara un repo **nuevo y público**, rama `main`, y muestra los comandos `gh` que crearían las etiquetas `ventanilla`, `aviso`, `tablon` y la protección de rama. CODEOWNERS cubre los cuatro JSON y su propio archivo. Requiere una revisión y la del code owner en esos archivos; descarta aprobaciones antiguas, impide force-push/borrado y aplica a administradores.
+Copia `evento.json`, `equipos.json`, `tracks.json` y `comite.json` desde `packages/shared/registro-base/`, sin inventar equipos. Prepara un repo **nuevo y público**, rama `main`, y muestra los comandos `gh` que crearían la etiqueta `aviso` (los avisos del comité en el tablón) y la protección de rama. CODEOWNERS cubre los cuatro JSON y su propio archivo. Requiere una revisión y la del code owner en esos archivos; descarta aprobaciones antiguas, impide force-push/borrado y aplica a administradores.
 
 ## Aplicación por el comité
 
@@ -16,6 +16,6 @@ Copia `evento.json`, `equipos.json`, `tracks.json` y `comite.json` desde `packag
 4. Solo tras revisar el plan, sustituye `--dry-run` por `--apply`. El script usa un directorio temporal nuevo; no modifica tu checkout. Es de arranque, **no de actualización**: si el repo ya existe, falla. Si falla después de crearlo, inspecciona lo aplicado y completa manualmente los comandos pendientes; no borres el repo para repetir.
 5. Comprueba etiquetas, rama y protección en GitHub. Configura `HACKNIGHT_REGISTRO=organizacion/registro` para el CLI.
 
-El CLI actual necesita Write para que los squads envíen fichas por ramas/PR y etiqueten issues. Decidir ese permiso o cambiar a forks/bot sigue pendiente. El comité también necesita Write para gestionar turnos. CODEOWNERS no concede permisos y una heurística del CLI no sustituye las revisiones.
+El CLI necesita Write para que los squads envíen fichas por ramas/PR; [infra/equipos](../equipos/README.md) lo concede a cada miembro al invitarlo. CODEOWNERS no concede permisos y una heurística del CLI no sustituye las revisiones.
 
 Referencia: [protección de ramas de GitHub](https://docs.github.com/en/rest/branches/branch-protection). Más contexto en [el README del CLI](../../apps/cli/README.md#etiquetas-y-permisos-en-github).

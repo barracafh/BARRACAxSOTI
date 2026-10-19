@@ -1,8 +1,9 @@
 # Datos · ¿Cómo voto? (29N)
 
-| Paquete necesario | Formato                             | Origen y preparación                                                                                                      | Estado    |
-| ----------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | --------- |
-| Proceso electoral | Markdown/JSON curado                | JEC, BOE, INE y Correos; extracción y verificación pendientes.                                                            | pendiente |
-| Calendario        | JSON con fuente y fecha de revisión | La propuesta menciona 19/11 para solicitar voto por correo: pendiente de verificar; no precargarlo como plazo confirmado. | pendiente |
+| Paquete necesario | Formato                             | Origen y preparación                                                                                                         | Estado |
+| ----------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------ |
+| Proceso electoral | Markdown curado                     | [`contexto.md`](../contexto.md) del track, con BOE, JEC, INE y Correos; se copia al repo de cada squad.                      | listo  |
+| Calendario        | JSON con fuente y fecha de revisión | `calendario_29N_2026.json`: 25 fechas comprobadas el 18/10 en el BOE y el calendario de la JEC, también CERA y ERTA.         | listo  |
+| Resultados 23-J   | CSV                                 | Infoelectoral (Ministerio del Interior): por provincia y por municipio de Valencia. Origen y comprobaciones en `FUENTES.md`. | listo  |
 
-Antes del 20/10: descargar, acotar, limpiar y guardar procedencia, licencia y fecha de consulta. Verificar que no contiene datos personales. Publicar el pack fuera de esta carpeta de documentación y poner URL, SHA256 y `pendiente: false` en `../track.json`; ejecutar `bun run tracks:generar` desde la raíz. [Fuentes oficiales](../README.md#fuentes-oficiales).
+Los archivos de esta carpeta llevan su procedencia, licencia y fecha de consulta en `FUENTES.md`. `infra/equipos` la copia al repo de cada squad, sin este README. [Fuentes oficiales](../README.md#fuentes-oficiales).

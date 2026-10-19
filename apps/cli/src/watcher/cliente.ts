@@ -21,8 +21,7 @@ export async function escanear(options: {
   evento: Evento;
   servidor?: string;
   token?: string;
-  // Totals already confirmed by the server: a long-running watcher sends only
-  // what changed, so each cycle costs one request instead of the whole history.
+  // Confirmed totals by window and event: changing the schedule replays history.
   enviados?: Map<string, number>;
 }) {
   const { resumen, usos } = await leerConsumo(
@@ -33,10 +32,13 @@ export async function escanear(options: {
   let cambios = 0;
   if (options.servidor) {
     const base = servidorDestino(options.servidor);
+    const ventana = ventanaId(options.evento);
     const eventos = usos
       .map(publicarUso)
-      .filter((e) => totalUso(e) > (options.enviados?.get(e.id) ?? -1));
-    const ventana = ventanaId(options.evento);
+      .filter(
+        (e) =>
+          totalUso(e) > (options.enviados?.get(`${ventana}:${e.id}`) ?? -1),
+      );
     const cliente = hash(`${hostname()}|${resolve(options.cwd)}`);
     // Reenviar es seguro: el backend deduplica por ventana, persona e ID.
     // Recupera el historial retenido también tras una caída o reinicio del watcher.
@@ -66,7 +68,9 @@ export async function escanear(options: {
         );
       if (!res.ok)
         throw new Error(
-          `El servidor rechazó el lote (HTTP ${res.status}). Revisa usuario, registro y ventana del build.`,
+          res.status === 429 || res.status >= 500
+            ? `La sala no está disponible (HTTP ${res.status}). Se reintentará sin cerrar tu sesión.`
+            : `El servidor rechazó el lote (HTTP ${res.status}). Revisa usuario, registro y ventana del build.`,
         );
       const receipt = (await res.json()) as {
         ok?: boolean;
@@ -82,7 +86,8 @@ export async function escanear(options: {
           "El servidor no confirmó los contadores. Se reintentará sin duplicarlos.",
         );
       cambios += receipt.cambios!;
-      for (const e of lote.eventos) options.enviados?.set(e.id, totalUso(e));
+      for (const e of lote.eventos)
+        options.enviados?.set(`${ventana}:${e.id}`, totalUso(e));
     }
   }
   return { ...resumen, sincronizado: Boolean(options.servidor), cambios };

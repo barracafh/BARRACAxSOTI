@@ -1,9 +1,12 @@
 # Datos · Sello + estafas
 
-| Paquete necesario            | Formato       | Origen y preparación                                                                                      | Estado    |
-| ---------------------------- | ------------- | --------------------------------------------------------------------------------------------------------- | --------- |
-| Dominios oficiales           | JSON          | DIR3 y sedes oficiales; curar dominios-oficiales.json. Lista de Reforma Digital pendiente del OK de Samu. | pendiente |
-| Oficinas DIR3                | XLSX → JSON   | Catálogo de Servicios de Oficinas; el comité requiere descarga manual.                                    | pendiente |
-| Mensajes de prueba y canales | JSON/Markdown | Ejemplos ficticios redactados desde Interior, INCIBE y Protección Civil.                                  | pendiente |
+| Recurso                      | Formato | Origen                                                                                                                                 | Estado  |
+| ---------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Dominios oficiales           | JSON    | `dominios-oficiales.json`: 25 entidades y las reglas `*.gob.es` y `*.edu.es`, cada una con su fuente.                                  | listo   |
+| Mensajes de prueba           | JSON    | `mensajes-ejemplo.json`: 10 casos (5 fraudes publicados por INCIBE y 5 legítimos) con el resultado esperado.                           | listo   |
+| Avisos de INCIBE             | Web     | [incibe.es/ciudadania/avisos](https://www.incibe.es/ciudadania/avisos): campañas activas; la herramienta las enlaza o las consulta.    | en vivo |
+| Reputación y registro de URL | API     | Google Safe Browsing v5 (clave de la organización en `SAFE_BROWSING_API_KEY`) y RDAP (`https://rdap.org/domain/<dominio>`), sin clave. | en vivo |
 
-Antes del 20/10: descargar, acotar, limpiar y guardar procedencia, licencia y fecha de consulta. Verificar que no contiene datos personales. Publicar el pack fuera de esta carpeta de documentación y poner URL, SHA256 y `pendiente: false` en `../track.json`; ejecutar `bun run tracks:generar` desde la raíz. [Fuentes oficiales](../README.md#fuentes-oficiales).
+Los recursos «en vivo» los consulta la herramienta durante la noche: leerlos y citarlos es parte del reto. Si llega el OK de Reforma Digital, su lista de dominios se sumará a `dominios-oficiales.json`.
+
+Cada archivo lleva su procedencia y fecha de consulta; ninguno contiene datos personales. `infra/equipos` copia esta carpeta al repo de cada squad, sin este README.

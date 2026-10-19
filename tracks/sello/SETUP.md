@@ -4,11 +4,20 @@
 
 Comprueba si una web, un SMS o un aviso es oficial de verdad y, si no lo es, te dice cuál es la buena. Antiphishing contra las estafas que suplantan a la DGT, a Hacienda y a otros organismos.
 
-Equipos: `sello-a` y `sello-b`, con el mismo reto.
+Puede haber hasta dos squads en este track, los dos con el mismo reto. Cada uno construye las piezas que le dé tiempo, en el orden que prefiera.
 
 ## Qué se espera en la demo
 
 Pegar un mensaje o una URL y obtener un veredicto (oficial, sospechoso o fraude), el motivo y la web oficial correcta.
+
+## Piezas
+
+El reto se puede abordar por partes. Elegid las que os dé tiempo y en el orden que queráis.
+
+| Pieza                       | Alcance en unas 4 h                                                                               | Hecho cuando…                                                                                                                                    |
+| --------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ¿Esta web es oficial?       | Comprobar una URL contra la lista de dominios oficiales, sin visitarla.                           | Distingue coincidencia exacta, subdominio válido y dominio desconocido; no equipara desconocido con fraude y da la web oficial correcta.         |
+| ¿Este mensaje es de verdad? | Analizar un SMS o un correo pegado: remitente, enlaces y señales de fraude publicadas por INCIBE. | Acierta el resultado `esperado` de los 10 casos de `mensajes-ejemplo.json`, explica el motivo y, ante la duda, remite a la web oficial y al 017. |
 
 ## Materiales en esta carpeta
 
@@ -33,7 +42,7 @@ Pegar un mensaje o una URL y obtener un veredicto (oficial, sospechoso o fraude)
 - El peor error es decir «oficial» de algo que no lo es. Ante la duda, la respuesta es «no puedo confirmarlo; entra tú por la web oficial».
 - Ojo con las trampas de dominio: `dgt.es.multas-pago.com` no es `dgt.es`.
 - No hay que abrir ni descargar las URL sospechosas.
-- Algunos dominios de la lista se confirmaron solo con resultados de búsqueda (Labora, cita previa DNI, Banco de España): revisad el campo `fuente` de cada uno.
+- Todos los dominios de la lista están confirmados en una página oficial a 18/10/2026; el campo `fuente` de cada entidad dice cuál.
 
 ## Resumen para el agente
 

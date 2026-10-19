@@ -33,7 +33,7 @@ test("registro: dry-run no ejecuta; siembra JSON, etiquetas y revisiones del com
     plan.commands
       .filter((command) => command.args[1] === "label")
       .map((command) => command.args[3]),
-  ).toEqual(["ventanilla", "aviso", "tablon"]);
+  ).toEqual(["aviso"]);
   const protection = JSON.parse(plan.commands.at(-1)!.input!);
   expect(
     protection.required_pull_request_reviews.require_code_owner_reviews,

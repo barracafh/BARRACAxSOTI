@@ -3,38 +3,23 @@
     "slug": "brujula",
     "nombre": "Brújula (GVA y València)",
     "frase": "Encuentra el trámite y el siguiente paso.",
-    "ciudadano": "Orienta en trámites de GVA y València con pasos y enlaces a sedes oficiales.",
+    "ciudadano": "Le cuentas tu problema y te dice qué trámite es, los pasos y el enlace a la sede.",
     "ventanilla": 1,
     "color": "cian",
     "glifo": ">",
-    "prefijo": "B",
     "estado": "nucleo",
-    "lead": "por asignar",
-    "piezas": [
-      "Qué trámite necesito",
-      "¿Y si no hay cita?",
-      "Oficinas y canales oficiales"
-    ],
-    "paquetes": [
-      {
-        "id": "brujula-base",
-        "nombre": "Pack Brújula (GVA y València)",
-        "url": "https://example.invalid/pendiente/brujula.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
-    ],
+    "piezas": ["Qué trámite necesito", "Y después, ¿qué?"],
     "fuentes": [
       { "nombre": "www.gva.es", "url": "https://www.gva.es/" },
       { "nombre": "sede.valencia.es", "url": "https://sede.valencia.es/" },
       {
-        "nombre": "www.boe.es",
-        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565"
+        "nombre": "administracion.gob.es",
+        "url": "https://administracion.gob.es/tramites-electronicos/resultados-actuaciones"
       }
     ],
     "dificultad": "Fácil",
     "guias": [
-      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+      "Cada squad construye las piezas que le dé tiempo. Cita la fuente oficial y no uses datos personales reales."
     ]
   },
   {
@@ -45,23 +30,8 @@
     "ventanilla": 2,
     "color": "acid",
     "glifo": "+",
-    "prefijo": "D",
     "estado": "nucleo",
-    "lead": "por asignar",
-    "piezas": [
-      "Ayudas para ti",
-      "Compatibilidades y requisitos",
-      "Calendario de convocatorias"
-    ],
-    "paquetes": [
-      {
-        "id": "derechos-base",
-        "nombre": "Pack Derechos",
-        "url": "https://example.invalid/pendiente/derechos.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
-    ],
+    "piezas": ["Ayudas para ti", "Convocatorias en vivo"],
     "fuentes": [
       {
         "nombre": "www.infosubvenciones.es",
@@ -71,45 +41,29 @@
     ],
     "dificultad": "Fácil",
     "guias": [
-      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+      "Cada squad construye las piezas que le dé tiempo. Cita la fuente oficial y no uses datos personales reales."
     ]
   },
   {
     "slug": "claridad",
     "nombre": "Claridad",
     "frase": "Del PDF a los pasos claros.",
-    "ciudadano": "Convierte convocatorias en listas de qué hacer y para cuándo.",
+    "ciudadano": "Convierte un PDF o una notificación en una lista clara de qué hacer y para cuándo.",
     "ventanilla": 3,
     "color": "after",
     "glifo": "=",
-    "prefijo": "C",
     "estado": "nucleo",
-    "lead": "por asignar",
-    "piezas": [
-      "PDF a checklist",
-      "¿Qué me piden y qué no pueden pedirme?",
-      "Dónde descargar cada documento"
-    ],
-    "paquetes": [
-      {
-        "id": "claridad-base",
-        "nombre": "Pack Claridad",
-        "url": "https://example.invalid/pendiente/claridad.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
-    ],
+    "piezas": ["Del PDF a la checklist", "De la foto a la checklist"],
     "fuentes": [
-      { "nombre": "www.boe.es", "url": "https://www.boe.es/" },
       {
-        "nombre": "www.infosubvenciones.es",
-        "url": "https://www.infosubvenciones.es/"
+        "nombre": "www.boe.es",
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565"
       }
     ],
     "dificultad": "Fácil",
     "guias": [
-      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales.",
-      "Usa PDFs de convocatorias públicas, nunca notificaciones personales. El catálogo de documentos debe llegar revisado antes del hack."
+      "Cada squad construye las piezas que le dé tiempo. Cita la fuente oficial y no uses datos personales reales.",
+      "Prueba solo con los documentos ficticios del pack, nunca con notificaciones reales de personas."
     ]
   },
   {
@@ -120,61 +74,33 @@
     "ventanilla": 9,
     "color": "magenta",
     "glifo": "#",
-    "prefijo": "S",
     "estado": "nucleo",
-    "lead": "por asignar",
-    "piezas": [
-      "¿Esta web es oficial?",
-      "Las citas son gratis",
-      "¿Este aviso es oficial?"
-    ],
-    "paquetes": [
-      {
-        "id": "sello-base",
-        "nombre": "Pack Sello + estafas",
-        "url": "https://example.invalid/pendiente/sello.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
-    ],
+    "piezas": ["¿Esta web es oficial?", "¿Este mensaje es de verdad?"],
     "fuentes": [
-      { "nombre": "datos.gob.es", "url": "https://datos.gob.es/" },
-      { "nombre": "www.incibe.es", "url": "https://www.incibe.es/" },
       {
-        "nombre": "www.proteccioncivil.es",
-        "url": "https://www.proteccioncivil.es/"
+        "nombre": "www.incibe.es",
+        "url": "https://www.incibe.es/ciudadania/avisos"
       }
     ],
     "dificultad": "Media",
     "guias": [
-      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales.",
-      "Prepara dominios-oficiales.json; atribuye las comprobaciones a sus fuentes."
+      "Cada squad construye las piezas que le dé tiempo. Cita la fuente oficial y no uses datos personales reales.",
+      "Atribuye cada comprobación a su fuente: una lista de dominios oficiales no certifica que una página sea segura."
     ]
   },
   {
     "slug": "como-voto",
     "nombre": "¿Cómo voto? (29N)",
     "frase": "El proceso electoral, explicado.",
-    "ciudadano": "Guía de voto por correo, consulta del censo y plazos con fuentes electorales.",
+    "ciudadano": "Guía de voto por correo, también desde el extranjero, consulta del censo y plazos con fuentes electorales.",
     "ventanilla": 11,
     "color": "muted",
     "glifo": "*",
-    "prefijo": "V",
     "estado": "nucleo",
-    "lead": "por asignar",
     "piezas": [
-      "Voto por correo",
-      "Dónde votar y censo",
-      "Calendario con fuentes"
-    ],
-    "paquetes": [
-      {
-        "id": "como-voto-base",
-        "nombre": "Pack ¿Cómo voto? (29N)",
-        "url": "https://example.invalid/pendiente/como-voto.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
+      "Voto por correo, aquí y fuera",
+      "¿Es verdad lo que me han dicho?",
+      "Cómo se reparten los escaños"
     ],
     "fuentes": [
       {
@@ -187,8 +113,8 @@
     ],
     "dificultad": "Fácil",
     "guias": [
-      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales.",
-      "Cada fecha debe citar BOE o Junta Electoral. El comité verificará el calendario antes de publicar el pack."
+      "Cada squad construye las piezas que le dé tiempo. Cita la fuente oficial y no uses datos personales reales.",
+      "Cada fecha debe citar BOE o Junta Electoral. El calendario del pack está comprobado en el BOE y la JEC (18/10)."
     ]
   },
   {
@@ -199,23 +125,12 @@
     "ventanilla": 12,
     "color": "paper",
     "glifo": "?",
-    "prefijo": "L",
     "estado": "libre",
-    "lead": "por asignar",
     "piezas": ["Propuesta de utilidad ciudadana", "Integración en el centro"],
-    "paquetes": [
-      {
-        "id": "libre-base",
-        "nombre": "Pack Track libre",
-        "url": "https://example.invalid/pendiente/libre.zip",
-        "sha256": "PENDIENTE",
-        "pendiente": true
-      }
-    ],
     "fuentes": [{ "nombre": "datos.gob.es", "url": "https://datos.gob.es/" }],
     "dificultad": "Por acotar",
     "guias": [
-      "Una pieza por squad. Cita la fuente oficial y no uses datos personales reales."
+      "Un solo squad completa las dos piezas. Cita la fuente oficial y no uses datos personales reales."
     ],
     "cupo": 1
   }

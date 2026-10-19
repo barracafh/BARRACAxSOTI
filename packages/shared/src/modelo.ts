@@ -17,14 +17,6 @@ export const fichaSchema = z.strictObject({
   datos: z.enum(["reales", "simulados"]),
 });
 export type Ficha = z.infer<typeof fichaSchema>;
-export const paqueteSchema = z.object({
-  id: slug,
-  nombre: text,
-  url: z.string(),
-  sha256: z.string(),
-  pendiente: z.boolean().default(false),
-});
-export type Paquete = z.infer<typeof paqueteSchema>;
 export const trackSchema = z.object({
   slug,
   nombre: text,
@@ -33,11 +25,8 @@ export const trackSchema = z.object({
   ventanilla: z.number().int().positive(),
   color: z.enum(["magenta", "cian", "acid", "after", "paper", "muted"]),
   glifo: text,
-  prefijo: z.string().regex(/^[A-Z]{1,2}$/),
   estado: z.enum(["nucleo", "si-hay-gente", "condicional", "libre", "fuera"]),
-  lead: text,
   piezas: z.array(text).min(2).max(3),
-  paquetes: z.array(paqueteSchema),
   fuentes: z.array(fuenteSchema),
   dificultad: text,
   guias: z.array(text),
@@ -49,7 +38,6 @@ export const equipoSchema = z.object({
   id: slug,
   nombre: text,
   herramienta: slug,
-  pieza: text,
   mesa: text,
   miembros: z.array(text),
   repo: repo.or(z.literal("")),
@@ -97,15 +85,6 @@ export interface Registro {
   tracks(): Promise<Track[]>;
   comite(): Promise<string[]>;
   issues(): Promise<Issue[]>;
-  crearIssue(
-    titulo: string,
-    cuerpo: string,
-    etiquetas: string[],
-  ): Promise<Issue>;
-  editarIssue(
-    numero: number,
-    cambios: { estado?: "open" | "closed"; cuerpo?: string; titulo?: string },
-  ): Promise<Issue>;
   fichas(): Promise<RegistroFicha[]>;
   registrar(ficha: Ficha, fecha: string): Promise<RegistroFicha>;
   pushes(equipos?: Equipo[]): Promise<
