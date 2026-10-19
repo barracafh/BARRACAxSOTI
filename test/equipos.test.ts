@@ -8,6 +8,7 @@ import {
   archivosEquipo,
   enlazar,
   archivosHub,
+  clavesQueFaltan,
   leerTracks,
   preparar,
   usuarioGitHub,
@@ -160,6 +161,18 @@ test("equipos: el hub reenvía cada ruta a su proyecto y escapa los nombres", as
   ]);
   expect(files["index.html"]).toContain("&lt;script&gt;");
   expect(files["index.html"]).not.toContain("<script>");
+});
+
+test("equipos: pide las claves que usan sus tracks antes de aplicar", async () => {
+  const tracks = await leerTracks();
+  const env = { HELMCODE_API_KEY: "x" };
+  expect(clavesQueFaltan(validarEquipos(seis, tracks), env)).toEqual([
+    "HELMCODE_MODEL",
+    "SAFE_BROWSING_API_KEY",
+    "FACTCHECK_API_KEY",
+  ]);
+  // The hub alone needs no keys.
+  expect(clavesQueFaltan([], {})).toEqual([]);
 });
 
 test("equipos: sin reparto, el hub se publica vacío", async () => {
