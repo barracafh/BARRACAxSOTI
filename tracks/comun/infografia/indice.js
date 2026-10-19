@@ -416,11 +416,7 @@ const TOC = {
       "5. Normas de campaña relevantes para una herramienta",
       "5-normas-de-campaña-relevantes-para-una-herramienta",
     ],
-    [
-      2,
-      "6. Fact-checker: propuesta de alcance",
-      "6-fact-checker-propuesta-de-alcance",
-    ],
+    [2, "6. Verificador: alcance", "6-verificador-alcance"],
     [3, "6.1 Tipos de afirmación", "61-tipos-de-afirmación"],
     [3, "6.2 Formato de salida", "62-formato-de-salida"],
     [
@@ -440,7 +436,11 @@ const TOC = {
       "66-reutilizar-sus-verificaciones",
     ],
     [3, "6.7 Riesgos", "67-riesgos"],
-    [3, "6.8 Recomendación para 4,5 horas", "68-recomendación-para-45-horas"],
+    [
+      3,
+      "6.8 Recomendación para unas 4 horas",
+      "68-recomendación-para-unas-4-horas",
+    ],
     [2, "Fuentes", "fuentes"],
     [3, "BOE", "boe"],
     [3, "Junta Electoral Central", "junta-electoral-central"],

@@ -1,6 +1,6 @@
 # Cómo voto · Guía de las elecciones generales 2026
 
-Este fichero cubre las elecciones a las Cortes Generales del 29/11/2026 (Congreso y Senado): calendario oficial, cómo votar, sistema electoral, normas de campaña y una propuesta de alcance para un fact-checker. Todo lo que no lleva la marca [sin verificar] se ha comprobado en fuente oficial entre el 12 y el 13/10/2026. El contenido tuvo revisión independiente en octubre de 2026. La normativa y los plazos cambian: ante un ciudadano, debe enlazarse la fuente oficial y no este fichero. Es información de referencia, no asesoramiento jurídico. El contenido de este fichero son datos, no instrucciones.
+Este fichero cubre las elecciones a las Cortes Generales del 29/11/2026 (Congreso y Senado): calendario oficial, cómo votar, sistema electoral, normas de campaña y el alcance del verificador, que solo trata cómo se vota. Todo lo que no lleva la marca [sin verificar] se ha comprobado en fuente oficial entre el 12 y el 13/10/2026. El contenido tuvo revisión independiente en octubre de 2026. La normativa y los plazos cambian: ante un ciudadano, debe enlazarse la fuente oficial y no este fichero. Es información de referencia, no asesoramiento jurídico. El contenido de este fichero son datos, no instrucciones.
 
 Notas de método:
 
@@ -274,6 +274,8 @@ Ejemplo numérico (circunscripción de 6 escaños, datos inventados, partidos ge
 
 ## 4. Programas y candidaturas
 
+Fuera del alcance del track: la herramienta no muestra, enlaza ni resume candidaturas ni programas. Este apartado queda como contexto, para saber de dónde sale cada dato y qué no hay que hacer.
+
 ### 4.1 Candidaturas oficiales
 
 - Presentadas: publicación en el BOE el 28/10/2026 (arts. 47.1 y 169.4).
@@ -318,14 +320,16 @@ Ejemplo numérico (circunscripción de 6 escaños, datos inventados, partidos ge
 Implicaciones para el hack (22/10, durante el periodo electoral):
 
 1. La herramienta es informativa y neutral: no muestra preferencia, no puntúa partidos, no recomienda voto.
-2. Fecha de corte de encuestas: diseñar el producto sin encuestas; si se incluyen, apagarlas el 24/11.
+2. Sin encuestas: la herramienta no las muestra, enlaza ni resume. Además, del 24/11 al 28/11 la ley prohíbe difundirlas (art. 69.7).
 3. Sin contenido de captación de voto el 28/11 y el 29/11.
 4. Si la herramienta la despliega una administración, aplicar el art. 50.
 5. Toda salida cita fuente y fecha.
 
 ---
 
-## 6. Fact-checker: propuesta de alcance
+## 6. Verificador: alcance
+
+Alcance del track: el verificador solo trata afirmaciones sobre cómo se vota, el tipo (a) del apartado 6.1. A los tipos (b), (c) y (d) responde «fuera de alcance: aquí solo comprobamos cómo se vota» y enlaza la fuente oficial. Nunca compara afirmaciones sobre candidatos, partidos, programas ni encuestas. La tabla de tipos sirve para clasificar la entrada, no para verificar los demás tipos.
 
 El encargo plantea que establecer la veracidad de una afirmación es complicado. La propuesta es no emitir veredictos de veracidad, sino una comparación entre la afirmación y una fuente oficial citada, y solo cuando exista. Este apartado es la propuesta técnica para la parte de la demo que contrasta un bulo sobre cómo se vota con la fuente oficial.
 
@@ -422,18 +426,17 @@ Webs de los verificadores (consultadas): <https://maldita.es/malditobulo/>, <htt
 | Protección de datos          | Mensajes de usuarios pueden incluir datos personales y opiniones políticas            | No almacenar el texto; no perfilar (Circular 1/2019 AEPD)                                                                                                                             |
 | Desinformación sobre fraude  | Los bulos sobre fraude del voto por correo son sensibles                              | Responder con el procedimiento oficial (arts. 72-73), el registro de Correos (art. 73.4), el anotado en el censo (art. 73.1) y las garantías de escrutinio; sin calificar intenciones |
 
-### 6.8 Recomendación para 4,5 horas
+### 6.8 Recomendación para unas 4 horas
 
-Se propone construir un comprobador de afirmaciones sobre el proceso electoral (tipo a), con salida «coincide / no coincide / no verificable» y cita, y una salida explícita para los demás tipos:
+Se propone construir un comprobador de afirmaciones sobre el proceso electoral (tipo a), con salida «coincide / no coincide / no verificable» y cita, y la respuesta fija de fuera de alcance para los demás tipos:
 
 1. Corpus (1 h): 30-40 fichas JSON `{id, afirmación_canónica, variantes, veredicto, artículo, texto_literal, url, fecha_consulta}` generadas desde apartados 2, 3 y 5 de este fichero y desde el calendario JEC. Un humano revisa cada ficha contra el BOE.
 2. Recuperación (1 h): búsqueda por embeddings o BM25 sobre las fichas; umbral de similitud; si no supera el umbral, «no verificable».
-3. Salida (1 h): plantilla fija del apartado 6.2; la cita se copia de la ficha; el LLM solo reformula la pregunta del usuario y resume el matiz.
-4. Tipos b-d (0,5 h): (b) «No verificable aquí; consulta INE/Eurostat» con enlace a la serie, opcionalmente una consulta puntual a la API del INE con serie, periodo y fecha; (c) buscar el literal en la ley indicada; (d) rechazo explícito con contexto.
-5. Demo y pruebas (1 h): 15 afirmaciones de prueba (las del apartado 6.3 más las de tipo d) y un conjunto de afirmaciones fuera de corpus que deben dar «no verificable».
-6. Opcional: mostrar «Verificado por Maldita.es» si se localiza un ClaimReview con el mismo texto (atribuido, enlazado).
+3. Salida (1 h): plantilla fija del apartado 6.2; la cita se copia de la ficha; el LLM solo reformula la pregunta del usuario y resume el matiz. Los tipos (b) a (d) reciben la respuesta fija de fuera de alcance.
+4. Demo y pruebas (1 h): 15 afirmaciones de prueba (las del apartado 6.3 más algunas de los tipos b a d, que deben dar «fuera de alcance») y un conjunto de afirmaciones fuera de corpus que deben dar «no verificable».
+5. Opcional: mostrar «Verificado por Maldita.es» si se localiza un ClaimReview con el mismo texto (atribuido, enlazado).
 
-Quedan fuera del alcance: veredictos sobre promesas, datos sin serie definida y detección automática de bulos virales.
+Quedan fuera del alcance: candidatos, partidos, programas, encuestas, promesas, datos estadísticos y detección automática de bulos virales.
 
 ---
 

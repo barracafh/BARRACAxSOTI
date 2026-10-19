@@ -1,7 +1,7 @@
 [
   {
     "slug": "brujula",
-    "nombre": "Brújula (GVA y València)",
+    "nombre": "Brújula · Asistente de trámites",
     "frase": "Encuentra el trámite y el siguiente paso.",
     "ciudadano": "Le cuentas tu problema y te dice qué trámite es, los pasos y el enlace a la sede.",
     "ventanilla": 1,
@@ -114,14 +114,15 @@
     "dificultad": "Fácil",
     "guias": [
       "Cada squad construye las piezas que le dé tiempo. Cita la fuente oficial y no uses datos personales reales.",
-      "Cada fecha debe citar BOE o Junta Electoral. El calendario del pack está comprobado en el BOE y la JEC (18/10)."
+      "Cada fecha debe citar BOE o Junta Electoral. El calendario del pack está comprobado en el BOE y la JEC (18/10) y en los plazos del INE (19/10).",
+      "Solo cómo se vota: nada de candidatos, programas ni encuestas, y ninguna recomendación de voto."
     ]
   },
   {
     "slug": "libre",
     "nombre": "Track libre",
-    "frase": "Una pieza nueva para el centro.",
-    "ciudadano": "Cupo de un squad por orden de llegada, asignado por el comité.",
+    "frase": "Una herramienta más para la plataforma.",
+    "ciudadano": "La herramienta que propone su squad para una necesidad ciudadana que no cubren los otros cinco tracks.",
     "ventanilla": 12,
     "color": "paper",
     "glifo": "?",
@@ -130,7 +131,8 @@
     "fuentes": [{ "nombre": "datos.gob.es", "url": "https://datos.gob.es/" }],
     "dificultad": "Por acotar",
     "guias": [
-      "Un solo squad completa las dos piezas. Cita la fuente oficial y no uses datos personales reales."
+      "Un solo squad completa las dos piezas. Cita la fuente oficial y no uses datos personales reales.",
+      "Nada que oriente el voto: ni «¿a quién voto?», ni programas, candidatos ni encuestas. Lo electoral solo está en ¿Cómo voto?, y solo trata cómo se vota."
     ],
     "cupo": 1
   }

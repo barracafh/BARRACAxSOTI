@@ -75,11 +75,11 @@
         "La documentación que indique el justificante de la solicitud"
       ],
       "plazo": null,
-      "enlace_info": "https://www.lamoncloa.gob.es/serviciosdeprensa/notasprensa/trabajo14/paginas/2024/210624-reforma-subsidio-desempleo.aspx",
+      "enlace_info": "https://www.sepe.es/HomeSepe/prestaciones-desempleo/subsidio-desempleo.html",
       "enlace_tramite": "https://sede.sepe.gob.es/PSolicitudUnicaWEB/solicitudUnica",
-      "fuente": "https://www.lamoncloa.gob.es/serviciosdeprensa/notasprensa/trabajo14/paginas/2024/210624-reforma-subsidio-desempleo.aspx",
+      "fuente": "https://www.sepe.es/HomeSepe/prestaciones-desempleo/subsidio-desempleo.html ; https://www.lamoncloa.gob.es/serviciosdeprensa/notasprensa/trabajo14/paginas/2024/210624-reforma-subsidio-desempleo.aspx",
       "verificado": true,
-      "nota": "Cuantía según La Moncloa (2024): 95 % del IPREM los 6 primeros meses, 90 % los 6 siguientes y 80 % el resto. Se elimina el mes de espera tras agotar el paro. Existe el Complemento de Apoyo al Empleo para compatibilizarlo con un trabajo. No se pudo confirmar en una web oficial abierta el plazo actual de solicitud tras la reforma.",
+      "nota": "Cuantía según La Moncloa (2024): 95 % del IPREM los 6 primeros meses, 90 % los 6 siguientes y 80 % el resto. Se elimina el mes de espera tras agotar el paro. Existe el Complemento de Apoyo al Empleo para compatibilizarlo con un trabajo. No se pudo confirmar en una web oficial abierta el plazo actual de solicitud tras la reforma. La página de subsidios del SEPE (consultada el 19/10/2026) remite a los requisitos de cada subsidio del RDL 2/2024.",
       "relacionados": [
         "prestacion-desempleo",
         "inscripcion-demandante-labora",

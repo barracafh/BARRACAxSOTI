@@ -28,14 +28,14 @@
         </h1>
         <p class="lede">
           Elecciones del 29/11/2026: convocatoria, calendario oficial, cómo
-          votar en cada situación, el sistema electoral y una propuesta acotada
-          de fact-checker.
+          votar en cada situación, el sistema electoral y el alcance del
+          verificador, que solo trata cómo se vota.
         </p>
         <div class="meta">
           <a class="btn" data-d="05" data-s=""
             >Abrir como-voto/contexto.md ↗</a
           >
-          <span class="pill">498 líneas · 8.299 palabras</span>
+          <span class="pill">501 líneas · 8.386 palabras</span>
           <span class="pill sv">23 sin verificar</span>
           <a class="pill" href="#indice">Índice completo ↓</a>
         </div>
@@ -420,11 +420,10 @@
             <li>Sin captación de voto el 28 ni el 29/11.</li>
             <li>Neutralidad y sin perfilado político.</li>
             <li>
-              No hay repositorio oficial de programas: cita con captura, hash y
-              texto literal.
+              Fuera del track: candidaturas, programas y encuestas.
               <button
                 class="info"
-                data-tip="El documento no encontró un repositorio oficial de programas (sin verificar). Hay que citar la URL del partido, la fecha de captura, el hash SHA-256 y una copia archivada, porque los partidos retiran y cambian programas. Se cita el fragmento literal y no se parafrasea."
+                data-tip="El track solo explica cómo se vota: la herramienta no muestra, enlaza ni resume candidaturas, programas ni encuestas (apartados 4 y 6). El apartado 4 queda como contexto; tampoco hay un repositorio oficial de programas (sin verificar)."
               >
                 i
               </button>
@@ -435,10 +434,10 @@
         <section class="panel w12">
           <div class="ph">
             <h2>
-              Fact-checker: propuesta de alcance
+              Verificador: alcance
               <button
                 class="info"
-                data-tip="Es la propuesta técnica para la parte de la demo que contrasta un bulo con la fuente oficial. No emite veredictos de veracidad: compara la afirmación con una fuente oficial citada, y solo si existe. Un clasificador decide el tipo, pero el resultado sale de reglas y fuentes, no del modelo. Si hay duda, se trata como tipo (d)."
+                data-tip="Es la parte de la demo que contrasta lo que te han dicho sobre cómo se vota con la fuente oficial. No emite veredictos de veracidad: compara la afirmación con una fuente oficial citada, y solo si existe. Un clasificador decide el tipo, pero el resultado sale de reglas y fuentes, no del modelo. Lo que no trata de cómo se vota queda fuera de alcance."
               >
                 i
               </button>
@@ -446,8 +445,8 @@
             <a class="sx" data-d="05" data-s="6."></a>
           </div>
           <p class="sub">
-            Para la parte de la demo que contrasta un bulo. Solo afirmaciones
-            sobre el proceso electoral.
+            Solo afirmaciones sobre cómo se vota. Nada sobre candidatos,
+            partidos, programas ni encuestas.
           </p>
           <div class="cols">
             <div class="card">
@@ -455,20 +454,20 @@
                 >Tipos de afirmación
                 <button
                   class="info"
-                  data-tip="Solo el tipo (a) se verifica de forma determinista, y solo si está en el corpus. Los tipos (b) y (c) son parciales: hacen falta una serie definida o un texto fuente con búsqueda literal. Las promesas y opiniones (d) no se verifican: se muestra su contexto, sin veredicto."
+                  data-tip="Solo el tipo (a) se verifica, y solo si está en el corpus. Los tipos (b), (c) y (d) reciben la respuesta fija «fuera de alcance: aquí solo comprobamos cómo se vota», con el enlace a la fuente oficial."
                 >
                   i
                 </button></span
               >
               <dl class="kv">
                 <dt>(a)</dt>
-                <dd>Proceso electoral: verificable</dd>
+                <dd>Cómo se vota: verificable</dd>
                 <dt>(b)</dt>
-                <dd>Dato estadístico: parcial</dd>
+                <dd>Dato estadístico: fuera de alcance</dd>
                 <dt>(c)</dt>
-                <dd>Qué dice una ley o programa: parcial</dd>
+                <dd>Qué dice una ley o programa: fuera de alcance</dd>
                 <dt>(d)</dt>
-                <dd>Promesas y opiniones: no verificable</dd>
+                <dd>Promesas y opiniones: fuera de alcance</dd>
               </dl>
             </div>
             <div class="card">
@@ -510,24 +509,21 @@
               >
             </div>
           </div>
-          <h3>Plan para 4,5 horas</h3>
+          <h3>Plan para unas 4 horas</h3>
           <div
             class="stack"
             style="height: auto; font-size: 11.5px; line-height: 1.3"
           >
-            <div style="width: 22.2%; background: var(--c); padding: 8px">
+            <div style="width: 25%; background: var(--c); padding: 8px">
               1 h · Corpus de 30-40 fichas
             </div>
-            <div style="width: 22.2%; background: var(--cian); padding: 8px">
+            <div style="width: 25%; background: var(--cian); padding: 8px">
               1 h · Recuperación con umbral
             </div>
-            <div style="width: 22.2%; background: var(--lila); padding: 8px">
+            <div style="width: 25%; background: var(--lila); padding: 8px">
               1 h · Plantilla de salida
             </div>
-            <div style="width: 11.2%; background: var(--after); padding: 8px">
-              0,5 h · Tipos b-d
-            </div>
-            <div style="width: 22.2%; background: var(--acid); padding: 8px">
+            <div style="width: 25%; background: var(--acid); padding: 8px">
               1 h · Demo y 15 pruebas
             </div>
           </div>
