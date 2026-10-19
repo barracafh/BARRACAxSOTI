@@ -1,8 +1,8 @@
 {
   "slug": "libre",
   "nombre": "Track libre",
-  "frase": "Una pieza nueva para el centro.",
-  "ciudadano": "Cupo de un squad por orden de llegada, asignado por el comité.",
+  "frase": "Una herramienta más para la plataforma.",
+  "ciudadano": "La herramienta que propone su squad para una necesidad ciudadana que no cubren los otros cinco tracks.",
   "ventanilla": 12,
   "color": "paper",
   "glifo": "?",
@@ -16,7 +16,8 @@
   ],
   "dificultad": "Por acotar",
   "guias": [
-    "Un solo squad completa las dos piezas. Cita la fuente oficial y no uses datos personales reales."
+    "Un solo squad completa las dos piezas. Cita la fuente oficial y no uses datos personales reales.",
+    "Nada que oriente el voto: ni «¿a quién voto?», ni programas, candidatos ni encuestas. Lo electoral solo está en ¿Cómo voto?, y solo trata cómo se vota."
   ],
   "cupo": 1
 }
