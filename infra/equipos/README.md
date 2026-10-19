@@ -12,10 +12,10 @@ Para cada equipo, el script:
 
 1. Crea el repo público con los archivos versionados de `plantilla/`, su ficha, el botón de avisos apuntando a sus issues y, de `tracks/<track>/`, `SETUP.md`, `datos/` y `contexto.md`, con los ficheros de `tracks/comun/` que cita su track en `comun/`. Los enlaces a material que el repo no lleva apuntan al monorepo público.
 2. Crea el proyecto `build-<id>` en Vercel, conectado al repo y sin protección de despliegue: el hub lo lee por su dominio `vercel.app`.
-3. Copia las variables que estén definidas en tu shell: `HELMCODE_API_KEY`, `HELMCODE_BASE_URL` y `HELMCODE_MODEL` a todos; `SAFE_BROWSING_API_KEY` solo a Sello y `FACTCHECK_API_KEY` solo a ¿Cómo voto?.
-4. Hace un push para el primer despliegue e invita a cada miembro con permiso de escritura.
+3. Copia las variables de tu shell: `HELMCODE_API_KEY`, `HELMCODE_BASE_URL` y `HELMCODE_MODEL` a todos; `SAFE_BROWSING_API_KEY` solo a Sello y `FACTCHECK_API_KEY` solo a ¿Cómo voto?. `--apply` no empieza si falta alguna de las que usan sus equipos (`HELMCODE_BASE_URL` es opcional).
+4. Hace un push para el primer despliegue.
 
-Después publica el hub (`build-hub`): una portada con los equipos y una regla de reenvío por ruta.
+Después publica el hub (`build-hub`): una portada con los equipos y una regla de reenvío por ruta. Al final invita a cada miembro con permiso de escritura a su repo y al registro: GitHub limita las invitaciones por repo y día, y si rechaza alguna, los repos y el hub ya están hechos.
 
 Se puede repetir. Lo que ya existe se salta y lo demás se actualiza: variables, invitaciones y hub. Una variable nueva entra en el siguiente despliegue del equipo. Quien sale de un equipo no se retira solo: `gh api -X DELETE repos/<repo>/collaborators/<usuario>`. `--equipo <id>` limita los repos a uno; el hub se regenera siempre con todos.
 

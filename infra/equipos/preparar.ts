@@ -217,10 +217,27 @@ function variables(track: string, apply: boolean) {
     }));
 }
 
+// variables() skips unset keys, so check first: a project without them only
+// fails when a squad calls the API on Thursday. HELMCODE_BASE_URL has a default.
+export function clavesQueFaltan(equipos: Equipo[], env = process.env) {
+  if (!equipos.length) return [];
+  const tracks = new Set(equipos.map((e) => e.herramienta));
+  return [
+    "HELMCODE_API_KEY",
+    "HELMCODE_MODEL",
+    ...[...tracks].flatMap((t) => clavesTrack[t] ?? []),
+  ].filter((key) => !env[key]);
+}
+
 export async function pasosEquipo(
   equipo: Equipo,
   apply: boolean,
-): Promise<{ nuevo: boolean; commands: Command[]; aviso?: string }> {
+): Promise<{
+  nuevo: boolean;
+  commands: Command[];
+  invitaciones: Command[];
+  aviso?: string;
+}> {
   const name = proyecto(equipo.id);
   // A dry run makes no requests, so it shows the plan for a team from scratch.
   const nuevo =
@@ -267,9 +284,10 @@ export async function pasosEquipo(
     commands.push(commit("--allow-empty", "-m", "Deploy on Vercel"), {
       args: ["git", "push", "origin", "main"],
     });
+  const invitaciones: Command[] = [];
   for (const m of equipo.miembros)
     for (const repo of [equipo.repo, registro])
-      commands.push({
+      invitaciones.push({
         args: [
           "gh",
           "api",
@@ -284,7 +302,7 @@ export async function pasosEquipo(
     !nuevo && sinProyecto
       ? "El repo ya existía: el proyecto desplegará con el próximo push."
       : undefined;
-  return { nuevo, commands, aviso };
+  return { nuevo, commands, invitaciones, aviso };
 }
 
 const escapar = (texto: string) =>
@@ -429,6 +447,12 @@ export async function preparar(config: {
     : equipos;
   if (config.solo && !elegidos.length)
     throw new Error(`No hay equipo ${config.solo}.`);
+  const faltan = clavesQueFaltan(elegidos);
+  if (faltan.length) {
+    const texto = `Faltan en tu shell: ${faltan.join(", ")}.`;
+    if (apply) throw new Error(`${texto} Cárgalas antes de --apply.`);
+    log(`${texto} --apply no seguirá sin ellas.`);
+  }
   // Build every repo before touching anything remote, so a bad track fails early.
   const archivos = await Promise.all(
     elegidos.map((e) =>
@@ -440,8 +464,11 @@ export async function preparar(config: {
       ? "Aplicando: crea o actualiza repos, proyectos, variables e invitaciones."
       : "Simulación: no se hacen peticiones ni cambios. Usa --apply para ejecutar.",
   );
+  const invitaciones: Command[] = [];
   for (const [i, equipo] of elegidos.entries()) {
-    const { nuevo, commands, aviso } = await pasosEquipo(equipo, apply);
+    const pasos = await pasosEquipo(equipo, apply);
+    const { nuevo, commands, aviso } = pasos;
+    invitaciones.push(...pasos.invitaciones);
     await ejecutar(
       `${equipo.id} · ${equipo.repo} · https://${dominio}/${equipo.id}`,
       nuevo ? archivos[i]! : {},
@@ -463,6 +490,10 @@ export async function preparar(config: {
     apply,
     log,
   );
+  // Last: GitHub caps invitations per repo and day, and a refusal there must
+  // not leave repos, projects or the hub half done.
+  if (invitaciones.length)
+    await ejecutar("invitaciones", {}, invitaciones, apply, log);
 }
 
 if (import.meta.main) {
