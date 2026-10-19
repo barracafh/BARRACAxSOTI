@@ -1,8 +1,13 @@
 import { expect, test } from "bun:test";
+import { mkdtemp } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { leerTracks, validarEquipos } from "../infra/equipos/preparar";
+import { guardar, leer } from "../infra/reparto/almacen";
 import {
   aEquipos,
   estadoVacio,
+  fuera,
   importar,
   leerCsv,
   mover,
@@ -134,24 +139,93 @@ test("reparto: exporta equipos.json que acepta infra/equipos", async () => {
     ["derechos-b", "2"],
     ["libre", "3"],
   ]);
-  const derechos = tracks.find((t) => t.slug === "derechos")!;
-  expect(equipos[1]?.pieza).toBe(derechos.piezas[1]!);
-  expect(validarEquipos(equipos, tracks)[2]?.miembros).toEqual(["demo-d"]);
+  // Exactly the shape infra/equipos reads, with nothing it would drop.
+  expect(validarEquipos(equipos, tracks)).toEqual(
+    equipos.map((e) => ({
+      ...e,
+      miembros: e.miembros.map((m) => m.slice(19, -1)),
+      repo: `barracafh/build-${e.id}`,
+    })),
+  );
 
   // Restoring the export rebuilds the same groups; unknown handles are reported.
-  const otro = { ...equipos[0]!, miembros: ["demo-nadie"] };
+  const otro = { ...equipos[0]!, id: "derechos-c", miembros: ["demo-nadie"] };
   const vuelta = restaurar(estado, JSON.stringify([...equipos, otro]));
-  expect(
-    vuelta.estado.grupos.map((g) => [g.track, g.pieza, g.miembros]),
-  ).toEqual([
-    ["derechos", "Ayudas para ti", ["a"]],
-    ["derechos", derechos.piezas[1]!, ["b", "c"]],
-    ["libre", equipos[2]!.pieza, ["d"]],
-    ["derechos", "Ayudas para ti", []],
+  expect(vuelta.estado.grupos.map((g) => [g.track, g.miembros])).toEqual([
+    ["derechos", ["a"]],
+    ["derechos", ["b", "c"]],
+    ["libre", ["d"]],
+    ["derechos", []],
   ]);
   expect(vuelta.sueltos).toEqual(["demo-nadie"]);
   expect(() => restaurar(estado, '[{"id":"x"}]')).toThrow("formato");
 
   estado.grupos.push(nuevoGrupo("Sin track"));
   expect(() => aEquipos(estado, tracks)).toThrow("no tiene track");
+});
+
+test("reparto: quien ya no está aprobado en Luma no se exporta", async () => {
+  const tracks = await leerTracks();
+  let estado = importar(
+    estadoVacio(),
+    csv([fila("a", "approved", "Uno"), fila("b", "approved", "Uno")]),
+  );
+  estado.grupos[0]!.track = "sello";
+  estado = importar(
+    estado,
+    csv([fila("a", "approved", "Uno"), fila("b", "declined", "Uno")]),
+  );
+  expect(aEquipos(estado, tracks)[0]?.miembros).toEqual([
+    "https://github.com/demo-a/",
+  ]);
+  expect(fuera(estado)).toEqual(["Demo b"]);
+  // Leaving Luma altogether counts the same; a team left empty can't export.
+  estado = importar(estado, csv([]));
+  expect(() => aEquipos(estado, tracks)).toThrow("miembros aprobados");
+});
+
+test("reparto: id, repo y mesa no cambian al reordenar, borrar o restaurar", async () => {
+  const tracks = await leerTracks();
+  const estado = importar(
+    estadoVacio(),
+    csv(["a", "b", "c"].map((id) => fila(id, "approved"))),
+  );
+  estado.grupos = ["a", "b", "c"].map((id) => ({
+    ...nuevoGrupo(`Equipo ${id}`),
+    track: "derechos",
+    miembros: [id],
+  }));
+  estado.grupos.pop();
+  const primera = aEquipos(estado, tracks);
+  // After the first export: drop derechos-a, add a new team in front.
+  estado.grupos = [
+    { ...nuevoGrupo("Nuevo"), track: "derechos", miembros: ["c"] },
+    estado.grupos[1]!,
+  ];
+  const segunda = aEquipos(estado, tracks);
+  expect(segunda.map((e) => [e.nombre, e.id, e.mesa])).toEqual([
+    ["Nuevo", "derechos-c", "1"],
+    [primera[1]!.nombre, "derechos-b", "2"],
+  ]);
+
+  // A restored file keeps its ids, repos and tables, whatever its order.
+  const aplicado = [...segunda]
+    .reverse()
+    .map((e) => ({ ...e, mesa: `M${e.id}`, repo: `barracafh/otro-${e.id}` }));
+  const { estado: vuelta } = restaurar(estado, JSON.stringify(aplicado));
+  expect(aEquipos(vuelta, tracks)).toEqual(aplicado);
+});
+
+test("reparto: dos guardados a la vez dan uno bueno y un conflicto", async () => {
+  const archivo = join(
+    await mkdtemp(join(tmpdir(), "hacknight-reparto-")),
+    "estado.json",
+  );
+  const [a, b] = await Promise.all([
+    guardar(archivo, estadoVacio()),
+    guardar(archivo, estadoVacio()),
+  ]);
+  expect([a.conflicto, b.conflicto]).toEqual([false, true]);
+  expect(b.estado.version).toBe(1);
+  expect((await leer(archivo)).version).toBe(1);
 });

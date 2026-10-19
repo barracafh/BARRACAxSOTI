@@ -26,16 +26,21 @@ export type Grupo = {
   id: string;
   nombre: string;
   track: string;
-  pieza: string;
   mesa: string;
   capitan: string;
   miembros: string[];
+  // Fixed on the first export or restore and never reassigned: the team's
+  // repo, URL and invitations hang on them.
+  equipoId?: string;
+  repo?: string;
 };
 export type Estado = {
   version: number;
   importado: string;
   personas: Record<string, Persona>;
   grupos: Grupo[];
+  // Every team id handed out so far; a deleted team's id is never reused.
+  ids?: string[];
 };
 
 export const estadoVacio = (): Estado => ({
@@ -44,6 +49,10 @@ export const estadoVacio = (): Estado => ({
   personas: {},
   grupos: [],
 });
+
+// Only these are exported, so only these are ever invited.
+export const dentro = (p?: Persona) =>
+  Boolean(p?.enLuma && p.estado === "approved");
 
 export const estados: Record<string, string> = {
   approved: "aprobada",
@@ -162,7 +171,6 @@ export const nuevoGrupo = (nombre: string): Grupo => ({
   id: crypto.randomUUID(),
   nombre,
   track: "",
-  pieza: "",
   mesa: "",
   capitan: "",
   miembros: [],
@@ -246,8 +254,9 @@ export function restaurar(estado: Estado, json: string) {
   const grupos = leido.data.map((e) => ({
     ...nuevoGrupo(e.nombre),
     track: e.herramienta,
-    pieza: e.pieza,
     mesa: e.mesa,
+    equipoId: e.id,
+    repo: e.repo,
     miembros: e.miembros.flatMap((m) => {
       const id = ids.get(usuario(m).toLowerCase());
       if (!id) sueltos.push(usuario(m));
@@ -257,7 +266,11 @@ export function restaurar(estado: Estado, json: string) {
     }),
   }));
   capitanes(grupos, estado.personas);
-  return { estado: { ...estado, grupos }, sueltos };
+  const usados = new Set([
+    ...(estado.ids ?? []),
+    ...grupos.map((g) => g.equipoId),
+  ]);
+  return { estado: { ...estado, grupos, ids: [...usados] }, sueltos };
 }
 
 export function mover(estado: Estado, id: string, destino: string) {
@@ -268,12 +281,6 @@ export function mover(estado: Estado, id: string, destino: string) {
     if (g.capitan === id) g.capitan = "";
   }
   estado.grupos.find((g) => g.id === destino)?.miembros.push(id);
-}
-
-// Each squad on a track takes the next piece, as tracks/README.md asks.
-export function piezaDe(g: Grupo, grupos: Grupo[], track?: Track) {
-  const n = grupos.filter((o) => o.track === g.track).indexOf(g);
-  return g.pieza.trim() || track?.piezas[n] || track?.piezas[0] || "";
 }
 
 // The committee's checklist from docs/equipos.md; warnings, not blockers.
@@ -301,30 +308,70 @@ export function avisos(g: Grupo, personas: Record<string, Persona>) {
   return lista;
 }
 
-// The registry format from apps/cli/README.md; validarEquipos has the last word.
+// Group members Luma no longer approves: left out of the export.
+export const fuera = (estado: Estado) =>
+  estado.grupos.flatMap((g) =>
+    g.miembros.flatMap((id) =>
+      dentro(estado.personas[id]) ? [] : [estado.personas[id]?.nombre ?? id],
+    ),
+  );
+
+// A team without id takes the first free letter of its track and a team
+// without table the first free number; both are then kept, so reordering or
+// deleting other teams never moves them. A team moved to another track gets
+// a new id and repo. A one-team track always uses the track's slug.
+function fijar(estado: Estado, tracks: Track[]) {
+  const tomados = new Set([
+    ...(estado.ids ?? []),
+    ...estado.grupos.flatMap((g) => g.equipoId ?? []),
+  ]);
+  const mesas = new Set(estado.grupos.map((g) => g.mesa.trim()));
+  for (const g of estado.grupos) {
+    const t = tracks.find((o) => o.slug === g.track)!;
+    if (g.equipoId !== t.slug && !g.equipoId?.startsWith(`${t.slug}-`)) {
+      const letra = [..."abcdefgh"].find((l) => !tomados.has(`${t.slug}-${l}`));
+      if (!letra) throw new Error(`${t.nombre} no tiene más ids libres.`);
+      g.equipoId = t.cupo === 1 ? t.slug : `${t.slug}-${letra}`;
+      g.repo = "";
+    }
+    tomados.add(g.equipoId);
+    if (!g.mesa.trim()) {
+      let n = 1;
+      while (mesas.has(String(n))) n++;
+      g.mesa = String(n);
+      mesas.add(g.mesa);
+    }
+  }
+  estado.ids = [...tomados];
+}
+
+// The registry format infra/equipos reads; validarEquipos has the last word.
+// Fixes ids and tables in the state, so save it after exporting.
 export function aEquipos(estado: Estado, tracks: Track[]): Equipo[] {
-  return estado.grupos.map((g, i) => {
+  estado.grupos.forEach((g, i) => {
     const nombre = g.nombre.trim() || `El equipo ${i + 1}`;
-    const track = tracks.find((t) => t.slug === g.track);
-    if (!track) throw new Error(`«${nombre}» no tiene track.`);
-    if (!g.miembros.length) throw new Error(`«${nombre}» no tiene miembros.`);
+    if (!tracks.some((t) => t.slug === g.track))
+      throw new Error(`«${nombre}» no tiene track.`);
+    const ms = g.miembros.flatMap((id) => {
+      const p = estado.personas[id];
+      return dentro(p) ? [p!] : [];
+    });
+    if (!ms.length)
+      throw new Error(`«${nombre}» no tiene miembros aprobados en Luma.`);
     if (!g.nombre.trim()) throw new Error(`${nombre} no tiene nombre.`);
-    const n = estado.grupos.filter((o) => o.track === g.track).indexOf(g);
-    return {
-      id: track.cupo === 1 ? track.slug : `${track.slug}-${"abcdefgh"[n]}`,
-      nombre,
-      herramienta: track.slug,
-      pieza: piezaDe(g, estado.grupos, track) || track.nombre,
-      mesa: g.mesa.trim() || String(i + 1),
-      miembros: g.miembros.map((id) => {
-        const p = estado.personas[id];
-        if (!p?.github)
-          throw new Error(
-            `«${nombre}»: ${p?.nombre ?? id} no tiene usuario de GitHub.`,
-          );
-        return p.github;
-      }),
-      repo: "",
-    };
+    const sin = ms.find((p) => !p.github);
+    if (sin)
+      throw new Error(`«${nombre}»: ${sin.nombre} no tiene usuario de GitHub.`);
   });
+  fijar(estado, tracks);
+  return estado.grupos.map((g) => ({
+    id: g.equipoId!,
+    nombre: g.nombre.trim(),
+    herramienta: g.track,
+    mesa: g.mesa.trim(),
+    miembros: g.miembros
+      .filter((id) => dentro(estado.personas[id]))
+      .map((id) => estado.personas[id]!.github),
+    repo: g.repo ?? "",
+  }));
 }

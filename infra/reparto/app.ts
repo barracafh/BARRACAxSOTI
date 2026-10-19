@@ -1,15 +1,16 @@
 /// <reference lib="dom" />
-import type { Track } from "@hacknight/shared/modelo";
+import type { Equipo, Track } from "@hacknight/shared/modelo";
 import { paleta } from "@hacknight/shared/paleta";
 import {
   aEquipos,
   avisos,
   clave,
+  dentro,
   estados,
+  fuera,
   importar,
   mover,
   nuevoGrupo,
-  piezaDe,
   restaurar,
   usuario,
   type Estado,
@@ -32,7 +33,6 @@ const track = (slug: string) => tracks.find((t) => t.slug === slug);
 const cupo = (t: Track) => t.cupo ?? 2;
 const usados = (slug: string) =>
   estado.grupos.filter((g) => g.track === slug).length;
-const dentro = (p: Persona) => p.enLuma && p.estado === "approved";
 function mensaje(texto: string, error = false) {
   $("#mensaje").textContent = texto;
   $("#mensaje").classList.toggle("error", error);
@@ -117,8 +117,8 @@ function tarjetaGrupo(g: Grupo, noche: boolean) {
         <option value="">Sin track</option>
         ${tracks.map((o) => `<option value="${o.slug}"${o === t ? " selected" : ""}>${esc(o.glifo)} ${esc(o.nombre)} · ${usados(o.slug)}/${cupo(o)}</option>`).join("")}
       </select>
-      <input data-campo="pieza" list="piezas-${g.track}" value="${esc(g.pieza)}" placeholder="${esc(piezaDe(g, estado.grupos, t) || "Pieza")}" aria-label="Pieza">
-      <input data-campo="mesa" value="${esc(g.mesa)}" placeholder="${estado.grupos.indexOf(g) + 1}" aria-label="Mesa" title="Mesa">
+      <span class="tenue" title="Id, repo y URL del equipo; se fija al exportar">${esc(g.equipoId || "id al exportar")}</span>
+      <input data-campo="mesa" value="${esc(g.mesa)}" placeholder="Mesa" aria-label="Mesa" title="Mesa">
     </div>
     <p class="tenue">${ms.length} persona${ms.length === 1 ? "" : "s"}${
       gustos.size
@@ -194,7 +194,7 @@ document.addEventListener("change", (e) => {
   if (el.matches("[data-mover]"))
     cambiar(() => mover(estado, personaDe(el), el.value));
   else if (g && el.dataset.campo) {
-    const campo = el.dataset.campo as "nombre" | "track" | "pieza" | "mesa";
+    const campo = el.dataset.campo as "nombre" | "track" | "mesa";
     // Text fields save without repainting so the next field keeps focus.
     cambiar(() => (g[campo] = el.value), campo === "track");
   }
@@ -295,18 +295,23 @@ $<HTMLInputElement>("#csv").addEventListener("change", async (e) => {
 
 $("#exportar").addEventListener("click", async () => {
   try {
+    // Exporting fixes ids and tables, so it is saved like any other change.
+    let equipos: Equipo[] = [];
+    cambiar(() => (equipos = aEquipos(estado, tracks)));
     const r = await fetch("/api/exportar", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(aEquipos(estado, tracks)),
+      body: JSON.stringify(equipos),
     });
     const datos = await r.json();
     if (!r.ok) throw new Error(datos.error);
     const pendientes = estado.grupos.filter(
       (g) => avisos(g, estado.personas).length,
     ).length;
+    const sinAprobar = fuera(estado);
     mensaje(
-      `${datos.equipos.length} equipos en ${datos.ruta}${pendientes ? `, ${pendientes} con avisos` : ""}. Siguiente paso: bun infra/equipos/preparar.ts --equipos ${datos.ruta} --dry-run`,
+      `${datos.equipos.length} equipos en ${datos.ruta}${pendientes ? `, ${pendientes} con avisos` : ""}.${sinAprobar.length ? ` Fuera del archivo por no estar aprobadas en Luma: ${sinAprobar.join(", ")}.` : ""} Siguiente paso: bun infra/equipos/preparar.ts --equipos ${datos.ruta} --dry-run`,
+      sinAprobar.length > 0,
     );
   } catch (error) {
     mensaje(`No se ha exportado: ${(error as Error).message}`, true);
@@ -316,10 +321,4 @@ $("#exportar").addEventListener("click", async () => {
 const inicio = await fetch("/api/estado").then((r) => r.json());
 estado = inicio.estado;
 tracks = inicio.tracks;
-$("#piezas").innerHTML = tracks
-  .map(
-    (t) =>
-      `<datalist id="piezas-${t.slug}">${t.piezas.map((p) => `<option value="${esc(p)}">`).join("")}</datalist>`,
-  )
-  .join("");
 pintar();
