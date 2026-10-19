@@ -40,8 +40,11 @@ export class RegistroGitHub implements Registro {
   constructor(
     public nombre: string,
     private run: Runner = ejecutar,
+    // Committee notices live where squads have no Write: with it they could
+    // edit a notice and still show it under a committee handle.
+    private avisos = nombre,
   ) {
-    if (!repo.safeParse(nombre).success)
+    if (!repo.safeParse(nombre).success || !repo.safeParse(avisos).success)
       throw new CliError(
         "CONFIG",
         "Registro debe ser propietario/repo o file:///ruta.",
@@ -54,11 +57,12 @@ export class RegistroGitHub implements Registro {
     schema: z.ZodType<T>,
     method = "GET",
     body?: unknown,
+    repositorio = this.nombre,
   ): Promise<T> {
     const args = [
       "gh",
       "api",
-      `repos/${this.nombre}/${path}`,
+      `repos/${repositorio}/${path}`,
       "--method",
       method,
     ];
@@ -113,19 +117,26 @@ export class RegistroGitHub implements Registro {
   equipos = () => this.archivo("equipos.json", z.array(equipoSchema));
   tracks = () => this.archivo("tracks.json", z.array(trackSchema));
   comite = () => this.archivo("comite.json", z.array(z.string()));
-  async paginas<T>(path: string, schema: z.ZodType<T>): Promise<T[]> {
+  async paginas<T>(
+    path: string,
+    schema: z.ZodType<T>,
+    repositorio = this.nombre,
+  ): Promise<T[]> {
     const all: T[] = [];
     for (let page = 1; ; page++) {
       const rows = await this.api(
         `${path}${path.includes("?") ? "&" : "?"}per_page=100&page=${page}`,
         z.array(schema),
+        "GET",
+        undefined,
+        repositorio,
       );
       all.push(...rows);
       if (rows.length < 100) return all;
     }
   }
   async issues() {
-    return (await this.paginas("issues?state=all", ghIssue))
+    return (await this.paginas("issues?state=all", ghIssue, this.avisos))
       .filter((i) => !i.pull_request)
       .map(issue);
   }

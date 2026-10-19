@@ -27,13 +27,15 @@ test("registro: dry-run no ejecuta; siembra JSON, etiquetas y revisiones del com
     "/equipos.json @example/comite",
   );
   expect(plan.files[".github/CODEOWNERS"]).toContain(
+    "/fichas/ @example/comite",
+  );
+  expect(plan.files[".github/CODEOWNERS"]).toContain(
     "/.github/CODEOWNERS @example/comite",
   );
-  expect(
-    plan.commands
-      .filter((command) => command.args[1] === "label")
-      .map((command) => command.args[3]),
-  ).toEqual(["aviso"]);
+  // Committee notices live in a repo squads cannot write to.
+  expect(plan.commands.some((command) => command.args[1] === "label")).toBe(
+    false,
+  );
   const protection = JSON.parse(plan.commands.at(-1)!.input!);
   expect(
     protection.required_pull_request_reviews.require_code_owner_reviews,
