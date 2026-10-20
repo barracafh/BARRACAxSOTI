@@ -13,6 +13,7 @@ Este monorepo contiene lo que pone la organización. **Los squads construyen en 
 | `tracks/<slug>/contexto.md` · `tracks/comun/` | Marco de conocimiento verificado (del track y común) con su infografía `.html` al lado; índice visual en `tracks/index.html` |
 | `plantilla/`                                  | Starter independiente de los squads, con el diseño Sol de Reforma Digital; no importa el workspace                           |
 | `infra/` · `.github/workflows/`               | Scripts de preparación (registro, repos de equipo, hub y sala), CI y releases                                                |
+| `data-backup/`                                | Copia offline en crudo de las fuentes de datos vivas de los tracks, con su script de descarga y su README                    |
 | `docs/`                                       | Guías cortas; calendario de equipos en `docs/equipos.md` y README raíz                                                       |
 | `test/` · `apps/cli/test/`                    | Pruebas y fixtures ficticios; el stub con fallos vive en `apps/cli/test/fixtures/`                                           |
 

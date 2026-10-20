@@ -1,0 +1,112 @@
+[
+  {
+    "url": "https://rdap.org/domain/correos.com",
+    "finalUrl": "https://rdap.verisign.com/com/v1/domain/correos.com",
+    "file": "domain/correos.com.json",
+    "status": 200,
+    "contentType": "application/rdap+json",
+    "bytes": 2537,
+    "sha256": "88c6fa706740e77201cdae58468449fdd282af9cb5e01ae64725a4e019be40f6",
+    "fetchedAt": "2026-10-19T09:16:20.040Z"
+  },
+  {
+    "url": "https://rdap.org/domain/dgt.es",
+    "finalUrl": "https://rdap.org/domain/dgt.es",
+    "file": "domain/dgt.es.json",
+    "status": 404,
+    "contentType": "application/rdap+json",
+    "bytes": 121,
+    "sha256": "d0c3b1e47dc26d893e10380845ab877cfd11d34bb98fa44c8798c5c79abac0d9",
+    "fetchedAt": "2026-10-19T09:16:46.346Z"
+  },
+  {
+    "url": "https://rdap.org/domain/europa.eu",
+    "finalUrl": "https://rdap.org/domain/europa.eu",
+    "file": "domain/europa.eu.json",
+    "status": 404,
+    "contentType": "application/rdap+json",
+    "bytes": 121,
+    "sha256": "d0c3b1e47dc26d893e10380845ab877cfd11d34bb98fa44c8798c5c79abac0d9",
+    "fetchedAt": "2026-10-19T09:16:27.955Z"
+  },
+  {
+    "url": "https://rdap.org/domain/example.com",
+    "finalUrl": "https://rdap.verisign.com/com/v1/domain/example.com",
+    "file": "domain/example.com.json",
+    "status": 200,
+    "contentType": "application/rdap+json",
+    "bytes": 2440,
+    "sha256": "f9ad35ff1145cde5d2d44b107cbbadd7850ac465ca0990d4d39a455063515eca",
+    "fetchedAt": "2026-10-19T09:16:22.018Z"
+  },
+  {
+    "url": "https://rdap.org/domain/example.net",
+    "finalUrl": "https://rdap.verisign.com/net/v1/domain/example.net",
+    "file": "domain/example.net.json",
+    "status": 200,
+    "contentType": "application/rdap+json",
+    "bytes": 2438,
+    "sha256": "470ab0b21fcc3dfe5734fd4307898c81113b18b2587762b36c8174b55da483e9",
+    "fetchedAt": "2026-10-19T09:16:24.020Z"
+  },
+  {
+    "url": "https://rdap.org/domain/example.org",
+    "finalUrl": "https://rdap.publicinterestregistry.org/rdap/domain/example.org",
+    "file": "domain/example.org.json",
+    "status": 200,
+    "contentType": "application/rdap+json",
+    "bytes": 7261,
+    "sha256": "092a89e634d85258aade66a6d78a2c2621ca1cd11f000ed04937094c9329ea79",
+    "fetchedAt": "2026-10-19T09:16:26.170Z"
+  },
+  {
+    "url": "https://rdap.org/domain/nic.info",
+    "finalUrl": "https://rdap.identitydigital.services/rdap/domain/nic.info",
+    "file": "domain/nic.info.json",
+    "status": 200,
+    "contentType": "application/rdap+json",
+    "bytes": 9490,
+    "sha256": "d5ae51ae11d45562e9a5cfbac21c11fa82123574a2d7b62cfe9262f4802c0a76",
+    "fetchedAt": "2026-10-19T09:16:34.202Z"
+  },
+  {
+    "url": "https://rdap.org/domain/nic.online",
+    "finalUrl": "https://rdap.radix.host/rdap/domain/nic.online",
+    "file": "domain/nic.online.json",
+    "status": 200,
+    "contentType": "application/rdap+json; charset=UTF-8",
+    "bytes": 4845,
+    "sha256": "786d8ddafab4ed69603c8fd572cf8eb456fe0a8d137e80ba5f66a48f28472f7a",
+    "fetchedAt": "2026-10-19T09:16:44.743Z"
+  },
+  {
+    "url": "https://rdap.org/domain/nic.shop",
+    "finalUrl": "https://rdap.gmoregistry.net/rdap/domain/nic.shop",
+    "file": "domain/nic.shop.json",
+    "status": 200,
+    "contentType": "application/rdap+json",
+    "bytes": 3723,
+    "sha256": "cc8e0396b249196e44d08a7b71b5d2119b23ba47e248e8e3614aad8f7e6f9657",
+    "fetchedAt": "2026-10-19T09:16:42.364Z"
+  },
+  {
+    "url": "https://rdap.org/domain/nic.top",
+    "finalUrl": "https://rdap.zdnsgtld.com/top/domain/nic.top",
+    "file": "domain/nic.top.json",
+    "status": 200,
+    "contentType": "application/rdap+json",
+    "bytes": 10773,
+    "sha256": "fff82221ea7c87dba2472b992f6bf44cebe3736a5eb828c12c2e1dd9646d8a19",
+    "fetchedAt": "2026-10-19T09:16:30.436Z"
+  },
+  {
+    "url": "https://rdap.org/domain/nic.xyz",
+    "finalUrl": "https://rdap.centralnic.com/xyz/domain/nic.xyz",
+    "file": "domain/nic.xyz.json",
+    "status": 200,
+    "contentType": "application/rdap+json",
+    "bytes": 5086,
+    "sha256": "3498e01491d078489fbaeaf41e557360d8d12a5865cba07b423d410d0eef0602",
+    "fetchedAt": "2026-10-19T09:16:32.179Z"
+  }
+]

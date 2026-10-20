@@ -1,0 +1,32 @@
+[
+  {
+    "url": "https://www.boe.es/datosabiertos/api/legislacion-consolidada/id/BOE-A-1985-11672",
+    "finalUrl": "https://www.boe.es/datosabiertos/api/legislacion-consolidada/id/BOE-A-1985-11672",
+    "file": "BOE-A-1985-11672.xml",
+    "status": 200,
+    "contentType": "application/xml",
+    "bytes": 1280629,
+    "sha256": "ff33677a3b34cbb134528b80905f274a45fa975bcca15d2acb1c9ea4c1972553",
+    "fetchedAt": "2026-10-19T09:16:18.974Z"
+  },
+  {
+    "url": "https://www.boe.es/datosabiertos/api/legislacion-consolidada/id/BOE-A-2015-10565",
+    "finalUrl": "https://www.boe.es/datosabiertos/api/legislacion-consolidada/id/BOE-A-2015-10565",
+    "file": "BOE-A-2015-10565.xml",
+    "status": 200,
+    "contentType": "application/xml",
+    "bytes": 484176,
+    "sha256": "66de55d27ef5de4e63d15131a9c1a3db53544ab13abda63e32b79cbb188a9d45",
+    "fetchedAt": "2026-10-19T09:16:17.802Z"
+  },
+  {
+    "url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-20742",
+    "finalUrl": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-20742",
+    "file": "BOE-A-2026-20742.html",
+    "status": 200,
+    "contentType": "text/html; charset=UTF-8",
+    "bytes": 33547,
+    "sha256": "1bd94d7c7b0c265e12e655906e8b9ccff1ffa5b88a2bd13d55b8b28a6d9f5e27",
+    "fetchedAt": "2026-10-19T09:16:19.887Z"
+  }
+]

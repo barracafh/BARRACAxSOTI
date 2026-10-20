@@ -6,3 +6,4 @@ apps/cli/esquemas/ficha.schema.json
 **/out/
 **/next-env.d.ts
 .local-secrets/
+data-backup/*/raw/

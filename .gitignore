@@ -54,5 +54,8 @@ packages/shared/registro-base/.lock/
 # Claves de infraestructura, nunca versionadas
 .local-secrets/
 
+# Copia offline de INCIBE: su aviso legal no permite redistribuirla (data-backup/incibe/README.md)
+data-backup/incibe/raw/
+
 # Reparto de equipos: datos de invitados de Luma
 .reparto/
