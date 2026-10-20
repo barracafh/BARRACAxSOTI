@@ -229,6 +229,42 @@ export function clavesQueFaltan(equipos: Equipo[], env = process.env) {
   ].filter((key) => !env[key]);
 }
 
+// The tools call their own API from the browser, so the routes stay public. A
+// browser sends Sec-Fetch-Site on every request and page code cannot forge it;
+// a bare curl does not, so casual scripts never reach the shared AI key. The
+// rule sits on the project, so it also covers its vercel.app domain.
+// ponytail: whoever adds the header gets through, and Safari before 16.4 sends
+// none; per-team keys or a rate limit if someone abuses it anyway.
+export function firewall(id: string) {
+  const ajeno = {
+    type: "header",
+    key: "sec-fetch-site",
+    op: "eq",
+    neg: true,
+    value: "same-origin",
+  };
+  return {
+    firewallEnabled: true,
+    rules: [
+      {
+        name: "Solo desde la propia web",
+        active: true,
+        conditionGroup: [
+          {
+            conditions: [
+              { type: "path", op: "pre", value: `/${id}/api/` },
+              ajeno,
+            ],
+          },
+          // Server Actions and any other form or fetch POST.
+          { conditions: [{ type: "method", op: "eq", value: "POST" }, ajeno] },
+        ],
+        action: { mitigate: { action: "deny" } },
+      },
+    ],
+  };
+}
+
 export async function pasosEquipo(
   equipo: Equipo,
   apply: boolean,
@@ -276,6 +312,13 @@ export async function pasosEquipo(
   // default protection would hide behind a Vercel login.
   commands.push(
     vercel(`/v9/projects/${name}`, "PATCH", { ssoProtection: null }),
+    // PUT replaces the project's whole firewall, so reruns stay idempotent;
+    // a rule added by hand in the dashboard is dropped on the next run.
+    vercel(
+      `/v1/security/firewall/config?projectId=${name}`,
+      "PUT",
+      firewall(equipo.id),
+    ),
   );
   for (const env of variables(equipo.herramienta, apply))
     commands.push(vercel(`/v10/projects/${name}/env?upsert=true`, "POST", env));
