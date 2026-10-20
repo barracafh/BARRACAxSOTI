@@ -196,6 +196,10 @@ test("equipos: la simulación no ejecuta nada ni imprime claves", async () => {
     expect(out).toContain("Simulación");
     expect(out).toContain("'gh' 'repo' 'create' 'barracafh/build-sello-a'");
     expect(out).toContain("<HELMCODE_API_KEY>");
+    expect(out).toContain(
+      "'/v1/security/firewall/config?projectId=build-sello-a&slug=barracafh'",
+    );
+    expect(out).toContain('"value":"/sello-a/api/"');
     expect(out).not.toContain("synthetic-helmcode-value");
     // A dry run leaves the organizer's file untouched.
     expect(await Bun.file(path).json()).toEqual(seis);
