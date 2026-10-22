@@ -146,12 +146,18 @@ test("GitHub conserva la pantalla cuando un squad todavía no ha creado su repo"
       return JSON.stringify([
         {
           sha: "abc123",
-          commit: { committer: { date: "2026-10-22T19:00:00Z" } },
+          commit: {
+            author: { name: "Nombre De Git" },
+            committer: { date: "2026-10-22T19:00:00Z" },
+          },
           author: { login: teams[1]!.miembros[0] },
         },
         {
           sha: "def456",
-          commit: { committer: { date: "2026-10-22T19:05:00Z" } },
+          commit: {
+            author: { name: "Persona Ficticia" },
+            committer: { date: "2026-10-22T19:05:00Z" },
+          },
           author: null,
         },
       ]);
@@ -163,7 +169,7 @@ test("GitHub conserva la pantalla cuando un squad todavía no ha creado su repo"
   expect(state.entradas[0]).toMatchObject({
     tipo: "push",
     herramienta: teams[1]!.herramienta,
-    texto: `Alguien ha subido cambios a ${teams[1]!.nombre}`,
+    texto: `Persona Ficticia ha subido cambios a ${teams[1]!.nombre}`,
   });
   expect(state.entradas[1]).toMatchObject({
     tipo: "push",

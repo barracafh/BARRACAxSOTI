@@ -302,8 +302,12 @@ export class RegistroGitHub implements Registro {
         .array(
           z.object({
             sha: z.string(),
-            commit: z.object({ committer: z.object({ date: z.string() }) }),
-            // Null when the commit email is not linked to a GitHub account.
+            commit: z.object({
+              author: z.object({ name: z.string() }),
+              committer: z.object({ date: z.string() }),
+            }),
+            // Null when the commit email is not linked to a GitHub account;
+            // then the name from the author's git config stands in.
             author: z.object({ login: z.string() }).nullable(),
           }),
         )
@@ -313,7 +317,7 @@ export class RegistroGitHub implements Registro {
           id: c.sha,
           fecha: c.commit.committer.date,
           herramienta: team.herramienta,
-          texto: `${c.author?.login ?? "Alguien"} ha subido cambios a ${team.nombre}`,
+          texto: `${c.author?.login ?? c.commit.author.name} ha subido cambios a ${team.nombre}`,
           url: `https://github.com/${team.repo}/commits`,
         });
     }
