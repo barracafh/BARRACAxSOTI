@@ -286,10 +286,12 @@ export class RegistroGitHub implements Registro {
     )) {
       let raw: string;
       try {
+        // Commits, not /events: GitHub's events feed can lag hours behind
+        // a push, and on the night it showed none of the squads' pushes.
         raw = await this.run([
           "gh",
           "api",
-          `repos/${team.repo}/events?per_page=30`,
+          `repos/${team.repo}/commits?per_page=30`,
         ]);
       } catch (e) {
         // El squad puede estar configurado antes de que infra/equipos cree su repositorio.
@@ -299,19 +301,19 @@ export class RegistroGitHub implements Registro {
       const rows = z
         .array(
           z.object({
-            id: z.string(),
-            type: z.string(),
-            created_at: z.string(),
-            actor: z.object({ login: z.string() }),
+            sha: z.string(),
+            commit: z.object({ committer: z.object({ date: z.string() }) }),
+            // Null when the commit email is not linked to a GitHub account.
+            author: z.object({ login: z.string() }).nullable(),
           }),
         )
         .parse(JSON.parse(raw));
-      for (const e of rows.filter((e) => e.type === "PushEvent"))
+      for (const c of rows)
         out.push({
-          id: e.id,
-          fecha: e.created_at,
+          id: c.sha,
+          fecha: c.commit.committer.date,
           herramienta: team.herramienta,
-          texto: `${e.actor.login} ha subido cambios a ${team.nombre}`,
+          texto: `${c.author?.login ?? "Alguien"} ha subido cambios a ${team.nombre}`,
           url: `https://github.com/${team.repo}/commits`,
         });
     }
