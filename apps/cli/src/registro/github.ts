@@ -286,12 +286,14 @@ export class RegistroGitHub implements Registro {
     )) {
       let raw: string;
       try {
-        // Commits, not /events: GitHub's events feed can lag hours behind
+        // Activity, not /events: GitHub's events feed can lag hours behind
         // a push, and on the night it showed none of the squads' pushes.
+        // Nor commits: their author can be Claude, while the actor here is
+        // always the person who pushed.
         raw = await this.run([
           "gh",
           "api",
-          `repos/${team.repo}/commits?per_page=30`,
+          `repos/${team.repo}/activity?per_page=30`,
         ]);
       } catch (e) {
         // El squad puede estar configurado antes de que infra/equipos cree su repositorio.
@@ -301,23 +303,19 @@ export class RegistroGitHub implements Registro {
       const rows = z
         .array(
           z.object({
-            sha: z.string(),
-            commit: z.object({
-              author: z.object({ name: z.string() }),
-              committer: z.object({ date: z.string() }),
-            }),
-            // Null when the commit email is not linked to a GitHub account;
-            // then the name from the author's git config stands in.
-            author: z.object({ login: z.string() }).nullable(),
+            id: z.number(),
+            timestamp: z.string(),
+            activity_type: z.string(),
+            actor: z.object({ login: z.string() }),
           }),
         )
         .parse(JSON.parse(raw));
-      for (const c of rows)
+      for (const a of rows.filter((a) => a.activity_type !== "branch_deletion"))
         out.push({
-          id: c.sha,
-          fecha: c.commit.committer.date,
+          id: String(a.id),
+          fecha: a.timestamp,
           herramienta: team.herramienta,
-          texto: `${c.author?.login ?? c.commit.author.name} ha subido cambios a ${team.nombre}`,
+          texto: `${a.actor.login} ha subido cambios a ${team.nombre}`,
           url: `https://github.com/${team.repo}/commits`,
         });
     }
