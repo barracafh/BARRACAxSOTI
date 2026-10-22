@@ -62,7 +62,8 @@ export class RegistroGitHub implements Registro {
     const args = [
       "gh",
       "api",
-      `repos/${repositorio}/${path}`,
+      // GitHub answers 404 to "repos/owner/repo/", so no trailing slash.
+      path ? `repos/${repositorio}/${path}` : `repos/${repositorio}`,
       "--method",
       method,
     ];
