@@ -211,7 +211,7 @@ function render() {
   $("fin-grafico").textContent = time(state.evento.fin);
   $("tablon").innerHTML = state.entradas.length
     ? state.entradas
-        .slice(0, 4)
+        .slice(0, 10)
         .map(
           (e) =>
             `<article><p class="eyebrow">${esc(e.tipo)} · ${esc(e.herramienta ? trackName(e.herramienta) : "COMITÉ")}</p><p>${esc(e.texto)}</p></article>`,

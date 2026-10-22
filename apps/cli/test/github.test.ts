@@ -140,25 +140,40 @@ test("GitHub conserva la pantalla cuando un squad todavía no ha creado su repo"
         ).toString("base64"),
       });
     if (path.includes("/issues?") || path.includes("/pulls?")) return "[]";
-    if (path === "repos/owner/pending/events?per_page=30")
+    if (path === "repos/owner/pending/commits?per_page=30")
       throw new CliError("NOT_FOUND", "No existe el repo.", "", 5);
-    if (path === "repos/owner/ready/events?per_page=30")
+    if (path === "repos/owner/ready/commits?per_page=30")
       return JSON.stringify([
         {
-          id: "push-demo",
-          type: "PushEvent",
-          created_at: "2026-10-22T19:00:00Z",
-          actor: { login: teams[1]!.miembros[0] },
+          sha: "abc123",
+          commit: {
+            author: { name: "Nombre De Git" },
+            committer: { date: "2026-10-22T19:00:00Z" },
+          },
+          author: { login: teams[1]!.miembros[0] },
+        },
+        {
+          sha: "def456",
+          commit: {
+            author: { name: "Persona Ficticia" },
+            committer: { date: "2026-10-22T19:05:00Z" },
+          },
+          author: null,
         },
       ]);
     throw new Error(path);
   });
   const state = await snapshot(reg);
   expect(state.equipos).toHaveLength(teams.length);
-  expect(state.entradas).toHaveLength(1);
+  expect(state.entradas).toHaveLength(2);
   expect(state.entradas[0]).toMatchObject({
     tipo: "push",
     herramienta: teams[1]!.herramienta,
+    texto: `Persona Ficticia ha subido cambios a ${teams[1]!.nombre}`,
+  });
+  expect(state.entradas[1]).toMatchObject({
+    tipo: "push",
+    texto: `${teams[1]!.miembros[0]} ha subido cambios a ${teams[1]!.nombre}`,
     url: "https://github.com/owner/ready/commits",
   });
 });
@@ -170,7 +185,7 @@ for (const code of ["UNAUTHENTICATED", "NOT_ALLOWED", "NETWORK"])
     ).json();
     const failure = new CliError(code, "Fallo simulado.", "", 5);
     const reg = new RegistroGitHub("owner/registry", async (args) => {
-      expect(args[2]).toBe("repos/owner/ready/events?per_page=30");
+      expect(args[2]).toBe("repos/owner/ready/commits?per_page=30");
       throw failure;
     });
     await expect(
