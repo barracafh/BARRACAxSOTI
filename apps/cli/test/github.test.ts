@@ -42,7 +42,8 @@ test("GitHub registra en una rama y reutiliza un PR abierto", async () => {
     const path = args[2]!;
     paths.push(path);
     if (body) bodies.push(body);
-    if (path.endsWith("/")) return JSON.stringify({ default_branch: "main" });
+    if (path === "repos/owner/registry")
+      return JSON.stringify({ default_branch: "main" });
     if (path.includes("git/ref/heads/buildnight"))
       return JSON.stringify({ object: { sha: "branch" } });
     if (path.includes("contents/"))
@@ -67,7 +68,7 @@ test("GitHub registra en una rama y reutiliza un PR abierto", async () => {
 });
 test("GitHub no convierte errores de permisos en una rama inexistente", async () => {
   const r = new RegistroGitHub("owner/registry", async (args) => {
-    if (args[2]!.endsWith("/")) return '{"default_branch":"main"}';
+    if (args[2] === "repos/owner/registry") return '{"default_branch":"main"}';
     throw new CliError("NOT_ALLOWED", "No.", "", 4);
   });
   await expect(r.registrar(f, new Date().toISOString())).rejects.toMatchObject({
