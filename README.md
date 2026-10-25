@@ -12,11 +12,11 @@ Una noche para construir entre todos **una plataforma de atención ciudadana**: 
 
 Este es el monorepo de la organización: CLI, web, tracks, plantilla e infra. **Cada squad construye en su propio repo**, que la organización crea desde la [plantilla común](plantilla/README.md) con [infra/equipos](infra/equipos/README.md).
 
-El repo es público para que puedas revisar el CLI antes de instalarlo: qué lee, qué envía y a dónde. Lo resume [Seguridad y privacidad](#seguridad-y-privacidad).
+La noche ya pasó. Las diez herramientas siguen en [build.barraca.house](https://build.barraca.house), con la IA activa hasta el 30 de noviembre de 2026, y el repo de cada squad queda archivado en [barracafh](https://github.com/barracafh). El CLI, su registro y la sala ya no están en servicio: el código queda aquí como referencia, y [Seguridad y privacidad](#seguridad-y-privacidad) resume qué hacía el CLI.
 
 ## La noche
 
-Horario provisional:
+Horario:
 
 | Hora        | Qué                                                                                                      |
 | ----------- | -------------------------------------------------------------------------------------------------------- |
@@ -92,24 +92,9 @@ El instalador deja Bun en `~/.bun/bin` y lo añade al PATH de tu shell: si `bun`
 
 Comprueba que todo responde con `git --version`, `bun --version`, `node --version` y `gh auth status`. Trae también tu asistente de código de IA favorito, ya configurado.
 
-## Instala el CLI
+## El CLI
 
-`buildnight` es el CLI del evento: tu expediente, la revisión de las reglas, la entrega de la ficha y el contador de tokens. En macOS y Linux:
-
-```sh
-curl -fsSL https://build.barraca.house/instalar.sh | sh
-```
-
-El instalador es [`apps/cli/install.sh`](apps/cli/install.sh): descarga de la [última release](https://github.com/barracafh/build-comite/releases/latest) el binario de tu plataforma, comprueba su SHA256 con `SHA256SUMS` y lo deja en `~/.local/bin` (`BUILDNIGHT_INSTALL_DIR` cambia el destino). En Windows, descarga `buildnight-windows-x64.exe` de esa misma release.
-
-Para comprobar un binario a mano:
-
-```sh
-gh release download -R barracafh/build-comite -p 'buildnight-darwin-arm64' -p SHA256SUMS
-shasum -a 256 -c --ignore-missing SHA256SUMS
-```
-
-Si prefieres no fiarte del binario, compílalo desde este código: `bun install --frozen-lockfile` y `bun run --cwd apps/cli build:bin:host` dejan el tuyo en `apps/cli/dist/buildnight`. Cada versión publicada corresponde al commit «Release the CLI X.Y.Z» de este repo; la compila el comité con [`infra/cli/publicar.ts`](infra/cli/publicar.ts).
+`buildnight` era el CLI del evento: tu expediente, la revisión de las reglas, la entrega de la ficha y el contador de tokens. Sus releases ya no están publicadas; para probarlo, compílalo desde este código: `bun install --frozen-lockfile` y `bun run --cwd apps/cli build:bin:host` dejan el tuyo en `apps/cli/dist/buildnight`. Los participantes lo instalaron con [`apps/cli/install.sh`](apps/cli/install.sh), y cada versión publicada corresponde al commit «Release the CLI X.Y.Z» de este repo, compilada con [`infra/cli/publicar.ts`](infra/cli/publicar.ts).
 
 Los trámites principales:
 
@@ -127,7 +112,7 @@ La lista completa y la configuración están en [apps/cli/README.md](apps/cli/RE
 
 Qué hace `buildnight` en tu máquina, según el código:
 
-- **GitHub:** usa tu sesión de `gh`; no guarda su token. Lee el registro del evento, [barracafh/build-registro](https://github.com/barracafh/build-registro), y para el tablón los eventos públicos de los repos de squad. Solo escribe ahí con `registrar`: una rama `buildnight/ficha-<squad>`, el archivo `fichas/<squad>.json` y una PR que revisa el comité ([`registro/github.ts`](apps/cli/src/registro/github.ts)).
+- **GitHub:** usa tu sesión de `gh`; no guarda su token. Lee el registro del evento, `barracafh/build-registro`, y para el tablón los eventos públicos de los repos de squad. Solo escribe ahí con `registrar`: una rama `buildnight/ficha-<squad>`, el archivo `fichas/<squad>.json` y una PR que revisa el comité ([`registro/github.ts`](apps/cli/src/registro/github.ts)).
 - **`revisar`:** lee los archivos que Git tiene versionados en tu proyecto y pide una vez la URL pública de tu ficha. Busca indicios de datos personales y claves, y nunca imprime lo que encuentra ([`lib/revision.ts`](apps/cli/src/lib/revision.ts)).
 - **`observar` y `consumo`:** leen los registros locales de Claude Code (`~/.claude/projects`), Codex (`~/.codex/sessions`) y Pi (`~/.pi/agent/sessions`), solo de tu proyecto y dentro del horario del build, y se quedan con los contadores de tokens ([`consumo/`](apps/cli/src/consumo/)). `consumo` no envía nada.
 - **Qué envía `observar` a la sala:** tu usuario de GitHub y, por cada mensaje, un hash de su ID, la herramienta, la fecha y los cuatro contadores (entrada, salida y caché). Ni prompts, ni respuestas, ni rutas, ni nombres de proyecto: el [contrato](packages/shared/src/contrato-uso.ts) rechaza cualquier otro campo. Va a `https://sala.build.barraca.house/api/uso`, una vez por minuto por defecto y solo con lo que ha cambiado ([`watcher/cliente.ts`](apps/cli/src/watcher/cliente.ts)).

@@ -26,8 +26,6 @@ const dominio = "build.barraca.house";
 const hubProject = "build-hub";
 // The CLI's registry: every participant needs Write there to register.
 const registro = "barracafh/build-registro";
-// Never the registry: squads may not touch the binaries.
-const releases = "barracafh/build-comite";
 // A team's repo and Vercel project share this name.
 export const proyecto = (id: string) => `build-${id}`;
 // The public monorepo, for links to material a team repo does not carry.
@@ -420,15 +418,12 @@ li{display:flex;flex-wrap:wrap;gap:.25rem 1rem;align-items:baseline;padding:.5re
 a{color:var(--acid);font-weight:700;text-underline-offset:4px}
 a.codigo{color:var(--muted);font-weight:400;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase}
 a:focus-visible{outline:2px solid var(--cian);outline-offset:3px}
-.cli{margin-top:3rem}
-pre{margin:1rem 0;overflow-x:auto;padding:1rem;border:1px dashed color-mix(in srgb,var(--paper) 25%,transparent)}
-code{font-family:inherit;color:var(--acid)}
 </style>
 </head>
 <body>
 <p class="aviso" role="note">Herramientas experimentales. No son servicios oficiales.</p>
 <main>
-<p class="ticket">BARRACA x SOTI · Build night · València</p>
+<p class="ticket">BARRACA x SOTI · Build night · València · 22/10/2026</p>
 <h1>Build night</h1>
 <p class="lead">Un punto de atención ciudadana, construido entre toda la sala en una noche.</p>
 ${
@@ -436,19 +431,12 @@ ${
     ? `<div class="tracks">\n${secciones}\n</div>`
     : `<p class="pronto">Las herramientas aparecen aquí cuando cada equipo publica la suya.</p>`
 }
-<section class="cli">
-<h2>El CLI del evento</h2>
-<p>Vuestra ficha, la revisión de las seis reglas y el tablón. Con <code>gh auth login</code> hecho, en macOS o Linux:</p>
-<pre><code>curl -fsSL https://${dominio}/instalar.sh | sh</code></pre>
-<p>En Windows, descarga <code>buildnight-windows-x64.exe</code> de la <a href="https://github.com/${releases}/releases/latest">última release</a>.</p>
-</section>
 </main>
 </body>
 </html>
 `;
   return {
     "index.html": html,
-    "instalar.sh": await Bun.file(join(root, "apps/cli/install.sh")).text(),
     "vercel.json": JSON.stringify({ rewrites }, null, 2) + "\n",
   };
 }

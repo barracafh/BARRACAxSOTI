@@ -178,7 +178,6 @@ test("equipos: pide las claves que usan sus tracks antes de aplicar", async () =
 test("equipos: sin reparto, el hub se publica vacío", async () => {
   const tracks = await leerTracks();
   const files = await archivosHub(validarEquipos([], tracks), tracks, {});
-  expect(files["instalar.sh"]).toContain("barracafh/build-comite");
   expect(JSON.parse(files["vercel.json"] as string).rewrites).toEqual([]);
   expect(files["index.html"]).toContain("cuando cada equipo publica la suya");
 });
