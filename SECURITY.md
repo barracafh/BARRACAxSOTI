@@ -11,7 +11,7 @@ No abras un issue público con los detalles. Respondemos en cuanto podamos; dura
 
 ## Qué entra
 
-- El CLI de `apps/cli/`, su instalador (`apps/cli/install.sh`) y sus releases en [barracafh/build-comite](https://github.com/barracafh/build-comite/releases).
+- El CLI de `apps/cli/` y su instalador (`apps/cli/install.sh`).
 - La web de la sala y su API (`apps/web/`, `infra/sala/`).
 - Los scripts de `infra/` y los workflows de `.github/`.
 
